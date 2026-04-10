@@ -1,0 +1,442 @@
+/* ═══════════════════════════════════════════════════════════
+   Paradise Bottom Navigation Bar  —  v2.0.0
+   ebn-style (handle name preserved for backward compatibility)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Wrapper ────────────────────────────────────────────────
+   Hidden by default. JS adds .ebn-visible based on breakpoints
+   set in data-ebn attributes.
+   ─────────────────────────────────────────────────────────── */
+.ebn-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 9999;
+    display: none;        /* JS sets to block when breakpoint matches */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Floating / centered position variant */
+.ebn-wrapper.ebn-pos-floating {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: auto;          /* overridden by Elementor max-width control */
+}
+
+/* Body padding so content isn't hidden behind bar.
+   JS inserts a rule scoped to the actual bar height. */
+body.ebn-active {
+    padding-bottom: var(--ebn-bar-height, 72px);
+}
+
+/* safe area for notched phones */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    body.ebn-active {
+        padding-bottom: calc(var(--ebn-bar-height, 72px) + env(safe-area-inset-bottom));
+    }
+    .ebn-bar {
+        padding-bottom: calc(8px + env(safe-area-inset-bottom));
+    }
+}
+
+/* ── Entrance animations ────────────────────────────────────
+   Applied via class by JS based on data-ebn settings.
+   ─────────────────────────────────────────────────────────── */
+@keyframes ebn-slide-up {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+}
+
+@keyframes ebn-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes ebn-slide-up-fade {
+    from { transform: translateY(40px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+.ebn-anim-slide-up  { animation: ebn-slide-up      var(--ebn-anim-duration, 350ms) cubic-bezier(.22,1,.36,1) both; }
+.ebn-anim-fade      { animation: ebn-fade-in        var(--ebn-anim-duration, 350ms) ease both; }
+.ebn-anim-both      { animation: ebn-slide-up-fade  var(--ebn-anim-duration, 350ms) cubic-bezier(.22,1,.36,1) both; }
+
+/* ── Bar ────────────────────────────────────────────────────── */
+.ebn-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 8px 4px 8px;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    /* background, border, shadow come from Elementor style controls */
+    background-color: #fff;
+    border-top: 1px solid #e8ecf0;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, .07);
+}
+
+/* ── Item ───────────────────────────────────────────────────── */
+.ebn-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    text-decoration: none;
+    padding: 6px 8px;
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    transition: transform .15s ease;
+    box-sizing: border-box;
+    border-radius: 0;
+}
+
+.ebn-item:active {
+    transform: scale(.90);
+}
+
+/* Pill variant */
+.ebn-item.ebn-pill.ebn-item--active {
+    border-radius: 24px;
+    /* background-color set by Elementor indicator color control at 10% opacity */
+}
+
+/* ── Item icon wrapper ──────────────────────────────────────── */
+.ebn-item-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.ebn-item i,
+.ebn-item svg {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+    display: block;
+    transition: color .2s ease, transform .2s ease;
+    /* colors set by Elementor controls */
+    color: #b0bec5;
+}
+
+.ebn-item--active i,
+.ebn-item--active svg {
+    color: #F5A623;
+    transform: translateY(-1px);
+}
+
+/* ── Label ──────────────────────────────────────────────────── */
+.ebn-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    transition: color .2s ease;
+    font-family: inherit;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #b0bec5;
+}
+
+.ebn-item--active .ebn-label {
+    color: #F5A623;
+}
+
+/* ── Badge ──────────────────────────────────────────────────── */
+.ebn-badge {
+    position: absolute;
+    top: -5px;
+    right: -6px;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 9999px;
+    background-color: #e53935;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    font-family: inherit;
+    line-height: 16px;
+    text-align: center;
+    padding: 0 3px;
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+/* ── Active Indicators ──────────────────────────────────────── */
+
+/* Top / Bottom sliding bar — positioned by JS */
+.ebn-indicator {
+    position: absolute;
+    left: 0;
+    width: 24px;
+    height: 3px;
+    background-color: #F5A623;
+    border-radius: 0 0 4px 4px;
+    pointer-events: none;
+    will-change: transform;
+    transition: transform .3s cubic-bezier(.4, 0, .2, 1);
+}
+
+.ebn-indicator--top_bar {
+    top: 0;
+    border-radius: 0 0 4px 4px;
+}
+
+.ebn-indicator--bot_bar {
+    bottom: 0;
+    top: auto;
+    border-radius: 4px 4px 0 0;
+}
+
+/* No animation when JS sets data attribute */
+.ebn-indicator[data-no-anim] {
+    transition: none;
+}
+
+/* Dot indicator */
+.ebn-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color .2s ease;
+    flex-shrink: 0;
+}
+
+.ebn-item--active .ebn-dot {
+    background-color: #F5A623;
+}
+
+/* Glow — applied via filter drop-shadow in Elementor selectors */
+
+/* ── Center Button ──────────────────────────────────────────── */
+.ebn-center-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    flex: 1;
+    /* lift set by Elementor transform control */
+    transform: translateY(-18px);
+}
+
+.ebn-center-btn {
+    width: 56px;
+    height: 56px;
+    background-color: #F5A623;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    padding: 0;
+    box-sizing: border-box;
+    transition:
+        transform .2s cubic-bezier(.34, 1.56, .64, 1),
+        box-shadow .2s ease;
+    /* shadow from Elementor control */
+    box-shadow: 0 4px 18px rgba(245, 166, 35, .5);
+    /* remove default button styles */
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    line-height: 1;
+}
+
+.ebn-center-btn:hover  { transform: scale(1.08); }
+.ebn-center-btn:active { transform: scale(.92); }
+.ebn-center-btn[aria-expanded="true"] { transform: scale(1.05) rotate(45deg); }
+
+.ebn-center-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.ebn-center-btn i,
+.ebn-center-btn svg {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+    color: #fff;
+    display: block;
+    pointer-events: none;
+}
+
+.ebn-center-label {
+    color: #b0bec5;
+}
+
+/* ── Speed Dial ─────────────────────────────────────────────── */
+.ebn-speed-dial {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .2s ease;
+    z-index: 1;
+}
+
+.ebn-speed-dial.ebn-speed-dial--open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.ebn-dial-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    background: #fff;
+    border-radius: 24px;
+    padding: 8px 14px 8px 10px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .12);
+    white-space: nowrap;
+    transform: translateY(10px) scale(.9);
+    opacity: 0;
+    transition: transform .2s ease, opacity .2s ease;
+}
+
+.ebn-speed-dial--open .ebn-dial-item                { transform: translateY(0) scale(1); opacity: 1; }
+.ebn-speed-dial--open .ebn-dial-item:nth-child(1)   { transition-delay: .04s; }
+.ebn-speed-dial--open .ebn-dial-item:nth-child(2)   { transition-delay: .08s; }
+.ebn-speed-dial--open .ebn-dial-item:nth-child(3)   { transition-delay: .12s; }
+.ebn-speed-dial--open .ebn-dial-item:nth-child(4)   { transition-delay: .16s; }
+
+.ebn-dial-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #F5A623;
+    flex-shrink: 0;
+}
+
+.ebn-dial-icon i,
+.ebn-dial-icon svg {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    color: #fff;
+    display: block;
+}
+
+.ebn-dial-label {
+    font-size: 13px;
+    color: #333;
+    font-family: inherit;
+}
+
+/* ── Overlay ────────────────────────────────────────────────── */
+.ebn-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    display: none;
+    background: transparent;
+}
+
+.ebn-overlay--active { display: block; }
+
+/* ── RTL ─────────────────────────────────────────────────────── */
+[dir="rtl"] .ebn-bar       { direction: rtl; }
+[dir="rtl"] .ebn-dial-item { flex-direction: row-reverse; padding: 8px 10px 8px 14px; }
+[dir="rtl"] .ebn-badge     { right: auto; left: -6px; }
+
+
+/* ═══════════════════════════════════════════════════════════
+   EDITOR PREVIEW  —  v2.1
+   Makes the bar look identical to frontend inside the
+   Elementor iframe. Scoped to body.elementor-editor-active
+   so frontend is completely unaffected.
+   ═══════════════════════════════════════════════════════════ */
+
+/**
+ * In editor the widget lives inside an iframe.
+ * JS reads the iframe height and sets --ebn-editor-bottom
+ * so the bar sticks to the bottom of the canvas, not the
+ * browser window.
+ *
+ * We keep position:fixed — the bar renders relative to the
+ * iframe viewport, which is exactly what we want.
+ */
+
+body.elementor-editor-active .ebn-wrapper {
+    /* Always visible in editor regardless of responsive mode.
+       Elementor's own responsive preview handles show/hide
+       by resizing the iframe — the bar will appear/disappear
+       naturally as breakpoints change. */
+    display: block;
+
+    /* JS will set this via CSS custom property */
+    bottom: var(--ebn-editor-bottom, 0px);
+
+    /* Match iframe width exactly */
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Floating variant in editor: keep centered inside iframe */
+body.elementor-editor-active .ebn-wrapper.ebn-pos-floating {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: auto;
+}
+
+/* Disable entrance animation in editor — bar should appear instantly */
+body.elementor-editor-active .ebn-wrapper {
+    animation: none;
+}
+
+/* Disable pointer events on links in editor (standard Elementor behavior).
+   Center button & speed dial remain interactive for visual feedback. */
+body.elementor-editor-active .ebn-item {
+    pointer-events: none;
+}
+
+body.elementor-editor-active .ebn-center-btn,
+body.elementor-editor-active .ebn-dial-item {
+    pointer-events: auto;
+}
+
+/* Speed dial: always visible in editor when action = speed_dial */
+body.elementor-editor-active .ebn-speed-dial.ebn-speed-dial--open .ebn-dial-item {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    transition: none;
+}
+
+/* Body padding: not needed in editor (iframe handles its own scroll) */
+body.elementor-editor-active.ebn-active {
+    padding-bottom: 0;
+}

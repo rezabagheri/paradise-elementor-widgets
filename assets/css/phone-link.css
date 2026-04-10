@@ -1,0 +1,59 @@
+/* Paradise Phone Link Widget
+   ================================================== */
+
+.paradise-phone-link-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Inner container — handles direction */
+.paradise-phone-inner {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px; /* overridden by Elementor gap control */
+    text-decoration: none;
+}
+
+/* Stacked: prefix and number on separate lines */
+.paradise-phone-inner.paradise-stacked {
+    flex-direction: column;
+    align-items: flex-start; /* overridden by alignment control */
+}
+
+/* Inline: everything on one line */
+.paradise-phone-inner.paradise-inline {
+    flex-direction: row;
+}
+
+/* Prefix */
+.paradise-phone-prefix {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+/* Number */
+.paradise-phone-number {
+    display: inline;
+}
+
+/* Number-only link */
+a.paradise-phone-number-link {
+    display: inline-flex;
+    align-items: center;
+    gap: inherit;
+    text-decoration: none;
+}
+
+/* Icon */
+.paradise-phone-icon {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+}
+
+.paradise-phone-icon svg {
+    display: inline-block;
+    vertical-align: middle;
+}
