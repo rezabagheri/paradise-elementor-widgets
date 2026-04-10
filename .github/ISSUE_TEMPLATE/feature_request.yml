@@ -1,0 +1,55 @@
+name: Feature Request
+description: Suggest a new feature or improvement
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea? We'd love to hear it. Please describe your request clearly.
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      description: Is this about an existing widget or a new one?
+      options:
+        - Phone Link (existing widget)
+        - Bottom Navigation Bar (existing widget)
+        - New widget
+        - Core / Infrastructure
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Motivation
+      description: What problem does this feature solve? What are you trying to accomplish?
+      placeholder: I'm trying to do X but the current widget doesn't support...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the feature you'd like to see.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Any workarounds you've tried?
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Mockups, examples from other plugins, or anything else helpful.
+    validations:
+      required: false
