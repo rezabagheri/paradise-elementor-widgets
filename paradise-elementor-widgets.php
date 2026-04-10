@@ -6,6 +6,7 @@
  * Version:           2.1.0
  * Requires at least: 6.1
  * Requires PHP:      7.4
+ * Requires Plugins:  elementor
  * Author:            Reza Bagheri
  * Author URI:        https://www.paradisecyber.com
  * License:           GPL-2.0+
@@ -34,7 +35,16 @@ final class Paradise_Elementor_Widgets {
     }
 
     private function __construct() {
+        add_action( 'plugins_loaded', [ $this, 'load_textdomain' ] );
         add_action( 'elementor/init', [ $this, 'init' ] );
+    }
+
+    public function load_textdomain(): void {
+        load_plugin_textdomain(
+            'paradise-elementor-widgets',
+            false,
+            dirname( plugin_basename( __FILE__ ) ) . '/languages'
+        );
     }
 
     public function init(): void {
@@ -46,7 +56,7 @@ final class Paradise_Elementor_Widgets {
 
     public function register_category( $elements_manager ): void {
         $elements_manager->add_category( 'paradise', [
-            'title' => 'Paradise Widgets',
+            'title' => esc_html__( 'Paradise Widgets', 'paradise-elementor-widgets' ),
             'icon'  => 'fa fa-plug',
         ] );
     }

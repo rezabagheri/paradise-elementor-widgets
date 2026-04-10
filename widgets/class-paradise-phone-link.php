@@ -8,7 +8,8 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base {
     public function get_name()       { return 'paradise_phone_link'; }
     public function get_title()      { return 'Paradise Phone Link'; }
     public function get_icon()       { return 'eicon-call-to-action'; }
-    public function get_categories() { return [ 'paradise' ]; }
+    public function get_categories()   { return [ 'paradise' ]; }
+    public function get_style_depends(): array { return [ 'paradise-phone-link' ]; }
 
     // Allow dynamic tags on text controls
     public function get_uwidget_type() { return 'widget'; }
