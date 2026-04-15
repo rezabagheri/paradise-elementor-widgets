@@ -136,7 +136,7 @@ class Paradise_Bottom_Nav_Widget extends Widget_Base
 
         $this->add_control('wp_menu_icons_note', [
             'type'            => Controls_Manager::RAW_HTML,
-            'raw'             => '<small style="opacity:.7">Add icons via the <strong>CSS Classes</strong> field on each menu item (<em>Screen Options → CSS Classes</em>).<br>Example: <code>fas fa-home</code></small>',
+            'raw'             => '<small style="opacity:.7">Add icons via the <strong>CSS Classes</strong> field on each menu item (<em>Screen Options → CSS Classes</em>).<br>Example: <code>eicon-home</code> or <code>fas fa-home</code></small>',
             'content_classes' => 'elementor-descriptor',
         ]);
 
@@ -167,7 +167,7 @@ class Paradise_Bottom_Nav_Widget extends Widget_Base
         $repeater->add_control('item_icon', [
             'label'   => 'Icon',
             'type'    => Controls_Manager::ICONS,
-            'default' => [ 'value' => 'fas fa-home', 'library' => 'fa-solid' ],
+            'default' => [ 'value' => 'eicon-home', 'library' => 'elementor-icons' ],
         ]);
 
         $repeater->add_control('item_url', [
@@ -233,10 +233,10 @@ class Paradise_Bottom_Nav_Widget extends Widget_Base
             'type'        => Controls_Manager::REPEATER,
             'fields'      => $repeater->get_controls(),
             'default'     => [
-                [ 'item_label' => 'Home',    'item_icon' => [ 'value' => 'fas fa-home',        'library' => 'fa-solid' ], 'item_url' => [ 'url' => '' ] ],
-                [ 'item_label' => 'Search',  'item_icon' => [ 'value' => 'fas fa-search',      'library' => 'fa-solid' ], 'item_url' => [ 'url' => '' ] ],
-                [ 'item_label' => 'About',   'item_icon' => [ 'value' => 'fas fa-info-circle', 'library' => 'fa-solid' ], 'item_url' => [ 'url' => '' ] ],
-                [ 'item_label' => 'Contact', 'item_icon' => [ 'value' => 'fas fa-envelope',    'library' => 'fa-solid' ], 'item_url' => [ 'url' => '' ] ],
+                [ 'item_label' => 'Home',    'item_icon' => [ 'value' => 'eicon-home',        'library' => 'elementor-icons' ], 'item_url' => [ 'url' => '' ] ],
+                [ 'item_label' => 'Search',  'item_icon' => [ 'value' => 'eicon-search',      'library' => 'elementor-icons' ], 'item_url' => [ 'url' => '' ] ],
+                [ 'item_label' => 'About',   'item_icon' => [ 'value' => 'eicon-info-circle', 'library' => 'elementor-icons' ], 'item_url' => [ 'url' => '' ] ],
+                [ 'item_label' => 'Contact', 'item_icon' => [ 'value' => 'eicon-mail',        'library' => 'elementor-icons' ], 'item_url' => [ 'url' => '' ] ],
             ],
             'title_field' => '{{{ item_label }}}',
         ]);
@@ -329,7 +329,7 @@ class Paradise_Bottom_Nav_Widget extends Widget_Base
         $this->add_control('center_icon', [
             'label'     => 'Icon',
             'type'      => Controls_Manager::ICONS,
-            'default'   => [ 'value' => 'fas fa-plus', 'library' => 'fa-solid' ],
+            'default'   => [ 'value' => 'eicon-plus', 'library' => 'elementor-icons' ],
             'condition' => [ 'center_enabled' => 'yes' ],
         ]);
 
@@ -369,7 +369,7 @@ class Paradise_Bottom_Nav_Widget extends Widget_Base
 
         $dial_repeater = new Repeater();
         $dial_repeater->add_control('dial_label', [ 'label' => 'Label', 'type' => Controls_Manager::TEXT, 'default' => 'Item' ]);
-        $dial_repeater->add_control('dial_icon', [ 'label' => 'Icon',  'type' => Controls_Manager::ICONS, 'default' => [ 'value' => 'fas fa-star', 'library' => 'fa-solid' ] ]);
+        $dial_repeater->add_control('dial_icon', [ 'label' => 'Icon',  'type' => Controls_Manager::ICONS, 'default' => [ 'value' => 'eicon-star', 'library' => 'elementor-icons' ] ]);
         $dial_repeater->add_control('dial_url', [ 'label' => 'Link',  'type' => Controls_Manager::URL,   'default' => [ 'url' => '' ] ]);
 
         $this->add_control('speed_dial_items', [
@@ -377,8 +377,8 @@ class Paradise_Bottom_Nav_Widget extends Widget_Base
             'type'        => Controls_Manager::REPEATER,
             'fields'      => $dial_repeater->get_controls(),
             'default'     => [
-                [ 'dial_label' => 'Call',     'dial_icon' => [ 'value' => 'fas fa-phone',    'library' => 'fa-solid'  ], 'dial_url' => [ 'url' => '' ] ],
-                [ 'dial_label' => 'WhatsApp', 'dial_icon' => [ 'value' => 'fab fa-whatsapp', 'library' => 'fa-brands' ], 'dial_url' => [ 'url' => '' ] ],
+                [ 'dial_label' => 'Call',     'dial_icon' => [ 'value' => 'eicon-phone',    'library' => 'elementor-icons'  ], 'dial_url' => [ 'url' => '' ] ],
+                [ 'dial_label' => 'WhatsApp', 'dial_icon' => [ 'value' => 'eicon-commenting-o', 'library' => 'elementor-icons' ], 'dial_url' => [ 'url' => '' ] ],
             ],
             'title_field' => '{{{ dial_label }}}',
             'condition'   => [ 'center_enabled' => 'yes', 'center_action' => 'speed_dial' ],
@@ -849,9 +849,9 @@ class Paradise_Bottom_Nav_Widget extends Widget_Base
             'editorDialOpen' => $is_edit && $center_on && $center_act === 'speed_dial',
             // Responsive visibility — mirrors add_responsive_control('bar_display')
             // defaults: desktop hidden, tablet+mobile visible
-            'showOnMobile'  => ( $s['bar_display_mobile']  ?? 'block' ) === 'block',
-            'showOnTablet'  => ( $s['bar_display_tablet']  ?? 'block' ) === 'block',
-            'showOnDesktop' => ( $s['bar_display']          ?? 'none'  ) === 'block',
+            'showOnMobile'  => ($s['bar_display_mobile']  ?? 'block') === 'block',
+            'showOnTablet'  => ($s['bar_display_tablet']  ?? 'block') === 'block',
+            'showOnDesktop' => ($s['bar_display']          ?? 'none') === 'block',
         ];
 
         // ── Wrapper classes ────────────────────────────────────────
@@ -1075,6 +1075,12 @@ class Paradise_Bottom_Nav_Widget extends Widget_Base
         $library_map = [ 'fas' => 'fa-solid', 'far' => 'fa-regular', 'fab' => 'fa-brands', 'fal' => 'fa-light', 'fad' => 'fa-duotone' ];
         $parts  = array_values(array_filter(explode(' ', $classes)));
         $prefix = $parts[0] ?? 'fas';
+
+        // Support Elementor native icons
+        if (str_starts_with($prefix, 'eicon')) {
+            return [ 'value' => implode(' ', $parts), 'library' => 'elementor-icons' ];
+        }
+
         return [ 'value' => implode(' ', $parts), 'library' => $library_map[ $prefix ] ?? 'fa-solid' ];
     }
 

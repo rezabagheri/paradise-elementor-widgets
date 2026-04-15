@@ -291,36 +291,37 @@ document.addEventListener('ebn:hook:myAction', (e) => {
 
 ## Font Icons
 
-The plugin uses Font Awesome icons throughout the widgets. Make sure Font Awesome is loaded on your site.
+The plugin uses **Elementor native icons** by default for better performance and compatibility. Elementor icons are SVG-based and load faster than Font Awesome.
 
-### Required Font Awesome Classes
+### Default Elementor Icons Used
+- `eicon-home` - Home icon
+- `eicon-search` - Search icon
+- `eicon-info-circle` - Info/About icon
+- `eicon-mail` - Contact/Email icon
+- `eicon-phone` - Phone icon
+- `eicon-star` - Rating/Star icon
+- `eicon-plus` - Add/Plus icon
+
+### Backward Compatibility
+The plugin still supports Font Awesome icons for existing installations:
 - `fas fa-home` - Home icon
-- `fas fa-user` - User/Person icon
-- `fas fa-phone` - Phone icon
+- `fas fa-search` - Search icon
+- `fas fa-info-circle` - Info icon
 - `fas fa-envelope` - Email icon
-- `fas fa-globe` - Website icon
-- `fas fa-star` - Rating/Star icon
-- `fas fa-heart` - Favorite/Like icon
-- `fas fa-share` - Share icon
-
-### Loading Font Awesome
-If Font Awesome is not already loaded, you can:
-
-1. **Use a plugin**: Install "Font Awesome" or "Better Font Awesome" plugin
-2. **Manual enqueue**: Add to your theme's `functions.php`:
-```php
-wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
-```
-3. **CDN in header**: Add to your theme's `<head>`:
-```html
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-```
+- `fas fa-phone` - Phone icon
 
 ### Custom Icons
-You can override default icons using CSS:
+You can override default icons using CSS classes in the widget settings or by adding custom CSS:
+
 ```css
-.paradise-author-card__social-link[href*="twitter"]::before {
-  content: "\f099"; /* Twitter icon */
+/* Using Elementor icons */
+.paradise-bn-item-icon::before {
+  content: "\e90a"; /* Elementor home icon */
+}
+
+/* Using Font Awesome (if loaded) */
+.paradise-bn-item-icon::before {
+  content: "\f015"; /* Font Awesome home icon */
 }
 ```
 
@@ -364,6 +365,7 @@ A base widget class will be added in the next major update for better consistenc
 - **Phone Widgets**: Country detection limited to Iran and common international formats
 - **Author Card**: Gravatar integration requires valid email addresses
 - **Performance**: Multiple instances of the same widget on one page may impact load times
+- **Icons**: Font Awesome icons still supported but Elementor native icons preferred for better performance
 
 ### Browser Compatibility
 - **Supported**: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
