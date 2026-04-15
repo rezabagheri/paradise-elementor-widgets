@@ -53,7 +53,14 @@ a.paradise-phone-number-link {
     line-height: 1;
 }
 
+.paradise-phone-icon i {
+    font-size: 22px;
+    line-height: 1;
+    display: block;
+}
+
 .paradise-phone-icon svg {
-    display: inline-block;
-    vertical-align: middle;
+    width: 22px;
+    height: 22px;
+    display: block;
 }

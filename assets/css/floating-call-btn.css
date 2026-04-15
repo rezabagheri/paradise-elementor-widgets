@@ -1,0 +1,132 @@
+/* Paradise Floating Call Button Widget
+   ================================================== */
+
+/* ── Wrapper — fixed positioning ─────────────────── */
+
+.paradise-fcb-wrap {
+    position: fixed;
+    z-index: 9999; /* overridden by Elementor z-index control */
+    --paradise-fcb-offset-v: 24px;
+    --paradise-fcb-offset-h: 24px;
+}
+
+/*
+ * Corner classes are added by Elementor via prefix_class = 'paradise-fcb-corner-'.
+ * They translate the CSS-variable offsets into top/right/bottom/left values.
+ */
+.paradise-fcb-corner-bottom-right {
+    bottom: var(--paradise-fcb-offset-v);
+    right:  var(--paradise-fcb-offset-h);
+}
+
+.paradise-fcb-corner-bottom-left {
+    bottom: var(--paradise-fcb-offset-v);
+    left:   var(--paradise-fcb-offset-h);
+}
+
+.paradise-fcb-corner-top-right {
+    top:   var(--paradise-fcb-offset-v);
+    right: var(--paradise-fcb-offset-h);
+}
+
+.paradise-fcb-corner-top-left {
+    top:  var(--paradise-fcb-offset-v);
+    left: var(--paradise-fcb-offset-h);
+}
+
+/* ── Button ──────────────────────────────────────── */
+
+.paradise-fcb-btn {
+    display:         inline-flex;
+    align-items:     center;
+    justify-content: center;
+    gap:             8px;
+    text-decoration: none;
+    cursor:          pointer;
+    white-space:     nowrap;
+    /* Defaults overridden by Elementor controls */
+    background-color: #2d3e50;
+    color:            #ffffff;
+    border-radius:    50%;
+    font-weight:      700;
+    transition-property:        background-color, color, border-color, box-shadow, opacity;
+    transition-duration:        250ms;
+    transition-timing-function: ease;
+}
+
+/* Circle (icon only): equal width + height set by btn_size control */
+.paradise-fcb-btn--circle {
+    width:  60px;
+    height: 60px;
+    padding: 0;
+}
+
+/* Pill (icon + label): height set by btn_size, padding set by btn_padding control */
+.paradise-fcb-btn--pill {
+    height:  60px;
+    padding: 0 20px;
+    border-radius: 50px;
+}
+
+/* ── Icon ────────────────────────────────────────── */
+
+.paradise-fcb-icon {
+    display:     inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.paradise-fcb-icon i {
+    font-size:   24px; /* overridden by icon_size control */
+    line-height: 1;
+    display:     block;
+}
+
+.paradise-fcb-icon svg {
+    width:   24px; /* overridden by icon_size control */
+    height:  24px;
+    display: block;
+}
+
+/* ── Label ───────────────────────────────────────── */
+
+.paradise-fcb-label {
+    line-height: 1.3;
+}
+
+/* ── Pulse animation ─────────────────────────────── */
+
+/*
+ * The pulse is a repeating box-shadow ripple.
+ * --paradise-fcb-pulse-color and --paradise-fcb-pulse-spread are set by
+ * Elementor's pulse_color and pulse_size controls via selectors.
+ */
+
+@keyframes paradise-fcb-pulse {
+    0% {
+        box-shadow: 0 0 0 0
+            color-mix(in srgb, var(--paradise-fcb-pulse-color, #2d3e50) 70%, transparent);
+    }
+    70% {
+        box-shadow: 0 0 0 var(--paradise-fcb-pulse-spread, 14px)
+            color-mix(in srgb, var(--paradise-fcb-pulse-color, #2d3e50) 0%, transparent);
+    }
+    100% {
+        box-shadow: 0 0 0 0
+            color-mix(in srgb, var(--paradise-fcb-pulse-color, #2d3e50) 0%, transparent);
+    }
+}
+
+.paradise-fcb-btn--pulse {
+    animation-name:            paradise-fcb-pulse;
+    animation-duration:        2s;   /* overridden by pulse_duration control */
+    animation-timing-function: ease-out;
+    animation-iteration-count: infinite;
+}
+
+/* Pause pulse on hover — avoids visual jitter during interaction */
+.paradise-fcb-btn--pulse:hover {
+    animation-play-state: paused;
+}
+

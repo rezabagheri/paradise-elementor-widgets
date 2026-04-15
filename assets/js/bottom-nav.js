@@ -1,29 +1,29 @@
 /* ═══════════════════════════════════════════════════════════
    Paradise Bottom Navigation Bar  —  v2.1.0
-   ebn-script (handle name preserved for backward compatibility)
+   paradise-bn-bottom-nav-script (handle name updated for consistency)
    ═══════════════════════════════════════════════════════════ */
 (function () {
     'use strict';
 
     /* ── Public API ─────────────────────────────────────────────
-       EBN.setBadge(cssId, count)  — set badge value from JS
+       Paradise.setBadge(cssId, count)  — set badge value from JS
     ─────────────────────────────────────────────────────────── */
-    var EBN = window.EBN || {};
+    var Paradise = window.Paradise || {};
 
-    EBN.setBadge = function (cssId, count) {
+    Paradise.setBadge = function (cssId, count) {
         var el = document.getElementById(cssId);
         if (!el) return;
-        var badge = el.querySelector('.ebn-badge[data-ebn-badge-target="' + cssId + '"]');
+        var badge = el.querySelector('.paradise-bn-badge[data-paradise-bn-badge-target="' + cssId + '"]');
         if (!badge) return;
         badge.textContent = count > 99 ? '99+' : String(count);
         badge.style.display = (count === 0) ? 'none' : '';
     };
 
-    window.EBN = EBN;
+    window.Paradise = Paradise;
 
     /* ── Init ───────────────────────────────────────────────── */
     function init() {
-        document.querySelectorAll('.ebn-wrapper').forEach(initBar);
+        document.querySelectorAll('.paradise-bn-wrapper').forEach(initBar);
     }
 
     function initBar(wrapper) {
@@ -32,6 +32,7 @@
         if (cfg.isEditMode) {
             initEditorPreview(wrapper, cfg);
         } else {
+            applyResponsiveVisibility(wrapper, cfg);
             applyAnimation(wrapper, cfg);
             applyBodyPadding(wrapper);
         }
@@ -45,7 +46,7 @@
     /* ── Config ─────────────────────────────────────────────── */
     function parseConfig(wrapper) {
         try {
-            return JSON.parse(wrapper.getAttribute('data-ebn') || '{}');
+            return JSON.parse(wrapper.getAttribute('data-paradise-bn') || '{}');
         } catch (e) {
             return {};
         }
@@ -66,37 +67,57 @@
         // so we only override for full-width bars (bottom:0).
 
         if (cfg.barPos !== 'floating') {
-            wrapper.style.setProperty('--ebn-editor-bottom', '0px');
+            wrapper.style.setProperty('--paradise-bn-editor-bottom', '0px');
         }
 
         // Re-run active state and indicator immediately —
         // no waiting for resize events.
         requestAnimationFrame(function () {
-            var active = wrapper.querySelector('.ebn-item--active');
+            var active = wrapper.querySelector('.paradise-bn-item--active');
             if (active) updateIndicator(wrapper, active, cfg, false);
         });
+    }
+
+    /* ── Responsive visibility (frontend only) ─────────────── */
+    function applyResponsiveVisibility(wrapper, cfg) {
+        // Mirrors Elementor's default breakpoints:
+        //   mobile ≤ 767 px  |  tablet 768–1024 px  |  desktop > 1024 px
+        // cfg.showOn* booleans are set by PHP from the bar_display responsive control.
+        // undefined (old saved widgets) → fall back to true so bar stays visible.
+        var showMobile  = cfg.showOnMobile  !== false;
+        var showTablet  = cfg.showOnTablet  !== false;
+        var showDesktop = cfg.showOnDesktop === true;   // desktop default is 'none'
+
+        function update() {
+            var w = window.innerWidth;
+            var visible = w <= 767 ? showMobile : (w <= 1024 ? showTablet : showDesktop);
+            wrapper.style.display = visible ? 'block' : 'none';
+        }
+
+        update();
+        window.addEventListener('resize', debounce(update, 100));
     }
 
     /* ── Entrance animation ─────────────────────────────────── */
     function applyAnimation(wrapper, cfg) {
         if (!cfg.animEnabled) return;
-        var styleMap = { slide_up: 'ebn-anim-slide-up', fade: 'ebn-anim-fade', both: 'ebn-anim-both' };
-        var cls = styleMap[cfg.animStyle] || 'ebn-anim-slide-up';
-        wrapper.style.setProperty('--ebn-anim-duration', (cfg.animDuration || 350) + 'ms');
+        var styleMap = { slide_up: 'paradise-bn-anim-slide-up', fade: 'paradise-bn-anim-fade', both: 'paradise-bn-anim-both' };
+        var cls = styleMap[cfg.animStyle] || 'paradise-bn-anim-slide-up';
+        wrapper.style.setProperty('--paradise-bn-anim-duration', (cfg.animDuration || 350) + 'ms');
         wrapper.classList.add(cls);
     }
 
     /* ── Body padding (frontend only) ───────────────────────── */
     function applyBodyPadding(wrapper) {
-        var bar = wrapper.querySelector('.ebn-bar');
+        var bar = wrapper.querySelector('.paradise-bn-bar');
         if (!bar) return;
 
         function update() {
             // Only add padding when bar is actually visible
             var visible = getComputedStyle(wrapper).display !== 'none';
-            document.body.classList.toggle('ebn-active', visible);
+            document.body.classList.toggle('paradise-bn-active', visible);
             if (visible) {
-                document.body.style.setProperty('--ebn-bar-height', bar.offsetHeight + 'px');
+                document.body.style.setProperty('--paradise-bn-bar-height', bar.offsetHeight + 'px');
             }
         }
 
@@ -112,7 +133,7 @@
         var detection = cfg.detection  || 'both';
         var matchMode = cfg.matchMode  || 'pathname';
         var manualIdx = (cfg.manualIndex || 1) - 1; // 0-based
-        var items     = Array.from(wrapper.querySelectorAll('.ebn-item'));
+        var items     = Array.from(wrapper.querySelectorAll('.paradise-bn-item'));
         var matched   = false;
 
         if (detection === 'url' || detection === 'both') {
@@ -144,12 +165,12 @@
     }
 
     function setActive(item) {
-        item.classList.add('ebn-item--active');
+        item.classList.add('paradise-bn-item--active');
         item.setAttribute('aria-current', 'page');
     }
 
     function clearActive(item) {
-        item.classList.remove('ebn-item--active');
+        item.classList.remove('paradise-bn-item--active');
         item.setAttribute('aria-current', 'false');
     }
 
@@ -158,7 +179,7 @@
         var style = cfg.indicator || 'top_bar';
         if (style !== 'top_bar' && style !== 'bot_bar') return;
 
-        var active = wrapper.querySelector('.ebn-item--active');
+        var active = wrapper.querySelector('.paradise-bn-item--active');
         if (active) updateIndicator(wrapper, active, cfg, false);
     }
 
@@ -166,8 +187,8 @@
         var style = cfg.indicator || 'top_bar';
         if (style !== 'top_bar' && style !== 'bot_bar') return;
 
-        var indicator = wrapper.querySelector('.ebn-indicator');
-        var bar       = wrapper.querySelector('.ebn-bar');
+        var indicator = wrapper.querySelector('.paradise-bn-indicator');
+        var bar       = wrapper.querySelector('.paradise-bn-bar');
         if (!indicator || !bar || !activeItem) return;
 
         var animated = cfg.animated !== false;
@@ -190,8 +211,8 @@
 
     /* ── Speed Dial ─────────────────────────────────────────── */
     function initSpeedDial(wrapper, cfg) {
-        var btn  = wrapper.querySelector('.ebn-center-btn[data-ebn-action="speed_dial"]');
-        var dial = wrapper.querySelector('.ebn-speed-dial');
+        var btn  = wrapper.querySelector('.paradise-bn-center-btn[data-paradise-bn-action="speed_dial"]');
+        var dial = wrapper.querySelector('.paradise-bn-speed-dial');
         if (!btn || !dial) return;
 
         // In editor: dial is already open (PHP renders it open).
@@ -200,8 +221,8 @@
         if (cfg.isEditMode) {
             btn.addEventListener('click', function (e) {
                 e.preventDefault();
-                dial.classList.toggle('ebn-speed-dial--open');
-                var isOpen = dial.classList.contains('ebn-speed-dial--open');
+                dial.classList.toggle('paradise-bn-speed-dial--open');
+                var isOpen = dial.classList.contains('paradise-bn-speed-dial--open');
                 dial.setAttribute('aria-hidden', String(!isOpen));
                 btn.setAttribute('aria-expanded', String(isOpen));
             });
@@ -221,26 +242,26 @@
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') toggle(false);
         });
-        dial.querySelectorAll('.ebn-dial-item').forEach(function (item) {
+        dial.querySelectorAll('.paradise-bn-dial-item').forEach(function (item) {
             item.addEventListener('click', function () { toggle(false); });
         });
 
         function toggle(open) {
-            var isOpen   = dial.classList.contains('ebn-speed-dial--open');
+            var isOpen   = dial.classList.contains('paradise-bn-speed-dial--open');
             var newState = open === undefined ? !isOpen : open;
-            dial.classList.toggle('ebn-speed-dial--open', newState);
+            dial.classList.toggle('paradise-bn-speed-dial--open', newState);
             dial.setAttribute('aria-hidden', String(!newState));
-            overlay.classList.toggle('ebn-overlay--active', newState);
+            overlay.classList.toggle('paradise-bn-overlay--active', newState);
             btn.setAttribute('aria-expanded', String(newState));
         }
     }
 
     /* ── JS Hooks ───────────────────────────────────────────── */
     function initJsHooks(wrapper) {
-        wrapper.querySelectorAll('.ebn-center-btn[data-ebn-action="js_hook"]').forEach(function (btn) {
+        wrapper.querySelectorAll('.paradise-bn-center-btn[data-paradise-bn-action="js_hook"]').forEach(function (btn) {
             btn.addEventListener('click', function (e) {
                 e.preventDefault();
-                var hookName = btn.getAttribute('data-ebn-hook');
+                var hookName = btn.getAttribute('data-paradise-bn-hook');
                 if (!hookName) return;
                 document.dispatchEvent(new CustomEvent('ebn:hook:' + hookName, {
                     bubbles: true,
@@ -262,10 +283,10 @@
     }
 
     function getOrCreateOverlay() {
-        var existing = document.querySelector('.ebn-overlay');
+        var existing = document.querySelector('.paradise-bn-overlay');
         if (existing) return existing;
         var overlay = document.createElement('div');
-        overlay.className = 'ebn-overlay';
+        overlay.className = 'paradise-bn-overlay';
         document.body.appendChild(overlay);
         return overlay;
     }
@@ -283,9 +304,9 @@
     }
 
     // Elementor editor: re-init when widget renders/updates
-    if (window.elementorFrontend) {
+    if (window.elementorFrontend && window.elementorFrontend.hooks) {
         window.elementorFrontend.hooks.addAction(
-            'frontend/element_ready/ebn_bottom_nav.default',
+            'frontend/element_ready/paradise_bottom_nav.default',
             function ($el) { initBar($el[0]); }
         );
     }

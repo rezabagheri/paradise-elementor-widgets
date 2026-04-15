@@ -4,7 +4,7 @@ Tags: elementor, elementor widgets, bottom navigation, phone link, mobile naviga
 Requires at least: 6.1
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.1.0
+Stable tag: 2.2.0
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,15 +31,21 @@ A fully-featured mobile bottom navigation bar with responsive visibility, active
 
 = Bottom Navigation Bar Features =
 * Items source: Manual repeater or WordPress Menu
-* Badge support: Static, WooCommerce cart count, or JS-driven via `EBN.setBadge()`
+* Badge support: Static, WooCommerce cart count, or JS-driven via `Paradise.setBadge()`
 * Responsive visibility via Elementor native controls
 * Center button actions: Link, Speed Dial, or JS Hook
 * Active state detection: URL match, Manual index, or Both
 * Active indicators: Top Bar, Bottom Bar, Dot, Pill, or Glow
 * Bar position: Full Width or Floating Centered
 * Entrance animations: Slide Up, Fade, or Both
-* JavaScript Public API: `EBN.setBadge(id, count)`
+* Pixel-perfect editor preview inside Elementor iframe
+* JavaScript Public API: `Paradise.setBadge(id, count)`
 * JS Hook system: `document.addEventListener('ebn:hook:name', fn)`
+
+= Phone Link v2.2.0 Additions =
+* WhatsApp integration: `https://wa.me/{digits}` links with auto-prefixing
+* Custom phone number masks for flexible display formats
+* Improved escaping and sanitization for security
 
 == Installation ==
 
@@ -58,7 +64,7 @@ Yes. The plugin is tested with Elementor 3.5 and above.
 
 = How do I set a badge count from JavaScript? =
 Use the public API:
-`EBN.setBadge('your-widget-css-id', count);`
+`Paradise.setBadge('your-widget-css-id', count);`
 Setting count to 0 hides the badge. Count above 99 displays as "99+".
 
 = How do I trigger custom behavior from the center button? =
@@ -77,6 +83,22 @@ Yes. Set the badge type to **WooCommerce Cart** and it will display the live car
 
 == Changelog ==
 
+= 2.2.0 =
+* **BREAKING**: Bottom Navigation widget `get_name()` changed from `ebn_bottom_nav` to `paradise_bottom_nav` — existing widgets will need manual re-save in Elementor
+* **BREAKING**: CSS class prefix for Bottom Nav updated to `paradise-bn-` for consistency with other widgets
+* Added: WhatsApp link support in Phone Link widget (automatic +country code prefixing)
+* Added: WooCommerce cart count badge in Bottom Navigation Bar
+* Added: Schema.org markup to Author Card (improves SEO)
+* Added: JS Hook system for center button custom actions
+* Added: Custom CSS mask for phone number display (e.g., `(###) ###-####`)
+* Fixed: Bottom Nav items no longer interfere with speed dial interactions
+* Fixed: Phone Link properly escapes all output for security
+* Fixed: Bottom Nav alignment cascade in Elementor editor
+* Improved: Editor preview now uses `position: fixed` for pixel-perfect alignment inside iframe
+* Improved: Responsive visibility respects Elementor's native breakpoints
+* Improved: Speed Dial visible by default in editor for real-time feedback
+* Improved: CSS class prefixes now widget-specific for better maintainability
+
 = 2.1.0 =
 * Added: Elementor native responsive visibility for Bottom Navigation Bar
 * Added: Pixel-perfect editor preview inside Elementor iframe
@@ -87,7 +109,7 @@ Yes. Set the badge type to **WooCommerce Cart** and it will display the live car
 
 = 2.0.0 =
 * Changed: Removed all `!important` declarations from CSS
-* Changed: Introduced CSS variables for theming (`--ebn-bar-height`, `--ebn-anim-duration`)
+* Changed: Introduced CSS variables for theming (`--paradise-bar-height`, `--paradise-anim-duration`)
 * Fixed: Editor styles scoped to prevent frontend bleed
 
 = 1.0.0 =
@@ -96,6 +118,9 @@ Yes. Set the badge type to **WooCommerce Cart** and it will display the live car
 * Bottom Navigation Bar widget
 
 == Upgrade Notice ==
+
+= 2.2.0 =
+**Important:** Bottom Navigation widgets require manual re-save in Elementor after this update due to name change. Not a breaking change for display — just re-save each Bottom Navigation Bar widget once. All other widgets auto-upgrade.
 
 = 2.1.0 =
 Improved editor preview and responsive visibility controls. Safe to upgrade.

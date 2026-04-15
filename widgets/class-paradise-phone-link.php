@@ -3,7 +3,11 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+require_once PARADISE_EW_DIR . 'includes/trait-paradise-phone-helper.php';
+
 class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base {
+
+    use Paradise_Phone_Helper;
 
     public function get_name()       { return 'paradise_phone_link'; }
     public function get_title()      { return 'Paradise Phone Link'; }
@@ -183,32 +187,6 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base {
             ],
         ] );
 
-        $this->add_control( 'country_code', [
-            'label'     => 'Country Code',
-            'type'      => \Elementor\Controls_Manager::SELECT,
-            'default'   => '1',
-            'options'   => [
-                '1'   => '🇺🇸 US (+1)',
-                '44'  => '🇬🇧 UK (+44)',
-                '49'  => '🇩🇪 DE (+49)',
-                '98'  => '🇮🇷 IR (+98)',
-                '971' => '🇦🇪 UAE (+971)',
-                'custom' => 'Custom',
-            ],
-            'condition' => [ 'display_format' => 'international' ],
-        ] );
-
-        $this->add_control( 'country_code_custom', [
-            'label'       => 'Custom Country Code',
-            'type'        => \Elementor\Controls_Manager::TEXT,
-            'placeholder' => '1',
-            'description' => 'Enter digits only, without +',
-            'condition'   => [
-                'display_format' => 'international',
-                'country_code'   => 'custom',
-            ],
-        ] );
-
         $this->add_control( 'custom_mask', [
             'label'       => 'Custom Mask',
             'type'        => \Elementor\Controls_Manager::TEXT,
@@ -225,6 +203,16 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base {
             'label' => 'Link Settings',
         ] );
 
+        $this->add_control( 'link_type', [
+            'label'   => 'Link Type',
+            'type'    => \Elementor\Controls_Manager::SELECT,
+            'default' => 'tel',
+            'options' => [
+                'tel'      => 'Phone Call (tel:)',
+                'whatsapp' => 'WhatsApp',
+            ],
+        ] );
+
         $this->add_control( 'link_scope', [
             'label'   => 'Link Scope',
             'type'    => \Elementor\Controls_Manager::SELECT,
@@ -234,6 +222,28 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base {
                 'number' => 'Number Only',
                 'none'   => 'No Link',
             ],
+        ] );
+
+        $this->add_control( 'country_code', [
+            'label'     => 'Country Code',
+            'type'      => \Elementor\Controls_Manager::SELECT,
+            'default'   => '1',
+            'options'   => [
+                '1'      => '🇺🇸 US (+1)',
+                '44'     => '🇬🇧 UK (+44)',
+                '49'     => '🇩🇪 DE (+49)',
+                '98'     => '🇮🇷 IR (+98)',
+                '971'    => '🇦🇪 UAE (+971)',
+                'custom' => 'Custom',
+            ],
+        ] );
+
+        $this->add_control( 'country_code_custom', [
+            'label'       => 'Custom Country Code',
+            'type'        => \Elementor\Controls_Manager::TEXT,
+            'placeholder' => '1',
+            'description' => 'Enter digits only, without +',
+            'condition'   => [ 'country_code' => 'custom' ],
         ] );
 
         $this->end_controls_section();
@@ -338,7 +348,19 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base {
         $this->add_control( 'icon_color', [
             'label'     => 'Color',
             'type'      => \Elementor\Controls_Manager::COLOR,
-            'selectors' => [ '{{WRAPPER}} .paradise-phone-icon' => 'color: {{VALUE}};' ],
+            'selectors' => [
+                '{{WRAPPER}} .paradise-phone-icon i'   => 'color: {{VALUE}};',
+                '{{WRAPPER}} .paradise-phone-icon svg' => 'fill: {{VALUE}};',
+            ],
+        ] );
+
+        $this->add_control( 'icon_hover_color', [
+            'label'     => 'Hover Color',
+            'type'      => \Elementor\Controls_Manager::COLOR,
+            'selectors' => [
+                '{{WRAPPER}} a:hover .paradise-phone-icon i'   => 'color: {{VALUE}};',
+                '{{WRAPPER}} a:hover .paradise-phone-icon svg' => 'fill: {{VALUE}};',
+            ],
         ] );
 
         $this->add_responsive_control( 'icon_size', [
@@ -348,9 +370,10 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base {
             'range'      => [
                 'px' => [ 'min' => 6, 'max' => 100 ],
             ],
+            'default'    => [ 'unit' => 'px', 'size' => 22 ],
             'selectors'  => [
-                '{{WRAPPER}} .paradise-phone-icon'    => 'font-size: {{SIZE}}{{UNIT}};',
-                '{{WRAPPER}} .paradise-phone-icon svg'=> 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .paradise-phone-icon i'   => 'font-size: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .paradise-phone-icon svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
             ],
         ] );
 
@@ -418,93 +441,6 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base {
     }
 
     // ================================================================
-    // HELPERS
-    // ================================================================
-
-    /**
-     * Strip everything except digits and leading +
-     */
-    private function normalize_phone( $phone ) {
-        $phone = (string) $phone;
-        // Keep leading + if exists
-        $has_plus = ( strpos( $phone, '+' ) !== false );
-        $digits   = preg_replace( '/[^0-9]/', '', $phone );
-        return $has_plus ? '+' . $digits : $digits;
-    }
-
-    /**
-     * Build tel: href — always use +countrycode format when possible
-     */
-    private function build_href( $raw, $country_code = '1' ) {
-        $digits = preg_replace( '/[^0-9]/', '', $raw );
-        $has_plus = ( strpos( $raw, '+' ) !== false );
-
-        if ( $has_plus ) {
-            // Already has country code embedded
-            return 'tel:+' . $digits;
-        }
-
-        // Remove leading 0 (local format) before prepending country code
-        $digits = ltrim( $digits, '0' );
-        return 'tel:+' . ltrim( $country_code, '+' ) . $digits;
-    }
-
-    /**
-     * Format digits for display
-     */
-    private function format_phone( $raw, $settings ) {
-        $format = $settings['display_format'] ?? 'raw';
-
-        if ( $format === 'raw' ) {
-            return $raw;
-        }
-
-        // Normalize: strip everything, remove leading 0
-        $digits = preg_replace( '/[^0-9]/', '', $raw );
-
-        if ( $format === 'custom_mask' ) {
-            $mask   = $settings['custom_mask'] ?? '';
-            $result = '';
-            $d      = 0;
-            for ( $i = 0; $i < strlen( $mask ); $i++ ) {
-                if ( $mask[ $i ] === '#' ) {
-                    $result .= isset( $digits[ $d ] ) ? $digits[ $d++ ] : '';
-                } else {
-                    $result .= $mask[ $i ];
-                }
-            }
-            return $result;
-        }
-
-        // For other formats, work with 10-digit local (strip country code if present)
-        // Heuristic: if > 10 digits, strip first N to get 10
-        $local = strlen( $digits ) > 10 ? substr( $digits, -10 ) : $digits;
-        $area  = substr( $local, 0, 3 );
-        $mid   = substr( $local, 3, 3 );
-        $end   = substr( $local, 6 );
-
-        switch ( $format ) {
-            case 'international':
-                $cc = $settings['country_code'] === 'custom'
-                    ? ( $settings['country_code_custom'] ?? '1' )
-                    : $settings['country_code'];
-                $cc = ltrim( $cc, '+' );
-                return "+{$cc} {$area} {$mid} {$end}";
-
-            case 'local':
-                return "({$area}) {$mid}-{$end}";
-
-            case 'dashes':
-                return "{$area}-{$mid}-{$end}";
-
-            case 'dots':
-                return "{$area}.{$mid}.{$end}";
-        }
-
-        return $raw;
-    }
-
-    // ================================================================
     // RENDER
     // ================================================================
 
@@ -520,16 +456,10 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base {
             return;
         }
 
-        // Country code for tel: href
-        $cc = '1';
-        if ( ( $settings['display_format'] ?? '' ) === 'international' ) {
-            $cc = $settings['country_code'] === 'custom'
-                ? ( $settings['country_code_custom'] ?? '1' )
-                : $settings['country_code'];
-        }
-
-        $href         = $this->build_href( $raw_phone, $cc );
-        $display_text = $this->format_phone( $raw_phone, $settings );
+        $cc        = $this->resolve_country_code( $settings );
+        $link_type = $settings['link_type'] ?? 'tel';
+        $href      = $this->build_phone_href( $raw_phone, $cc, $link_type );
+        $display_text = $this->format_phone_display( $raw_phone, $settings );
 
         $layout_mode  = $settings['layout_mode']  ?? 'number_only';
         $direction    = $settings['direction']     ?? 'inline';
@@ -550,9 +480,9 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base {
             ob_start();
             \Elementor\Icons_Manager::render_icon(
                 $settings['selected_icon'],
-                [ 'aria-hidden' => 'true', 'class' => 'paradise-phone-icon' ]
+                [ 'aria-hidden' => 'true' ]
             );
-            $icon_html = ob_get_clean();
+            $icon_html = '<span class="paradise-phone-icon">' . ob_get_clean() . '</span>';
         }
 
         // ---- Build prefix HTML ----
@@ -587,9 +517,13 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base {
 
         // Number — wrapped in <a> if scope = 'number'
         if ( $link_scope === 'number' ) {
+            $aria = 'whatsapp' === $link_type
+                ? sprintf( 'WhatsApp %s', $display_text )
+                : sprintf( 'Call %s', $display_text );
             $inner_parts[] = sprintf(
-                '<a href="%s" class="paradise-phone-number-link">%s</a>',
+                '<a href="%s" class="paradise-phone-number-link" aria-label="%s">%s</a>',
                 esc_url( $href ),
+                esc_attr( $aria ),
                 $number_span
             );
         } else {
@@ -607,10 +541,16 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base {
         $wrapper_close = '</div>';
 
         if ( $link_scope === 'full' ) {
+            $aria   = 'whatsapp' === $link_type
+                ? sprintf( 'WhatsApp %s', $display_text )
+                : sprintf( 'Call %s', $display_text );
+            $target = 'whatsapp' === $link_type ? ' target="_blank" rel="noopener noreferrer"' : '';
             $inner_html = sprintf(
-                '<a href="%s" class="paradise-phone-inner %s">%s</a>',
+                '<a href="%s" class="paradise-phone-inner %s" aria-label="%s"%s>%s</a>',
                 esc_url( $href ),
                 esc_attr( $dir_class ),
+                esc_attr( $aria ),
+                $target,
                 $inner_html
             );
         } else {

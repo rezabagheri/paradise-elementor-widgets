@@ -19,17 +19,31 @@
 ## ساختار فایل‌ها
 
 ```
-parsdise-elementor-widgets/
-├── paradise-elementor-widgets.php   # Main plugin file
-├── CLAUDE.md                        # این فایل
+paradise-elementor-widgets/
+├── paradise-elementor-widgets.php        # Main plugin file
+├── CLAUDE.md                             # این فایل
+├── admin/
+│   ├── class-paradise-ew-admin.php       # Settings registration, menus, toggles
+│   ├── class-paradise-user-profile.php   # User profile social/credentials fields
+│   └── views/
+│       └── page-settings.php             # Admin settings page HTML
 ├── assets/
 │   ├── css/
-│   │   ├── phone-link.css           # Phone Link widget styles
-│   │   └── bottom-nav.css           # Bottom Nav widget styles (handle: ebn-style)
+│   │   ├── admin.css                     # Admin settings page styles
+│   │   ├── author-card.css               # Author Card widget styles
+│   │   ├── phone-link.css                # Phone Link widget styles
+│   │   ├── phone-button.css              # Phone Button widget styles
+│   │   ├── floating-call-btn.css         # Floating Call Button widget styles
+│   │   └── bottom-nav.css                # Bottom Nav widget styles
 │   └── js/
-│       └── bottom-nav.js            # Bottom Nav widget JS (handle: ebn-script)
+│       └── bottom-nav.js                 # Bottom Nav widget JS
+├── includes/
+│   └── trait-paradise-phone-helper.php   # Shared phone normalization trait
 └── widgets/
+    ├── class-paradise-author-card.php
     ├── class-paradise-phone-link.php
+    ├── class-paradise-phone-button.php
+    ├── class-paradise-floating-call-btn.php
     └── class-paradise-bottom-nav.php
 ```
 
@@ -37,9 +51,9 @@ parsdise-elementor-widgets/
 
 ## نسخه فعلی
 
-**Plugin version: 2.1.0**
+**Plugin version: 2.2.0**
 ```php
-define( 'PARADISE_EW_VERSION', '2.1.0' );
+define( 'PARADISE_EW_VERSION', '2.2.0' );
 ```
 
 ---
@@ -56,18 +70,23 @@ define( 'PARADISE_EW_VERSION', '2.1.0' );
 - `esc_html`, `esc_url`, `esc_attr` همیشه در render
 
 ### CSS
-- بدون `!important` (حذف شد در v2.0)
-- CSS variables برای theming: `--ebn-bar-height`, `--ebn-anim-duration`, `--ebn-editor-bottom`
+- بدون `!important`
+- CSS class prefix هر ویجت باید widget-specific باشد (نه فقط `paradise-`)
+  - Author Card: `paradise-author-card__*`
+  - Phone Link: `paradise-phone-*`
+  - Bottom Nav: `paradise-bn-*`
+- CSS variables برای theming: `--paradise-bn-bar-height`, `--paradise-bn-anim-duration`, `--paradise-bn-editor-bottom`
 - Editor styles فقط داخل `body.elementor-editor-active` scope می‌شوند
-- Handle names که باید ثابت بمانند (backward compat):
-  - `ebn-style` — Bottom Nav CSS
-  - `ebn-script` — Bottom Nav JS
+- Handle names:
+  - `paradise-author-card-style` — Author Card CSS
   - `paradise-phone-link` — Phone Link CSS
+  - `paradise-bn-bottom-nav-style` — Bottom Nav CSS
+  - `paradise-bn-bottom-nav-script` — Bottom Nav JS
 
 ### JavaScript
 - Vanilla JS، بدون jQuery dependency
 - IIFE pattern: `(function() { 'use strict'; ... })()`
-- Public API روی `window.EBN`
+- Public API روی `window.Paradise`
 - Custom events: `ebn:hook:{name}` روی document
 - هیچ localStorage یا sessionStorage استفاده نمی‌شود
 
@@ -75,10 +94,75 @@ define( 'PARADISE_EW_VERSION', '2.1.0' );
 - Visibility: از `add_responsive_control` استفاده کن، نه custom breakpoint
 - Dynamic tags: `'dynamic' => [ 'active' => true ]` روی text controls
 - Editor preview: `\Elementor\Plugin::$instance->editor->is_edit_mode()`
+- Alignment cascade: به جای control جداگانه برای هر section، از CSS class-based cascade استفاده کن
+  - مثال: `.paradise-author-card--align-center .paradise-author-card__social { justify-content: center }`
 
 ---
 
-## ویجت ۱ — Paradise Phone Link
+## ویجت ۱ — Paradise Author Card
+
+**فایل:** `widgets/class-paradise-author-card.php`
+**CSS:** `assets/css/author-card.css`
+**Class:** `Paradise_Author_Card_Widget`
+**get_name():** `paradise_author_card`
+**Category:** `paradise`
+
+### قابلیت‌ها
+- Photo با link قابل انتخاب (photo page, author archive, custom URL, none)
+- Name با link قابل انتخاب
+- Title/Credentials — inline (کنار name) یا جداگانه
+- Bio (description)
+- Custom Fields (repeater): انواع text / link / email / badge
+  - field_type: `text` → `<span>`, `link` → `<a href>`, `email` → `<a href="mailto:">`, `badge` → `<span class="...__field-badge">`
+  - field_show_label: yes/no — نمایش label با colon
+- Social Links (repeater): icon + label + href
+  - Label mode: icon-only / icon + label
+- CTA Button با href قابل انتخاب
+- Layout: Vertical / Horizontal
+- Alignment: Left / Center / Right — کنترل یک‌جا همه section‌ها را align می‌کند
+- Schema.org Person markup (itemprop) روی همه عناصر اصلی
+
+### HTML classes
+```
+.paradise-author-card                               (wrapper — itemscope itemtype="https://schema.org/Person")
+.paradise-author-card--vertical | --horizontal
+.paradise-author-card--align-left | --align-center | --align-right
+.paradise-author-card__photo-wrap
+.paradise-author-card__photo-link
+.paradise-author-card__photo                        (itemprop="image")
+.paradise-author-card__body
+.paradise-author-card__name                         (itemprop="name")
+.paradise-author-card__name-link
+.paradise-author-card__title                        (itemprop="jobTitle")
+.paradise-author-card__title--inline                (کنار name)
+.paradise-author-card__bio                          (itemprop="description")
+.paradise-author-card__fields
+.paradise-author-card__field
+.paradise-author-card__field-label
+.paradise-author-card__field-value
+.paradise-author-card__field-link                   (برای type=link و type=email)
+.paradise-author-card__field-badge                  (برای type=badge)
+.paradise-author-card__cta
+.paradise-author-card__btn                          (itemprop="url")
+.paradise-author-card__social
+.paradise-author-card__social-link                  (itemprop="sameAs" یا "email")
+.paradise-author-card__social-icon
+.paradise-author-card__social-label
+.paradise-author-card__placeholder                  (فقط در editor بدون محتوا)
+```
+
+### Alignment cascade (CSS)
+```css
+/* Alignment control فقط یک class روی wrapper اضافه می‌کند */
+.paradise-author-card--align-center .paradise-author-card__social  { justify-content: center; }
+.paradise-author-card--align-right  .paradise-author-card__social  { justify-content: flex-end; }
+.paradise-author-card--align-center .paradise-author-card__fields  { align-items: center; }
+.paradise-author-card--align-right  .paradise-author-card__fields  { align-items: flex-end; }
+```
+
+---
+
+## ویجت ۲ — Paradise Phone Link
 
 **فایل:** `widgets/class-paradise-phone-link.php`
 **CSS:** `assets/css/phone-link.css`
@@ -92,9 +176,13 @@ define( 'PARADISE_EW_VERSION', '2.1.0' );
 - Layout: Number Only / Prefix+Number / Icon+Number / Icon+Prefix+Number
 - Direction: Inline / Stacked
 - Phone format: Raw / International / Local / Dashes / Dots / Custom Mask
-- Country code: US, UK, DE, IR, UAE, Custom
+- Country code: US, UK, DE, IR, UAE, Custom — همیشه visible (مستقل از display_format)
+- Link type: Phone Call (`tel:`) / WhatsApp (`https://wa.me/{digits}`)
+  - WhatsApp: اگر شماره با `+` شروع نشود، country code prefix می‌شود
+  - WhatsApp: `target="_blank" rel="noopener noreferrer"` به لینک اضافه می‌شود
 - Link scope: Full Widget / Number Only / No Link
-- Normalize phone: همه فرمت‌های ورودی → clean digits → tel: href
+- `aria-label` روی لینک: "Call {number}" یا "WhatsApp {number}"
+- Icon با hover color control
 
 ### HTML classes
 ```
@@ -108,19 +196,21 @@ define( 'PARADISE_EW_VERSION', '2.1.0' );
 
 ---
 
-## ویجت ۲ — Bottom Navigation Bar
+## ویجت ۳ — Bottom Navigation Bar
 
 **فایل:** `widgets/class-paradise-bottom-nav.php`
-**CSS:** `assets/css/bottom-nav.css` (handle: `ebn-style`)
-**JS:** `assets/js/bottom-nav.js` (handle: `ebn-script`)
+**CSS:** `assets/css/bottom-nav.css` (handle: `paradise-bn-bottom-nav-style`)
+**JS:** `assets/js/bottom-nav.js` (handle: `paradise-bn-bottom-nav-script`)
 **Class:** `Paradise_Bottom_Nav_Widget`
-**get_name():** `ebn_bottom_nav` ← مهم: برای backward compat تغییر نمی‌کند
+**get_name():** `paradise_bottom_nav`
 **Category:** `paradise`
 
 ### قابلیت‌ها
 - Items source: Manual (Repeater) / WordPress Menu
-- Badge: Static / WooCommerce Cart / JS-driven (`EBN.setBadge(id, count)`)
+- Badge: Static / WooCommerce Cart / JS-driven (`Paradise.setBadge(id, count)`)
 - Visibility: `add_responsive_control('bar_display')` — Elementor native responsive
+  - Desktop default: hidden (`none`), Tablet+Mobile default: visible (`block`)
+  - JS mirrors same logic: `showOnMobile`, `showOnTablet`, `showOnDesktop` در data config
 - Center button actions: Link / Speed Dial / JS Hook (`ebn:hook:{name}`)
 - Active detection: URL Match / Manual / Both
 - URL match mode: Pathname Only / Full URL
@@ -131,24 +221,24 @@ define( 'PARADISE_EW_VERSION', '2.1.0' );
 
 ### HTML classes
 ```
-.ebn-wrapper.ebn-pos-full | .ebn-pos-floating
-.ebn-wrapper.ebn-is-editor  (فقط در editor)
-.ebn-bar
-.ebn-indicator.ebn-indicator--top_bar | --bot_bar
-.ebn-item.ebn-item--active.ebn-pill
-.ebn-item-icon
-.ebn-badge
-.ebn-dot
-.ebn-label
-.ebn-center-wrap
-.ebn-center-btn
-.ebn-center-icon
-.ebn-center-label
-.ebn-speed-dial.ebn-speed-dial--open
-.ebn-dial-item
-.ebn-dial-icon
-.ebn-dial-label
-.ebn-overlay.ebn-overlay--active
+.paradise-bn-wrapper.paradise-bn-pos-full | .paradise-bn-pos-floating
+.paradise-bn-wrapper.paradise-bn-is-editor  (فقط در editor)
+.paradise-bn-bar
+.paradise-bn-indicator.paradise-bn-indicator--top_bar | --bot_bar
+.paradise-bn-item.paradise-bn-item--active.paradise-bn-pill
+.paradise-bn-item-icon
+.paradise-bn-badge
+.paradise-bn-dot
+.paradise-bn-label
+.paradise-bn-center-wrap
+.paradise-bn-center-btn
+.paradise-bn-center-icon
+.paradise-bn-center-label
+.paradise-bn-speed-dial.paradise-bn-speed-dial--open
+.paradise-bn-dial-item
+.paradise-bn-dial-icon
+.paradise-bn-dial-label
+.paradise-bn-overlay.paradise-bn-overlay--active
 ```
 
 ### JS data attribute
@@ -164,30 +254,30 @@ define( 'PARADISE_EW_VERSION', '2.1.0' );
   "animEnabled": true,
   "animStyle": "slide_up",
   "animDuration": 350,
-  "editorDialOpen": false
+  "editorDialOpen": false,
+  "showOnMobile": true,
+  "showOnTablet": true,
+  "showOnDesktop": false
 }
 ```
 
 ### JS Public API
 ```javascript
-EBN.setBadge('css-id', count);  // set badge
+Paradise.setBadge('css-id', count);  // set badge
 document.addEventListener('ebn:hook:myHook', fn);  // JS Hook
 ```
 
 ### CSS variables
 ```css
---ebn-bar-height      /* تنظیم شده توسط JS */
---ebn-anim-duration   /* تنظیم شده توسط JS */
---ebn-editor-bottom   /* فقط در editor */
+--paradise-bn-bar-height      /* تنظیم شده توسط JS */
+--paradise-bn-anim-duration   /* تنظیم شده توسط JS */
+--paradise-bn-editor-bottom   /* فقط در editor */
 ```
 
-### Backward Compatibility (مهم — دست نزن)
-| آیتم | مقدار |
-|------|-------|
-| get_name() | `ebn_bottom_nav` |
-| CSS handle | `ebn-style` |
-| JS handle | `ebn-script` |
-| همه control IDs | حفظ شده از v1.x |
+### Responsive visibility — معماری مهم
+CSS `display:none` پیش‌فرض + JS `applyResponsiveVisibility()` مدیریت visibility را در دست می‌گیرد.
+**هرگز** از `wrapper.style.display = 'block'` بدون بررسی breakpoint استفاده نکن — inline style هر CSS media query را override می‌کند.
+Breakpoints در JS: mobile ≤ 767px، tablet 768–1024px، desktop > 1024px.
 
 ---
 
@@ -228,9 +318,15 @@ $widgets_manager->register( new Paradise_{Name}_Widget() );
 2. **`add_responsive_control`** برای visibility — نه custom breakpoint
 3. **`position: fixed`** در editor حفظ شد (نسبت به iframe viewport)
 4. **`!important`** از همه CSS حذف شد (v2.0)
-5. **PHP class name** تغییر کرد (EBN_Widget → Glenar_Bottom_Nav_Widget → Paradise_Bottom_Nav_Widget) اما `get_name()` ثابت ماند
+5. **PHP class name** تغییر کرد (EBN_Widget → Glenar_Bottom_Nav_Widget → Paradise_Bottom_Nav_Widget)
 6. **Speed dial** در editor همیشه باز است
 7. **Badge WooCommerce**: از `WC()->cart->get_cart_contents_count()` استفاده می‌کند
+8. **CSS class prefix** widget-specific شد (v2.2): `paradise-bn-` برای bottom nav، نه `paradise-` generic
+9. **get_name() bottom nav**: از `ebn_bottom_nav` به `paradise_bottom_nav` تغییر کرد (v2.2)
+10. **Schema.org**: itemprop attributes روی Author Card — zero visible change، فقط SEO
+11. **Alignment در Author Card**: یک "Alignment" control در Layout section — cascade به social و fields از طریق CSS class
+12. **WhatsApp link**: `https://wa.me/{digits}` — همان digit normalization مثل `tel:`
+13. **Responsive visibility در Bottom Nav**: JS باید breakpoint را چک کند، نه CSS — چون inline style همه media query را override می‌کند
 
 ---
 
@@ -242,7 +338,6 @@ $widgets_manager->register( new Paradise_{Name}_Widget() );
 - [ ] Update Mechanism (GitHub Updater یا custom endpoint)
 
 ### ویجت‌های احتمالی
-- [ ] Click to Call / WhatsApp Button (مکمل Phone Link)
 - [ ] Off-Canvas Menu (trigger از Bottom Nav JS Hook)
 - [ ] Sticky Header
 - [ ] Cookie Consent Bar
