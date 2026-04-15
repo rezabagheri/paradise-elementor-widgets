@@ -79,6 +79,21 @@ Professional author or team member card featuring:
 
 **Use Cases**: About page, blog posts, team section
 
+**HTML Structure:**
+```html
+<div class="paradise-author-card" itemscope itemtype="https://schema.org/Person">
+  <div class="paradise-author-card__photo-wrap">
+    <img class="paradise-author-card__photo" itemprop="image" src="..." alt="..." />
+  </div>
+  <div class="paradise-author-card__body">
+    <h3 class="paradise-author-card__name" itemprop="name">John Doe</h3>
+    <p class="paradise-author-card__title" itemprop="jobTitle">Designer</p>
+    <p class="paradise-author-card__bio" itemprop="description">Bio text...</p>
+    <a class="paradise-author-card__btn" itemprop="url" href="#">Learn More</a>
+  </div>
+</div>
+```
+
 ### Phone Link
 Intelligent phone number formatting for Iran and international numbers:
 - Custom mask, country code, multiple formats
@@ -86,6 +101,14 @@ Intelligent phone number formatting for Iran and international numbers:
 - Smart tel: link generation
 
 **Use Cases**: Header, footer, service landing pages
+
+**Display Format Examples:**
+| Format | Output |
+|--------|--------|
+| Raw | As entered |
+| International | +1 212 555 1234 |
+| Local | (212) 555-1234 |
+| Custom Mask | `(###) ###-####` |
 
 ### Phone Button & Floating Call Button
 Beautiful call or WhatsApp buttons with:
@@ -116,6 +139,21 @@ document.addEventListener('ebn:hook:myAction', (e) => {
 
 **Use Cases**: E-commerce stores, service websites, turning website into app-like experience
 
+**HTML Structure:**
+```html
+<div class="paradise-bn-wrapper paradise-bn-pos-full" data-paradise="{...}">
+  <div class="paradise-bn-bar">
+    <a href="/page" class="paradise-bn-item paradise-bn-item--active">
+      <span class="paradise-bn-item-icon">
+        <i class="fas fa-home"></i>
+        <span class="paradise-bn-badge">3</span>
+      </span>
+      <span class="paradise-bn-label">Home</span>
+    </a>
+  </div>
+</div>
+```
+
 ---
 
 ## Developer Guide
@@ -131,17 +169,16 @@ A base widget class will be added in the next major update for better consistenc
 
 ---
 
-## Roadmap
+## Troubleshooting
 
-- **v2.3** — WhatsApp Chat Bubble + Advanced Scroll to Top
-- **v2.4** — Smart FAQ with Schema.org + Floating Mini Cart
-- **v2.5** — Global Widget Settings Panel + Extended JS API
+### Bottom Navigation Bar not showing
+**Check:** Elementor responsive settings and CSS file loading.
 
----
+### Phone Link not formatting correctly
+**Check:** Phone number format and country code selection.
 
-## Changelog
-
-See the full changelog in [CHANGELOG.md](CHANGELOG.md).
+### Editor preview doesn't match frontend
+**Check:** Browser zoom and Elementor version compatibility.
 
 **v2.2.0 (April 2026)**
 - Full WhatsApp support added
