@@ -8,7 +8,7 @@ Stable tag: 2.2.0
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Advanced custom Elementor widgets — Phone Link and Bottom Navigation Bar.
+Advanced custom Elementor widgets — Author Card, Phone Link, Phone Button, Floating Call Button, and Bottom Navigation Bar.
 
 == Description ==
 
@@ -115,10 +115,13 @@ Yes. Set the badge type to **WooCommerce Cart** and it will display the live car
 
 == Screenshots ==
 
-1. Bottom Navigation Bar — frontend on mobile
-2. Bottom Navigation Bar — Elementor editor preview
-3. Phone Link widget — layout options
-4. Widget panel — Paradise Widgets category
+1. Author Card widget — profile and social links
+2. Phone Link widget — phone formatting and display options
+3. Phone Button widget — CTA button with icon and hover styles
+4. Floating Call Button widget — fixed scrollable action button
+5. Bottom Navigation Bar — frontend on mobile
+6. Bottom Navigation Bar — Elementor editor preview
+7. Widget panel — Paradise Widgets category
 
 == Changelog ==
 

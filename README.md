@@ -46,7 +46,7 @@ Advanced custom Elementor widgets for WordPress — built for performance, flexi
 
 ---
 
-## � Author Card
+## Author Card
 
 A professional profile card widget that displays author information with photo, name, title, bio, and custom fields.
 
@@ -97,7 +97,7 @@ A professional profile card widget that displays author information with photo, 
 
 ---
 
-## �📞 Phone Link
+## Phone Link
 
 A smart phone number widget that normalizes any input format, builds proper `tel:` links, and renders with full layout control.
 
@@ -161,7 +161,7 @@ When **Link Scope = Number Only**:
 
 ---
 
-## � Phone Button
+## Phone Button
 
 A styled CTA button that triggers phone calls or WhatsApp messages.
 
@@ -195,7 +195,7 @@ A styled CTA button that triggers phone calls or WhatsApp messages.
 
 ---
 
-## ☎️ Floating Call Button
+## Floating Call Button
 
 A fixed-position button that remains visible while users scroll. Perfect for persistent call-to-action.
 
@@ -236,7 +236,7 @@ A fixed-position button that remains visible while users scroll. Perfect for per
 
 ---
 
-## �📱 Bottom Navigation Bar
+## Bottom Navigation Bar
 
 A fully-featured mobile bottom navigation bar with responsive visibility, active state detection, badge support, speed dial, and a JavaScript hook system.
 
