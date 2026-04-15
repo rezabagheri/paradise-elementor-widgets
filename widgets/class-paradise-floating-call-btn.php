@@ -160,12 +160,23 @@ class Paradise_Floating_Call_Btn_Widget extends \Elementor\Widget_Base
             'separator'    => 'before',
         ]);
 
+        $this->add_control('label_source', [
+            'label'     => esc_html__('Label Source', 'paradise-elementor-widgets'),
+            'type'      => Controls_Manager::SELECT,
+            'default'   => 'formatted_number',
+            'options'   => [
+                'formatted_number' => esc_html__('Formatted Number', 'paradise-elementor-widgets'),
+                'custom_text'      => esc_html__('Custom Text', 'paradise-elementor-widgets'),
+            ],
+            'condition' => [ 'show_label' => 'yes' ],
+        ]);
+
         $this->add_control('label_text', [
-            'label'       => esc_html__('Label', 'paradise-elementor-widgets'),
+            'label'       => esc_html__('Custom Label', 'paradise-elementor-widgets'),
             'type'        => Controls_Manager::TEXT,
             'default'     => esc_html__('Call Us', 'paradise-elementor-widgets'),
             'dynamic'     => [ 'active' => true ],
-            'condition'   => [ 'show_label' => 'yes' ],
+            'condition'   => [ 'show_label' => 'yes', 'label_source' => 'custom_text' ],
         ]);
 
         $this->end_controls_section();
@@ -464,6 +475,15 @@ class Paradise_Floating_Call_Btn_Widget extends \Elementor\Widget_Base
         $pulse       = 'yes' === ($settings['pulse_enabled'] ?? 'yes');
         $target_attr = 'whatsapp' === $link_type ? ' target="_blank" rel="noopener noreferrer"' : '';
 
+        // Determine label text based on label_source
+        $label_text = '';
+        if ($show_label) {
+            $label_source = $settings['label_source'] ?? 'formatted_number';
+            $label_text = ('formatted_number' === $label_source)
+                ? $display_text
+                : ($settings['label_text'] ?? esc_html__('Call Us', 'paradise-elementor-widgets'));
+        }
+
         $btn_classes = array_filter([
             'paradise-fcb-btn',
             $show_label ? 'paradise-fcb-btn--pill' : 'paradise-fcb-btn--circle',
@@ -487,7 +507,7 @@ class Paradise_Floating_Call_Btn_Widget extends \Elementor\Widget_Base
                 <?php echo $icon_html; ?>
                 <?php if ($show_label) : ?>
                 <span class="paradise-fcb-label">
-                    <?php echo esc_html($settings['label_text'] ?? ''); ?>
+                    <?php echo esc_html($label_text); ?>
                 </span>
                 <?php endif; ?>
             </a>
