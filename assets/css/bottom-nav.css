@@ -1,13 +1,13 @@
 /* ═══════════════════════════════════════════════════════════
    Paradise Bottom Navigation Bar  —  v2.0.0
-   ebn-style (handle name preserved for backward compatibility)
+   paradise-bn-bottom-nav-style (handle name updated for consistency)
    ═══════════════════════════════════════════════════════════ */
 
 /* ── Wrapper ────────────────────────────────────────────────
-   Hidden by default. JS adds .ebn-visible based on breakpoints
-   set in data-ebn attributes.
+   Hidden by default. JS adds .paradise-bn-visible based on breakpoints
+   set in data-paradise attributes.
    ─────────────────────────────────────────────────────────── */
-.ebn-wrapper {
+.paradise-bn-wrapper {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -21,7 +21,7 @@
 }
 
 /* Floating / centered position variant */
-.ebn-wrapper.ebn-pos-floating {
+.paradise-bn-wrapper.paradise-bn-pos-floating {
     left: 50%;
     right: auto;
     transform: translateX(-50%);
@@ -30,44 +30,44 @@
 
 /* Body padding so content isn't hidden behind bar.
    JS inserts a rule scoped to the actual bar height. */
-body.ebn-active {
-    padding-bottom: var(--ebn-bar-height, 72px);
+body.paradise-bn-active {
+    padding-bottom: var(--paradise-bn-bar-height, 72px);
 }
 
 /* safe area for notched phones */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
-    body.ebn-active {
-        padding-bottom: calc(var(--ebn-bar-height, 72px) + env(safe-area-inset-bottom));
+    body.paradise-bn-active {
+        padding-bottom: calc(var(--paradise-bn-bar-height, 72px) + env(safe-area-inset-bottom));
     }
-    .ebn-bar {
+    .paradise-bn-bar {
         padding-bottom: calc(8px + env(safe-area-inset-bottom));
     }
 }
 
 /* ── Entrance animations ────────────────────────────────────
-   Applied via class by JS based on data-ebn settings.
+   Applied via class by JS based on data-paradise settings.
    ─────────────────────────────────────────────────────────── */
-@keyframes ebn-slide-up {
+@keyframes paradise-bn-slide-up {
     from { transform: translateY(100%); }
     to   { transform: translateY(0); }
 }
 
-@keyframes ebn-fade-in {
+@keyframes paradise-bn-fade-in {
     from { opacity: 0; }
     to   { opacity: 1; }
 }
 
-@keyframes ebn-slide-up-fade {
+@keyframes paradise-bn-slide-up-fade {
     from { transform: translateY(40px); opacity: 0; }
     to   { transform: translateY(0);    opacity: 1; }
 }
 
-.ebn-anim-slide-up  { animation: ebn-slide-up      var(--ebn-anim-duration, 350ms) cubic-bezier(.22,1,.36,1) both; }
-.ebn-anim-fade      { animation: ebn-fade-in        var(--ebn-anim-duration, 350ms) ease both; }
-.ebn-anim-both      { animation: ebn-slide-up-fade  var(--ebn-anim-duration, 350ms) cubic-bezier(.22,1,.36,1) both; }
+.paradise-bn-anim-slide-up  { animation: paradise-bn-slide-up      var(--paradise-bn-anim-duration, 350ms) cubic-bezier(.22,1,.36,1) both; }
+.paradise-bn-anim-fade      { animation: paradise-bn-fade-in        var(--paradise-bn-anim-duration, 350ms) ease both; }
+.paradise-bn-anim-both      { animation: paradise-bn-slide-up-fade  var(--paradise-bn-anim-duration, 350ms) cubic-bezier(.22,1,.36,1) both; }
 
 /* ── Bar ────────────────────────────────────────────────────── */
-.ebn-bar {
+.paradise-bn-bar {
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -82,7 +82,7 @@ body.ebn-active {
 }
 
 /* ── Item ───────────────────────────────────────────────────── */
-.ebn-item {
+.paradise-bn-item {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -100,18 +100,18 @@ body.ebn-active {
     border-radius: 0;
 }
 
-.ebn-item:active {
+.paradise-bn-item:active {
     transform: scale(.90);
 }
 
 /* Pill variant */
-.ebn-item.ebn-pill.ebn-item--active {
+.paradise-bn-item.paradise-bn-pill.paradise-bn-item--active {
     border-radius: 24px;
     /* background-color set by Elementor indicator color control at 10% opacity */
 }
 
 /* ── Item icon wrapper ──────────────────────────────────────── */
-.ebn-item-icon {
+.paradise-bn-item-icon {
     position: relative;
     display: flex;
     align-items: center;
@@ -119,8 +119,8 @@ body.ebn-active {
     line-height: 1;
 }
 
-.ebn-item i,
-.ebn-item svg {
+.paradise-bn-item i,
+.paradise-bn-item svg {
     font-size: 22px;
     width: 22px;
     height: 22px;
@@ -130,14 +130,14 @@ body.ebn-active {
     color: #b0bec5;
 }
 
-.ebn-item--active i,
-.ebn-item--active svg {
+.paradise-bn-item--active i,
+.paradise-bn-item--active svg {
     color: #F5A623;
     transform: translateY(-1px);
 }
 
 /* ── Label ──────────────────────────────────────────────────── */
-.ebn-label {
+.paradise-bn-label {
     display: block;
     font-size: 10px;
     font-weight: 700;
@@ -152,12 +152,12 @@ body.ebn-active {
     color: #b0bec5;
 }
 
-.ebn-item--active .ebn-label {
+.paradise-bn-item--active .paradise-bn-label {
     color: #F5A623;
 }
 
 /* ── Badge ──────────────────────────────────────────────────── */
-.ebn-badge {
+.paradise-bn-badge {
     position: absolute;
     top: -5px;
     right: -6px;
@@ -179,7 +179,7 @@ body.ebn-active {
 /* ── Active Indicators ──────────────────────────────────────── */
 
 /* Top / Bottom sliding bar — positioned by JS */
-.ebn-indicator {
+.paradise-bn-indicator {
     position: absolute;
     left: 0;
     width: 24px;
@@ -191,24 +191,24 @@ body.ebn-active {
     transition: transform .3s cubic-bezier(.4, 0, .2, 1);
 }
 
-.ebn-indicator--top_bar {
+.paradise-bn-indicator--top_bar {
     top: 0;
     border-radius: 0 0 4px 4px;
 }
 
-.ebn-indicator--bot_bar {
+.paradise-bn-indicator--bot_bar {
     bottom: 0;
     top: auto;
     border-radius: 4px 4px 0 0;
 }
 
 /* No animation when JS sets data attribute */
-.ebn-indicator[data-no-anim] {
+.paradise-bn-indicator[data-no-anim] {
     transition: none;
 }
 
 /* Dot indicator */
-.ebn-dot {
+.paradise-bn-dot {
     width: 4px;
     height: 4px;
     border-radius: 50%;
@@ -217,14 +217,14 @@ body.ebn-active {
     flex-shrink: 0;
 }
 
-.ebn-item--active .ebn-dot {
+.paradise-bn-item--active .paradise-bn-dot {
     background-color: #F5A623;
 }
 
 /* Glow — applied via filter drop-shadow in Elementor selectors */
 
 /* ── Center Button ──────────────────────────────────────────── */
-.ebn-center-wrap {
+.paradise-bn-center-wrap {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -234,7 +234,7 @@ body.ebn-active {
     transform: translateY(-18px);
 }
 
-.ebn-center-btn {
+.paradise-bn-center-btn {
     width: 56px;
     height: 56px;
     background-color: #F5A623;
@@ -260,19 +260,19 @@ body.ebn-active {
     line-height: 1;
 }
 
-.ebn-center-btn:hover  { transform: scale(1.08); }
-.ebn-center-btn:active { transform: scale(.92); }
-.ebn-center-btn[aria-expanded="true"] { transform: scale(1.05) rotate(45deg); }
+.paradise-bn-center-btn:hover  { transform: scale(1.08); }
+.paradise-bn-center-btn:active { transform: scale(.92); }
+.paradise-bn-center-btn[aria-expanded="true"] { transform: scale(1.05) rotate(45deg); }
 
-.ebn-center-icon {
+.paradise-bn-center-icon {
     display: flex;
     align-items: center;
     justify-content: center;
     line-height: 1;
 }
 
-.ebn-center-btn i,
-.ebn-center-btn svg {
+.paradise-bn-center-btn i,
+.paradise-bn-center-btn svg {
     font-size: 22px;
     width: 22px;
     height: 22px;
@@ -281,12 +281,12 @@ body.ebn-active {
     pointer-events: none;
 }
 
-.ebn-center-label {
+.paradise-bn-center-label {
     color: #b0bec5;
 }
 
 /* ── Speed Dial ─────────────────────────────────────────────── */
-.ebn-speed-dial {
+.paradise-bn-speed-dial {
     position: absolute;
     bottom: 100%;
     left: 50%;
@@ -302,12 +302,12 @@ body.ebn-active {
     z-index: 1;
 }
 
-.ebn-speed-dial.ebn-speed-dial--open {
+.paradise-bn-speed-dial.paradise-bn-speed-dial--open {
     opacity: 1;
     pointer-events: auto;
 }
 
-.ebn-dial-item {
+.paradise-bn-dial-item {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -322,13 +322,13 @@ body.ebn-active {
     transition: transform .2s ease, opacity .2s ease;
 }
 
-.ebn-speed-dial--open .ebn-dial-item                { transform: translateY(0) scale(1); opacity: 1; }
-.ebn-speed-dial--open .ebn-dial-item:nth-child(1)   { transition-delay: .04s; }
-.ebn-speed-dial--open .ebn-dial-item:nth-child(2)   { transition-delay: .08s; }
-.ebn-speed-dial--open .ebn-dial-item:nth-child(3)   { transition-delay: .12s; }
-.ebn-speed-dial--open .ebn-dial-item:nth-child(4)   { transition-delay: .16s; }
+.paradise-bn-speed-dial--open .paradise-bn-dial-item                { transform: translateY(0) scale(1); opacity: 1; }
+.paradise-bn-speed-dial--open .paradise-bn-dial-item:nth-child(1)   { transition-delay: .04s; }
+.paradise-bn-speed-dial--open .paradise-bn-dial-item:nth-child(2)   { transition-delay: .08s; }
+.paradise-bn-speed-dial--open .paradise-bn-dial-item:nth-child(3)   { transition-delay: .12s; }
+.paradise-bn-speed-dial--open .paradise-bn-dial-item:nth-child(4)   { transition-delay: .16s; }
 
-.ebn-dial-icon {
+.paradise-bn-dial-icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -339,8 +339,8 @@ body.ebn-active {
     flex-shrink: 0;
 }
 
-.ebn-dial-icon i,
-.ebn-dial-icon svg {
+.paradise-bn-dial-icon i,
+.paradise-bn-dial-icon svg {
     font-size: 14px;
     width: 14px;
     height: 14px;
@@ -348,14 +348,14 @@ body.ebn-active {
     display: block;
 }
 
-.ebn-dial-label {
+.paradise-bn-dial-label {
     font-size: 13px;
     color: #333;
     font-family: inherit;
 }
 
 /* ── Overlay ────────────────────────────────────────────────── */
-.ebn-overlay {
+.paradise-bn-overlay {
     position: fixed;
     inset: 0;
     z-index: 9998;
@@ -363,12 +363,12 @@ body.ebn-active {
     background: transparent;
 }
 
-.ebn-overlay--active { display: block; }
+.paradise-bn-overlay--active { display: block; }
 
 /* ── RTL ─────────────────────────────────────────────────────── */
-[dir="rtl"] .ebn-bar       { direction: rtl; }
-[dir="rtl"] .ebn-dial-item { flex-direction: row-reverse; padding: 8px 10px 8px 14px; }
-[dir="rtl"] .ebn-badge     { right: auto; left: -6px; }
+[dir="rtl"] .paradise-bn-bar       { direction: rtl; }
+[dir="rtl"] .paradise-bn-dial-item { flex-direction: row-reverse; padding: 8px 10px 8px 14px; }
+[dir="rtl"] .paradise-bn-badge     { right: auto; left: -6px; }
 
 
 /* ═══════════════════════════════════════════════════════════
@@ -380,7 +380,7 @@ body.ebn-active {
 
 /**
  * In editor the widget lives inside an iframe.
- * JS reads the iframe height and sets --ebn-editor-bottom
+ * JS reads the iframe height and sets --paradise-bn-editor-bottom
  * so the bar sticks to the bottom of the canvas, not the
  * browser window.
  *
@@ -388,15 +388,16 @@ body.ebn-active {
  * iframe viewport, which is exactly what we want.
  */
 
-body.elementor-editor-active .ebn-wrapper {
+body.elementor-editor-active .paradise-bn-wrapper {
     /* Always visible in editor regardless of responsive mode.
        Elementor's own responsive preview handles show/hide
        by resizing the iframe — the bar will appear/disappear
        naturally as breakpoints change. */
     display: block;
+    position: fixed;
 
     /* JS will set this via CSS custom property */
-    bottom: var(--ebn-editor-bottom, 0px);
+    bottom: var(--paradise-bn-editor-bottom, 0px);
 
     /* Match iframe width exactly */
     left: 0;
@@ -406,7 +407,7 @@ body.elementor-editor-active .ebn-wrapper {
 }
 
 /* Floating variant in editor: keep centered inside iframe */
-body.elementor-editor-active .ebn-wrapper.ebn-pos-floating {
+body.elementor-editor-active .paradise-bn-wrapper.paradise-bn-pos-floating {
     left: 50%;
     right: auto;
     transform: translateX(-50%);
@@ -414,29 +415,29 @@ body.elementor-editor-active .ebn-wrapper.ebn-pos-floating {
 }
 
 /* Disable entrance animation in editor — bar should appear instantly */
-body.elementor-editor-active .ebn-wrapper {
+body.elementor-editor-active .paradise-bn-wrapper {
     animation: none;
 }
 
 /* Disable pointer events on links in editor (standard Elementor behavior).
    Center button & speed dial remain interactive for visual feedback. */
-body.elementor-editor-active .ebn-item {
+body.elementor-editor-active .paradise-bn-item {
     pointer-events: none;
 }
 
-body.elementor-editor-active .ebn-center-btn,
-body.elementor-editor-active .ebn-dial-item {
+body.elementor-editor-active .paradise-bn-center-btn,
+body.elementor-editor-active .paradise-bn-dial-item {
     pointer-events: auto;
 }
 
 /* Speed dial: always visible in editor when action = speed_dial */
-body.elementor-editor-active .ebn-speed-dial.ebn-speed-dial--open .ebn-dial-item {
+body.elementor-editor-active .paradise-bn-speed-dial.paradise-bn-speed-dial--open .paradise-bn-dial-item {
     transform: translateY(0) scale(1);
     opacity: 1;
     transition: none;
 }
 
 /* Body padding: not needed in editor (iframe handles its own scroll) */
-body.elementor-editor-active.ebn-active {
+body.elementor-editor-active.paradise-bn-active {
     padding-bottom: 0;
 }

@@ -1,9 +1,10 @@
 <?php
+
 /**
  * Plugin Name:       Paradise Elementor Widgets
  * Plugin URI:        https://www.paradisecyber.com/elementor-widgets
  * Description:       Advanced custom Elementor widgets by Paradise. Phone Link, Bottom Navigation Bar, and more.
- * Version:           2.1.0
+ * Version:           2.2.0
  * Requires at least: 6.1
  * Requires PHP:      7.4
  * Requires Plugins:  elementor
@@ -15,53 +16,69 @@
  * Domain Path:       /languages
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
     exit;
 }
 
-define( 'PARADISE_EW_VERSION', '2.1.0' );
-define( 'PARADISE_EW_DIR',     plugin_dir_path( __FILE__ ) );
-define( 'PARADISE_EW_URL',     plugin_dir_url( __FILE__ ) );
+define('PARADISE_EW_VERSION', '2.2.0');
+define('PARADISE_EW_DIR', plugin_dir_path(__FILE__));
+define('PARADISE_EW_URL', plugin_dir_url(__FILE__));
 
-final class Paradise_Elementor_Widgets {
-
+final class Paradise_Elementor_Widgets
+{
     private static $instance = null;
 
-    public static function get_instance(): self {
-        if ( null === self::$instance ) {
+    public static function get_instance(): self
+    {
+        if (null === self::$instance) {
             self::$instance = new self();
         }
         return self::$instance;
     }
 
-    private function __construct() {
-        add_action( 'plugins_loaded', [ $this, 'load_textdomain' ] );
-        add_action( 'elementor/init', [ $this, 'init' ] );
+    private function __construct()
+    {
+        add_action('plugins_loaded', [ $this, 'load_textdomain' ]);
+        add_action('plugins_loaded', [ $this, 'load_admin' ]);
+        add_action('elementor/init', [ $this, 'init' ]);
     }
 
-    public function load_textdomain(): void {
+    public function load_admin(): void
+    {
+        require_once PARADISE_EW_DIR . 'admin/class-paradise-ew-admin.php';
+        Paradise_EW_Admin::init();
+
+        require_once PARADISE_EW_DIR . 'admin/class-paradise-user-profile.php';
+        Paradise_User_Profile::init();
+    }
+
+    public function load_textdomain(): void
+    {
         load_plugin_textdomain(
             'paradise-elementor-widgets',
             false,
-            dirname( plugin_basename( __FILE__ ) ) . '/languages'
+            dirname(plugin_basename(__FILE__)) . '/languages'
         );
     }
 
-    public function init(): void {
-        add_action( 'elementor/elements/categories_registered', [ $this, 'register_category' ] );
-        add_action( 'elementor/widgets/register',               [ $this, 'register_widgets' ] );
-        add_action( 'elementor/frontend/after_enqueue_styles',  [ $this, 'enqueue_assets' ] );
-        add_action( 'elementor/editor/after_enqueue_styles',    [ $this, 'enqueue_assets' ] );
+    public function init(): void
+    {
+        add_action('elementor/elements/categories_registered', [ $this, 'register_category' ]);
+        add_action('elementor/widgets/register', [ $this, 'register_widgets' ]);
+        add_action('elementor/frontend/after_enqueue_styles', [ $this, 'enqueue_assets' ]);
+        add_action('elementor/editor/after_enqueue_styles', [ $this, 'enqueue_assets' ]);
     }
 
-    public function register_category( $elements_manager ): void {
-        $elements_manager->add_category( 'paradise', [
-            'title' => esc_html__( 'Paradise Widgets', 'paradise-elementor-widgets' ),
+    public function register_category($elements_manager): void
+    {
+        $elements_manager->add_category('paradise', [
+            'title' => esc_html__('Paradise Widgets', 'paradise-elementor-widgets'),
             'icon'  => 'fa fa-plug',
-        ] );
+        ]);
     }
 
-    public function enqueue_assets(): void {
+    public function enqueue_assets(): void
+    {
         wp_register_style(
             'paradise-phone-link',
             PARADISE_EW_URL . 'assets/css/phone-link.css',
@@ -69,38 +86,82 @@ final class Paradise_Elementor_Widgets {
             PARADISE_EW_VERSION
         );
 
-        // ebn-style — handle name preserved for backward compatibility
         wp_register_style(
-            'ebn-style',
+            'paradise-author-card',
+            PARADISE_EW_URL . 'assets/css/author-card.css',
+            [],
+            PARADISE_EW_VERSION
+        );
+
+        wp_register_style(
+            'paradise-phone-button',
+            PARADISE_EW_URL . 'assets/css/phone-button.css',
+            [],
+            PARADISE_EW_VERSION
+        );
+
+        // paradise-bottom-nav-style — updated for consistency
+        wp_register_style(
+            'paradise-bottom-nav-style',
             PARADISE_EW_URL . 'assets/css/bottom-nav.css',
             [],
             PARADISE_EW_VERSION
         );
 
-        // ebn-script — handle name preserved for backward compatibility
+        // paradise-bottom-nav-script — updated for consistency
         wp_register_script(
-            'ebn-script',
+            'paradise-bottom-nav-script',
             PARADISE_EW_URL . 'assets/js/bottom-nav.js',
             [],
             PARADISE_EW_VERSION,
             true
         );
+
+        wp_register_style(
+            'paradise-floating-call-btn',
+            PARADISE_EW_URL . 'assets/css/floating-call-btn.css',
+            [],
+            PARADISE_EW_VERSION
+        );
     }
 
-    public function register_widgets( $widgets_manager ): void {
+    public function register_widgets($widgets_manager): void
+    {
 
         // Phone Link
-        require_once PARADISE_EW_DIR . 'widgets/class-paradise-phone-link.php';
-        $widgets_manager->register( new Paradise_Phone_Link_Widget() );
+        if (Paradise_EW_Admin::widget_enabled('phone_link')) {
+            require_once PARADISE_EW_DIR . 'widgets/class-paradise-phone-link.php';
+            $widgets_manager->register(new Paradise_Phone_Link_Widget());
+        }
 
         // Bottom Navigation Bar
-        require_once PARADISE_EW_DIR . 'widgets/class-paradise-bottom-nav.php';
-        $widgets_manager->register( new Paradise_Bottom_Nav_Widget() );
+        if (Paradise_EW_Admin::widget_enabled('bottom_nav')) {
+            require_once PARADISE_EW_DIR . 'widgets/class-paradise-bottom-nav.php';
+            $widgets_manager->register(new Paradise_Bottom_Nav_Widget());
+        }
+
+        // Author Card
+        if (Paradise_EW_Admin::widget_enabled('author_card')) {
+            require_once PARADISE_EW_DIR . 'widgets/class-paradise-author-card.php';
+            $widgets_manager->register(new Paradise_Author_Card_Widget());
+        }
+
+        // Phone Button
+        if (Paradise_EW_Admin::widget_enabled('phone_button')) {
+            require_once PARADISE_EW_DIR . 'widgets/class-paradise-phone-button.php';
+            $widgets_manager->register(new Paradise_Phone_Button_Widget());
+        }
+
+        // Floating Call Button
+        if (Paradise_EW_Admin::widget_enabled('floating_call_btn')) {
+            require_once PARADISE_EW_DIR . 'widgets/class-paradise-floating-call-btn.php';
+            $widgets_manager->register(new Paradise_Floating_Call_Btn_Widget());
+        }
 
         // Add future widgets below:
         // 1. Create: widgets/class-paradise-{name}.php
-        // 2. require_once PARADISE_EW_DIR . 'widgets/class-paradise-{name}.php';
-        // 3. $widgets_manager->register( new Paradise_{Name}_Widget() );
+        // 2. Wrap in: if ( Paradise_EW_Admin::widget_enabled( '{key}' ) ) { ... }
+        // 3. Add the key+label to Paradise_EW_Admin::$widget_registry
     }
 }
 

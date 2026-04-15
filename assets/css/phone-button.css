@@ -1,0 +1,51 @@
+/* Paradise Phone Button Widget
+   ================================================== */
+
+.paradise-pbn-wrapper {
+    display: block;
+    line-height: 0; /* prevent extra space under inline-flex child */
+}
+
+.paradise-pbn-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    /* Defaults — overridden by Elementor style controls */
+    padding: 12px 28px;
+    background-color: #2d3e50;
+    color: #ffffff;
+    border-radius: 50px;
+    font-weight: 700;
+    transition-property: background-color, color, border-color, box-shadow, opacity;
+    transition-duration: 250ms;
+    transition-timing-function: ease;
+}
+
+/* ── Icon ──────────────────────────────────────── */
+.paradise-pbn-icon {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.paradise-pbn-icon i {
+    font-size: 1em;
+    line-height: 1;
+    display: block;
+}
+
+.paradise-pbn-icon svg {
+    width: 1em;
+    height: 1em;
+    display: block;
+}
+
+/* ── Text ──────────────────────────────────────── */
+.paradise-pbn-text {
+    line-height: 1.3;
+}
