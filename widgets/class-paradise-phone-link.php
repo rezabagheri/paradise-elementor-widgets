@@ -1,89 +1,69 @@
 <?php
-
-if (! defined('ABSPATH')) {
+if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
 require_once PARADISE_EW_DIR . 'includes/trait-paradise-phone-helper.php';
 
-class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
-{
+class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base {
+
     use Paradise_Phone_Helper;
 
-    public function get_name()
-    {
-        return 'paradise_phone_link';
-    }
-    public function get_title()
-    {
-        return 'Paradise Phone Link';
-    }
-    public function get_icon()
-    {
-        return 'eicon-call-to-action';
-    }
-    public function get_categories()
-    {
-        return [ 'paradise' ];
-    }
-    public function get_style_depends(): array
-    {
-        return [ 'paradise-phone-link' ];
-    }
+    public function get_name()       { return 'paradise_phone_link'; }
+    public function get_title()      { return 'Paradise Phone Link'; }
+    public function get_icon()       { return 'eicon-call-to-action'; }
+    public function get_categories()   { return [ 'paradise' ]; }
+    public function get_style_depends(): array { return [ 'paradise-phone-link' ]; }
 
     // Allow dynamic tags on text controls
-    public function get_uwidget_type()
-    {
-        return 'widget';
-    }
+    public function get_uwidget_type() { return 'widget'; }
 
-    protected function register_controls()
-    {
+    protected function register_controls() {
 
         // ============================================================
         // TAB: CONTENT
         // ============================================================
 
         // -------------------- Section: Phone --------------------
-        $this->start_controls_section('section_phone', [
+        $this->start_controls_section( 'section_phone', [
             'label' => 'Phone Number',
-        ]);
+        ] );
 
-        $this->add_control('phone_number', [
+        $this->add_control( 'phone_number', [
             'label'       => 'Phone Number',
             'type'        => \Elementor\Controls_Manager::TEXT,
             'placeholder' => '+1 (212) 555-1234',
             'description' => 'Accepts any format. Will be normalized automatically.',
             'dynamic'     => [ 'active' => true ],
             'label_block' => true,
-        ]);
+        ] );
 
         $this->end_controls_section();
 
         // -------------------- Section: Prefix --------------------
-        $this->start_controls_section('section_prefix', [
+        $this->start_controls_section( 'section_prefix', [
             'label' => 'Prefix',
-        ]);
+        ] );
 
-        $this->add_control('prefix_enabled', [
+        $this->add_control( 'prefix_enabled', [
             'label'        => 'Enable Prefix',
             'type'         => \Elementor\Controls_Manager::SWITCHER,
             'label_on'     => 'Yes',
             'label_off'    => 'No',
             'return_value' => 'yes',
             'default'      => 'no',
-        ]);
+        ] );
 
-        $this->add_control('prefix_text', [
+        $this->add_control( 'prefix_text', [
             'label'       => 'Prefix Text',
             'type'        => \Elementor\Controls_Manager::TEXT,
             'placeholder' => 'Call Us:',
             'dynamic'     => [ 'active' => true ],
             'label_block' => true,
             'condition'   => [ 'prefix_enabled' => 'yes' ],
-        ]);
+        ] );
 
-        $this->add_control('prefix_tag', [
+        $this->add_control( 'prefix_tag', [
             'label'     => 'HTML Tag',
             'type'      => \Elementor\Controls_Manager::SELECT,
             'default'   => 'span',
@@ -99,16 +79,16 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
                 'span' => 'span',
             ],
             'condition' => [ 'prefix_enabled' => 'yes' ],
-        ]);
+        ] );
 
         $this->end_controls_section();
 
         // -------------------- Section: Layout --------------------
-        $this->start_controls_section('section_layout', [
+        $this->start_controls_section( 'section_layout', [
             'label' => 'Layout',
-        ]);
+        ] );
 
-        $this->add_control('layout_mode', [
+        $this->add_control( 'layout_mode', [
             'label'   => 'Layout Mode',
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => 'number_only',
@@ -118,9 +98,9 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
                 'icon_number'          => 'Icon + Number',
                 'icon_prefix_number'   => 'Icon + Prefix + Number',
             ],
-        ]);
+        ] );
 
-        $this->add_control('direction', [
+        $this->add_control( 'direction', [
             'label'     => 'Direction',
             'type'      => \Elementor\Controls_Manager::CHOOSE,
             'default'   => 'inline',
@@ -137,21 +117,21 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
             'condition' => [
                 'layout_mode!' => 'number_only',
             ],
-        ]);
+        ] );
 
-        $this->add_control('selected_icon', [
+        $this->add_control( 'selected_icon', [
             'label'     => 'Icon',
             'type'      => \Elementor\Controls_Manager::ICONS,
             'default'   => [
-                'value'   => 'eicon-phone',
-                'library' => 'elementor-icons',
+                'value'   => 'fas fa-phone',
+                'library' => 'fa-solid',
             ],
             'condition' => [
                 'layout_mode' => [ 'icon_number', 'icon_prefix_number' ],
             ],
-        ]);
+        ] );
 
-        $this->add_control('icon_position', [
+        $this->add_control( 'icon_position', [
             'label'     => 'Icon Position',
             'type'      => \Elementor\Controls_Manager::CHOOSE,
             'default'   => 'before',
@@ -168,9 +148,9 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
             'condition' => [
                 'layout_mode' => [ 'icon_number', 'icon_prefix_number' ],
             ],
-        ]);
+        ] );
 
-        $this->add_responsive_control('gap', [
+        $this->add_responsive_control( 'gap', [
             'label'      => 'Gap Between Elements',
             'type'       => \Elementor\Controls_Manager::SLIDER,
             'size_units' => [ 'px', 'em', 'rem' ],
@@ -184,16 +164,16 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
             'condition' => [
                 'layout_mode!' => 'number_only',
             ],
-        ]);
+        ] );
 
         $this->end_controls_section();
 
         // -------------------- Section: Phone Format --------------------
-        $this->start_controls_section('section_format', [
+        $this->start_controls_section( 'section_format', [
             'label' => 'Phone Format',
-        ]);
+        ] );
 
-        $this->add_control('display_format', [
+        $this->add_control( 'display_format', [
             'label'   => 'Display Format',
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => 'raw',
@@ -205,25 +185,25 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
                 'dots'          => 'Dots  e.g. 212.555.1234',
                 'custom_mask'   => 'Custom Mask',
             ],
-        ]);
+        ] );
 
-        $this->add_control('custom_mask', [
+        $this->add_control( 'custom_mask', [
             'label'       => 'Custom Mask',
             'type'        => \Elementor\Controls_Manager::TEXT,
             'placeholder' => '(###) ###-####',
             'description' => 'Use # for each digit. Example: (###) ###-####',
             'label_block' => true,
             'condition'   => [ 'display_format' => 'custom_mask' ],
-        ]);
+        ] );
 
         $this->end_controls_section();
 
         // -------------------- Section: Link --------------------
-        $this->start_controls_section('section_link', [
+        $this->start_controls_section( 'section_link', [
             'label' => 'Link Settings',
-        ]);
+        ] );
 
-        $this->add_control('link_type', [
+        $this->add_control( 'link_type', [
             'label'   => 'Link Type',
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => 'tel',
@@ -231,9 +211,9 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
                 'tel'      => 'Phone Call (tel:)',
                 'whatsapp' => 'WhatsApp',
             ],
-        ]);
+        ] );
 
-        $this->add_control('link_scope', [
+        $this->add_control( 'link_scope', [
             'label'   => 'Link Scope',
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => 'full',
@@ -242,9 +222,9 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
                 'number' => 'Number Only',
                 'none'   => 'No Link',
             ],
-        ]);
+        ] );
 
-        $this->add_control('country_code', [
+        $this->add_control( 'country_code', [
             'label'     => 'Country Code',
             'type'      => \Elementor\Controls_Manager::SELECT,
             'default'   => '1',
@@ -256,15 +236,15 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
                 '971'    => '🇦🇪 UAE (+971)',
                 'custom' => 'Custom',
             ],
-        ]);
+        ] );
 
-        $this->add_control('country_code_custom', [
+        $this->add_control( 'country_code_custom', [
             'label'       => 'Custom Country Code',
             'type'        => \Elementor\Controls_Manager::TEXT,
             'placeholder' => '1',
             'description' => 'Enter digits only, without +',
             'condition'   => [ 'country_code' => 'custom' ],
-        ]);
+        ] );
 
         $this->end_controls_section();
 
@@ -273,12 +253,12 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
         // ============================================================
 
         // -------------------- Style: General --------------------
-        $this->start_controls_section('section_style_general', [
+        $this->start_controls_section( 'section_style_general', [
             'label' => 'General',
             'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
-        ]);
+        ] );
 
-        $this->add_responsive_control('align', [
+        $this->add_responsive_control( 'align', [
             'label'     => 'Alignment',
             'type'      => \Elementor\Controls_Manager::CHOOSE,
             'options'   => [
@@ -289,22 +269,22 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
             'selectors' => [
                 '{{WRAPPER}} .paradise-phone-link-wrapper' => 'align-items: {{VALUE}}; justify-content: {{VALUE}};',
             ],
-        ]);
+        ] );
 
         $this->end_controls_section();
 
         // -------------------- Style: Prefix --------------------
-        $this->start_controls_section('section_style_prefix', [
+        $this->start_controls_section( 'section_style_prefix', [
             'label'     => 'Prefix',
             'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
             'condition' => [ 'prefix_enabled' => 'yes' ],
-        ]);
+        ] );
 
-        $this->add_control('prefix_color', [
+        $this->add_control( 'prefix_color', [
             'label'     => 'Color',
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-phone-prefix' => 'color: {{VALUE}};' ],
-        ]);
+        ] );
 
         $this->add_group_control(
             \Elementor\Group_Control_Typography::get_type(),
@@ -314,37 +294,37 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
             ]
         );
 
-        $this->add_responsive_control('prefix_margin', [
+        $this->add_responsive_control( 'prefix_margin', [
             'label'      => 'Margin',
             'type'       => \Elementor\Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', 'em', 'rem' ],
             'selectors'  => [
                 '{{WRAPPER}} .paradise-phone-prefix' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-        ]);
+        ] );
 
         $this->end_controls_section();
 
         // -------------------- Style: Phone Number --------------------
-        $this->start_controls_section('section_style_phone', [
+        $this->start_controls_section( 'section_style_phone', [
             'label' => 'Phone Number',
             'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
-        ]);
+        ] );
 
-        $this->add_control('phone_color', [
+        $this->add_control( 'phone_color', [
             'label'     => 'Color',
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-phone-number' => 'color: {{VALUE}};' ],
-        ]);
+        ] );
 
-        $this->add_control('phone_hover_color', [
+        $this->add_control( 'phone_hover_color', [
             'label'     => 'Hover Color',
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} a:hover .paradise-phone-number'           => 'color: {{VALUE}};',
                 '{{WRAPPER}} .paradise-phone-number-link:hover'        => 'color: {{VALUE}};',
             ],
-        ]);
+        ] );
 
         $this->add_group_control(
             \Elementor\Group_Control_Typography::get_type(),
@@ -357,33 +337,33 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
         $this->end_controls_section();
 
         // -------------------- Style: Icon --------------------
-        $this->start_controls_section('section_style_icon', [
+        $this->start_controls_section( 'section_style_icon', [
             'label'     => 'Icon',
             'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
             'condition' => [
                 'layout_mode' => [ 'icon_number', 'icon_prefix_number' ],
             ],
-        ]);
+        ] );
 
-        $this->add_control('icon_color', [
+        $this->add_control( 'icon_color', [
             'label'     => 'Color',
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} .paradise-phone-icon i'   => 'color: {{VALUE}};',
                 '{{WRAPPER}} .paradise-phone-icon svg' => 'fill: {{VALUE}};',
             ],
-        ]);
+        ] );
 
-        $this->add_control('icon_hover_color', [
+        $this->add_control( 'icon_hover_color', [
             'label'     => 'Hover Color',
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} a:hover .paradise-phone-icon i'   => 'color: {{VALUE}};',
                 '{{WRAPPER}} a:hover .paradise-phone-icon svg' => 'fill: {{VALUE}};',
             ],
-        ]);
+        ] );
 
-        $this->add_responsive_control('icon_size', [
+        $this->add_responsive_control( 'icon_size', [
             'label'      => 'Size',
             'type'       => \Elementor\Controls_Manager::SLIDER,
             'size_units' => [ 'px', 'em', 'rem' ],
@@ -395,17 +375,17 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
                 '{{WRAPPER}} .paradise-phone-icon i'   => 'font-size: {{SIZE}}{{UNIT}};',
                 '{{WRAPPER}} .paradise-phone-icon svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
             ],
-        ]);
+        ] );
 
         $this->end_controls_section();
 
         // -------------------- Style: Link (button-like) --------------------
-        $this->start_controls_section('section_style_link', [
+        $this->start_controls_section( 'section_style_link', [
             'label' => 'Link / Button',
             'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
-        ]);
+        ] );
 
-        $this->add_control('link_text_decoration', [
+        $this->add_control( 'link_text_decoration', [
             'label'     => 'Text Decoration',
             'type'      => \Elementor\Controls_Manager::SELECT,
             'default'   => 'none',
@@ -415,9 +395,9 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
             ],
             'selectors' => [
                 '{{WRAPPER}} a'                          => 'text-decoration: {{VALUE}};',
-                '{{WRAPPER}} .paradise-phone-number-link' => 'text-decoration: {{VALUE}};',
+                '{{WRAPPER}} .paradise-phone-number-link'=> 'text-decoration: {{VALUE}};',
             ],
-        ]);
+        ] );
 
         $this->add_group_control(
             \Elementor\Group_Control_Background::get_type(),
@@ -437,7 +417,7 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
             ]
         );
 
-        $this->add_responsive_control('link_border_radius', [
+        $this->add_responsive_control( 'link_border_radius', [
             'label'      => 'Border Radius',
             'type'       => \Elementor\Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', '%', 'em' ],
@@ -445,9 +425,9 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
                 '{{WRAPPER}} .paradise-phone-link-wrapper a, {{WRAPPER}} .paradise-phone-number-link' =>
                     'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-        ]);
+        ] );
 
-        $this->add_responsive_control('link_padding', [
+        $this->add_responsive_control( 'link_padding', [
             'label'      => 'Padding',
             'type'       => \Elementor\Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', 'em', 'rem' ],
@@ -455,7 +435,7 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
                 '{{WRAPPER}} .paradise-phone-link-wrapper a, {{WRAPPER}} .paradise-phone-number-link' =>
                     'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-        ]);
+        ] );
 
         $this->end_controls_section();
     }
@@ -464,40 +444,39 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
     // RENDER
     // ================================================================
 
-    protected function render()
-    {
+    protected function render() {
         $settings = $this->get_settings_for_display();
 
-        $raw_phone = trim($settings['phone_number'] ?? '');
+        $raw_phone = trim( $settings['phone_number'] ?? '' );
 
-        if (empty($raw_phone)) {
-            if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
+        if ( empty( $raw_phone ) ) {
+            if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
                 echo '<p style="color:#cc0000; font-size:13px;">&#9888; Phone number is empty.</p>';
             }
             return;
         }
 
-        $cc        = $this->resolve_country_code($settings);
+        $cc        = $this->resolve_country_code( $settings );
         $link_type = $settings['link_type'] ?? 'tel';
-        $href      = $this->build_phone_href($raw_phone, $cc, $link_type);
-        $display_text = $this->format_phone_display($raw_phone, $settings);
+        $href      = $this->build_phone_href( $raw_phone, $cc, $link_type );
+        $display_text = $this->format_phone_display( $raw_phone, $settings );
 
         $layout_mode  = $settings['layout_mode']  ?? 'number_only';
         $direction    = $settings['direction']     ?? 'inline';
         $link_scope   = $settings['link_scope']    ?? 'full';
         $icon_pos     = $settings['icon_position'] ?? 'before';
 
-        $show_prefix = ($settings['prefix_enabled'] === 'yes')
-                       && in_array($layout_mode, [ 'prefix_number', 'icon_prefix_number' ]);
-        $show_icon   = in_array($layout_mode, [ 'icon_number', 'icon_prefix_number' ])
-                       && ! empty($settings['selected_icon']['value']);
+        $show_prefix = ( $settings['prefix_enabled'] === 'yes' )
+                       && in_array( $layout_mode, [ 'prefix_number', 'icon_prefix_number' ] );
+        $show_icon   = in_array( $layout_mode, [ 'icon_number', 'icon_prefix_number' ] )
+                       && ! empty( $settings['selected_icon']['value'] );
 
         // Direction class
-        $dir_class = ($direction === 'stacked') ? 'paradise-stacked' : 'paradise-inline';
+        $dir_class = ( $direction === 'stacked' ) ? 'paradise-stacked' : 'paradise-inline';
 
         // ---- Build icon HTML ----
         $icon_html = '';
-        if ($show_icon) {
+        if ( $show_icon ) {
             ob_start();
             \Elementor\Icons_Manager::render_icon(
                 $settings['selected_icon'],
@@ -508,76 +487,76 @@ class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base
 
         // ---- Build prefix HTML ----
         $prefix_html = '';
-        if ($show_prefix && ! empty($settings['prefix_text'])) {
-            $tag         = in_array($settings['prefix_tag'], [ 'h1','h2','h3','h4','h5','h6','p','div','span' ])
+        if ( $show_prefix && ! empty( $settings['prefix_text'] ) ) {
+            $tag         = in_array( $settings['prefix_tag'], [ 'h1','h2','h3','h4','h5','h6','p','div','span' ] )
                            ? $settings['prefix_tag'] : 'span';
             $prefix_html = sprintf(
                 '<%1$s class="paradise-phone-prefix">%2$s</%1$s>',
                 $tag,
-                esc_html($settings['prefix_text'])
+                esc_html( $settings['prefix_text'] )
             );
         }
 
         // ---- Build number HTML ----
         $number_span = sprintf(
             '<span class="paradise-phone-number">%s</span>',
-            esc_html($display_text)
+            esc_html( $display_text )
         );
 
         // ---- Assemble inner content ----
         // Order: [icon_before] [prefix] [icon (if after + no prefix)] [number] [icon_after]
         $inner_parts = [];
 
-        if ($show_icon && $icon_pos === 'before') {
+        if ( $show_icon && $icon_pos === 'before' ) {
             $inner_parts[] = $icon_html;
         }
 
-        if ($prefix_html) {
+        if ( $prefix_html ) {
             $inner_parts[] = $prefix_html;
         }
 
         // Number — wrapped in <a> if scope = 'number'
-        if ($link_scope === 'number') {
+        if ( $link_scope === 'number' ) {
             $aria = 'whatsapp' === $link_type
-                ? sprintf('WhatsApp %s', $display_text)
-                : sprintf('Call %s', $display_text);
+                ? sprintf( 'WhatsApp %s', $display_text )
+                : sprintf( 'Call %s', $display_text );
             $inner_parts[] = sprintf(
                 '<a href="%s" class="paradise-phone-number-link" aria-label="%s">%s</a>',
-                esc_url($href),
-                esc_attr($aria),
+                esc_url( $href ),
+                esc_attr( $aria ),
                 $number_span
             );
         } else {
             $inner_parts[] = $number_span;
         }
 
-        if ($show_icon && $icon_pos === 'after') {
+        if ( $show_icon && $icon_pos === 'after' ) {
             $inner_parts[] = $icon_html;
         }
 
-        $inner_html = implode('', $inner_parts);
+        $inner_html = implode( '', $inner_parts );
 
         // ---- Wrapper + optional full-widget link ----
         $wrapper_open  = '<div class="paradise-phone-link-wrapper">';
         $wrapper_close = '</div>';
 
-        if ($link_scope === 'full') {
+        if ( $link_scope === 'full' ) {
             $aria   = 'whatsapp' === $link_type
-                ? sprintf('WhatsApp %s', $display_text)
-                : sprintf('Call %s', $display_text);
+                ? sprintf( 'WhatsApp %s', $display_text )
+                : sprintf( 'Call %s', $display_text );
             $target = 'whatsapp' === $link_type ? ' target="_blank" rel="noopener noreferrer"' : '';
             $inner_html = sprintf(
                 '<a href="%s" class="paradise-phone-inner %s" aria-label="%s"%s>%s</a>',
-                esc_url($href),
-                esc_attr($dir_class),
-                esc_attr($aria),
+                esc_url( $href ),
+                esc_attr( $dir_class ),
+                esc_attr( $aria ),
                 $target,
                 $inner_html
             );
         } else {
             $inner_html = sprintf(
                 '<div class="paradise-phone-inner %s">%s</div>',
-                esc_attr($dir_class),
+                esc_attr( $dir_class ),
                 $inner_html
             );
         }
