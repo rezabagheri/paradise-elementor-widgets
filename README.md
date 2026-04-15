@@ -67,6 +67,58 @@ git clone https://github.com/rezabagheri/paradise-elementor-widgets.git
 
 ---
 
+## Development Setup
+
+### Prerequisites
+- **WordPress**: 6.1+
+- **Elementor**: 3.5+
+- **PHP**: 7.4+
+- **Node.js**: 16+ (for development)
+- **Composer**: For PHP dependencies
+
+### Local Development
+1. Clone the repository:
+```bash
+git clone https://github.com/rezabagheri/paradise-elementor-widgets.git
+cd paradise-elementor-widgets
+```
+
+2. Install PHP dependencies:
+```bash
+composer install
+```
+
+3. Install Node.js dependencies (if building assets):
+```bash
+npm install
+```
+
+4. Activate the plugin in WordPress and start developing.
+
+### File Structure
+```
+paradise-elementor-widgets/
+├── paradise-elementor-widgets.php    # Main plugin file
+├── admin/                            # Admin settings
+├── includes/                         # Shared traits
+├── widgets/                          # Widget classes
+├── assets/
+│   ├── css/                          # Stylesheets
+│   └── js/                           # JavaScript files
+└── README.md
+```
+
+### Building Assets
+```bash
+# Compile CSS/JS (if using build tools)
+npm run build
+
+# Watch for changes during development
+npm run watch
+```
+
+---
+
 ## Widget Documentation
 
 ### Author Card
@@ -108,7 +160,32 @@ Intelligent phone number formatting for Iran and international numbers:
 | Raw | As entered |
 | International | +1 212 555 1234 |
 | Local | (212) 555-1234 |
+| Dashes | 212-555-1234 |
+| Dots | 212.555.1234 |
 | Custom Mask | `(###) ###-####` |
+
+**HTML Structure:**
+```html
+<div class="paradise-phone-link-wrapper">
+  <a href="tel:+12125551234" class="paradise-phone-inner paradise-inline">
+    <i class="paradise-phone-icon fas fa-phone"></i>
+    <span class="paradise-phone-prefix">Call Us:</span>
+    <span class="paradise-phone-number">+1 212 555 1234</span>
+  </a>
+</div>
+```
+
+**CSS Classes:**
+| Class | Description |
+|-------|-------------|
+| `.paradise-phone-link-wrapper` | Outer wrapper |
+| `.paradise-phone-inner` | Inner flex container |
+| `.paradise-phone-inline` | Inline direction modifier |
+| `.paradise-phone-stacked` | Stacked direction modifier |
+| `.paradise-phone-prefix` | Prefix element |
+| `.paradise-phone-number` | Phone number span |
+| `.paradise-phone-icon` | Icon element |
+| `.paradise-phone-number-link` | Link wrapping number only |
 
 ### Phone Button & Floating Call Button
 Beautiful call or WhatsApp buttons with:
@@ -117,6 +194,38 @@ Beautiful call or WhatsApp buttons with:
 - Full styling options (color, shadow, hover)
 
 **Use Cases**: Increase call and conversion rate on mobile
+
+**Phone Button HTML:**
+```html
+<a href="tel:+12125551234" class="paradise-phone-button">
+  <i class="paradise-phone-button__icon fas fa-phone"></i>
+  <span class="paradise-phone-button__text">Call Now</span>
+</a>
+```
+
+**Floating Call Button HTML:**
+```html
+<div class="paradise-floating-call-btn paradise-fcb-bottom-right">
+  <a href="tel:+12125551234" class="paradise-fcb-button">
+    <i class="paradise-fcb-icon fas fa-phone"></i>
+  </a>
+  <div class="paradise-fcb-pulse"></div>
+  <span class="paradise-fcb-label">Call Us</span>
+</div>
+```
+
+**CSS Classes:**
+| Class | Description |
+|-------|-------------|
+| `.paradise-phone-button` | Main button link |
+| `.paradise-phone-button__icon` | Icon element |
+| `.paradise-phone-button__text` | Button text span |
+| `.paradise-floating-call-btn` | Main container (fixed) |
+| `.paradise-fcb-bottom-right` | Position variant |
+| `.paradise-fcb-button` | Button element |
+| `.paradise-fcb-icon` | Icon inside button |
+| `.paradise-fcb-pulse` | Pulse animation overlay |
+| `.paradise-fcb-label` | Optional label text |
 
 ### Bottom Navigation Bar
 One of the most advanced mobile navigation widgets:
@@ -154,6 +263,67 @@ document.addEventListener('ebn:hook:myAction', (e) => {
 </div>
 ```
 
+**data-paradise Configuration:**
+```json
+{
+  "isEditMode": false,
+  "detection": "both",
+  "matchMode": "pathname",
+  "manualIndex": 1,
+  "indicator": "top_bar",
+  "animated": true,
+  "barPos": "full",
+  "animEnabled": true,
+  "animStyle": "slide_up",
+  "animDuration": 350,
+  "editorDialOpen": false
+}
+```
+
+**CSS Variables:**
+| Variable | Description |
+|----------|-------------|
+| `--paradise-bn-bar-height` | Actual bar height |
+| `--paradise-bn-anim-duration` | Animation duration |
+| `--paradise-bn-editor-bottom` | Editor-only offset |
+
+---
+
+## Font Icons
+
+The plugin uses Font Awesome icons throughout the widgets. Make sure Font Awesome is loaded on your site.
+
+### Required Font Awesome Classes
+- `fas fa-home` - Home icon
+- `fas fa-user` - User/Person icon
+- `fas fa-phone` - Phone icon
+- `fas fa-envelope` - Email icon
+- `fas fa-globe` - Website icon
+- `fas fa-star` - Rating/Star icon
+- `fas fa-heart` - Favorite/Like icon
+- `fas fa-share` - Share icon
+
+### Loading Font Awesome
+If Font Awesome is not already loaded, you can:
+
+1. **Use a plugin**: Install "Font Awesome" or "Better Font Awesome" plugin
+2. **Manual enqueue**: Add to your theme's `functions.php`:
+```php
+wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+```
+3. **CDN in header**: Add to your theme's `<head>`:
+```html
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+```
+
+### Custom Icons
+You can override default icons using CSS:
+```css
+.paradise-author-card__social-link[href*="twitter"]::before {
+  content: "\f099"; /* Twitter icon */
+}
+```
+
 ---
 
 ## Developer Guide
@@ -187,10 +357,60 @@ A base widget class will be added in the next major update for better consistenc
 
 ---
 
+## Known Issues & Limitations
+
+### Current Limitations
+- **Bottom Navigation**: Requires JavaScript for full functionality
+- **Phone Widgets**: Country detection limited to Iran and common international formats
+- **Author Card**: Gravatar integration requires valid email addresses
+- **Performance**: Multiple instances of the same widget on one page may impact load times
+
+### Browser Compatibility
+- **Supported**: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+- **Limited**: Internet Explorer 11 (degraded experience)
+- **Not Supported**: Older browsers without CSS Grid support
+
+### Elementor Compatibility
+- **Fully Compatible**: Elementor Pro 3.5+
+- **Compatible**: Elementor Free 3.5+ (with limitations on dynamic content)
+- **Not Compatible**: Elementor versions below 3.5
+
+### Troubleshooting
+- **Widget not appearing**: Check Elementor version and PHP requirements
+- **Styles not loading**: Clear WordPress and browser cache
+- **JavaScript errors**: Check for plugin conflicts in browser console
+- **Phone number formatting**: Verify country code settings in widget options
+
+---
+
 ## Contributing
 
 Contributions are welcome!
 Please use Conventional Commits and submit Pull Requests to the `develop` branch.
+
+---
+
+## Version History
+
+### v1.0.0 (Current)
+- **Initial Release**
+- Author Card widget with Schema.org markup
+- Phone Link widget with intelligent formatting
+- Phone Button widget with click-to-call
+- Floating Call Button with customizable positioning
+- Bottom Navigation Bar with active state detection
+- Full Elementor integration
+- Responsive design for all devices
+- Font Awesome icon support
+- CSS Variables for easy customization
+
+### Planned Features (v1.1.0)
+- WhatsApp Chat Bubble widget
+- FAQ Accordion widget
+- Testimonial Carousel widget
+- Social Media Feed widget
+- Advanced animation options
+- Performance optimizations
 
 ---
 
