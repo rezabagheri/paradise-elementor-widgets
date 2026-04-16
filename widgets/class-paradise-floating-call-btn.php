@@ -55,6 +55,7 @@ class Paradise_Floating_Call_Btn_Widget extends \Elementor\Widget_Base
     protected function register_controls(): void
     {
         $this->section_phone();
+        $this->section_format();
         $this->section_label();
         $this->section_style_position();
         $this->section_style_button();
@@ -111,19 +112,29 @@ class Paradise_Floating_Call_Btn_Widget extends \Elementor\Widget_Base
             'separator' => 'before',
         ]);
 
+        $this->end_controls_section();
+    }
+
+    // ── Content: Phone Format ─────────────────────────────────────────────────
+
+    private function section_format(): void
+    {
+        $this->start_controls_section('section_format', [
+            'label' => esc_html__('Phone Format', 'paradise-elementor-widgets'),
+        ]);
+
         $this->add_control('display_format', [
             'label'   => esc_html__('Display Format', 'paradise-elementor-widgets'),
             'type'    => Controls_Manager::SELECT,
             'default' => 'raw',
             'options' => [
                 'raw'           => esc_html__('Raw (as entered)', 'paradise-elementor-widgets'),
-                'international' => esc_html__('International  e.g. +1 212 555 1234', 'paradise-elementor-widgets'),
-                'local'         => esc_html__('Local  e.g. (212) 555-1234', 'paradise-elementor-widgets'),
-                'dashes'        => esc_html__('Dashes  e.g. 212-555-1234', 'paradise-elementor-widgets'),
-                'dots'          => esc_html__('Dots  e.g. 212.555.1234', 'paradise-elementor-widgets'),
+                'international' => esc_html__('International  e.g. +1 888 780 0904', 'paradise-elementor-widgets'),
+                'local'         => esc_html__('Local  e.g. (888) 780-0904', 'paradise-elementor-widgets'),
+                'dashes'        => esc_html__('Dashes  e.g. 888-780-0904', 'paradise-elementor-widgets'),
+                'dots'          => esc_html__('Dots  e.g. 888.780.0904', 'paradise-elementor-widgets'),
                 'custom_mask'   => esc_html__('Custom Mask', 'paradise-elementor-widgets'),
             ],
-            'separator' => 'before',
         ]);
 
         $this->add_control('custom_mask', [

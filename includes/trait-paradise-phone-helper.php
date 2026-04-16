@@ -66,7 +66,23 @@ trait Paradise_Phone_Helper {
             return $result;
         }
 
-        // Work with last 10 digits (strips country prefix if present)
+        // Resolve the configured country code (digits only, no +)
+        $cc = ( $settings['country_code'] ?? '1' ) === 'custom'
+            ? ltrim( $settings['country_code_custom'] ?? '1', '+' )
+            : ltrim( $settings['country_code'] ?? '1', '+' );
+
+        // Strip country code prefix when present, regardless of total digit count.
+        // This handles e.g. "1 888 123 4567" (10-digit string starting with cc "1")
+        // as well as the standard E.164 case "+1 888 123 4567" (11 digits).
+        $cc_len = strlen( $cc );
+        if ( $cc_len > 0 && substr( $digits, 0, $cc_len ) === $cc ) {
+            $stripped = substr( $digits, $cc_len );
+            if ( strlen( $stripped ) >= 7 ) { // at least 7 digits = plausible local number
+                $digits = $stripped;
+            }
+        }
+
+        // Trim to 10 digits max (safety fallback for long strings)
         $local = strlen( $digits ) > 10 ? substr( $digits, -10 ) : $digits;
         $area  = substr( $local, 0, 3 );
         $mid   = substr( $local, 3, 3 );
@@ -74,9 +90,6 @@ trait Paradise_Phone_Helper {
 
         switch ( $format ) {
             case 'international':
-                $cc = ( $settings['country_code'] ?? '1' ) === 'custom'
-                    ? ltrim( $settings['country_code_custom'] ?? '1', '+' )
-                    : ltrim( $settings['country_code'] ?? '1', '+' );
                 return "+{$cc} {$area} {$mid} {$end}";
 
             case 'local':
