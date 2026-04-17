@@ -123,6 +123,21 @@ final class Paradise_Elementor_Widgets
             [],
             PARADISE_EW_VERSION
         );
+
+        wp_register_style(
+            'paradise-announcement-bar',
+            PARADISE_EW_URL . 'assets/css/announcement-bar.css',
+            [],
+            PARADISE_EW_VERSION
+        );
+
+        wp_register_script(
+            'paradise-announcement-bar',
+            PARADISE_EW_URL . 'assets/js/announcement-bar.js',
+            [],
+            PARADISE_EW_VERSION,
+            true
+        );
     }
 
     public function register_widgets($widgets_manager): void
@@ -156,6 +171,12 @@ final class Paradise_Elementor_Widgets
         if (Paradise_EW_Admin::widget_enabled('floating_call_btn')) {
             require_once PARADISE_EW_DIR . 'widgets/class-paradise-floating-call-btn.php';
             $widgets_manager->register(new Paradise_Floating_Call_Btn_Widget());
+        }
+
+        // Announcement Bar
+        if (Paradise_EW_Admin::widget_enabled('announcement_bar')) {
+            require_once PARADISE_EW_DIR . 'widgets/class-paradise-announcement-bar.php';
+            $widgets_manager->register(new Paradise_Announcement_Bar_Widget());
         }
 
         // Add future widgets below:

@@ -40,6 +40,10 @@ class Paradise_EW_Admin {
             'label'       => 'Floating Call Button',
             'description' => 'Fixed-position call/WhatsApp button that stays visible while scrolling. Supports icon, optional label, pulse animation, and corner positioning.',
         ],
+        'announcement_bar' => [
+            'label'       => 'Announcement Bar',
+            'description' => 'Fixed full-width banner for announcements, promotions, or alerts. Supports icon, message, CTA button, and dismissal with session/days/permanent memory.',
+        ],
     ];
 
     /**

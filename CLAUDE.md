@@ -34,9 +34,11 @@ paradise-elementor-widgets/
 │   │   ├── phone-link.css                # Phone Link widget styles
 │   │   ├── phone-button.css              # Phone Button widget styles
 │   │   ├── floating-call-btn.css         # Floating Call Button widget styles
+│   │   ├── announcement-bar.css          # Announcement Bar widget styles
 │   │   └── bottom-nav.css                # Bottom Nav widget styles
 │   └── js/
-│       └── bottom-nav.js                 # Bottom Nav widget JS
+│       ├── bottom-nav.js                 # Bottom Nav widget JS
+│       └── announcement-bar.js           # Announcement Bar dismiss logic
 ├── includes/
 │   └── trait-paradise-phone-helper.php   # Shared phone normalization trait
 └── widgets/
@@ -44,6 +46,7 @@ paradise-elementor-widgets/
     ├── class-paradise-phone-link.php
     ├── class-paradise-phone-button.php
     ├── class-paradise-floating-call-btn.php
+    ├── class-paradise-announcement-bar.php
     └── class-paradise-bottom-nav.php
 ```
 
@@ -278,6 +281,64 @@ document.addEventListener('ebn:hook:myHook', fn);  // JS Hook
 CSS `display:none` پیش‌فرض + JS `applyResponsiveVisibility()` مدیریت visibility را در دست می‌گیرد.
 **هرگز** از `wrapper.style.display = 'block'` بدون بررسی breakpoint استفاده نکن — inline style هر CSS media query را override می‌کند.
 Breakpoints در JS: mobile ≤ 767px، tablet 768–1024px، desktop > 1024px.
+
+---
+
+## ویجت ۶ — Announcement Bar
+
+**فایل:** `widgets/class-paradise-announcement-bar.php`
+**CSS:** `assets/css/announcement-bar.css` (handle: `paradise-announcement-bar`)
+**JS:** `assets/js/announcement-bar.js` (handle: `paradise-announcement-bar`)
+**Class:** `Paradise_Announcement_Bar_Widget`
+**get_name():** `paradise_announcement_bar`
+**Category:** `paradise`
+
+### قابلیت‌ها
+
+- Icon (Elementor Icons_Manager)
+- Message (TEXTAREA با dynamic tag)
+- CTA Button: text + URL (فقط نمایش داده می‌شود اگر هر دو پر باشند)
+- Close Button با dismiss memory:
+  - `session` — sessionStorage
+  - `days` — localStorage با JSON `{ expires: timestamp }`
+  - `forever` — localStorage با string `'forever'`
+- Unique Bar ID: پیش‌فرض از Elementor widget ID — قابل override برای اشتراک state بین صفحات
+- Bar Position: Top / Bottom با `prefix_class='paradise-ab-pos-'`
+
+### HTML structure
+
+```html
+<div class="paradise-ab-wrap" data-ab-id="..." data-ab-duration="..." data-ab-days="..." [data-ab-edit="true"]>
+    <div class="paradise-ab-inner">
+        <span class="paradise-ab-icon">...</span>           <!-- optional -->
+        <span class="paradise-ab-message">...</span>
+        <a class="paradise-ab-cta" href="...">...</a>       <!-- optional -->
+        <button class="paradise-ab-close" aria-label="Close announcement">
+            <svg><!-- inline X --></svg>
+        </button>
+    </div>
+</div>
+```
+
+### HTML classes
+
+```text
+.paradise-ab-wrap[data-ab-hidden="true"]   (JS هایدمی‌کند وقتی dismiss شود)
+.paradise-ab-inner
+.paradise-ab-icon
+.paradise-ab-message
+.paradise-ab-cta
+.paradise-ab-close
+```
+
+### JS dismiss logic
+
+```javascript
+// Storage key: 'paradise-ab-' + id
+// session:  sessionStorage.setItem(key, '1')
+// days:     localStorage.setItem(key, JSON.stringify({ expires: Date.now() + days * 86400000 }))
+// forever:  localStorage.setItem(key, 'forever')
+```
 
 ---
 

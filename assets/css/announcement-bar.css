@@ -1,0 +1,110 @@
+/**
+ * Announcement Bar — Paradise Elementor Widgets
+ */
+
+/* ── Wrapper (fixed bar) ─────────────────────────────────────────────────── */
+
+.paradise-ab-wrap {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.paradise-ab-pos-top    .paradise-ab-wrap { top: 0; }
+.paradise-ab-pos-bottom .paradise-ab-wrap { bottom: 0; }
+
+/* Hide by default until JS confirms bar should show */
+.paradise-ab-wrap[data-ab-hidden="true"] {
+    display: none;
+}
+
+/* ── Inner content row ───────────────────────────────────────────────────── */
+
+.paradise-ab-inner {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+/* ── Icon ────────────────────────────────────────────────────────────────── */
+
+.paradise-ab-icon {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+/* ── Message ─────────────────────────────────────────────────────────────── */
+
+.paradise-ab-message {
+    flex: 1;
+    min-width: 0;
+    line-height: 1.4;
+}
+
+/* ── CTA Button ──────────────────────────────────────────────────────────── */
+
+.paradise-ab-cta {
+    display: inline-block;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    line-height: 1.2;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+}
+
+/* ── Close Button ────────────────────────────────────────────────────────── */
+
+.paradise-ab-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-inline-start: auto;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.paradise-ab-close svg {
+    display: block;
+}
+
+/* ── Editor mode (always show, no dismiss) ───────────────────────────────── */
+
+.paradise-ab-wrap[data-ab-edit="true"] {
+    display: flex;
+}
+
+/* ── Editor inline placeholder ───────────────────────────────────────────── */
+
+.paradise-ab-editor-notice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #eef3ff;
+    border: 1.5px dashed #6b93e8;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #3a5db5;
+    line-height: 1.4;
+}
+
+.paradise-ab-editor-notice svg {
+    flex-shrink: 0;
+    opacity: 0.75;
+}

@@ -1,0 +1,474 @@
+<?php
+/**
+ * Paradise Announcement Bar Widget
+ *
+ * A fixed-position full-width bar for announcements, promotions, or alerts.
+ * Supports icon, message, CTA button, and dismissal with session/day/permanent memory.
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+use Elementor\Controls_Manager;
+use Elementor\Group_Control_Typography;
+use Elementor\Group_Control_Border;
+use Elementor\Group_Control_Box_Shadow;
+
+class Paradise_Announcement_Bar_Widget extends \Elementor\Widget_Base {
+
+    public function get_name(): string      { return 'paradise_announcement_bar'; }
+    public function get_title(): string     { return esc_html__( 'Announcement Bar', 'paradise-elementor-widgets' ); }
+    public function get_icon(): string      { return 'eicon-alert'; }
+    public function get_categories(): array { return [ 'paradise' ]; }
+    public function get_keywords(): array   { return [ 'announcement', 'bar', 'notice', 'banner', 'alert', 'promo' ]; }
+
+    public function get_style_depends(): array  { return [ 'paradise-announcement-bar' ]; }
+    public function get_script_depends(): array { return [ 'paradise-announcement-bar' ]; }
+
+    // =========================================================================
+    // CONTROLS
+    // =========================================================================
+
+    protected function register_controls(): void {
+        $this->section_message();
+        $this->section_dismiss();
+        $this->section_style_bar();
+        $this->section_style_message();
+        $this->section_style_cta();
+        $this->section_style_icon();
+        $this->section_style_close();
+    }
+
+    // ── Content: Message ──────────────────────────────────────────────────────
+
+    private function section_message(): void {
+        $this->start_controls_section( 'section_message', [
+            'label' => esc_html__( 'Message', 'paradise-elementor-widgets' ),
+        ] );
+
+        $this->add_control( 'selected_icon', [
+            'label'   => esc_html__( 'Icon', 'paradise-elementor-widgets' ),
+            'type'    => Controls_Manager::ICONS,
+            'default' => [ 'value' => '', 'library' => '' ],
+        ] );
+
+        $this->add_control( 'message', [
+            'label'       => esc_html__( 'Message', 'paradise-elementor-widgets' ),
+            'type'        => Controls_Manager::TEXTAREA,
+            'default'     => esc_html__( 'Special offer — limited time only! 🎉', 'paradise-elementor-widgets' ),
+            'dynamic'     => [ 'active' => true ],
+            'rows'        => 3,
+            'separator'   => 'before',
+        ] );
+
+        $this->add_control( 'cta_text', [
+            'label'       => esc_html__( 'Button Text', 'paradise-elementor-widgets' ),
+            'type'        => Controls_Manager::TEXT,
+            'default'     => esc_html__( 'Learn More', 'paradise-elementor-widgets' ),
+            'dynamic'     => [ 'active' => true ],
+            'separator'   => 'before',
+        ] );
+
+        $this->add_control( 'cta_url', [
+            'label'         => esc_html__( 'Button URL', 'paradise-elementor-widgets' ),
+            'type'          => Controls_Manager::URL,
+            'dynamic'       => [ 'active' => true ],
+            'placeholder'   => 'https://',
+            'condition'     => [ 'cta_text!' => '' ],
+        ] );
+
+        $this->end_controls_section();
+    }
+
+    // ── Content: Dismiss ──────────────────────────────────────────────────────
+
+    private function section_dismiss(): void {
+        $this->start_controls_section( 'section_dismiss', [
+            'label' => esc_html__( 'Dismiss', 'paradise-elementor-widgets' ),
+        ] );
+
+        $this->add_control( 'show_close', [
+            'label'        => esc_html__( 'Show Close Button', 'paradise-elementor-widgets' ),
+            'type'         => Controls_Manager::SWITCHER,
+            'return_value' => 'yes',
+            'default'      => 'yes',
+        ] );
+
+        $this->add_control( 'dismiss_duration', [
+            'label'     => esc_html__( 'Remember Dismissal', 'paradise-elementor-widgets' ),
+            'type'      => Controls_Manager::SELECT,
+            'default'   => 'session',
+            'options'   => [
+                'session' => esc_html__( 'Until browser closes (session)', 'paradise-elementor-widgets' ),
+                'days'    => esc_html__( 'For X days', 'paradise-elementor-widgets' ),
+                'forever' => esc_html__( 'Forever', 'paradise-elementor-widgets' ),
+            ],
+            'condition' => [ 'show_close' => 'yes' ],
+        ] );
+
+        $this->add_control( 'dismiss_days', [
+            'label'     => esc_html__( 'Days', 'paradise-elementor-widgets' ),
+            'type'      => Controls_Manager::NUMBER,
+            'default'   => 7,
+            'min'       => 1,
+            'max'       => 365,
+            'condition' => [ 'show_close' => 'yes', 'dismiss_duration' => 'days' ],
+        ] );
+
+        $this->add_control( 'bar_id', [
+            'label'       => esc_html__( 'Unique Bar ID', 'paradise-elementor-widgets' ),
+            'type'        => Controls_Manager::TEXT,
+            'placeholder' => esc_html__( 'e.g. summer-promo-2024', 'paradise-elementor-widgets' ),
+            'description' => esc_html__( 'Optional. Set a custom ID if you want the same bar across pages to share its dismissed state. Leave blank to use the widget ID.', 'paradise-elementor-widgets' ),
+            'condition'   => [ 'show_close' => 'yes' ],
+            'separator'   => 'before',
+        ] );
+
+        $this->end_controls_section();
+    }
+
+    // ── Style: Bar ────────────────────────────────────────────────────────────
+
+    private function section_style_bar(): void {
+        $this->start_controls_section( 'section_style_bar', [
+            'label' => esc_html__( 'Bar', 'paradise-elementor-widgets' ),
+            'tab'   => Controls_Manager::TAB_STYLE,
+        ] );
+
+        $this->add_control( 'bar_position', [
+            'label'        => esc_html__( 'Position', 'paradise-elementor-widgets' ),
+            'type'         => Controls_Manager::CHOOSE,
+            'default'      => 'top',
+            'options'      => [
+                'top'    => [ 'title' => esc_html__( 'Top',    'paradise-elementor-widgets' ), 'icon' => 'eicon-v-align-top' ],
+                'bottom' => [ 'title' => esc_html__( 'Bottom', 'paradise-elementor-widgets' ), 'icon' => 'eicon-v-align-bottom' ],
+            ],
+            'prefix_class' => 'paradise-ab-pos-',
+            'render_type'  => 'template',
+        ] );
+
+        $this->add_control( 'z_index', [
+            'label'     => esc_html__( 'Z-Index', 'paradise-elementor-widgets' ),
+            'type'      => Controls_Manager::NUMBER,
+            'default'   => 9990,
+            'selectors' => [ '{{WRAPPER}} .paradise-ab-wrap' => 'z-index: {{VALUE}};' ],
+        ] );
+
+        $this->add_control( 'bar_bg', [
+            'label'     => esc_html__( 'Background', 'paradise-elementor-widgets' ),
+            'type'      => Controls_Manager::COLOR,
+            'default'   => '#2d3e50',
+            'selectors' => [ '{{WRAPPER}} .paradise-ab-wrap' => 'background-color: {{VALUE}};' ],
+            'separator' => 'before',
+        ] );
+
+        $this->add_responsive_control( 'bar_padding', [
+            'label'      => esc_html__( 'Padding', 'paradise-elementor-widgets' ),
+            'type'       => Controls_Manager::DIMENSIONS,
+            'size_units' => [ 'px', 'em', 'rem' ],
+            'default'    => [ 'top' => 12, 'right' => 24, 'bottom' => 12, 'left' => 24, 'unit' => 'px', 'isLinked' => false ],
+            'selectors'  => [
+                '{{WRAPPER}} .paradise-ab-inner' =>
+                    'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+        ] );
+
+        $this->add_responsive_control( 'content_max_width', [
+            'label'      => esc_html__( 'Content Max Width', 'paradise-elementor-widgets' ),
+            'type'       => Controls_Manager::SLIDER,
+            'size_units' => [ 'px', '%' ],
+            'range'      => [ 'px' => [ 'min' => 400, 'max' => 1600 ] ],
+            'default'    => [ 'size' => 1200, 'unit' => 'px' ],
+            'selectors'  => [
+                '{{WRAPPER}} .paradise-ab-inner' => 'max-width: {{SIZE}}{{UNIT}};',
+            ],
+        ] );
+
+        $this->add_responsive_control( 'content_align', [
+            'label'     => esc_html__( 'Content Alignment', 'paradise-elementor-widgets' ),
+            'type'      => Controls_Manager::CHOOSE,
+            'options'   => [
+                'flex-start' => [ 'title' => esc_html__( 'Left',   'paradise-elementor-widgets' ), 'icon' => 'eicon-text-align-left' ],
+                'center'     => [ 'title' => esc_html__( 'Center', 'paradise-elementor-widgets' ), 'icon' => 'eicon-text-align-center' ],
+                'flex-end'   => [ 'title' => esc_html__( 'Right',  'paradise-elementor-widgets' ), 'icon' => 'eicon-text-align-right' ],
+            ],
+            'default'   => 'center',
+            'selectors' => [
+                '{{WRAPPER}} .paradise-ab-inner' => 'justify-content: {{VALUE}};',
+            ],
+        ] );
+
+        $this->end_controls_section();
+    }
+
+    // ── Style: Message ────────────────────────────────────────────────────────
+
+    private function section_style_message(): void {
+        $this->start_controls_section( 'section_style_message', [
+            'label' => esc_html__( 'Message', 'paradise-elementor-widgets' ),
+            'tab'   => Controls_Manager::TAB_STYLE,
+        ] );
+
+        $this->add_control( 'message_color', [
+            'label'     => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+            'type'      => Controls_Manager::COLOR,
+            'default'   => '#ffffff',
+            'selectors' => [ '{{WRAPPER}} .paradise-ab-message' => 'color: {{VALUE}};' ],
+        ] );
+
+        $this->add_group_control( Group_Control_Typography::get_type(), [
+            'name'     => 'message_typography',
+            'selector' => '{{WRAPPER}} .paradise-ab-message',
+        ] );
+
+        $this->end_controls_section();
+    }
+
+    // ── Style: CTA Button ─────────────────────────────────────────────────────
+
+    private function section_style_cta(): void {
+        $this->start_controls_section( 'section_style_cta', [
+            'label'     => esc_html__( 'Button', 'paradise-elementor-widgets' ),
+            'tab'       => Controls_Manager::TAB_STYLE,
+            'condition' => [ 'cta_text!' => '' ],
+        ] );
+
+        $this->start_controls_tabs( 'cta_tabs' );
+
+            $this->start_controls_tab( 'cta_tab_normal', [
+                'label' => esc_html__( 'Normal', 'paradise-elementor-widgets' ),
+            ] );
+
+            $this->add_control( 'cta_bg', [
+                'label'     => esc_html__( 'Background', 'paradise-elementor-widgets' ),
+                'type'      => Controls_Manager::COLOR,
+                'default'   => '#ffffff',
+                'selectors' => [ '{{WRAPPER}} .paradise-ab-cta' => 'background-color: {{VALUE}};' ],
+            ] );
+
+            $this->add_control( 'cta_color', [
+                'label'     => esc_html__( 'Text Color', 'paradise-elementor-widgets' ),
+                'type'      => Controls_Manager::COLOR,
+                'default'   => '#2d3e50',
+                'selectors' => [ '{{WRAPPER}} .paradise-ab-cta' => 'color: {{VALUE}};' ],
+            ] );
+
+            $this->end_controls_tab();
+
+            $this->start_controls_tab( 'cta_tab_hover', [
+                'label' => esc_html__( 'Hover', 'paradise-elementor-widgets' ),
+            ] );
+
+            $this->add_control( 'cta_bg_hover', [
+                'label'     => esc_html__( 'Background', 'paradise-elementor-widgets' ),
+                'type'      => Controls_Manager::COLOR,
+                'selectors' => [ '{{WRAPPER}} .paradise-ab-cta:hover' => 'background-color: {{VALUE}};' ],
+            ] );
+
+            $this->add_control( 'cta_color_hover', [
+                'label'     => esc_html__( 'Text Color', 'paradise-elementor-widgets' ),
+                'type'      => Controls_Manager::COLOR,
+                'selectors' => [ '{{WRAPPER}} .paradise-ab-cta:hover' => 'color: {{VALUE}};' ],
+            ] );
+
+            $this->end_controls_tab();
+
+        $this->end_controls_tabs();
+
+        $this->add_responsive_control( 'cta_border_radius', [
+            'label'      => esc_html__( 'Border Radius', 'paradise-elementor-widgets' ),
+            'type'       => Controls_Manager::DIMENSIONS,
+            'size_units' => [ 'px', '%' ],
+            'default'    => [ 'top' => 4, 'right' => 4, 'bottom' => 4, 'left' => 4, 'unit' => 'px', 'isLinked' => true ],
+            'selectors'  => [
+                '{{WRAPPER}} .paradise-ab-cta' =>
+                    'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+            'separator'  => 'before',
+        ] );
+
+        $this->add_responsive_control( 'cta_padding', [
+            'label'      => esc_html__( 'Padding', 'paradise-elementor-widgets' ),
+            'type'       => Controls_Manager::DIMENSIONS,
+            'size_units' => [ 'px', 'em' ],
+            'default'    => [ 'top' => 6, 'right' => 16, 'bottom' => 6, 'left' => 16, 'unit' => 'px', 'isLinked' => false ],
+            'selectors'  => [
+                '{{WRAPPER}} .paradise-ab-cta' =>
+                    'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+        ] );
+
+        $this->add_group_control( Group_Control_Typography::get_type(), [
+            'name'      => 'cta_typography',
+            'selector'  => '{{WRAPPER}} .paradise-ab-cta',
+            'separator' => 'before',
+        ] );
+
+        $this->end_controls_section();
+    }
+
+    // ── Style: Icon ───────────────────────────────────────────────────────────
+
+    private function section_style_icon(): void {
+        $this->start_controls_section( 'section_style_icon', [
+            'label'     => esc_html__( 'Icon', 'paradise-elementor-widgets' ),
+            'tab'       => Controls_Manager::TAB_STYLE,
+            'condition' => [ 'selected_icon[value]!' => '' ],
+        ] );
+
+        $this->add_responsive_control( 'icon_size', [
+            'label'      => esc_html__( 'Size', 'paradise-elementor-widgets' ),
+            'type'       => Controls_Manager::SLIDER,
+            'size_units' => [ 'px', 'em' ],
+            'range'      => [ 'px' => [ 'min' => 10, 'max' => 60 ] ],
+            'default'    => [ 'size' => 18, 'unit' => 'px' ],
+            'selectors'  => [
+                '{{WRAPPER}} .paradise-ab-icon i'   => 'font-size: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .paradise-ab-icon svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+            ],
+        ] );
+
+        $this->add_control( 'icon_color', [
+            'label'     => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+            'type'      => Controls_Manager::COLOR,
+            'default'   => '#ffffff',
+            'selectors' => [
+                '{{WRAPPER}} .paradise-ab-icon i'   => 'color: {{VALUE}};',
+                '{{WRAPPER}} .paradise-ab-icon svg' => 'fill: {{VALUE}};',
+            ],
+        ] );
+
+        $this->add_responsive_control( 'icon_gap', [
+            'label'      => esc_html__( 'Gap', 'paradise-elementor-widgets' ),
+            'type'       => Controls_Manager::SLIDER,
+            'size_units' => [ 'px' ],
+            'range'      => [ 'px' => [ 'min' => 0, 'max' => 32 ] ],
+            'default'    => [ 'size' => 8, 'unit' => 'px' ],
+            'selectors'  => [ '{{WRAPPER}} .paradise-ab-icon' => 'margin-inline-end: {{SIZE}}{{UNIT}};' ],
+        ] );
+
+        $this->end_controls_section();
+    }
+
+    // ── Style: Close Button ───────────────────────────────────────────────────
+
+    private function section_style_close(): void {
+        $this->start_controls_section( 'section_style_close', [
+            'label'     => esc_html__( 'Close Button', 'paradise-elementor-widgets' ),
+            'tab'       => Controls_Manager::TAB_STYLE,
+            'condition' => [ 'show_close' => 'yes' ],
+        ] );
+
+        $this->add_responsive_control( 'close_size', [
+            'label'      => esc_html__( 'Size', 'paradise-elementor-widgets' ),
+            'type'       => Controls_Manager::SLIDER,
+            'size_units' => [ 'px' ],
+            'range'      => [ 'px' => [ 'min' => 12, 'max' => 40 ] ],
+            'default'    => [ 'size' => 18, 'unit' => 'px' ],
+            'selectors'  => [ '{{WRAPPER}} .paradise-ab-close' => 'font-size: {{SIZE}}{{UNIT}};' ],
+        ] );
+
+        $this->add_control( 'close_color', [
+            'label'     => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+            'type'      => Controls_Manager::COLOR,
+            'default'   => 'rgba(255,255,255,0.7)',
+            'selectors' => [ '{{WRAPPER}} .paradise-ab-close' => 'color: {{VALUE}};' ],
+        ] );
+
+        $this->add_control( 'close_color_hover', [
+            'label'     => esc_html__( 'Hover Color', 'paradise-elementor-widgets' ),
+            'type'      => Controls_Manager::COLOR,
+            'default'   => '#ffffff',
+            'selectors' => [ '{{WRAPPER}} .paradise-ab-close:hover' => 'color: {{VALUE}};' ],
+        ] );
+
+        $this->end_controls_section();
+    }
+
+    // =========================================================================
+    // RENDER
+    // =========================================================================
+
+    protected function render(): void {
+        $settings = $this->get_settings_for_display();
+        $is_editor = \Elementor\Plugin::$instance->editor->is_edit_mode();
+
+        $message  = $settings['message'] ?? '';
+        $cta_text = trim( $settings['cta_text'] ?? '' );
+        $show_close = 'yes' === ( $settings['show_close'] ?? 'yes' );
+
+        // Dismiss data
+        $bar_id  = trim( $settings['bar_id'] ?? '' ) ?: $this->get_id();
+        $duration = $settings['dismiss_duration'] ?? 'session';
+        $days     = absint( $settings['dismiss_days'] ?? 7 );
+
+        // CTA link
+        $cta_url    = $settings['cta_url']['url'] ?? '';
+        $cta_target = ! empty( $settings['cta_url']['is_external'] ) ? ' target="_blank" rel="noopener noreferrer"' : '';
+        $cta_nofollow = ! empty( $settings['cta_url']['nofollow'] ) ? ' rel="nofollow"' : '';
+
+        // Data attrs for JS
+        $data = sprintf(
+            ' data-ab-id="%s" data-ab-duration="%s" data-ab-days="%d"%s',
+            esc_attr( $bar_id ),
+            esc_attr( $duration ),
+            $days,
+            $is_editor ? ' data-ab-edit="true"' : ''
+        );
+
+        // Icon
+        $icon_html = '';
+        $icon = $settings['selected_icon'] ?? [];
+        if ( ! empty( $icon['value'] ) ) {
+            ob_start();
+            \Elementor\Icons_Manager::render_icon( $icon, [ 'aria-hidden' => 'true' ] );
+            $icon_html = '<span class="paradise-ab-icon" aria-hidden="true">' . ob_get_clean() . '</span>';
+        }
+
+        $bar_position = $settings['bar_position'] ?? 'top';
+
+        ?>
+        <div class="paradise-ab-wrap"<?php echo $data; ?>>
+            <div class="paradise-ab-inner">
+
+                <?php echo $icon_html; ?>
+
+                <span class="paradise-ab-message"><?php echo wp_kses_post( $message ); ?></span>
+
+                <?php if ( $cta_text && $cta_url ) : ?>
+                <a href="<?php echo esc_url( $cta_url ); ?>"
+                   class="paradise-ab-cta"<?php echo $cta_target . $cta_nofollow; ?>>
+                    <?php echo esc_html( $cta_text ); ?>
+                </a>
+                <?php endif; ?>
+
+                <?php if ( $show_close ) : ?>
+                <button class="paradise-ab-close" aria-label="<?php esc_attr_e( 'Close announcement', 'paradise-elementor-widgets' ); ?>">
+                    <svg viewBox="0 0 14 14" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <line x1="1" y1="1" x2="13" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="13" y1="1" x2="1"  y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <?php endif; ?>
+
+            </div>
+        </div>
+
+        <?php if ( $is_editor ) : ?>
+        <div class="paradise-ab-editor-notice">
+            <svg viewBox="0 0 20 20" width="16" height="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor">
+                <path fill-rule="evenodd" d="M18 10A8 8 0 1 1 2 10a8 8 0 0 1 16 0Zm-8-5a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V6a1 1 0 0 1 1-1Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd"/>
+            </svg>
+            <span>
+                <?php esc_html_e( 'Announcement Bar', 'paradise-elementor-widgets' ); ?>
+                &mdash;
+                <?php esc_html_e( 'displayed at the', 'paradise-elementor-widgets' ); ?>
+                <strong><?php echo esc_html( $bar_position ); ?></strong>
+                <?php esc_html_e( 'of the page', 'paradise-elementor-widgets' ); ?>
+            </span>
+        </div>
+        <?php endif; ?>
+        <?php
+    }
+}
