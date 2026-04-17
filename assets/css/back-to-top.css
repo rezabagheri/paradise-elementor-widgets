@@ -1,0 +1,81 @@
+/**
+ * Back to Top Button — Paradise Elementor Widgets
+ */
+
+/* ── Button (fixed position) ─────────────────────────────────────────────── */
+
+.paradise-btt-btn {
+    position: fixed;
+    bottom: var(--paradise-btt-bottom, 24px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    transition:
+        opacity     var(--paradise-btt-duration, 300ms) ease,
+        transform   var(--paradise-btt-duration, 300ms) ease,
+        background-color 0.2s ease;
+
+    /* Hidden by default */
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ── Corner positioning ──────────────────────────────────────────────────── */
+
+.paradise-btt-corner-bottom-right .paradise-btt-btn {
+    right: var(--paradise-btt-side, 24px);
+    left: auto;
+}
+
+.paradise-btt-corner-bottom-left .paradise-btt-btn {
+    left: var(--paradise-btt-side, 24px);
+    right: auto;
+}
+
+/* ── Visible state (added by JS) ─────────────────────────────────────────── */
+
+.paradise-btt-btn--visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ── Fade + slide up animation ───────────────────────────────────────────── */
+
+.paradise-btt-anim-fade-slide .paradise-btt-btn {
+    transform: translateY(12px);
+}
+
+.paradise-btt-anim-fade-slide .paradise-btt-btn--visible {
+    transform: translateY(0);
+}
+
+/* ── Editor mode (always visible) ────────────────────────────────────────── */
+
+.paradise-btt-btn[data-btt-edit="true"] {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+}
+
+/* ── Editor inline placeholder ───────────────────────────────────────────── */
+
+.paradise-btt-editor-notice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #eef3ff;
+    border: 1.5px dashed #6b93e8;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #3a5db5;
+    line-height: 1.4;
+}
+
+.paradise-btt-editor-notice svg {
+    flex-shrink: 0;
+    opacity: 0.75;
+}

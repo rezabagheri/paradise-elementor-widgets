@@ -48,6 +48,10 @@ class Paradise_EW_Admin {
             'label'       => 'Cookie Consent Bar',
             'description' => 'GDPR/cookie consent bar with Accept and Decline buttons. Stores user choice in localStorage with configurable expiry. Dispatches consent events for analytics integration.',
         ],
+        'back_to_top' => [
+            'label'       => 'Back to Top',
+            'description' => 'Fixed-position button that appears after scrolling past a threshold and smoothly returns the user to the top of the page.',
+        ],
     ];
 
     /**
