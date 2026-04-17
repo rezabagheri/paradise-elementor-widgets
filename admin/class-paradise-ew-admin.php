@@ -44,6 +44,10 @@ class Paradise_EW_Admin {
             'label'       => 'Announcement Bar',
             'description' => 'Fixed full-width banner for announcements, promotions, or alerts. Supports icon, message, CTA button, and dismissal with session/days/permanent memory.',
         ],
+        'cookie_consent_bar' => [
+            'label'       => 'Cookie Consent Bar',
+            'description' => 'GDPR/cookie consent bar with Accept and Decline buttons. Stores user choice in localStorage with configurable expiry. Dispatches consent events for analytics integration.',
+        ],
     ];
 
     /**

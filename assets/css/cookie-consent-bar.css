@@ -1,0 +1,101 @@
+/**
+ * Cookie Consent Bar — Paradise Elementor Widgets
+ */
+
+/* ── Wrapper (fixed bar) ─────────────────────────────────────────────────── */
+
+.paradise-ccb-wrap {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.paradise-ccb-pos-top    .paradise-ccb-wrap { top: 0; }
+.paradise-ccb-pos-bottom .paradise-ccb-wrap { bottom: 0; }
+
+.paradise-ccb-wrap[data-ccb-hidden="true"] {
+    display: none;
+}
+
+/* ── Inner row ───────────────────────────────────────────────────────────── */
+
+.paradise-ccb-inner {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+/* ── Text block (message + privacy link) ─────────────────────────────────── */
+
+.paradise-ccb-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 6px;
+    line-height: 1.5;
+}
+
+.paradise-ccb-message {
+    line-height: inherit;
+}
+
+.paradise-ccb-privacy {
+    white-space: nowrap;
+    transition: color 0.2s ease;
+    flex-shrink: 0;
+}
+
+/* ── Action buttons ──────────────────────────────────────────────────────── */
+
+.paradise-ccb-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.paradise-ccb-accept,
+.paradise-ccb-decline {
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    line-height: 1.2;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ── Editor mode ─────────────────────────────────────────────────────────── */
+
+.paradise-ccb-wrap[data-ccb-edit="true"] {
+    display: flex;
+}
+
+/* ── Editor inline placeholder ───────────────────────────────────────────── */
+
+.paradise-ccb-editor-notice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #eef3ff;
+    border: 1.5px dashed #6b93e8;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #3a5db5;
+    line-height: 1.4;
+}
+
+.paradise-ccb-editor-notice svg {
+    flex-shrink: 0;
+    opacity: 0.75;
+}

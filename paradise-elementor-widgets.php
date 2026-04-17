@@ -138,6 +138,21 @@ final class Paradise_Elementor_Widgets
             PARADISE_EW_VERSION,
             true
         );
+
+        wp_register_style(
+            'paradise-cookie-consent-bar',
+            PARADISE_EW_URL . 'assets/css/cookie-consent-bar.css',
+            [],
+            PARADISE_EW_VERSION
+        );
+
+        wp_register_script(
+            'paradise-cookie-consent-bar',
+            PARADISE_EW_URL . 'assets/js/cookie-consent-bar.js',
+            [],
+            PARADISE_EW_VERSION,
+            true
+        );
     }
 
     public function register_widgets($widgets_manager): void
@@ -177,6 +192,12 @@ final class Paradise_Elementor_Widgets
         if (Paradise_EW_Admin::widget_enabled('announcement_bar')) {
             require_once PARADISE_EW_DIR . 'widgets/class-paradise-announcement-bar.php';
             $widgets_manager->register(new Paradise_Announcement_Bar_Widget());
+        }
+
+        // Cookie Consent Bar
+        if (Paradise_EW_Admin::widget_enabled('cookie_consent_bar')) {
+            require_once PARADISE_EW_DIR . 'widgets/class-paradise-cookie-consent-bar.php';
+            $widgets_manager->register(new Paradise_Cookie_Consent_Bar_Widget());
         }
 
         // Add future widgets below:
