@@ -52,6 +52,10 @@ class Paradise_EW_Admin {
             'label'       => 'Back to Top',
             'description' => 'Fixed-position button that appears after scrolling past a threshold and smoothly returns the user to the top of the page.',
         ],
+        'off_canvas_menu' => [
+            'label'       => 'Off-Canvas Menu',
+            'description' => 'Slide-in panel with a WordPress menu. Triggered by an inline button or the Paradise.openOffCanvas() JS API (e.g. from Bottom Nav).',
+        ],
     ];
 
     /**
