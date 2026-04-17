@@ -56,6 +56,10 @@ class Paradise_EW_Admin {
             'label'       => 'Off-Canvas Menu',
             'description' => 'Slide-in panel with a WordPress menu. Triggered by an inline button or the Paradise.openOffCanvas() JS API (e.g. from Bottom Nav).',
         ],
+        'sticky_header' => [
+            'label'       => 'Sticky Header',
+            'description' => 'Place inside any Elementor section to make it sticky. Applies scroll effects (shadow, background change, shrink) when scrolling past a threshold.',
+        ],
     ];
 
     /**

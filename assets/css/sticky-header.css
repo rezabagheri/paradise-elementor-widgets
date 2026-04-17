@@ -1,0 +1,48 @@
+/**
+ * Sticky Header — Paradise Elementor Widgets
+ */
+
+/* ── Control element (invisible) ─────────────────────────────────────────── */
+
+.paradise-shdr-ctrl {
+    display: none;
+}
+
+/* ── Sticky section base (added by JS) ───────────────────────────────────── */
+
+.paradise-shdr-sticky {
+    position: sticky !important;
+    top: 0;
+    width: 100%;
+}
+
+/* ── Scrolled state (class added by JS) ──────────────────────────────────── */
+
+/*
+ * Background, box-shadow, and padding are applied via JS inline styles
+ * because they depend on runtime settings read from data attributes.
+ * This class is available for custom targeting in Elementor's Custom CSS.
+ */
+.paradise-shdr-scrolled {
+    /* intentionally empty — JS applies the inline styles */
+}
+
+/* ── Editor inline notice ────────────────────────────────────────────────── */
+
+.paradise-shdr-editor-notice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #eef3ff;
+    border: 1.5px dashed #6b93e8;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #3a5db5;
+    line-height: 1.4;
+}
+
+.paradise-shdr-editor-notice svg {
+    flex-shrink: 0;
+    opacity: 0.75;
+}

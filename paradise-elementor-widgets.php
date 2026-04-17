@@ -183,6 +183,21 @@ final class Paradise_Elementor_Widgets
             PARADISE_EW_VERSION,
             true
         );
+
+        wp_register_style(
+            'paradise-sticky-header',
+            PARADISE_EW_URL . 'assets/css/sticky-header.css',
+            [],
+            PARADISE_EW_VERSION
+        );
+
+        wp_register_script(
+            'paradise-sticky-header',
+            PARADISE_EW_URL . 'assets/js/sticky-header.js',
+            [],
+            PARADISE_EW_VERSION,
+            true
+        );
     }
 
     public function register_widgets($widgets_manager): void
@@ -240,6 +255,12 @@ final class Paradise_Elementor_Widgets
         if (Paradise_EW_Admin::widget_enabled('off_canvas_menu')) {
             require_once PARADISE_EW_DIR . 'widgets/class-paradise-off-canvas-menu.php';
             $widgets_manager->register(new Paradise_Off_Canvas_Menu_Widget());
+        }
+
+        // Sticky Header
+        if (Paradise_EW_Admin::widget_enabled('sticky_header')) {
+            require_once PARADISE_EW_DIR . 'widgets/class-paradise-sticky-header.php';
+            $widgets_manager->register(new Paradise_Sticky_Header_Widget());
         }
 
         // Add future widgets below:
