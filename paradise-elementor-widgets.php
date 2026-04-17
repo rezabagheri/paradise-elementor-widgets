@@ -39,8 +39,15 @@ final class Paradise_Elementor_Widgets
     private function __construct()
     {
         add_action('plugins_loaded', [ $this, 'load_textdomain' ]);
+        add_action('plugins_loaded', [ $this, 'load_site_info' ]);
         add_action('plugins_loaded', [ $this, 'load_admin' ]);
         add_action('elementor/init', [ $this, 'init' ]);
+    }
+
+    public function load_site_info(): void
+    {
+        require_once PARADISE_EW_DIR . 'includes/class-paradise-site-info.php';
+        add_action('init', [ 'Paradise_Site_Info', 'register_shortcode' ]);
     }
 
     public function load_admin(): void
@@ -50,6 +57,9 @@ final class Paradise_Elementor_Widgets
 
         require_once PARADISE_EW_DIR . 'admin/class-paradise-user-profile.php';
         Paradise_User_Profile::init();
+
+        require_once PARADISE_EW_DIR . 'admin/class-paradise-site-info-admin.php';
+        Paradise_Site_Info_Admin::init();
     }
 
     public function load_textdomain(): void
@@ -67,6 +77,13 @@ final class Paradise_Elementor_Widgets
         add_action('elementor/widgets/register', [ $this, 'register_widgets' ]);
         add_action('elementor/frontend/after_enqueue_styles', [ $this, 'enqueue_assets' ]);
         add_action('elementor/editor/after_enqueue_styles', [ $this, 'enqueue_assets' ]);
+        add_action('elementor/dynamic_tags/register', [ $this, 'register_dynamic_tags' ]);
+    }
+
+    public function register_dynamic_tags( $dynamic_tags_manager ): void
+    {
+        require_once PARADISE_EW_DIR . 'includes/class-paradise-dynamic-tags.php';
+        Paradise_Dynamic_Tags::register( $dynamic_tags_manager );
     }
 
     public function register_category($elements_manager): void

@@ -1,0 +1,196 @@
+<?php
+/**
+ * Paradise Dynamic Tags
+ *
+ * Registers a "Paradise" group of Dynamic Tags in Elementor.
+ * Tags pull values from Paradise_Site_Info.
+ *
+ * Tags:
+ *   paradise-phone      — TEXT  — phone number string
+ *   paradise-phone-url  — URL   — tel:+... href
+ *   paradise-email      — TEXT  — email address string
+ *   paradise-email-url  — URL   — mailto:... href
+ *   paradise-address    — TEXT  — address string
+ *   paradise-social-url — URL   — social media URL
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+// ── Manager ───────────────────────────────────────────────────────────────────
+
+class Paradise_Dynamic_Tags {
+
+    public static function register( $manager ): void {
+        $manager->register_group( 'paradise', [
+            'title' => esc_html__( 'Paradise Site Info', 'paradise-elementor-widgets' ),
+        ] );
+
+        $manager->register( new Paradise_Tag_Phone() );
+        $manager->register( new Paradise_Tag_Phone_URL() );
+        $manager->register( new Paradise_Tag_Email() );
+        $manager->register( new Paradise_Tag_Email_URL() );
+        $manager->register( new Paradise_Tag_Address() );
+        $manager->register( new Paradise_Tag_Social_URL() );
+    }
+}
+
+// ── Base helper ───────────────────────────────────────────────────────────────
+
+abstract class Paradise_Tag_Base extends \Elementor\Core\DynamicTags\Tag {
+
+    public function get_group(): string { return 'paradise'; }
+
+    /**
+     * Add a SELECT control populated from a Paradise_Site_Info section.
+     */
+    protected function add_item_select( string $control_id, string $type, string $label ): void {
+        $this->add_control( $control_id, [
+            'label'   => $label,
+            'type'    => \Elementor\Controls_Manager::SELECT,
+            'options' => Paradise_Site_Info::get_select_options( $type ),
+            'default' => '',
+        ] );
+    }
+}
+
+// ── Phone — Text ──────────────────────────────────────────────────────────────
+
+class Paradise_Tag_Phone extends Paradise_Tag_Base {
+
+    public function get_name(): string  { return 'paradise-phone'; }
+    public function get_title(): string { return esc_html__( 'Phone Number', 'paradise-elementor-widgets' ); }
+
+    public function get_categories(): array {
+        return [ \Elementor\Modules\DynamicTags\Module::TEXT_CATEGORY ];
+    }
+
+    protected function register_controls(): void {
+        $this->add_item_select( 'phone_index', 'phones',
+            esc_html__( 'Select Phone', 'paradise-elementor-widgets' )
+        );
+    }
+
+    public function render(): void {
+        $index = (int) $this->get_settings( 'phone_index' );
+        echo esc_html( Paradise_Site_Info::get_value( 'phones', $index ) );
+    }
+}
+
+// ── Phone — URL (tel:) ────────────────────────────────────────────────────────
+
+class Paradise_Tag_Phone_URL extends Paradise_Tag_Base {
+
+    public function get_name(): string  { return 'paradise-phone-url'; }
+    public function get_title(): string { return esc_html__( 'Phone URL (tel:)', 'paradise-elementor-widgets' ); }
+
+    public function get_categories(): array {
+        return [ \Elementor\Modules\DynamicTags\Module::URL_CATEGORY ];
+    }
+
+    protected function register_controls(): void {
+        $this->add_item_select( 'phone_index', 'phones',
+            esc_html__( 'Select Phone', 'paradise-elementor-widgets' )
+        );
+    }
+
+    public function render(): void {
+        $raw    = Paradise_Site_Info::get_value( 'phones', (int) $this->get_settings( 'phone_index' ) );
+        $digits = preg_replace( '/[^0-9]/', '', $raw );
+        $href   = strpos( $raw, '+' ) !== false ? 'tel:+' . $digits : 'tel:' . $digits;
+        echo esc_url( $href );
+    }
+}
+
+// ── Email — Text ──────────────────────────────────────────────────────────────
+
+class Paradise_Tag_Email extends Paradise_Tag_Base {
+
+    public function get_name(): string  { return 'paradise-email'; }
+    public function get_title(): string { return esc_html__( 'Email Address', 'paradise-elementor-widgets' ); }
+
+    public function get_categories(): array {
+        return [ \Elementor\Modules\DynamicTags\Module::TEXT_CATEGORY ];
+    }
+
+    protected function register_controls(): void {
+        $this->add_item_select( 'email_index', 'emails',
+            esc_html__( 'Select Email', 'paradise-elementor-widgets' )
+        );
+    }
+
+    public function render(): void {
+        $index = (int) $this->get_settings( 'email_index' );
+        echo esc_html( Paradise_Site_Info::get_value( 'emails', $index ) );
+    }
+}
+
+// ── Email — URL (mailto:) ─────────────────────────────────────────────────────
+
+class Paradise_Tag_Email_URL extends Paradise_Tag_Base {
+
+    public function get_name(): string  { return 'paradise-email-url'; }
+    public function get_title(): string { return esc_html__( 'Email URL (mailto:)', 'paradise-elementor-widgets' ); }
+
+    public function get_categories(): array {
+        return [ \Elementor\Modules\DynamicTags\Module::URL_CATEGORY ];
+    }
+
+    protected function register_controls(): void {
+        $this->add_item_select( 'email_index', 'emails',
+            esc_html__( 'Select Email', 'paradise-elementor-widgets' )
+        );
+    }
+
+    public function render(): void {
+        $email = Paradise_Site_Info::get_value( 'emails', (int) $this->get_settings( 'email_index' ) );
+        echo esc_url( 'mailto:' . $email );
+    }
+}
+
+// ── Address — Text ────────────────────────────────────────────────────────────
+
+class Paradise_Tag_Address extends Paradise_Tag_Base {
+
+    public function get_name(): string  { return 'paradise-address'; }
+    public function get_title(): string { return esc_html__( 'Address', 'paradise-elementor-widgets' ); }
+
+    public function get_categories(): array {
+        return [ \Elementor\Modules\DynamicTags\Module::TEXT_CATEGORY ];
+    }
+
+    protected function register_controls(): void {
+        $this->add_item_select( 'address_index', 'addresses',
+            esc_html__( 'Select Address', 'paradise-elementor-widgets' )
+        );
+    }
+
+    public function render(): void {
+        $index = (int) $this->get_settings( 'address_index' );
+        echo esc_html( Paradise_Site_Info::get_value( 'addresses', $index ) );
+    }
+}
+
+// ── Social — URL ──────────────────────────────────────────────────────────────
+
+class Paradise_Tag_Social_URL extends Paradise_Tag_Base {
+
+    public function get_name(): string  { return 'paradise-social-url'; }
+    public function get_title(): string { return esc_html__( 'Social Link URL', 'paradise-elementor-widgets' ); }
+
+    public function get_categories(): array {
+        return [ \Elementor\Modules\DynamicTags\Module::URL_CATEGORY ];
+    }
+
+    protected function register_controls(): void {
+        $this->add_item_select( 'social_index', 'socials',
+            esc_html__( 'Select Social', 'paradise-elementor-widgets' )
+        );
+    }
+
+    public function render(): void {
+        $index = (int) $this->get_settings( 'social_index' );
+        echo esc_url( Paradise_Site_Info::get_value( 'socials', $index, 'url' ) );
+    }
+}

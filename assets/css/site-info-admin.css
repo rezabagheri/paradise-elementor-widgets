@@ -1,0 +1,85 @@
+/**
+ * Paradise Site Info — Admin styles
+ */
+
+.paradise-si-wrap h1 {
+    margin-bottom: 6px;
+}
+
+.paradise-si-intro {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* ── Cards ───────────────────────────────────────────────────────────────── */
+
+.paradise-si-card {
+    max-width: 900px;
+    margin-bottom: 20px;
+}
+
+.paradise-si-card .postbox-header h2 {
+    font-size: 14px;
+}
+
+.paradise-si-card .inside {
+    padding: 0 12px 12px;
+    margin: 0;
+}
+
+/* ── Table ───────────────────────────────────────────────────────────────── */
+
+.paradise-si-table {
+    margin-bottom: 10px;
+    border-collapse: collapse;
+}
+
+.paradise-si-table th,
+.paradise-si-table td {
+    padding: 8px 10px;
+    vertical-align: middle;
+}
+
+.paradise-si-table .regular-text {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.paradise-si-col-label {
+    width: 200px;
+}
+
+.paradise-si-col-action {
+    width: 70px;
+    text-align: right;
+}
+
+/* ── Remove button ───────────────────────────────────────────────────────── */
+
+.paradise-si-remove {
+    color: #b32d2e;
+    text-decoration: none;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.paradise-si-remove:hover {
+    color: #a00;
+}
+
+/* ── Platform select ─────────────────────────────────────────────────────── */
+
+.paradise-si-select {
+    min-width: 140px;
+}
+
+/* ── Empty table placeholder ─────────────────────────────────────────────── */
+
+.paradise-si-table tbody:empty::after {
+    display: block;
+    padding: 10px;
+    color: #999;
+    font-style: italic;
+    font-size: 13px;
+    content: "No items yet. Click Add to get started.";
+}
