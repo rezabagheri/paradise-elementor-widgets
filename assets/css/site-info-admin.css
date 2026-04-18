@@ -27,6 +27,10 @@
     margin: 0;
 }
 
+.paradise-si-locations-card .inside {
+    padding-bottom: 16px;
+}
+
 /* ── Table ───────────────────────────────────────────────────────────────── */
 
 .paradise-si-table {
@@ -82,14 +86,14 @@
 
 /* ── Remove button ───────────────────────────────────────────────────────── */
 
-.paradise-si-remove {
+.paradise-si-remove-row {
     color: #b32d2e;
     text-decoration: none;
     font-size: 12px;
     white-space: nowrap;
 }
 
-.paradise-si-remove:hover {
+.paradise-si-remove-row:hover {
     color: #a00;
 }
 
@@ -134,4 +138,175 @@
     font-style: italic;
     font-size: 13px;
     content: "No items yet. Click Add to get started.";
+}
+
+/* ── Location card ───────────────────────────────────────────────────────── */
+
+.paradise-si-location {
+    border: 1px solid #c3c4c7;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    background: #fff;
+}
+
+.paradise-si-location:last-child {
+    margin-bottom: 0;
+}
+
+/* ── Location header ─────────────────────────────────────────────────────── */
+
+.paradise-si-location-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: #f6f7f7;
+    border-bottom: 1px solid #c3c4c7;
+}
+
+.paradise-si-location--collapsed .paradise-si-location-header {
+    border-bottom: none;
+}
+
+.paradise-si-loc-handle {
+    cursor: grab;
+    color: #aaa;
+    font-size: 18px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.paradise-si-loc-handle:hover {
+    color: #555;
+}
+
+.paradise-si-location-label {
+    flex: 1;
+    min-width: 0;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 4px 8px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background: transparent;
+    box-sizing: border-box;
+    line-height: 1.5;
+}
+
+.paradise-si-location-label:focus {
+    border-color: #2271b1;
+    background: #fff;
+    outline: none;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+.paradise-si-location-toggle {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.paradise-si-location-toggle:hover {
+    color: #2271b1;
+}
+
+.paradise-si-location-toggle .dashicons {
+    transition: transform 0.2s ease;
+}
+
+.paradise-si-location--collapsed .paradise-si-location-toggle .dashicons {
+    transform: rotate(-90deg);
+}
+
+.paradise-si-remove-location {
+    flex-shrink: 0;
+    color: #b32d2e;
+    font-size: 12px;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    white-space: nowrap;
+}
+
+.paradise-si-remove-location:hover {
+    color: #a00;
+}
+
+/* ── Location body ───────────────────────────────────────────────────────── */
+
+.paradise-si-location-body {
+    padding: 4px 16px 16px;
+}
+
+.paradise-si-location--collapsed .paradise-si-location-body {
+    display: none;
+}
+
+/* ── Sections inside a location ──────────────────────────────────────────── */
+
+.paradise-si-section {
+    margin-top: 16px;
+}
+
+.paradise-si-section-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #888;
+    margin: 0 0 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* ── KV table (address / map URL) ────────────────────────────────────────── */
+
+.paradise-si-kv-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.paradise-si-kv-table th,
+.paradise-si-kv-table td {
+    padding: 6px 8px;
+    vertical-align: top;
+    text-align: left;
+    border: none;
+}
+
+.paradise-si-kv-table th {
+    width: 110px;
+    font-weight: 600;
+    white-space: nowrap;
+    padding-top: 10px;
+    color: #444;
+}
+
+.paradise-si-kv-table .regular-text {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ── Map preview ──────────────────────────────────────────────────────────── */
+
+.paradise-si-map-preview {
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.paradise-si-map-preview iframe {
+    display: block;
+    width: 100%;
+    height: 220px;
+    border: none;
 }

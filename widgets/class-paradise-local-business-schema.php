@@ -88,18 +88,12 @@ class Paradise_Local_Business_Schema_Widget extends \Elementor\Widget_Base {
             'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
         ] );
 
-        $this->add_control( 'phone_index', [
-            'label'   => esc_html__( 'Phone', 'paradise-elementor-widgets' ),
-            'type'    => \Elementor\Controls_Manager::SELECT,
-            'options' => Paradise_Site_Info::get_select_options( 'phones' ),
-            'default' => '0',
-        ] );
-
-        $this->add_control( 'address_index', [
-            'label'   => esc_html__( 'Address', 'paradise-elementor-widgets' ),
-            'type'    => \Elementor\Controls_Manager::SELECT,
-            'options' => Paradise_Site_Info::get_select_options( 'addresses' ),
-            'default' => '0',
+        $this->add_control( 'location_index', [
+            'label'       => esc_html__( 'Location', 'paradise-elementor-widgets' ),
+            'type'        => \Elementor\Controls_Manager::SELECT,
+            'options'     => Paradise_Site_Info::get_location_select_options(),
+            'default'     => '0',
+            'description' => esc_html__( 'Pulls phone, address, and hours from this location.', 'paradise-elementor-widgets' ),
         ] );
 
         $this->add_control( 'include_socials', [
@@ -140,14 +134,16 @@ class Paradise_Local_Business_Schema_Widget extends \Elementor\Widget_Base {
             $schema['priceRange'] = $settings['price_range'];
         }
 
-        // Phone
-        $phone = Paradise_Site_Info::get_value( 'phones', (int) $settings['phone_index'] );
+        $location = (int) ( $settings['location_index'] ?? 0 );
+
+        // Phone (first phone of the selected location)
+        $phone = Paradise_Site_Info::get_value( 'phones', 0, 'value', $location );
         if ( $phone !== '' ) {
             $schema['telephone'] = $phone;
         }
 
         // Address
-        $address = Paradise_Site_Info::get_value( 'addresses', (int) $settings['address_index'] );
+        $address = Paradise_Site_Info::get_address( $location );
         if ( $address !== '' ) {
             $schema['address'] = [
                 '@type'         => 'PostalAddress',
@@ -176,7 +172,7 @@ class Paradise_Local_Business_Schema_Widget extends \Elementor\Widget_Base {
                 'sunday'    => 'Sunday',
             ];
             $specs = [];
-            foreach ( Paradise_Site_Info::get_hours() as $slug => $entry ) {
+            foreach ( Paradise_Site_Info::get_hours( $location ) as $slug => $entry ) {
                 if ( $entry['open'] && ! empty( $entry['from'] ) && ! empty( $entry['to'] ) ) {
                     $specs[] = [
                         '@type'     => 'OpeningHoursSpecification',

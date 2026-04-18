@@ -76,11 +76,11 @@ class Paradise_Google_Map_Widget extends \Elementor\Widget_Base {
             ],
         ] );
 
-        $this->add_control( 'address_index', [
-            'label'     => esc_html__( 'Select Address', 'paradise-elementor-widgets' ),
+        $this->add_control( 'location_index', [
+            'label'     => esc_html__( 'Location', 'paradise-elementor-widgets' ),
             'type'      => \Elementor\Controls_Manager::SELECT,
-            'options'   => Paradise_Site_Info::get_select_options( 'addresses' ),
-            'default'   => '',
+            'options'   => Paradise_Site_Info::get_location_select_options(),
+            'default'   => '0',
             'condition' => [ 'source' => 'site_info' ],
         ] );
 
@@ -122,11 +122,11 @@ class Paradise_Google_Map_Widget extends \Elementor\Widget_Base {
             ],
         ] );
 
-        $this->add_control( 'dir_dest_index', [
-            'label'     => esc_html__( 'Select Address', 'paradise-elementor-widgets' ),
+        $this->add_control( 'dir_dest_location', [
+            'label'     => esc_html__( 'Location', 'paradise-elementor-widgets' ),
             'type'      => \Elementor\Controls_Manager::SELECT,
-            'options'   => Paradise_Site_Info::get_select_options( 'addresses' ),
-            'default'   => '',
+            'options'   => Paradise_Site_Info::get_location_select_options(),
+            'default'   => '0',
             'condition' => [ 'dir_dest_source' => 'site_info' ],
         ] );
 
@@ -299,7 +299,7 @@ class Paradise_Google_Map_Widget extends \Elementor\Widget_Base {
             $embed_url = $this->build_directions_url( $settings );
         } else {
             if ( 'site_info' === $settings['source'] ) {
-                $raw_url = Paradise_Site_Info::get_value( 'addresses', (int) $settings['address_index'], 'map_url' );
+                $raw_url = Paradise_Site_Info::get_map_url( (int) ( $settings['location_index'] ?? 0 ) );
                 $from_si = true;
             } else {
                 $raw_url = sanitize_text_field( $settings['manual_url'] ?? '' );
@@ -355,7 +355,7 @@ class Paradise_Google_Map_Widget extends \Elementor\Widget_Base {
      */
     private function build_directions_url( array $settings ): string {
         if ( 'site_info' === $settings['dir_dest_source'] ) {
-            $dest = Paradise_Site_Info::get_value( 'addresses', (int) $settings['dir_dest_index'] );
+            $dest = Paradise_Site_Info::get_address( (int) ( $settings['dir_dest_location'] ?? 0 ) );
         } else {
             $dest = sanitize_text_field( $settings['dir_dest_manual'] ?? '' );
         }

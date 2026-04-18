@@ -32,6 +32,13 @@ class Paradise_Business_Hours_Widget extends \Elementor\Widget_Base {
             'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
         ] );
 
+        $this->add_control( 'location_index', [
+            'label'   => esc_html__( 'Location', 'paradise-elementor-widgets' ),
+            'type'    => \Elementor\Controls_Manager::SELECT,
+            'options' => Paradise_Site_Info::get_location_select_options(),
+            'default' => '0',
+        ] );
+
         $this->add_control( 'show_badge', [
             'label'        => esc_html__( 'Show Open/Closed Badge', 'paradise-elementor-widgets' ),
             'type'         => \Elementor\Controls_Manager::SWITCHER,
@@ -164,13 +171,14 @@ class Paradise_Business_Hours_Widget extends \Elementor\Widget_Base {
 
     protected function render(): void {
         $settings       = $this->get_settings_for_display();
-        $hours          = Paradise_Site_Info::get_hours();
+        $location       = (int) ( $settings['location_index'] ?? 0 );
+        $hours          = Paradise_Site_Info::get_hours( $location );
         $days           = Paradise_Site_Info::days();
         $time_format    = $settings['time_format'] ?? '12h';
         $closed_label   = esc_html( $settings['closed_label'] ?: __( 'Closed', 'paradise-elementor-widgets' ) );
         $show_badge     = 'yes' === $settings['show_badge'];
         $highlight      = 'yes' === $settings['highlight_today'];
-        $is_open_now    = Paradise_Site_Info::is_open_now();
+        $is_open_now    = Paradise_Site_Info::is_open_now( $location );
 
         // Pass hours as JSON so JS can compute the badge client-side.
         // We also pass is_open_now as a server-side fallback for SSR.

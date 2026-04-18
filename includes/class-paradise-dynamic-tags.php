@@ -44,15 +44,24 @@ abstract class Paradise_Tag_Base extends \Elementor\Core\DynamicTags\Tag {
 
     public function get_group(): string { return 'paradise'; }
 
-    /**
-     * Add a SELECT control populated from a Paradise_Site_Info section.
-     */
-    protected function add_item_select( string $control_id, string $type, string $label ): void {
+    /** Add a Location SELECT control. */
+    protected function add_location_select(): void {
+        $this->add_control( 'location_index', [
+            'label'   => esc_html__( 'Location', 'paradise-elementor-widgets' ),
+            'type'    => \Elementor\Controls_Manager::SELECT,
+            'options' => Paradise_Site_Info::get_location_select_options(),
+            'default' => '0',
+        ] );
+    }
+
+    /** Add a numeric item index control (0-based). */
+    protected function add_item_index( string $control_id, string $label ): void {
         $this->add_control( $control_id, [
             'label'   => $label,
-            'type'    => \Elementor\Controls_Manager::SELECT,
-            'options' => Paradise_Site_Info::get_select_options( $type ),
-            'default' => '',
+            'type'    => \Elementor\Controls_Manager::NUMBER,
+            'default' => 0,
+            'min'     => 0,
+            'max'     => 20,
         ] );
     }
 }
@@ -69,14 +78,14 @@ class Paradise_Tag_Phone extends Paradise_Tag_Base {
     }
 
     protected function register_controls(): void {
-        $this->add_item_select( 'phone_index', 'phones',
-            esc_html__( 'Select Phone', 'paradise-elementor-widgets' )
-        );
+        $this->add_location_select();
+        $this->add_item_index( 'phone_index', esc_html__( 'Item Index', 'paradise-elementor-widgets' ) );
     }
 
     public function render(): void {
-        $index = (int) $this->get_settings( 'phone_index' );
-        echo esc_html( Paradise_Site_Info::get_value( 'phones', $index ) );
+        $location = (int) $this->get_settings( 'location_index' );
+        $index    = (int) $this->get_settings( 'phone_index' );
+        echo esc_html( Paradise_Site_Info::get_value( 'phones', $index, 'value', $location ) );
     }
 }
 
@@ -92,15 +101,15 @@ class Paradise_Tag_Phone_URL extends Paradise_Tag_Base {
     }
 
     protected function register_controls(): void {
-        $this->add_item_select( 'phone_index', 'phones',
-            esc_html__( 'Select Phone', 'paradise-elementor-widgets' )
-        );
+        $this->add_location_select();
+        $this->add_item_index( 'phone_index', esc_html__( 'Item Index', 'paradise-elementor-widgets' ) );
     }
 
     public function render(): void {
-        $raw    = Paradise_Site_Info::get_value( 'phones', (int) $this->get_settings( 'phone_index' ) );
-        $digits = preg_replace( '/[^0-9]/', '', $raw );
-        $href   = strpos( $raw, '+' ) !== false ? 'tel:+' . $digits : 'tel:' . $digits;
+        $location = (int) $this->get_settings( 'location_index' );
+        $raw      = Paradise_Site_Info::get_value( 'phones', (int) $this->get_settings( 'phone_index' ), 'value', $location );
+        $digits   = preg_replace( '/[^0-9]/', '', $raw );
+        $href     = strpos( $raw, '+' ) !== false ? 'tel:+' . $digits : 'tel:' . $digits;
         echo esc_url( $href );
     }
 }
@@ -117,14 +126,14 @@ class Paradise_Tag_Email extends Paradise_Tag_Base {
     }
 
     protected function register_controls(): void {
-        $this->add_item_select( 'email_index', 'emails',
-            esc_html__( 'Select Email', 'paradise-elementor-widgets' )
-        );
+        $this->add_location_select();
+        $this->add_item_index( 'email_index', esc_html__( 'Item Index', 'paradise-elementor-widgets' ) );
     }
 
     public function render(): void {
-        $index = (int) $this->get_settings( 'email_index' );
-        echo esc_html( Paradise_Site_Info::get_value( 'emails', $index ) );
+        $location = (int) $this->get_settings( 'location_index' );
+        $index    = (int) $this->get_settings( 'email_index' );
+        echo esc_html( Paradise_Site_Info::get_value( 'emails', $index, 'value', $location ) );
     }
 }
 
@@ -140,13 +149,13 @@ class Paradise_Tag_Email_URL extends Paradise_Tag_Base {
     }
 
     protected function register_controls(): void {
-        $this->add_item_select( 'email_index', 'emails',
-            esc_html__( 'Select Email', 'paradise-elementor-widgets' )
-        );
+        $this->add_location_select();
+        $this->add_item_index( 'email_index', esc_html__( 'Item Index', 'paradise-elementor-widgets' ) );
     }
 
     public function render(): void {
-        $email = Paradise_Site_Info::get_value( 'emails', (int) $this->get_settings( 'email_index' ) );
+        $location = (int) $this->get_settings( 'location_index' );
+        $email    = Paradise_Site_Info::get_value( 'emails', (int) $this->get_settings( 'email_index' ), 'value', $location );
         echo esc_url( 'mailto:' . $email );
     }
 }
@@ -163,18 +172,15 @@ class Paradise_Tag_Address extends Paradise_Tag_Base {
     }
 
     protected function register_controls(): void {
-        $this->add_item_select( 'address_index', 'addresses',
-            esc_html__( 'Select Address', 'paradise-elementor-widgets' )
-        );
+        $this->add_location_select();
     }
 
     public function render(): void {
-        $index = (int) $this->get_settings( 'address_index' );
-        echo esc_html( Paradise_Site_Info::get_value( 'addresses', $index ) );
+        echo esc_html( Paradise_Site_Info::get_address( (int) $this->get_settings( 'location_index' ) ) );
     }
 }
 
-// ── Address — Map URL ─────────────────────────────────────────────────────
+// ── Address — Map URL ─────────────────────────────────────────────────────────
 
 class Paradise_Tag_Address_Map_URL extends Paradise_Tag_Base {
 
@@ -186,14 +192,11 @@ class Paradise_Tag_Address_Map_URL extends Paradise_Tag_Base {
     }
 
     protected function register_controls(): void {
-        $this->add_item_select( 'address_index', 'addresses',
-            esc_html__( 'Select Address', 'paradise-elementor-widgets' )
-        );
+        $this->add_location_select();
     }
 
     public function render(): void {
-        $index = (int) $this->get_settings( 'address_index' );
-        echo esc_url( Paradise_Site_Info::get_value( 'addresses', $index, 'map_url' ) );
+        echo esc_url( Paradise_Site_Info::get_map_url( (int) $this->get_settings( 'location_index' ) ) );
     }
 }
 
