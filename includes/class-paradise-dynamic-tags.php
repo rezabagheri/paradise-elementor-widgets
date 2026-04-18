@@ -212,9 +212,7 @@ class Paradise_Tag_Social_URL extends Paradise_Tag_Base {
     }
 
     protected function register_controls(): void {
-        $this->add_item_select( 'social_index', 'socials',
-            esc_html__( 'Select Social', 'paradise-elementor-widgets' )
-        );
+        $this->add_item_index( 'social_index', esc_html__( 'Item Index', 'paradise-elementor-widgets' ) );
     }
 
     public function render(): void {

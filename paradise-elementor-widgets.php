@@ -60,6 +60,9 @@ final class Paradise_Elementor_Widgets
 
         require_once PARADISE_EW_DIR . 'admin/class-paradise-site-info-admin.php';
         Paradise_Site_Info_Admin::init();
+
+        require_once PARADISE_EW_DIR . 'admin/class-paradise-import-export.php';
+        Paradise_Import_Export::init();
     }
 
     public function load_textdomain(): void

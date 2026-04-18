@@ -273,6 +273,26 @@ class Paradise_Site_Info {
         ];
     }
 
+    // ── Export ────────────────────────────────────────────────────────────────
+
+    /**
+     * Return a fully-normalized snapshot of all Site Info data for export.
+     * Hours are merged with defaults so all 7 days are present in every location.
+     */
+    public static function export(): array {
+        $data      = self::load();
+        $locations = [];
+        foreach ( $data['locations'] ?? [] as $i => $loc ) {
+            $loc['hours'] = self::get_hours( $i );
+            $locations[]  = $loc;
+        }
+        return [
+            'name'      => $data['name']    ?? '',
+            'socials'   => $data['socials'] ?? [],
+            'locations' => $locations,
+        ];
+    }
+
     // ── Persistence ───────────────────────────────────────────────────────────
 
     public static function save( array $raw ): void {
