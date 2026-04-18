@@ -136,21 +136,25 @@ class Paradise_Google_Map_Widget extends \Elementor\Widget_Base {
     /**
      * Normalize any Google Maps URL into an embeddable iframe src.
      *
-     * Google only allows /maps/embed URLs in iframes — share/directions URLs
-     * return "refused to connect". This function converts known URL patterns
-     * into a valid embed URL by extracting the search query:
+     * Google only allows certain URL formats in iframes. This function converts
+     * known patterns into the reliable maps.google.com/maps?q=...&output=embed
+     * format, which correctly geocodes addresses and respects the z= zoom param.
      *
-     * 1. /maps/embed  or output=embed → already embeddable, return as-is.
-     * 2. /maps/dir//DESTINATION/@    → extract destination name.
-     * 3. /maps/place/NAME/@          → extract place name.
-     * 4. ?q=QUERY                    → use the q parameter directly.
-     * 5. Fallback                    → build embed URL from the full URL as query.
+     * 1. /maps/embed?pb=...  → already a full embed blob, return as-is.
+     * 2. output=embed        → already converted, return as-is.
+     * 3. /maps/dir//DEST/@   → extract destination, build q= embed URL.
+     * 4. /maps/place/NAME/@  → extract place name, build q= embed URL.
+     * 5. ?q=QUERY            → use q directly, build q= embed URL.
+     * 6. Fallback            → append output=embed.
+     *
+     * Note: /maps/embed?q= (without pb) does NOT support zoom or reliable
+     * geocoding — always convert to maps.google.com/maps?q=...&output=embed.
      */
     private function normalize_embed_url( string $url ): string {
         if ( empty( $url ) ) return '';
 
-        // Already a valid embed URL — use as-is.
-        if ( strpos( $url, '/maps/embed' ) !== false ) return $url;
+        // Full embed blob (/maps/embed?pb=...) — use as-is.
+        if ( strpos( $url, '/maps/embed?pb=' ) !== false ) return $url;
         if ( strpos( $url, 'output=embed' ) !== false ) return $url;
 
         $is_google = (
@@ -160,25 +164,34 @@ class Paradise_Google_Map_Widget extends \Elementor\Widget_Base {
 
         if ( ! $is_google ) return $url;
 
-        // Directions URL: /maps/dir//DESTINATION/@ — extract the destination segment.
+        // Directions URL: /maps/dir//DESTINATION/@ — extract the destination.
         if ( preg_match( '#/maps/dir//([^/@]+)/@#', $url, $m ) ) {
             $q = rawurldecode( str_replace( '+', ' ', $m[1] ) );
-            return 'https://www.google.com/maps/embed?q=' . rawurlencode( $q );
+            return 'https://maps.google.com/maps?q=' . rawurlencode( $q ) . '&output=embed';
         }
 
         // Place URL: /maps/place/NAME/@ — extract the place name.
         if ( preg_match( '#/maps/place/([^/@]+)/@#', $url, $m ) ) {
             $q = rawurldecode( str_replace( '+', ' ', $m[1] ) );
-            return 'https://www.google.com/maps/embed?q=' . rawurlencode( $q );
+            return 'https://maps.google.com/maps?q=' . rawurlencode( $q ) . '&output=embed';
+        }
+
+        // Already a /maps/embed?q= URL (no pb) — convert to maps.google.com format
+        // so that zoom and geocoding work correctly.
+        if ( strpos( $url, '/maps/embed' ) !== false ) {
+            parse_str( (string) parse_url( $url, PHP_URL_QUERY ), $params );
+            if ( ! empty( $params['q'] ) ) {
+                return 'https://maps.google.com/maps?q=' . rawurlencode( $params['q'] ) . '&output=embed';
+            }
         }
 
         // URL has a ?q= parameter — use it directly.
         parse_str( (string) parse_url( $url, PHP_URL_QUERY ), $params );
         if ( ! empty( $params['q'] ) ) {
-            return 'https://www.google.com/maps/embed?q=' . rawurlencode( $params['q'] );
+            return 'https://maps.google.com/maps?q=' . rawurlencode( $params['q'] ) . '&output=embed';
         }
 
-        // Fallback: try appending output=embed (works for some older share URLs).
+        // Fallback: append output=embed.
         $sep = ( strpos( $url, '?' ) !== false ) ? '&' : '?';
         return $url . $sep . 'output=embed';
     }
@@ -200,9 +213,11 @@ class Paradise_Google_Map_Widget extends \Elementor\Widget_Base {
         $embed_url = $this->normalize_embed_url( $raw_url );
 
         // Append zoom only if the URL doesn't already specify one.
+        // maps.google.com/maps uses z=, while /maps/embed?pb= encodes zoom in the blob.
         $zoom = (int) ( $settings['zoom']['size'] ?? 15 );
-        if ( $zoom > 0 && strpos( $embed_url, 'zoom=' ) === false ) {
-            $embed_url .= '&zoom=' . $zoom;
+        $has_zoom = strpos( $embed_url, 'z=' ) !== false || strpos( $embed_url, '/maps/embed?pb=' ) !== false;
+        if ( $zoom > 0 && ! $has_zoom ) {
+            $embed_url .= '&z=' . $zoom;
         }
 
         if ( empty( $embed_url ) ) {
