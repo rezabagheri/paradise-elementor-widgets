@@ -48,6 +48,11 @@ final class Paradise_Elementor_Widgets
     {
         require_once PARADISE_EW_DIR . 'includes/class-paradise-site-info.php';
         add_action('init', [ 'Paradise_Site_Info', 'register_shortcode' ]);
+
+        require_once PARADISE_EW_DIR . 'includes/class-paradise-faq-cpt.php';
+        if ( Paradise_EW_Admin::feature_enabled( 'faq_cpt' ) ) {
+            Paradise_FAQ_CPT::init();
+        }
     }
 
     public function load_admin(): void

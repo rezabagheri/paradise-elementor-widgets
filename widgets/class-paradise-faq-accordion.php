@@ -30,7 +30,52 @@ class Paradise_Faq_Accordion_Widget extends \Elementor\Widget_Base {
             'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
         ] );
 
+        $cpt_active = Paradise_EW_Admin::feature_enabled( 'faq_cpt' );
+
+        $this->add_control( 'source', [
+            'label'   => esc_html__( 'Source', 'paradise-elementor-widgets' ),
+            'type'    => \Elementor\Controls_Manager::SELECT,
+            'default' => 'static',
+            'options' => array_filter( [
+                'static'  => esc_html__( 'Static (enter manually)', 'paradise-elementor-widgets' ),
+                'cpt'     => $cpt_active ? esc_html__( 'FAQ Post Type', 'paradise-elementor-widgets' ) : null,
+            ] ),
+        ] );
+
+        if ( $cpt_active ) {
+            $this->add_control( 'cpt_category', [
+                'label'     => esc_html__( 'Category', 'paradise-elementor-widgets' ),
+                'type'      => \Elementor\Controls_Manager::SELECT,
+                'options'   => Paradise_FAQ_CPT::get_category_options(),
+                'default'   => 0,
+                'condition' => [ 'source' => 'cpt' ],
+            ] );
+
+            $this->add_control( 'cpt_limit', [
+                'label'     => esc_html__( 'Limit', 'paradise-elementor-widgets' ),
+                'type'      => \Elementor\Controls_Manager::NUMBER,
+                'default'   => -1,
+                'min'       => -1,
+                'max'       => 100,
+                'description' => esc_html__( '-1 shows all.', 'paradise-elementor-widgets' ),
+                'condition' => [ 'source' => 'cpt' ],
+            ] );
+
+            $this->add_control( 'cpt_orderby', [
+                'label'     => esc_html__( 'Order By', 'paradise-elementor-widgets' ),
+                'type'      => \Elementor\Controls_Manager::SELECT,
+                'default'   => 'menu_order',
+                'options'   => [
+                    'menu_order' => esc_html__( 'Custom Order (drag in wp-admin)', 'paradise-elementor-widgets' ),
+                    'date'       => esc_html__( 'Date (newest first)', 'paradise-elementor-widgets' ),
+                    'title'      => esc_html__( 'Title (A–Z)', 'paradise-elementor-widgets' ),
+                ],
+                'condition' => [ 'source' => 'cpt' ],
+            ] );
+        }
+
         $this->add_control( 'items', [
+            'condition' => [ 'source' => 'static' ],
             'label'  => esc_html__( 'Items', 'paradise-elementor-widgets' ),
             'type'   => \Elementor\Controls_Manager::REPEATER,
             'fields' => [
@@ -360,14 +405,26 @@ class Paradise_Faq_Accordion_Widget extends \Elementor\Widget_Base {
     // ── Render ────────────────────────────────────────────────────────────────
 
     protected function render(): void {
-        $settings = $this->get_settings_for_display();
-        $items    = $settings['items'] ?? [];
+        $settings  = $this->get_settings_for_display();
+        $is_editor = \Elementor\Plugin::$instance->editor->is_edit_mode();
+        $source    = $settings['source'] ?? 'static';
+
+        if ( 'cpt' === $source && Paradise_EW_Admin::feature_enabled( 'faq_cpt' ) ) {
+            $items = Paradise_FAQ_CPT::get_items(
+                (int) ( $settings['cpt_category'] ?? 0 ),
+                (int) ( $settings['cpt_limit']    ?? -1 ),
+                (string) ( $settings['cpt_orderby'] ?? 'menu_order' )
+            );
+        } else {
+            $items = $settings['items'] ?? [];
+        }
 
         if ( empty( $items ) ) {
-            if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                echo '<div class="paradise-faq-placeholder">'
-                   . esc_html__( 'Add FAQ items in the widget settings.', 'paradise-elementor-widgets' )
-                   . '</div>';
+            if ( $is_editor ) {
+                $msg = 'cpt' === $source
+                    ? esc_html__( 'No published FAQs found. Add some under Paradise → FAQs.', 'paradise-elementor-widgets' )
+                    : esc_html__( 'Add FAQ items in the widget settings.', 'paradise-elementor-widgets' );
+                echo '<div class="paradise-faq-placeholder">' . $msg . '</div>';
             }
             return;
         }

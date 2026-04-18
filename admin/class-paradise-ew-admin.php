@@ -113,11 +113,16 @@ class Paradise_EW_Admin {
             'label'       => 'Social Links fields on user profiles',
             'description' => 'Shows the Paradise Social Links section on the WordPress user profile edit page (wp-admin → Users → Edit). Disable if you manage social links elsewhere.',
         ],
+        'faq_cpt' => [
+            'label'       => 'FAQ Post Type',
+            'description' => 'Registers a "FAQs" post type so you can manage Q&A items centrally and use them in the FAQ Accordion widget. Disable if you only use static FAQ items.',
+        ],
     ];
 
     /** Default value for each feature when the option has never been saved. */
     private static array $feature_defaults = [
         'show_profile_social' => true,
+        'faq_cpt'             => true,
     ];
 
     public static function init(): void {
