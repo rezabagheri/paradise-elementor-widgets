@@ -4,7 +4,7 @@ Tags: elementor, elementor widgets, bottom navigation, phone link, google map, s
 Requires at least: 6.1
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.3.0
+Stable tag: 2.4.0
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,6 +58,9 @@ Displays business hours from Site Info with a live Open Now / Closed badge. High
 
 **LocalBusiness Schema**
 An invisible widget that outputs Schema.org JSON-LD markup using Site Info data (name, phone, address, social sameAs, openingHoursSpecification). Supports 14 Schema.org business type subtypes. Helps Google display rich results (address, phone, hours).
+
+**FAQ Accordion**
+A collapsible Q&A list with accordion mode (one item open at a time) or multi-expand mode (any number open). Supports an Elementor icon picker for the open/closed state, left or right icon position, open-first-item default, and Schema.org FAQPage JSON-LD for Google rich results. Items can be entered statically in the widget or loaded from the FAQ Post Type.
 
 = Phone Link Features =
 * Accepts any phone number format — normalizes automatically
@@ -144,6 +147,11 @@ The badge is computed in the visitor's browser using the site's timezone (from W
 
 == Changelog ==
 
+= 2.4.0 =
+* Added: FAQ Accordion widget — accordion / multi-expand mode, Elementor icon picker (open/closed state), icon position (left/right), open-first-item default, Schema.org FAQPage JSON-LD, full typography and color controls
+* Added: FAQ Post Type — each post is a "FAQ Set" with unlimited Q&A items stored in post meta; TinyMCE rich text editor for answers; toggle on/off in Paradise → Elementor Widgets → Settings
+* Fixed: Elementor editor CSS appearing as visible text content when FAQ Accordion widget (CPT source) was on the page — caused by `apply_filters('the_content', …)` being called inside widget render
+
 = 2.3.0 =
 * Added: Site Info centralized data store (phones, emails, addresses, socials, business hours) with shortcode and Elementor Dynamic Tags
 * Added: Business Hours widget — live Open Now / Closed badge, today highlight, 12 h / 24 h format
@@ -190,6 +198,9 @@ The badge is computed in the visitor's browser using the site's timezone (from W
 * Bottom Navigation Bar widget
 
 == Upgrade Notice ==
+
+= 2.4.0 =
+New: FAQ Accordion widget and FAQ Post Type. Safe to upgrade — no breaking changes from 2.3.0.
 
 = 2.3.0 =
 New: Site Info, Business Hours, LocalBusiness Schema, Google Map, Social Links, Announcement Bar, Cookie Consent Bar, Back to Top, Off-Canvas Menu, Sticky Header. Safe to upgrade — no breaking changes from 2.2.0.

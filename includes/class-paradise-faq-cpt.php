@@ -2,14 +2,13 @@
 /**
  * Paradise FAQ — Custom Post Type
  *
- * Registers the `paradise_faq` CPT and `paradise_faq_cat` taxonomy.
- * Only active when the `faq_cpt` feature flag is enabled in settings.
+ * Registers the `paradise_faq` CPT. Each post represents a FAQ "set"
+ * (e.g. "Pricing FAQ", "General FAQ"). Q&A items are stored as post meta.
  *
  * Data model:
- *   post_title   → question
- *   post_content → answer (WYSIWYG)
- *   menu_order   → display order (lower = first)
- *   taxonomy: paradise_faq_cat → category for widget filtering
+ *   post_title          → FAQ set name (shown in widget SELECT control)
+ *   _paradise_faq_items → array of [ ['question' => …, 'answer' => …], … ]
+ *   menu_order          → display order of sets in wp-admin list (lower = first)
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -19,11 +18,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Paradise_FAQ_CPT {
 
     const POST_TYPE = 'paradise_faq';
-    const TAXONOMY  = 'paradise_faq_cat';
+    const META_KEY  = '_paradise_faq_items';
+    const NONCE     = 'paradise_faq_meta_box';
 
     public static function init(): void {
-        add_action( 'init', [ __CLASS__, 'register_post_type' ] );
-        add_action( 'init', [ __CLASS__, 'register_taxonomy' ] );
+        add_action( 'init',                              [ __CLASS__, 'register_post_type' ] );
+        add_action( 'add_meta_boxes',                    [ __CLASS__, 'add_meta_boxes' ] );
+        add_action( 'save_post_' . self::POST_TYPE,      [ __CLASS__, 'save_meta_box' ], 10, 2 );
+        add_action( 'admin_enqueue_scripts',             [ __CLASS__, 'enqueue_admin_assets' ] );
         add_filter( 'manage_' . self::POST_TYPE . '_posts_columns',       [ __CLASS__, 'admin_columns' ] );
         add_action( 'manage_' . self::POST_TYPE . '_posts_custom_column', [ __CLASS__, 'admin_column_content' ], 10, 2 );
     }
@@ -33,45 +35,153 @@ class Paradise_FAQ_CPT {
     public static function register_post_type(): void {
         register_post_type( self::POST_TYPE, [
             'labels' => [
-                'name'               => esc_html__( 'FAQs',              'paradise-elementor-widgets' ),
-                'singular_name'      => esc_html__( 'FAQ',               'paradise-elementor-widgets' ),
-                'add_new_item'       => esc_html__( 'Add New FAQ',       'paradise-elementor-widgets' ),
-                'edit_item'          => esc_html__( 'Edit FAQ',          'paradise-elementor-widgets' ),
-                'new_item'           => esc_html__( 'New FAQ',           'paradise-elementor-widgets' ),
-                'view_item'          => esc_html__( 'View FAQ',          'paradise-elementor-widgets' ),
-                'search_items'       => esc_html__( 'Search FAQs',       'paradise-elementor-widgets' ),
-                'not_found'          => esc_html__( 'No FAQs found.',    'paradise-elementor-widgets' ),
-                'not_found_in_trash' => esc_html__( 'No FAQs in Trash.', 'paradise-elementor-widgets' ),
-                'menu_name'          => esc_html__( 'FAQs',              'paradise-elementor-widgets' ),
+                'name'               => esc_html__( 'FAQs',                   'paradise-elementor-widgets' ),
+                'singular_name'      => esc_html__( 'FAQ',                    'paradise-elementor-widgets' ),
+                'add_new_item'       => esc_html__( 'Add New FAQ Set',        'paradise-elementor-widgets' ),
+                'edit_item'          => esc_html__( 'Edit FAQ Set',           'paradise-elementor-widgets' ),
+                'new_item'           => esc_html__( 'New FAQ Set',            'paradise-elementor-widgets' ),
+                'search_items'       => esc_html__( 'Search FAQs',            'paradise-elementor-widgets' ),
+                'not_found'          => esc_html__( 'No FAQ sets found.',     'paradise-elementor-widgets' ),
+                'not_found_in_trash' => esc_html__( 'No FAQ sets in Trash.',  'paradise-elementor-widgets' ),
+                'menu_name'          => esc_html__( 'FAQs',                   'paradise-elementor-widgets' ),
             ],
-            'public'              => false,
-            'show_ui'             => true,
-            'show_in_menu'        => 'paradise-widgets',
-            'show_in_rest'        => true,
-            'supports'            => [ 'title', 'editor', 'page-attributes' ],
-            'menu_icon'           => 'dashicons-editor-help',
-            'rewrite'             => false,
-            'has_archive'         => false,
+            'public'       => false,
+            'show_ui'      => true,
+            'show_in_menu' => 'paradise-widgets',
+            'show_in_rest' => false,
+            'supports'     => [ 'title', 'page-attributes' ],
+            'menu_icon'    => 'dashicons-editor-help',
+            'rewrite'      => false,
+            'has_archive'  => false,
         ] );
     }
 
-    public static function register_taxonomy(): void {
-        register_taxonomy( self::TAXONOMY, self::POST_TYPE, [
-            'labels' => [
-                'name'          => esc_html__( 'FAQ Categories',     'paradise-elementor-widgets' ),
-                'singular_name' => esc_html__( 'FAQ Category',       'paradise-elementor-widgets' ),
-                'add_new_item'  => esc_html__( 'Add New Category',   'paradise-elementor-widgets' ),
-                'edit_item'     => esc_html__( 'Edit Category',      'paradise-elementor-widgets' ),
-                'search_items'  => esc_html__( 'Search Categories',  'paradise-elementor-widgets' ),
-                'not_found'     => esc_html__( 'No categories found.', 'paradise-elementor-widgets' ),
-                'menu_name'     => esc_html__( 'Categories',         'paradise-elementor-widgets' ),
-            ],
-            'public'            => false,
-            'show_ui'           => true,
-            'show_in_rest'      => true,
-            'show_admin_column' => true,
-            'hierarchical'      => true,
-            'rewrite'           => false,
+    // ── Meta box ──────────────────────────────────────────────────────────────
+
+    public static function add_meta_boxes(): void {
+        add_meta_box(
+            'paradise_faq_items',
+            esc_html__( 'FAQ Items', 'paradise-elementor-widgets' ),
+            [ __CLASS__, 'render_meta_box' ],
+            self::POST_TYPE,
+            'normal',
+            'high'
+        );
+    }
+
+    public static function render_meta_box( \WP_Post $post ): void {
+        $items = self::get_raw_items( $post->ID );
+        wp_nonce_field( self::NONCE, self::NONCE . '_nonce' );
+        ?>
+        <div class="paradise-faq-mb">
+            <div class="paradise-faq-mb-rows" id="paradise-faq-mb-rows">
+                <?php foreach ( $items as $i => $item ) :
+                    $editor_id = 'paradise_faq_a_' . $post->ID . '_' . $i;
+                ?>
+                <div class="paradise-faq-mb-row" data-editor-id="<?php echo esc_attr( $editor_id ); ?>">
+                    <div class="paradise-faq-mb-row-header">
+                        <span class="paradise-faq-mb-num"><?php echo esc_html( (string) ( $i + 1 ) ); ?></span>
+                        <span class="paradise-faq-mb-preview"><?php echo esc_html( mb_substr( $item['question'] ?? '', 0, 60 ) ); ?></span>
+                        <button type="button" class="paradise-faq-mb-remove button-link-delete"><?php esc_html_e( 'Remove', 'paradise-elementor-widgets' ); ?></button>
+                    </div>
+                    <div class="paradise-faq-mb-fields">
+                        <p>
+                            <label><?php esc_html_e( 'Question', 'paradise-elementor-widgets' ); ?></label>
+                            <input type="text" class="widefat paradise-faq-mb-q" name="paradise_faq_q[]" value="<?php echo esc_attr( $item['question'] ?? '' ); ?>">
+                        </p>
+                        <p class="paradise-faq-mb-answer-wrap">
+                            <label><?php esc_html_e( 'Answer', 'paradise-elementor-widgets' ); ?></label>
+                            <?php
+                            wp_editor(
+                                wp_kses_post( $item['answer'] ?? '' ),
+                                $editor_id,
+                                [
+                                    'textarea_name' => 'paradise_faq_a[]',
+                                    'media_buttons' => false,
+                                    'editor_height' => 150,
+                                    'tinymce'       => [
+                                        'toolbar1' => 'bold italic | link | bullist numlist | removeformat',
+                                        'toolbar2' => '',
+                                    ],
+                                    'quicktags'     => [ 'buttons' => 'strong,em,link,ul,ol,li,close' ],
+                                ]
+                            );
+                            ?>
+                        </p>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+            <p class="paradise-faq-mb-footer">
+                <button type="button" class="button" id="paradise-faq-mb-add">
+                    + <?php esc_html_e( 'Add Item', 'paradise-elementor-widgets' ); ?>
+                </button>
+            </p>
+        </div>
+        <?php
+    }
+
+    public static function save_meta_box( int $post_id ): void {
+        if ( ! isset( $_POST[ self::NONCE . '_nonce' ] ) ) {
+            return;
+        }
+        if ( ! wp_verify_nonce( sanitize_key( $_POST[ self::NONCE . '_nonce' ] ), self::NONCE ) ) {
+            return;
+        }
+        if ( ! current_user_can( 'edit_post', $post_id ) ) {
+            return;
+        }
+        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+            return;
+        }
+
+        $questions = isset( $_POST['paradise_faq_q'] ) ? (array) wp_unslash( $_POST['paradise_faq_q'] ) : [];
+        $answers   = isset( $_POST['paradise_faq_a'] ) ? (array) wp_unslash( $_POST['paradise_faq_a'] ) : [];
+
+        $items = [];
+        foreach ( $questions as $i => $q ) {
+            $q = sanitize_text_field( $q );
+            $a = wp_kses_post( $answers[ $i ] ?? '' );
+            if ( '' !== $q || '' !== $a ) {
+                $items[] = [ 'question' => $q, 'answer' => $a ];
+            }
+        }
+
+        update_post_meta( $post_id, self::META_KEY, $items );
+    }
+
+    // ── Admin assets ──────────────────────────────────────────────────────────
+
+    public static function enqueue_admin_assets( string $hook ): void {
+        global $post;
+        if ( ! in_array( $hook, [ 'post.php', 'post-new.php' ], true ) ) {
+            return;
+        }
+        if ( ! isset( $post ) || self::POST_TYPE !== $post->post_type ) {
+            return;
+        }
+
+        // Ensures TinyMCE scripts are always loaded, even when there are 0 existing rows.
+        wp_enqueue_editor();
+
+        wp_enqueue_style(
+            'paradise-faq-meta-box',
+            PARADISE_EW_URL . 'assets/css/faq-meta-box.css',
+            [],
+            PARADISE_EW_VERSION
+        );
+        wp_enqueue_script(
+            'paradise-faq-meta-box',
+            PARADISE_EW_URL . 'assets/js/faq-meta-box.js',
+            [],
+            PARADISE_EW_VERSION,
+            true
+        );
+        wp_localize_script( 'paradise-faq-meta-box', 'paradiseFaqMb', [
+            'labelQuestion' => __( 'Question', 'paradise-elementor-widgets' ),
+            'labelAnswer'   => __( 'Answer',   'paradise-elementor-widgets' ),
+            'labelRemove'   => __( 'Remove',   'paradise-elementor-widgets' ),
+            'rowCount'      => count( self::get_raw_items( $post->ID ) ),
         ] );
     }
 
@@ -82,81 +192,59 @@ class Paradise_FAQ_CPT {
         foreach ( $columns as $key => $label ) {
             $new[ $key ] = $label;
             if ( 'title' === $key ) {
-                $new['faq_answer_preview'] = esc_html__( 'Answer Preview', 'paradise-elementor-widgets' );
+                $new['faq_item_count']     = esc_html__( 'Items',          'paradise-elementor-widgets' );
+                $new['faq_first_question'] = esc_html__( 'First Question', 'paradise-elementor-widgets' );
             }
         }
+        unset( $new['date'] );
         return $new;
     }
 
     public static function admin_column_content( string $column, int $post_id ): void {
-        if ( 'faq_answer_preview' !== $column ) {
-            return;
+        $items = self::get_raw_items( $post_id );
+        if ( 'faq_item_count' === $column ) {
+            echo esc_html( (string) count( $items ) );
+        } elseif ( 'faq_first_question' === $column ) {
+            $q = $items[0]['question'] ?? '';
+            echo esc_html( mb_strlen( $q ) > 80 ? mb_substr( $q, 0, 80 ) . '…' : $q );
         }
-        $content = get_post_field( 'post_content', $post_id );
-        $plain   = wp_strip_all_tags( $content );
-        echo esc_html( mb_strlen( $plain ) > 80 ? mb_substr( $plain, 0, 80 ) . '…' : $plain );
     }
 
     // ── Data access ───────────────────────────────────────────────────────────
 
     /**
-     * Query FAQ posts and return them as [ ['question' => …, 'answer' => …], … ].
-     *
-     * @param int    $category_id  Term ID of paradise_faq_cat (0 = all).
-     * @param int    $limit        Max posts (-1 = all).
-     * @param string $orderby      'menu_order' | 'date' | 'title'.
+     * Raw items from post meta — unsanitized, use only in trusted admin context.
      */
-    public static function get_items( int $category_id = 0, int $limit = -1, string $orderby = 'menu_order' ): array {
-        $args = [
-            'post_type'      => self::POST_TYPE,
-            'post_status'    => 'publish',
-            'posts_per_page' => $limit,
-            'orderby'        => in_array( $orderby, [ 'menu_order', 'date', 'title' ], true ) ? $orderby : 'menu_order',
-            'order'          => 'title' === $orderby ? 'ASC' : 'ASC',
-            'no_found_rows'  => true,
-        ];
-
-        if ( $category_id > 0 ) {
-            $args['tax_query'] = [ // phpcs:ignore WordPress.DB.SlowDBQuery
-                [
-                    'taxonomy' => self::TAXONOMY,
-                    'field'    => 'term_id',
-                    'terms'    => $category_id,
-                ],
-            ];
-        }
-
-        $posts = get_posts( $args );
-        $items = [];
-
-        foreach ( $posts as $post ) {
-            $items[] = [
-                'question' => get_the_title( $post ),
-                'answer'   => apply_filters( 'the_content', $post->post_content ),
-            ];
-        }
-
-        return $items;
+    public static function get_raw_items( int $post_id ): array {
+        $items = get_post_meta( $post_id, self::META_KEY, true );
+        return is_array( $items ) ? $items : [];
     }
 
     /**
-     * Return [ term_id => name ] options for the category SELECT control.
+     * Items for widget display.
+     * Returns [ ['question' => …, 'answer' => …], … ].
      */
-    public static function get_category_options(): array {
-        $terms = get_terms( [
-            'taxonomy'   => self::TAXONOMY,
-            'hide_empty' => false,
+    public static function get_items( int $post_id ): array {
+        return self::get_raw_items( $post_id );
+    }
+
+    /**
+     * Returns [ '' => '— Select —', post_id => title, … ] for the widget SELECT control.
+     */
+    public static function get_posts_for_select(): array {
+        $posts = get_posts( [
+            'post_type'      => self::POST_TYPE,
+            'post_status'    => 'publish',
+            'posts_per_page' => -1,
+            'orderby'        => 'menu_order title',
+            'order'          => 'ASC',
+            'no_found_rows'  => true,
         ] );
 
-        if ( is_wp_error( $terms ) || empty( $terms ) ) {
-            return [ 0 => esc_html__( 'All', 'paradise-elementor-widgets' ) ];
+        $options = [ '' => esc_html__( '— Select FAQ Set —', 'paradise-elementor-widgets' ) ];
+        foreach ( $posts as $p ) {
+            $options[ $p->ID ] = $p->post_title;
         }
-
-        $options = [ 0 => esc_html__( 'All', 'paradise-elementor-widgets' ) ];
-        foreach ( $terms as $term ) {
-            $options[ $term->term_id ] = $term->name;
-        }
-
         return $options;
     }
 }

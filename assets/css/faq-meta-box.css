@@ -1,0 +1,108 @@
+/* ── FAQ Meta Box ────────────────────────────────────────────────────────────── */
+
+.paradise-faq-mb-rows {
+    margin-bottom: 12px;
+}
+
+.paradise-faq-mb-row {
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    background: #fff;
+}
+
+/* ── Row header ──────────────────────────────────────────────────────────────── */
+
+.paradise-faq-mb-row-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: #f6f7f7;
+    border-bottom: 1px solid #dcdcde;
+    border-radius: 3px 3px 0 0;
+}
+
+.paradise-faq-mb-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #2271b1;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.paradise-faq-mb-preview {
+    flex: 1;
+    font-size: 13px;
+    color: #50575e;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.paradise-faq-mb-remove {
+    color: #b32d2e;
+    font-size: 12px;
+    flex-shrink: 0;
+    text-decoration: none;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.paradise-faq-mb-remove:hover {
+    color: #8a1f20;
+}
+
+/* ── Fields ──────────────────────────────────────────────────────────────────── */
+
+.paradise-faq-mb-fields {
+    padding: 12px;
+}
+
+.paradise-faq-mb-fields p {
+    margin: 0 0 12px;
+}
+
+.paradise-faq-mb-fields p:last-child {
+    margin-bottom: 0;
+}
+
+.paradise-faq-mb-fields label {
+    display: block;
+    font-weight: 600;
+    font-size: 12px;
+    color: #1d2327;
+    margin-bottom: 5px;
+}
+
+/* ── wp_editor wrapper — constrain height & enable scroll ────────────────────── */
+
+.paradise-faq-mb-answer-wrap .wp-editor-wrap {
+    max-height: 220px;
+}
+
+.paradise-faq-mb-answer-wrap .wp-editor-container {
+    overflow-y: auto;
+}
+
+/* TinyMCE iframe height is controlled via editor_height / tinymce.height setting.
+   The quicktags textarea fallback gets a matching height. */
+.paradise-faq-mb-answer-wrap .wp-editor-area {
+    height: 150px;
+    resize: vertical;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────────── */
+
+.paradise-faq-mb-footer {
+    margin: 4px 0 0;
+}

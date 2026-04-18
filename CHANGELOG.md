@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.4.0] - 2026-04-18
+
+### Added
+
+- **FAQ Accordion** — collapsible Q&A list with accordion mode (one item open at a time) or multi-expand mode; Elementor ICONS picker for open/closed state; left/right icon position; open-first-item default; Schema.org FAQPage JSON-LD output for Google rich results; full typography, color, padding, border, and shadow style controls
+- **FAQ Post Type** — each post represents a "FAQ Set" (e.g. "General FAQ", "Pricing FAQ") with unlimited Q&A items stored in `_paradise_faq_items` post meta; TinyMCE rich text editor (bold, italic, links, lists) with controlled height and vertical scrollbar for answer editing; admin list shows item count and first question preview; toggled via the `faq_cpt` feature flag in plugin settings
+
+### Fixed
+
+- Elementor editor CSS appearing as visible text content in the canvas when the FAQ Accordion widget (CPT source) was present — root cause was `apply_filters('the_content', …)` being called inside widget render, which triggered Elementor's content pipeline and flushed the page CSS inline
+- `date` orderby in FAQ `get_items()` was sorting ASC instead of DESC (newest first)
+
+---
+
 ## [2.3.0] - 2026-04-17
 
 ### Added

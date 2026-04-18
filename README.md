@@ -5,7 +5,7 @@
 [![WordPress](https://img.shields.io/badge/WordPress-6.1%2B-blue.svg)](https://wordpress.org)
 [![Elementor](https://img.shields.io/badge/Elementor-3.5%2B-orange.svg)](https://elementor.com)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-777BB4.svg)](https://www.php.net)
-[![Version](https://img.shields.io/badge/Version-2.3.0-green.svg)](https://github.com/rezabagheri/paradise-elementor-widgets/releases)
+[![Version](https://img.shields.io/badge/Version-2.4.0-green.svg)](https://github.com/rezabagheri/paradise-elementor-widgets/releases)
 [![License](https://img.shields.io/badge/License-GPL--2.0%2B-green.svg)](LICENSE)
 
 ---
@@ -40,6 +40,7 @@
 | **Social Links** | Row/column of social media icon links with brand colors and hover animations |
 | **Business Hours** | Business hours from Site Info with a live Open Now / Closed badge |
 | **LocalBusiness Schema** | Invisible widget that injects Schema.org JSON-LD for local SEO |
+| **FAQ Accordion** | Collapsible Q&A list with accordion or multi-expand mode, icon picker, and Schema.org FAQPage JSON-LD |
 
 ---
 
@@ -109,6 +110,7 @@ paradise-elementor-widgets/
 ├── includes/
 │   ├── class-paradise-site-info.php  # Site Info data model + shortcode
 │   ├── class-paradise-dynamic-tags.php
+│   ├── class-paradise-faq-cpt.php    # FAQ Post Type — sets + TinyMCE meta box
 │   └── trait-paradise-phone-helper.php
 ├── widgets/                          # One file per widget
 │   ├── class-paradise-phone-link.php
@@ -124,7 +126,8 @@ paradise-elementor-widgets/
 │   ├── class-paradise-google-map.php
 │   ├── class-paradise-social-links.php
 │   ├── class-paradise-business-hours.php
-│   └── class-paradise-local-business-schema.php
+│   ├── class-paradise-local-business-schema.php
+│   └── class-paradise-faq-accordion.php
 └── assets/
     ├── css/                          # One CSS file per widget
     └── js/                           # JS only for widgets that need it
@@ -171,6 +174,12 @@ No other changes needed — the registry drives settings, toggle UI, and loading
 ---
 
 ## Version History
+
+### v2.4.0 (April 2026)
+
+- FAQ Accordion widget — accordion/multi-expand, Elementor icon picker (closed/open), icon position, Schema.org FAQPage JSON-LD, full style controls
+- FAQ Post Type — each post is a "FAQ Set" with unlimited Q&A items stored in meta; TinyMCE rich text editor for answers; toggle on/off in plugin settings
+- Fixed: Elementor editor CSS appearing as visible text when FAQ CPT source was active (caused by `apply_filters('the_content', …)` inside widget render)
 
 ### v2.3.0 (April 2026)
 
