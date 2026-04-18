@@ -54,6 +54,32 @@
     text-align: right;
 }
 
+/* ── Drag handle ─────────────────────────────────────────────────────────── */
+
+.paradise-si-col-drag {
+    width: 28px;
+    text-align: center;
+    padding-right: 4px;
+}
+
+.paradise-si-handle {
+    cursor: grab;
+    color: #aaa;
+    font-size: 18px;
+    line-height: 1;
+    display: inline-block;
+}
+
+.paradise-si-handle:hover {
+    color: #555;
+}
+
+.paradise-si-sortable-placeholder {
+    height: 40px;
+    background: #f0f6fc;
+    border: 1px dashed #2271b1;
+}
+
 /* ── Remove button ───────────────────────────────────────────────────────── */
 
 .paradise-si-remove {

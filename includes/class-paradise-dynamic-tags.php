@@ -6,12 +6,13 @@
  * Tags pull values from Paradise_Site_Info.
  *
  * Tags:
- *   paradise-phone      — TEXT  — phone number string
- *   paradise-phone-url  — URL   — tel:+... href
- *   paradise-email      — TEXT  — email address string
- *   paradise-email-url  — URL   — mailto:... href
- *   paradise-address    — TEXT  — address string
- *   paradise-social-url — URL   — social media URL
+ *   paradise-phone          — TEXT  — phone number string
+ *   paradise-phone-url      — URL   — tel:+... href
+ *   paradise-email          — TEXT  — email address string
+ *   paradise-email-url      — URL   — mailto:... href
+ *   paradise-address        — TEXT  — address string
+ *   paradise-address-map    — URL   — Google Maps URL
+ *   paradise-social-url     — URL   — social media URL
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,6 +33,7 @@ class Paradise_Dynamic_Tags {
         $manager->register( new Paradise_Tag_Email() );
         $manager->register( new Paradise_Tag_Email_URL() );
         $manager->register( new Paradise_Tag_Address() );
+        $manager->register( new Paradise_Tag_Address_Map_URL() );
         $manager->register( new Paradise_Tag_Social_URL() );
     }
 }
@@ -169,6 +171,29 @@ class Paradise_Tag_Address extends Paradise_Tag_Base {
     public function render(): void {
         $index = (int) $this->get_settings( 'address_index' );
         echo esc_html( Paradise_Site_Info::get_value( 'addresses', $index ) );
+    }
+}
+
+// ── Address — Map URL ─────────────────────────────────────────────────────
+
+class Paradise_Tag_Address_Map_URL extends Paradise_Tag_Base {
+
+    public function get_name(): string  { return 'paradise-address-map'; }
+    public function get_title(): string { return esc_html__( 'Address Map URL', 'paradise-elementor-widgets' ); }
+
+    public function get_categories(): array {
+        return [ \Elementor\Modules\DynamicTags\Module::URL_CATEGORY ];
+    }
+
+    protected function register_controls(): void {
+        $this->add_item_select( 'address_index', 'addresses',
+            esc_html__( 'Select Address', 'paradise-elementor-widgets' )
+        );
+    }
+
+    public function render(): void {
+        $index = (int) $this->get_settings( 'address_index' );
+        echo esc_url( Paradise_Site_Info::get_value( 'addresses', $index, 'map_url' ) );
     }
 }
 

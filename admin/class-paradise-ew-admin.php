@@ -60,6 +60,14 @@ class Paradise_EW_Admin {
             'label'       => 'Sticky Header',
             'description' => 'Place inside any Elementor section to make it sticky. Applies scroll effects (shadow, background change, shrink) when scrolling past a threshold.',
         ],
+        'google_map' => [
+            'label'       => 'Google Map',
+            'description' => 'Embeds a Google Map via iframe. Source can be a Site Info address (Map URL field) or a manually entered URL. Supports border radius, shadow, and height controls.',
+        ],
+        'social_links' => [
+            'label'       => 'Social Links',
+            'description' => 'Row or column of social media icon links. Source: Site Info socials or custom list. Supports brand/uniform colors, hover animations, icon shapes, and icon+label display modes.',
+        ],
     ];
 
     /**

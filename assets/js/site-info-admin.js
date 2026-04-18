@@ -1,13 +1,25 @@
 /**
  * Paradise Site Info — Admin repeater rows
  *
- * Handles "Add" and "Remove" row buttons for each section table.
+ * Handles "Add" and "Remove" row buttons for each section table,
+ * and drag-to-reorder via jQuery UI Sortable.
  * Uses <template> elements to clone new rows and __INDEX__ as placeholder.
  */
-(function () {
+(function ($) {
     'use strict';
 
-    document.addEventListener('DOMContentLoaded', function () {
+    $(function () {
+
+        // ── Drag-to-reorder (Sortable) ────────────────────────────────────────
+
+        $('tbody[id^="paradise-si-"]').sortable({
+            handle:      '.paradise-si-handle',
+            axis:        'y',
+            cursor:      'grabbing',
+            placeholder: 'paradise-si-sortable-placeholder',
+            helper:      'clone',
+            forcePlaceholderSize: true,
+        });
 
         // ── Add row ───────────────────────────────────────────────────────────
 
@@ -48,4 +60,4 @@
 
     });
 
-})();
+})(jQuery);

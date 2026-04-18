@@ -12,9 +12,13 @@
  *
  * Shortcode:
  *   [paradise_site_info type="phone" index="0"]
+ *   [paradise_site_info type="phone" label="Main Office"]
  *   [paradise_site_info type="email" index="0"]
  *   [paradise_site_info type="address" index="0"]
+ *   [paradise_site_info type="address_map" index="0"]
  *   [paradise_site_info type="social_url" index="0"]
+ *
+ * When both label and index are provided, label takes precedence.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -109,7 +113,7 @@ class Paradise_Site_Info {
             'socials'   => [],
         ];
 
-        foreach ( [ 'phones', 'emails', 'addresses' ] as $type ) {
+        foreach ( [ 'phones', 'emails' ] as $type ) {
             foreach ( $raw[ $type ] ?? [] as $item ) {
                 $value = sanitize_text_field( $item['value'] ?? '' );
                 if ( $value === '' ) continue;
@@ -118,6 +122,16 @@ class Paradise_Site_Info {
                     'value' => $value,
                 ];
             }
+        }
+
+        foreach ( $raw['addresses'] ?? [] as $item ) {
+            $value = sanitize_text_field( $item['value'] ?? '' );
+            if ( $value === '' ) continue;
+            $data['addresses'][] = [
+                'label'   => sanitize_text_field( $item['label'] ?? '' ),
+                'value'   => $value,
+                'map_url' => esc_url_raw( $item['map_url'] ?? '' ),
+            ];
         }
 
         foreach ( $raw['socials'] ?? [] as $item ) {
@@ -143,31 +157,57 @@ class Paradise_Site_Info {
     }
 
     /**
+     * Resolve the item index from shortcode attributes.
+     * If 'label' is provided, find the first item whose label matches (case-insensitive).
+     * Falls back to 'index' when no label is given or no match is found.
+     */
+    private static function resolve_index( string $type, array $atts ): int {
+        $label_attr = trim( $atts['label'] ?? '' );
+
+        if ( $label_attr !== '' ) {
+            $items = self::get( $type );
+            foreach ( $items as $i => $item ) {
+                if ( strcasecmp( $item['label'] ?? '', $label_attr ) === 0 ) {
+                    return $i;
+                }
+            }
+        }
+
+        return max( 0, (int) ( $atts['index'] ?? 0 ) );
+    }
+
+    /**
      * [paradise_site_info type="phone" index="0"]
+     * [paradise_site_info type="phone" label="Main Office"]
      * [paradise_site_info type="email" index="0"]
      * [paradise_site_info type="address" index="0"]
+     * [paradise_site_info type="address_map" index="0"]
      * [paradise_site_info type="social_url" index="0"]
+     *
+     * When both label and index are provided, label takes precedence.
      */
     public static function shortcode_handler( array $atts ): string {
         $atts = shortcode_atts( [
             'type'  => 'phone',
             'index' => 0,
+            'label' => '',
         ], $atts, 'paradise_site_info' );
-
-        $index = max( 0, (int) $atts['index'] );
 
         switch ( $atts['type'] ) {
             case 'phone':
-                return esc_html( self::get_value( 'phones', $index ) );
+                return esc_html( self::get_value( 'phones', self::resolve_index( 'phones', $atts ) ) );
 
             case 'email':
-                return esc_html( self::get_value( 'emails', $index ) );
+                return esc_html( self::get_value( 'emails', self::resolve_index( 'emails', $atts ) ) );
 
             case 'address':
-                return esc_html( self::get_value( 'addresses', $index ) );
+                return esc_html( self::get_value( 'addresses', self::resolve_index( 'addresses', $atts ) ) );
+
+            case 'address_map':
+                return esc_url( self::get_value( 'addresses', self::resolve_index( 'addresses', $atts ), 'map_url' ) );
 
             case 'social_url':
-                return esc_url( self::get_value( 'socials', $index, 'url' ) );
+                return esc_url( self::get_value( 'socials', self::resolve_index( 'socials', $atts ), 'url' ) );
 
             default:
                 return '';

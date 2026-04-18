@@ -51,7 +51,7 @@ class Paradise_Site_Info_Admin {
         wp_enqueue_script(
             'paradise-site-info-admin',
             PARADISE_EW_URL . 'assets/js/site-info-admin.js',
-            [],
+            [ 'jquery-ui-sortable' ],
             PARADISE_EW_VERSION,
             true
         );

@@ -215,6 +215,20 @@ final class Paradise_Elementor_Widgets
             PARADISE_EW_VERSION,
             true
         );
+
+        wp_register_style(
+            'paradise-google-map',
+            PARADISE_EW_URL . 'assets/css/google-map.css',
+            [],
+            PARADISE_EW_VERSION
+        );
+
+        wp_register_style(
+            'paradise-social-links',
+            PARADISE_EW_URL . 'assets/css/social-links.css',
+            [],
+            PARADISE_EW_VERSION
+        );
     }
 
     public function register_widgets($widgets_manager): void
@@ -278,6 +292,18 @@ final class Paradise_Elementor_Widgets
         if (Paradise_EW_Admin::widget_enabled('sticky_header')) {
             require_once PARADISE_EW_DIR . 'widgets/class-paradise-sticky-header.php';
             $widgets_manager->register(new Paradise_Sticky_Header_Widget());
+        }
+
+        // Google Map
+        if (Paradise_EW_Admin::widget_enabled('google_map')) {
+            require_once PARADISE_EW_DIR . 'widgets/class-paradise-google-map.php';
+            $widgets_manager->register(new Paradise_Google_Map_Widget());
+        }
+
+        // Social Links
+        if (Paradise_EW_Admin::widget_enabled('social_links')) {
+            require_once PARADISE_EW_DIR . 'widgets/class-paradise-social-links.php';
+            $widgets_manager->register(new Paradise_Social_Links_Widget());
         }
 
         // Add future widgets below:
