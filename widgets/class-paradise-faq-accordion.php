@@ -93,26 +93,30 @@ class Paradise_Faq_Accordion_Widget extends \Elementor\Widget_Base {
             'return_value' => 'yes',
         ] );
 
-        $this->add_control( 'icon_type', [
-            'label'   => esc_html__( 'Icon', 'paradise-elementor-widgets' ),
-            'type'    => \Elementor\Controls_Manager::SELECT,
-            'default' => 'chevron',
-            'options' => [
-                'chevron' => esc_html__( 'Chevron', 'paradise-elementor-widgets' ),
-                'plus'    => esc_html__( 'Plus / Minus', 'paradise-elementor-widgets' ),
-                'none'    => esc_html__( 'None', 'paradise-elementor-widgets' ),
-            ],
+        $this->add_control( 'icon_closed', [
+            'label'                  => esc_html__( 'Closed Icon', 'paradise-elementor-widgets' ),
+            'type'                   => \Elementor\Controls_Manager::ICONS,
+            'default'                => [ 'value' => 'eicon-chevron-down', 'library' => 'eicons' ],
+            'skin'                   => 'inline',
+            'exclude_inline_options' => [ 'svg' ],
+        ] );
+
+        $this->add_control( 'icon_open', [
+            'label'                  => esc_html__( 'Open Icon', 'paradise-elementor-widgets' ),
+            'type'                   => \Elementor\Controls_Manager::ICONS,
+            'default'                => [ 'value' => 'eicon-chevron-up', 'library' => 'eicons' ],
+            'skin'                   => 'inline',
+            'exclude_inline_options' => [ 'svg' ],
         ] );
 
         $this->add_control( 'icon_position', [
-            'label'     => esc_html__( 'Icon Position', 'paradise-elementor-widgets' ),
-            'type'      => \Elementor\Controls_Manager::SELECT,
-            'default'   => 'right',
-            'options'   => [
+            'label'   => esc_html__( 'Icon Position', 'paradise-elementor-widgets' ),
+            'type'    => \Elementor\Controls_Manager::SELECT,
+            'default' => 'right',
+            'options' => [
                 'right' => esc_html__( 'Right', 'paradise-elementor-widgets' ),
                 'left'  => esc_html__( 'Left', 'paradise-elementor-widgets' ),
             ],
-            'condition' => [ 'icon_type!' => 'none' ],
         ] );
 
         $this->add_control( 'schema_faq', [
@@ -292,9 +296,8 @@ class Paradise_Faq_Accordion_Widget extends \Elementor\Widget_Base {
         // ── Style: Icon ───────────────────────────────────────────────────────
 
         $this->start_controls_section( 'section_style_icon', [
-            'label'     => esc_html__( 'Icon', 'paradise-elementor-widgets' ),
-            'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
-            'condition' => [ 'icon_type!' => 'none' ],
+            'label' => esc_html__( 'Icon', 'paradise-elementor-widgets' ),
+            'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
         ] );
 
         $this->add_responsive_control( 'icon_size', [
@@ -304,7 +307,8 @@ class Paradise_Faq_Accordion_Widget extends \Elementor\Widget_Base {
             'range'      => [ 'px' => [ 'min' => 10, 'max' => 40 ] ],
             'default'    => [ 'unit' => 'px', 'size' => 18 ],
             'selectors'  => [
-                '{{WRAPPER}} .paradise-faq-q-icon' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .paradise-faq-q-icon i'   => 'font-size: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .paradise-faq-q-icon svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
             ],
         ] );
 
@@ -342,16 +346,6 @@ class Paradise_Faq_Accordion_Widget extends \Elementor\Widget_Base {
         $this->end_controls_section();
     }
 
-    // ── SVG icons ─────────────────────────────────────────────────────────────
-
-    private static function chevron_svg(): string {
-        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
-    }
-
-    private static function plus_svg(): string {
-        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
-    }
-
     // ── Render ────────────────────────────────────────────────────────────────
 
     protected function render(): void {
@@ -367,21 +361,15 @@ class Paradise_Faq_Accordion_Widget extends \Elementor\Widget_Base {
             return;
         }
 
-        $behavior  = $settings['behavior']      ?? 'accordion';
-        $icon_type = $settings['icon_type']     ?? 'chevron';
-        $icon_pos  = $settings['icon_position'] ?? 'right';
+        $behavior   = $settings['behavior']      ?? 'accordion';
+        $icon_pos   = $settings['icon_position'] ?? 'right';
         $open_first = 'yes' === ( $settings['open_first'] ?? 'yes' );
-
-        $icon_svg = '';
-        if ( 'chevron' === $icon_type ) {
-            $icon_svg = self::chevron_svg();
-        } elseif ( 'plus' === $icon_type ) {
-            $icon_svg = self::plus_svg();
-        }
+        $icon_closed = $settings['icon_closed'] ?? [];
+        $icon_open   = $settings['icon_open']   ?? [];
+        $has_icon    = ! empty( $icon_closed['value'] );
 
         $wrap_classes = [ 'paradise-faq-wrap' ];
-        if ( 'none' !== $icon_type ) {
-            $wrap_classes[] = 'paradise-faq--icon-' . sanitize_html_class( $icon_type );
+        if ( $has_icon ) {
             $wrap_classes[] = 'paradise-faq--icon-pos-' . sanitize_html_class( $icon_pos );
         }
         ?>
@@ -406,8 +394,13 @@ class Paradise_Faq_Accordion_Widget extends \Elementor\Widget_Base {
                     aria-controls="<?php echo esc_attr( $answer_id ); ?>"
                 >
                     <span class="paradise-faq-q-text" itemprop="name"><?php echo esc_html( $item['question'] ?? '' ); ?></span>
-                    <?php if ( 'none' !== $icon_type ) : ?>
-                    <span class="paradise-faq-q-icon" aria-hidden="true"><?php echo $icon_svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+                    <?php if ( $has_icon ) : ?>
+                    <span class="paradise-faq-q-icon paradise-faq-q-icon--closed" aria-hidden="true">
+                        <?php \Elementor\Icons_Manager::render_icon( $icon_closed, [ 'aria-hidden' => 'true' ] ); ?>
+                    </span>
+                    <span class="paradise-faq-q-icon paradise-faq-q-icon--open" aria-hidden="true">
+                        <?php \Elementor\Icons_Manager::render_icon( $icon_open, [ 'aria-hidden' => 'true' ] ); ?>
+                    </span>
                     <?php endif; ?>
                 </div>
 

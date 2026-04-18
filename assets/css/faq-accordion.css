@@ -49,7 +49,6 @@
     width: 100%;
     height: 100%;
     display: block;
-    transition: transform 0.25s ease;
 }
 
 /* Left icon: push icon before the text using order */
@@ -57,14 +56,15 @@
     order: -1;
 }
 
-/* Chevron rotates 180° when open */
-.paradise-faq--icon-chevron .paradise-faq-item--open .paradise-faq-q-icon svg {
-    transform: rotate(180deg);
+/* Icon swap: show closed icon normally, swap to open icon when active */
+.paradise-faq-q-icon--open {
+    display: none;
 }
-
-/* Plus rotates 45° (becomes ×) when open */
-.paradise-faq--icon-plus .paradise-faq-item--open .paradise-faq-q-icon svg {
-    transform: rotate(45deg);
+.paradise-faq-item--open .paradise-faq-q-icon--closed {
+    display: none;
+}
+.paradise-faq-item--open .paradise-faq-q-icon--open {
+    display: flex;
 }
 
 /* ── Answer (grid transition) ────────────────────────────────────────────── */
