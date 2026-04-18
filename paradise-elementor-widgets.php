@@ -233,83 +233,17 @@ final class Paradise_Elementor_Widgets
 
     public function register_widgets($widgets_manager): void
     {
-
-        // Phone Link
-        if (Paradise_EW_Admin::widget_enabled('phone_link')) {
-            require_once PARADISE_EW_DIR . 'widgets/class-paradise-phone-link.php';
-            $widgets_manager->register(new Paradise_Phone_Link_Widget());
+        foreach (Paradise_EW_Admin::get_widget_registry() as $key => $config) {
+            if (!Paradise_EW_Admin::widget_enabled($key)) {
+                continue;
+            }
+            require_once PARADISE_EW_DIR . $config['file'];
+            $widgets_manager->register(new $config['class']());
         }
 
-        // Bottom Navigation Bar
-        if (Paradise_EW_Admin::widget_enabled('bottom_nav')) {
-            require_once PARADISE_EW_DIR . 'widgets/class-paradise-bottom-nav.php';
-            $widgets_manager->register(new Paradise_Bottom_Nav_Widget());
-        }
-
-        // Author Card
-        if (Paradise_EW_Admin::widget_enabled('author_card')) {
-            require_once PARADISE_EW_DIR . 'widgets/class-paradise-author-card.php';
-            $widgets_manager->register(new Paradise_Author_Card_Widget());
-        }
-
-        // Phone Button
-        if (Paradise_EW_Admin::widget_enabled('phone_button')) {
-            require_once PARADISE_EW_DIR . 'widgets/class-paradise-phone-button.php';
-            $widgets_manager->register(new Paradise_Phone_Button_Widget());
-        }
-
-        // Floating Call Button
-        if (Paradise_EW_Admin::widget_enabled('floating_call_btn')) {
-            require_once PARADISE_EW_DIR . 'widgets/class-paradise-floating-call-btn.php';
-            $widgets_manager->register(new Paradise_Floating_Call_Btn_Widget());
-        }
-
-        // Announcement Bar
-        if (Paradise_EW_Admin::widget_enabled('announcement_bar')) {
-            require_once PARADISE_EW_DIR . 'widgets/class-paradise-announcement-bar.php';
-            $widgets_manager->register(new Paradise_Announcement_Bar_Widget());
-        }
-
-        // Cookie Consent Bar
-        if (Paradise_EW_Admin::widget_enabled('cookie_consent_bar')) {
-            require_once PARADISE_EW_DIR . 'widgets/class-paradise-cookie-consent-bar.php';
-            $widgets_manager->register(new Paradise_Cookie_Consent_Bar_Widget());
-        }
-
-        // Back to Top
-        if (Paradise_EW_Admin::widget_enabled('back_to_top')) {
-            require_once PARADISE_EW_DIR . 'widgets/class-paradise-back-to-top.php';
-            $widgets_manager->register(new Paradise_Back_To_Top_Widget());
-        }
-
-        // Off-Canvas Menu
-        if (Paradise_EW_Admin::widget_enabled('off_canvas_menu')) {
-            require_once PARADISE_EW_DIR . 'widgets/class-paradise-off-canvas-menu.php';
-            $widgets_manager->register(new Paradise_Off_Canvas_Menu_Widget());
-        }
-
-        // Sticky Header
-        if (Paradise_EW_Admin::widget_enabled('sticky_header')) {
-            require_once PARADISE_EW_DIR . 'widgets/class-paradise-sticky-header.php';
-            $widgets_manager->register(new Paradise_Sticky_Header_Widget());
-        }
-
-        // Google Map
-        if (Paradise_EW_Admin::widget_enabled('google_map')) {
-            require_once PARADISE_EW_DIR . 'widgets/class-paradise-google-map.php';
-            $widgets_manager->register(new Paradise_Google_Map_Widget());
-        }
-
-        // Social Links
-        if (Paradise_EW_Admin::widget_enabled('social_links')) {
-            require_once PARADISE_EW_DIR . 'widgets/class-paradise-social-links.php';
-            $widgets_manager->register(new Paradise_Social_Links_Widget());
-        }
-
-        // Add future widgets below:
+        // To add a new widget:
         // 1. Create: widgets/class-paradise-{name}.php
-        // 2. Wrap in: if ( Paradise_EW_Admin::widget_enabled( '{key}' ) ) { ... }
-        // 3. Add the key+label to Paradise_EW_Admin::$widget_registry
+        // 2. Add one entry to Paradise_EW_Admin::$widget_registry with file + class keys
     }
 }
 

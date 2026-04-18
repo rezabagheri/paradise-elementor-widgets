@@ -19,54 +19,87 @@ class Paradise_EW_Admin {
      * Widgets that can be toggled on/off.
      * 'key' must match the identifier used in register_widgets().
      */
+    /**
+     * Widget registry — single source of truth for settings, toggle UI, and loading.
+     *
+     * Keys:
+     *   label       — human-readable name shown in the settings page
+     *   description — short description shown in the settings page
+     *   file        — path relative to PARADISE_EW_DIR
+     *   class       — PHP class name to instantiate
+     */
     private static array $widget_registry = [
         'phone_link' => [
             'label'       => 'Phone Link',
             'description' => 'Clickable phone number with icon, prefix, and formatting options.',
+            'file'        => 'widgets/class-paradise-phone-link.php',
+            'class'       => 'Paradise_Phone_Link_Widget',
         ],
         'bottom_nav' => [
             'label'       => 'Bottom Navigation Bar',
             'description' => 'Fixed mobile bottom bar with icons, labels, badges, and speed dial.',
+            'file'        => 'widgets/class-paradise-bottom-nav.php',
+            'class'       => 'Paradise_Bottom_Nav_Widget',
         ],
         'author_card' => [
             'label'       => 'Author Card',
             'description' => 'Author profile card with photo, credentials, bio, custom fields, and CTA button.',
+            'file'        => 'widgets/class-paradise-author-card.php',
+            'class'       => 'Paradise_Author_Card_Widget',
         ],
         'phone_button' => [
             'label'       => 'Phone Button',
             'description' => 'Fully-styled CTA button for phone calls or WhatsApp. Supports custom text, icon, colors, hover, and border radius.',
+            'file'        => 'widgets/class-paradise-phone-button.php',
+            'class'       => 'Paradise_Phone_Button_Widget',
         ],
         'floating_call_btn' => [
             'label'       => 'Floating Call Button',
             'description' => 'Fixed-position call/WhatsApp button that stays visible while scrolling. Supports icon, optional label, pulse animation, and corner positioning.',
+            'file'        => 'widgets/class-paradise-floating-call-btn.php',
+            'class'       => 'Paradise_Floating_Call_Btn_Widget',
         ],
         'announcement_bar' => [
             'label'       => 'Announcement Bar',
             'description' => 'Fixed full-width banner for announcements, promotions, or alerts. Supports icon, message, CTA button, and dismissal with session/days/permanent memory.',
+            'file'        => 'widgets/class-paradise-announcement-bar.php',
+            'class'       => 'Paradise_Announcement_Bar_Widget',
         ],
         'cookie_consent_bar' => [
             'label'       => 'Cookie Consent Bar',
             'description' => 'GDPR/cookie consent bar with Accept and Decline buttons. Stores user choice in localStorage with configurable expiry. Dispatches consent events for analytics integration.',
+            'file'        => 'widgets/class-paradise-cookie-consent-bar.php',
+            'class'       => 'Paradise_Cookie_Consent_Bar_Widget',
         ],
         'back_to_top' => [
             'label'       => 'Back to Top',
             'description' => 'Fixed-position button that appears after scrolling past a threshold and smoothly returns the user to the top of the page.',
+            'file'        => 'widgets/class-paradise-back-to-top.php',
+            'class'       => 'Paradise_Back_To_Top_Widget',
         ],
         'off_canvas_menu' => [
             'label'       => 'Off-Canvas Menu',
             'description' => 'Slide-in panel with a WordPress menu. Triggered by an inline button or the Paradise.openOffCanvas() JS API (e.g. from Bottom Nav).',
+            'file'        => 'widgets/class-paradise-off-canvas-menu.php',
+            'class'       => 'Paradise_Off_Canvas_Menu_Widget',
         ],
         'sticky_header' => [
             'label'       => 'Sticky Header',
             'description' => 'Place inside any Elementor section to make it sticky. Applies scroll effects (shadow, background change, shrink) when scrolling past a threshold.',
+            'file'        => 'widgets/class-paradise-sticky-header.php',
+            'class'       => 'Paradise_Sticky_Header_Widget',
         ],
         'google_map' => [
             'label'       => 'Google Map',
             'description' => 'Embeds a Google Map via iframe. Source can be a Site Info address (Map URL field) or a manually entered URL. Supports border radius, shadow, and height controls.',
+            'file'        => 'widgets/class-paradise-google-map.php',
+            'class'       => 'Paradise_Google_Map_Widget',
         ],
         'social_links' => [
             'label'       => 'Social Links',
             'description' => 'Row or column of social media icon links. Source: Site Info socials or custom list. Supports brand/uniform colors, hover animations, icon shapes, and icon+label display modes.',
+            'file'        => 'widgets/class-paradise-social-links.php',
+            'class'       => 'Paradise_Social_Links_Widget',
         ],
     ];
 
