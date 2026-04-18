@@ -93,12 +93,20 @@ class Paradise_Faq_Accordion_Widget extends \Elementor\Widget_Base {
             'return_value' => 'yes',
         ] );
 
+        $this->add_control( 'show_icon', [
+            'label'        => esc_html__( 'Show Icon', 'paradise-elementor-widgets' ),
+            'type'         => \Elementor\Controls_Manager::SWITCHER,
+            'default'      => 'yes',
+            'return_value' => 'yes',
+        ] );
+
         $this->add_control( 'icon_closed', [
             'label'                  => esc_html__( 'Closed Icon', 'paradise-elementor-widgets' ),
             'type'                   => \Elementor\Controls_Manager::ICONS,
             'default'                => [ 'value' => 'eicon-chevron-down', 'library' => 'eicons' ],
             'skin'                   => 'inline',
             'exclude_inline_options' => [ 'svg' ],
+            'condition'              => [ 'show_icon' => 'yes' ],
         ] );
 
         $this->add_control( 'icon_open', [
@@ -107,16 +115,18 @@ class Paradise_Faq_Accordion_Widget extends \Elementor\Widget_Base {
             'default'                => [ 'value' => 'eicon-chevron-up', 'library' => 'eicons' ],
             'skin'                   => 'inline',
             'exclude_inline_options' => [ 'svg' ],
+            'condition'              => [ 'show_icon' => 'yes' ],
         ] );
 
         $this->add_control( 'icon_position', [
-            'label'   => esc_html__( 'Icon Position', 'paradise-elementor-widgets' ),
-            'type'    => \Elementor\Controls_Manager::SELECT,
-            'default' => 'right',
-            'options' => [
+            'label'     => esc_html__( 'Icon Position', 'paradise-elementor-widgets' ),
+            'type'      => \Elementor\Controls_Manager::SELECT,
+            'default'   => 'right',
+            'options'   => [
                 'right' => esc_html__( 'Right', 'paradise-elementor-widgets' ),
                 'left'  => esc_html__( 'Left', 'paradise-elementor-widgets' ),
             ],
+            'condition' => [ 'show_icon' => 'yes' ],
         ] );
 
         $this->add_control( 'schema_faq', [
@@ -296,8 +306,9 @@ class Paradise_Faq_Accordion_Widget extends \Elementor\Widget_Base {
         // ── Style: Icon ───────────────────────────────────────────────────────
 
         $this->start_controls_section( 'section_style_icon', [
-            'label' => esc_html__( 'Icon', 'paradise-elementor-widgets' ),
-            'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+            'label'     => esc_html__( 'Icon', 'paradise-elementor-widgets' ),
+            'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
+            'condition' => [ 'show_icon' => 'yes' ],
         ] );
 
         $this->add_responsive_control( 'icon_size', [
@@ -364,9 +375,18 @@ class Paradise_Faq_Accordion_Widget extends \Elementor\Widget_Base {
         $behavior   = $settings['behavior']      ?? 'accordion';
         $icon_pos   = $settings['icon_position'] ?? 'right';
         $open_first = 'yes' === ( $settings['open_first'] ?? 'yes' );
+        $has_icon   = 'yes' === ( $settings['show_icon']  ?? 'yes' );
+
         $icon_closed = $settings['icon_closed'] ?? [];
         $icon_open   = $settings['icon_open']   ?? [];
-        $has_icon    = ! empty( $icon_closed['value'] );
+
+        // Fallback to defaults if Elementor didn't initialize the control values
+        if ( $has_icon && empty( $icon_closed['value'] ) ) {
+            $icon_closed = [ 'value' => 'eicon-chevron-down', 'library' => 'eicons' ];
+        }
+        if ( $has_icon && empty( $icon_open['value'] ) ) {
+            $icon_open = [ 'value' => 'eicon-chevron-up', 'library' => 'eicons' ];
+        }
 
         $wrap_classes = [ 'paradise-faq-wrap' ];
         if ( $has_icon ) {
