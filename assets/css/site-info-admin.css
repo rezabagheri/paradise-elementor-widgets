@@ -99,6 +99,32 @@
     min-width: 140px;
 }
 
+/* ── Business Hours table ────────────────────────────────────────────────── */
+
+.paradise-si-hours-table .paradise-si-col-day  { width: 130px; }
+.paradise-si-hours-table .paradise-si-col-open { width: 100px; }
+
+.paradise-si-time {
+    width: 110px;
+}
+
+.paradise-si-hours-closed .paradise-si-time {
+    opacity: 0.35;
+}
+
+.paradise-si-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.paradise-si-toggle-label {
+    font-size: 12px;
+    color: #666;
+}
+
 /* ── Empty table placeholder ─────────────────────────────────────────────── */
 
 .paradise-si-table tbody:empty::after {

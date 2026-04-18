@@ -14,6 +14,8 @@ $phones    = Paradise_Site_Info::get( 'phones' );
 $emails    = Paradise_Site_Info::get( 'emails' );
 $addresses = Paradise_Site_Info::get( 'addresses' );
 $socials   = Paradise_Site_Info::get( 'socials' );
+$hours     = Paradise_Site_Info::get_hours();
+$days      = Paradise_Site_Info::days();
 $platforms = Paradise_Site_Info::social_platforms();
 ?>
 <div class="wrap paradise-si-wrap">
@@ -196,6 +198,57 @@ $platforms = Paradise_Site_Info::social_platforms();
                     </tr>
                 </template>
                 <p><button type="button" class="button paradise-si-add" data-target="socials"><?php esc_html_e( '+ Add Social Link', 'paradise-elementor-widgets' ); ?></button></p>
+            </div>
+        </div>
+
+        <!-- ── Business Hours ────────────────────────────────────────── -->
+        <div class="paradise-si-card postbox">
+            <div class="postbox-header">
+                <h2><?php esc_html_e( 'Business Hours', 'paradise-elementor-widgets' ); ?></h2>
+            </div>
+            <div class="inside">
+                <table class="widefat paradise-si-table paradise-si-hours-table">
+                    <thead>
+                        <tr>
+                            <th class="paradise-si-col-day"><?php esc_html_e( 'Day', 'paradise-elementor-widgets' ); ?></th>
+                            <th class="paradise-si-col-open"><?php esc_html_e( 'Open', 'paradise-elementor-widgets' ); ?></th>
+                            <th><?php esc_html_e( 'From', 'paradise-elementor-widgets' ); ?></th>
+                            <th><?php esc_html_e( 'To', 'paradise-elementor-widgets' ); ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ( $days as $slug => $label ) :
+                            $entry    = $hours[ $slug ];
+                            $is_open  = $entry['open'];
+                            $from     = esc_attr( $entry['from'] );
+                            $to       = esc_attr( $entry['to'] );
+                            $row_id   = 'paradise-si-hours-row-' . $slug;
+                        ?>
+                        <tr id="<?php echo esc_attr( $row_id ); ?>" class="paradise-si-hours-row<?php echo $is_open ? '' : ' paradise-si-hours-closed'; ?>">
+                            <td class="paradise-si-col-day"><strong><?php echo esc_html( $label ); ?></strong></td>
+                            <td class="paradise-si-col-open">
+                                <label class="paradise-si-toggle">
+                                    <input
+                                        type="checkbox"
+                                        name="paradise_site_info[hours][<?php echo esc_attr( $slug ); ?>][open]"
+                                        value="1"
+                                        <?php checked( $is_open ); ?>
+                                        data-row="<?php echo esc_attr( $row_id ); ?>"
+                                        class="paradise-si-hours-toggle"
+                                    >
+                                    <span class="paradise-si-toggle-label"><?php echo $is_open ? esc_html__( 'Open', 'paradise-elementor-widgets' ) : esc_html__( 'Closed', 'paradise-elementor-widgets' ); ?></span>
+                                </label>
+                            </td>
+                            <td>
+                                <input type="time" class="paradise-si-time" name="paradise_site_info[hours][<?php echo esc_attr( $slug ); ?>][from]" value="<?php echo $from; ?>" <?php echo $is_open ? '' : 'disabled'; ?>>
+                            </td>
+                            <td>
+                                <input type="time" class="paradise-si-time" name="paradise_site_info[hours][<?php echo esc_attr( $slug ); ?>][to]" value="<?php echo $to; ?>" <?php echo $is_open ? '' : 'disabled'; ?>>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
 

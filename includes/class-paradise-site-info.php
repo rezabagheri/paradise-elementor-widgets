@@ -81,6 +81,78 @@ class Paradise_Site_Info {
         return $options;
     }
 
+    // ── Business Hours ────────────────────────────────────────────────────────
+
+    /**
+     * Ordered list of days with their display labels.
+     * @return array<string, string>  slug → label
+     */
+    public static function days(): array {
+        return [
+            'monday'    => esc_html__( 'Monday',    'paradise-elementor-widgets' ),
+            'tuesday'   => esc_html__( 'Tuesday',   'paradise-elementor-widgets' ),
+            'wednesday' => esc_html__( 'Wednesday', 'paradise-elementor-widgets' ),
+            'thursday'  => esc_html__( 'Thursday',  'paradise-elementor-widgets' ),
+            'friday'    => esc_html__( 'Friday',    'paradise-elementor-widgets' ),
+            'saturday'  => esc_html__( 'Saturday',  'paradise-elementor-widgets' ),
+            'sunday'    => esc_html__( 'Sunday',    'paradise-elementor-widgets' ),
+        ];
+    }
+
+    /**
+     * Default hours (Mon–Fri 09:00–17:00, weekends closed).
+     */
+    public static function default_hours(): array {
+        $defaults = [];
+        $weekdays = [ 'monday', 'tuesday', 'wednesday', 'thursday', 'friday' ];
+        foreach ( array_keys( self::days() ) as $day ) {
+            $defaults[ $day ] = [
+                'open' => in_array( $day, $weekdays, true ),
+                'from' => '09:00',
+                'to'   => '17:00',
+            ];
+        }
+        return $defaults;
+    }
+
+    /**
+     * Get saved hours, merged with defaults so all 7 days are always present.
+     */
+    public static function get_hours(): array {
+        $data    = get_option( self::OPTION_KEY, [] );
+        $saved   = $data['hours'] ?? [];
+        $result  = [];
+        foreach ( self::default_hours() as $day => $defaults ) {
+            $entry          = array_merge( $defaults, $saved[ $day ] ?? [] );
+            $entry['open']  = (bool) $entry['open'];
+            $result[ $day ] = $entry;
+        }
+        return $result;
+    }
+
+    /**
+     * Check whether the business is currently open, based on the site timezone.
+     */
+    public static function is_open_now(): bool {
+        try {
+            $tz  = new DateTimeZone( wp_timezone_string() );
+            $now = new DateTime( 'now', $tz );
+        } catch ( Exception $e ) {
+            $now = new DateTime( 'now' );
+        }
+
+        $day   = strtolower( $now->format( 'l' ) );
+        $time  = $now->format( 'H:i' );
+        $hours = self::get_hours();
+        $entry = $hours[ $day ] ?? null;
+
+        if ( ! $entry || ! $entry['open'] || empty( $entry['from'] ) || empty( $entry['to'] ) ) {
+            return false;
+        }
+
+        return $time >= $entry['from'] && $time <= $entry['to'];
+    }
+
     /**
      * Supported social platforms.
      * @return array<string, string>  slug → display name
@@ -111,6 +183,7 @@ class Paradise_Site_Info {
             'emails'    => [],
             'addresses' => [],
             'socials'   => [],
+            'hours'     => [],
         ];
 
         foreach ( [ 'phones', 'emails' ] as $type ) {
@@ -140,6 +213,16 @@ class Paradise_Site_Info {
             $data['socials'][] = [
                 'platform' => sanitize_key( $item['platform'] ?? '' ),
                 'url'      => $url,
+            ];
+        }
+
+        // Hours — fixed 7 days, no add/remove
+        foreach ( array_keys( self::days() ) as $day ) {
+            $entry          = $raw['hours'][ $day ] ?? [];
+            $data['hours'][ $day ] = [
+                'open' => ! empty( $entry['open'] ),
+                'from' => sanitize_text_field( $entry['from'] ?? '' ),
+                'to'   => sanitize_text_field( $entry['to'] ?? '' ),
             ];
         }
 

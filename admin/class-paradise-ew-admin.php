@@ -101,6 +101,18 @@ class Paradise_EW_Admin {
             'file'        => 'widgets/class-paradise-social-links.php',
             'class'       => 'Paradise_Social_Links_Widget',
         ],
+        'business_hours' => [
+            'label'       => 'Business Hours',
+            'description' => 'Displays business hours from Site Info with a live Open Now / Closed badge. Highlights today\'s row and supports 12/24-hour format.',
+            'file'        => 'widgets/class-paradise-business-hours.php',
+            'class'       => 'Paradise_Business_Hours_Widget',
+        ],
+        'local_business_schema' => [
+            'label'       => 'LocalBusiness Schema',
+            'description' => 'Invisible widget that outputs Schema.org JSON-LD markup using Site Info data (name, phone, address, hours, social links). Helps Google display rich results.',
+            'file'        => 'widgets/class-paradise-local-business-schema.php',
+            'class'       => 'Paradise_Local_Business_Schema_Widget',
+        ],
     ];
 
     /**

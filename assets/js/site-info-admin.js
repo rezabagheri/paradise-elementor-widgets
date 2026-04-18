@@ -48,6 +48,22 @@
             });
         });
 
+        // ── Business Hours toggles ────────────────────────────────────────────
+
+        document.querySelectorAll('.paradise-si-hours-toggle').forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                var rowId  = checkbox.getAttribute('data-row');
+                var row    = document.getElementById(rowId);
+                var label  = checkbox.closest('.paradise-si-toggle').querySelector('.paradise-si-toggle-label');
+                var times  = row ? row.querySelectorAll('.paradise-si-time') : [];
+                var isOpen = checkbox.checked;
+
+                if (row) row.classList.toggle('paradise-si-hours-closed', !isOpen);
+                if (label) label.textContent = isOpen ? 'Open' : 'Closed';
+                times.forEach(function (t) { t.disabled = !isOpen; });
+            });
+        });
+
         // ── Remove row (delegated) ────────────────────────────────────────────
 
         document.querySelectorAll('tbody[id^="paradise-si-"]').forEach(function (tbody) {

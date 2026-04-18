@@ -229,6 +229,28 @@ final class Paradise_Elementor_Widgets
             [],
             PARADISE_EW_VERSION
         );
+
+        wp_register_style(
+            'paradise-business-hours',
+            PARADISE_EW_URL . 'assets/css/business-hours.css',
+            [],
+            PARADISE_EW_VERSION
+        );
+
+        wp_register_script(
+            'paradise-business-hours',
+            PARADISE_EW_URL . 'assets/js/business-hours.js',
+            [],
+            PARADISE_EW_VERSION,
+            true
+        );
+
+        wp_register_style(
+            'paradise-local-business-schema',
+            PARADISE_EW_URL . 'assets/css/local-business-schema.css',
+            [],
+            PARADISE_EW_VERSION
+        );
     }
 
     public function register_widgets($widgets_manager): void

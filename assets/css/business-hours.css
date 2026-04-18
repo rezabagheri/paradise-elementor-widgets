@@ -1,0 +1,70 @@
+/**
+ * Paradise Business Hours Widget
+ */
+
+.paradise-bh-wrap {
+    display: inline-block;
+    width: 100%;
+}
+
+/* ── Badge ───────────────────────────────────────────────────────────────── */
+
+.paradise-bh-badge {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.paradise-bh-badge--open   { background-color: #00a651; }
+.paradise-bh-badge--closed { background-color: #cc0000; }
+
+/* ── Table ───────────────────────────────────────────────────────────────── */
+
+.paradise-bh-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.paradise-bh-row {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.paradise-bh-row:last-child {
+    border-bottom: none;
+}
+
+.paradise-bh-day,
+.paradise-bh-hours {
+    padding: 8px 4px;
+    vertical-align: middle;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.paradise-bh-day {
+    font-weight: 600;
+    width: 45%;
+}
+
+.paradise-bh-hours {
+    text-align: right;
+}
+
+/* ── States ──────────────────────────────────────────────────────────────── */
+
+.paradise-bh-row--closed .paradise-bh-hours {
+    color: #aaaaaa;
+}
+
+.paradise-bh-row--today {
+    background-color: #f0f8f0;
+}
+
+.paradise-bh-row--today .paradise-bh-day {
+    font-weight: 700;
+}
