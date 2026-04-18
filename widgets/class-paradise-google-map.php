@@ -85,6 +85,14 @@ class Paradise_Google_Map_Widget extends \Elementor\Widget_Base {
             ],
         ] );
 
+        $this->add_control( 'zoom', [
+            'label'   => esc_html__( 'Zoom Level', 'paradise-elementor-widgets' ),
+            'type'    => \Elementor\Controls_Manager::SLIDER,
+            'range'   => [ 'px' => [ 'min' => 1, 'max' => 20 ] ],
+            'default' => [ 'size' => 15 ],
+            'description' => esc_html__( '1 = world, 10 = city, 15 = streets, 20 = building. Has no effect on embed URLs that already include zoom.', 'paradise-elementor-widgets' ),
+        ] );
+
         $this->add_control( 'allow_fullscreen', [
             'label'        => esc_html__( 'Allow Fullscreen', 'paradise-elementor-widgets' ),
             'type'         => \Elementor\Controls_Manager::SWITCHER,
@@ -190,6 +198,12 @@ class Paradise_Google_Map_Widget extends \Elementor\Widget_Base {
         }
 
         $embed_url = $this->normalize_embed_url( $raw_url );
+
+        // Append zoom only if the URL doesn't already specify one.
+        $zoom = (int) ( $settings['zoom']['size'] ?? 15 );
+        if ( $zoom > 0 && strpos( $embed_url, 'zoom=' ) === false ) {
+            $embed_url .= '&zoom=' . $zoom;
+        }
 
         if ( empty( $embed_url ) ) {
             if ( $is_editor ) {
