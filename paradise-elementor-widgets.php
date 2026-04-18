@@ -254,6 +254,21 @@ final class Paradise_Elementor_Widgets
             [],
             PARADISE_EW_VERSION
         );
+
+        wp_register_style(
+            'paradise-faq-accordion',
+            PARADISE_EW_URL . 'assets/css/faq-accordion.css',
+            [],
+            PARADISE_EW_VERSION
+        );
+
+        wp_register_script(
+            'paradise-faq-accordion',
+            PARADISE_EW_URL . 'assets/js/faq-accordion.js',
+            [],
+            PARADISE_EW_VERSION,
+            true
+        );
     }
 
     public function register_widgets($widgets_manager): void

@@ -99,6 +99,10 @@ class Paradise_EW_Admin {
             'label'       => 'LocalBusiness Schema',
             'description' => 'Invisible widget that outputs Schema.org JSON-LD markup using Site Info data (name, phone, address, hours, social links). Helps Google display rich results.',
         ],
+        'faq_accordion' => [
+            'label'       => 'FAQ Accordion',
+            'description' => 'Collapsible Q&A list with accordion or multi-expand mode. Supports Schema.org FAQPage markup for Google rich results.',
+        ],
     ];
 
     /**
