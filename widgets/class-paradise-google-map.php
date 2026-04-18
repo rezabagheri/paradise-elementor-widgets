@@ -27,11 +27,43 @@ class Paradise_Google_Map_Widget extends \Elementor\Widget_Base {
 
     protected function register_controls(): void {
 
-        // ── Map Source ────────────────────────────────────────────────────────
+        // ── Mode ──────────────────────────────────────────────────────────────
+
+        $this->start_controls_section( 'section_mode', [
+            'label' => esc_html__( 'Map Mode', 'paradise-elementor-widgets' ),
+            'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
+        ] );
+
+        $this->add_control( 'mode', [
+            'label'   => esc_html__( 'Mode', 'paradise-elementor-widgets' ),
+            'type'    => \Elementor\Controls_Manager::SELECT,
+            'default' => 'place',
+            'options' => [
+                'place'      => esc_html__( 'Place', 'paradise-elementor-widgets' ),
+                'directions' => esc_html__( 'Directions', 'paradise-elementor-widgets' ),
+            ],
+        ] );
+
+        $this->add_control( 'map_type', [
+            'label'   => esc_html__( 'Map Type', 'paradise-elementor-widgets' ),
+            'type'    => \Elementor\Controls_Manager::SELECT,
+            'default' => 'm',
+            'options' => [
+                'm' => esc_html__( 'Map', 'paradise-elementor-widgets' ),
+                'k' => esc_html__( 'Satellite', 'paradise-elementor-widgets' ),
+                'h' => esc_html__( 'Hybrid (Satellite + Labels)', 'paradise-elementor-widgets' ),
+                'p' => esc_html__( 'Terrain', 'paradise-elementor-widgets' ),
+            ],
+        ] );
+
+        $this->end_controls_section();
+
+        // ── Place ─────────────────────────────────────────────────────────────
 
         $this->start_controls_section( 'section_source', [
-            'label' => esc_html__( 'Map Source', 'paradise-elementor-widgets' ),
-            'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
+            'label'     => esc_html__( 'Place', 'paradise-elementor-widgets' ),
+            'tab'       => \Elementor\Controls_Manager::TAB_CONTENT,
+            'condition' => [ 'mode' => 'place' ],
         ] );
 
         $this->add_control( 'source', [
@@ -56,10 +88,67 @@ class Paradise_Google_Map_Widget extends \Elementor\Widget_Base {
             'label'       => esc_html__( 'Map URL', 'paradise-elementor-widgets' ),
             'type'        => \Elementor\Controls_Manager::TEXT,
             'placeholder' => 'https://www.google.com/maps/embed?pb=...',
-            'description' => esc_html__( 'Paste any Google Maps URL (place, directions, or share link). For best results use Share → Embed a map → copy the src from the iframe code.', 'paradise-elementor-widgets' ),
+            'description' => esc_html__( 'Paste any Google Maps URL (share link, place, or directions). For best results: Share → Embed a map → copy the src from the iframe code.', 'paradise-elementor-widgets' ),
             'label_block' => true,
             'condition'   => [ 'source' => 'manual' ],
             'dynamic'     => [ 'active' => true ],
+        ] );
+
+        $this->end_controls_section();
+
+        // ── Directions ────────────────────────────────────────────────────────
+
+        $this->start_controls_section( 'section_directions', [
+            'label'     => esc_html__( 'Directions', 'paradise-elementor-widgets' ),
+            'tab'       => \Elementor\Controls_Manager::TAB_CONTENT,
+            'condition' => [ 'mode' => 'directions' ],
+        ] );
+
+        $this->add_control( 'dir_origin', [
+            'label'       => esc_html__( 'From (Origin)', 'paradise-elementor-widgets' ),
+            'type'        => \Elementor\Controls_Manager::TEXT,
+            'placeholder' => esc_html__( 'e.g. Los Angeles, CA or leave blank for "My Location"', 'paradise-elementor-widgets' ),
+            'label_block' => true,
+            'dynamic'     => [ 'active' => true ],
+        ] );
+
+        $this->add_control( 'dir_dest_source', [
+            'label'   => esc_html__( 'Destination Source', 'paradise-elementor-widgets' ),
+            'type'    => \Elementor\Controls_Manager::SELECT,
+            'default' => 'site_info',
+            'options' => [
+                'site_info' => esc_html__( 'Site Info Address', 'paradise-elementor-widgets' ),
+                'manual'    => esc_html__( 'Manual', 'paradise-elementor-widgets' ),
+            ],
+        ] );
+
+        $this->add_control( 'dir_dest_index', [
+            'label'     => esc_html__( 'Select Address', 'paradise-elementor-widgets' ),
+            'type'      => \Elementor\Controls_Manager::SELECT,
+            'options'   => Paradise_Site_Info::get_select_options( 'addresses' ),
+            'default'   => '',
+            'condition' => [ 'dir_dest_source' => 'site_info' ],
+        ] );
+
+        $this->add_control( 'dir_dest_manual', [
+            'label'       => esc_html__( 'Destination Address', 'paradise-elementor-widgets' ),
+            'type'        => \Elementor\Controls_Manager::TEXT,
+            'placeholder' => '17354 Tribune St, Granada Hills, CA 91344',
+            'label_block' => true,
+            'condition'   => [ 'dir_dest_source' => 'manual' ],
+            'dynamic'     => [ 'active' => true ],
+        ] );
+
+        $this->add_control( 'travel_mode', [
+            'label'   => esc_html__( 'Travel Mode', 'paradise-elementor-widgets' ),
+            'type'    => \Elementor\Controls_Manager::SELECT,
+            'default' => 'd',
+            'options' => [
+                'd' => esc_html__( 'Driving', 'paradise-elementor-widgets' ),
+                'w' => esc_html__( 'Walking', 'paradise-elementor-widgets' ),
+                'b' => esc_html__( 'Bicycling', 'paradise-elementor-widgets' ),
+                'r' => esc_html__( 'Transit', 'paradise-elementor-widgets' ),
+            ],
         ] );
 
         $this->end_controls_section();
@@ -86,11 +175,12 @@ class Paradise_Google_Map_Widget extends \Elementor\Widget_Base {
         ] );
 
         $this->add_control( 'zoom', [
-            'label'   => esc_html__( 'Zoom Level', 'paradise-elementor-widgets' ),
-            'type'    => \Elementor\Controls_Manager::SLIDER,
-            'range'   => [ 'px' => [ 'min' => 1, 'max' => 20 ] ],
-            'default' => [ 'size' => 15 ],
-            'description' => esc_html__( '1 = world, 10 = city, 15 = streets, 20 = building. Has no effect on embed URLs that already include zoom.', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'Zoom Level', 'paradise-elementor-widgets' ),
+            'type'        => \Elementor\Controls_Manager::SLIDER,
+            'range'       => [ 'px' => [ 'min' => 1, 'max' => 20 ] ],
+            'default'     => [ 'size' => 15 ],
+            'description' => esc_html__( '1 = world, 10 = city, 15 = streets, 20 = building.', 'paradise-elementor-widgets' ),
+            'condition'   => [ 'mode' => 'place' ],
         ] );
 
         $this->add_control( 'allow_fullscreen', [
@@ -201,32 +291,42 @@ class Paradise_Google_Map_Widget extends \Elementor\Widget_Base {
     protected function render(): void {
         $settings  = $this->get_settings_for_display();
         $is_editor = \Elementor\Plugin::$instance->editor->is_edit_mode();
+        $mode      = $settings['mode'] ?? 'place';
+        $map_type  = sanitize_key( $settings['map_type'] ?? 'm' );
+        $from_si   = false;
 
-        if ( 'site_info' === $settings['source'] ) {
-            $raw_url = Paradise_Site_Info::get_value( 'addresses', (int) $settings['address_index'], 'map_url' );
-            $from_si = true;
+        if ( 'directions' === $mode ) {
+            $embed_url = $this->build_directions_url( $settings );
         } else {
-            $raw_url = sanitize_text_field( $settings['manual_url'] ?? '' );
-            $from_si = false;
+            if ( 'site_info' === $settings['source'] ) {
+                $raw_url = Paradise_Site_Info::get_value( 'addresses', (int) $settings['address_index'], 'map_url' );
+                $from_si = true;
+            } else {
+                $raw_url = sanitize_text_field( $settings['manual_url'] ?? '' );
+            }
+            $embed_url = $this->normalize_embed_url( $raw_url );
+
+            // Append zoom for place mode only. pb= blobs already encode zoom internally.
+            $zoom     = (int) ( $settings['zoom']['size'] ?? 15 );
+            $has_zoom = strpos( $embed_url, 'z=' ) !== false || strpos( $embed_url, '/maps/embed?pb=' ) !== false;
+            if ( $zoom > 0 && ! $has_zoom ) {
+                $embed_url .= '&z=' . $zoom;
+            }
         }
 
-        $embed_url = $this->normalize_embed_url( $raw_url );
-
-        // Append zoom only if the URL doesn't already specify one.
-        // maps.google.com/maps uses z=, while /maps/embed?pb= encodes zoom in the blob.
-        $zoom = (int) ( $settings['zoom']['size'] ?? 15 );
-        $has_zoom = strpos( $embed_url, 'z=' ) !== false || strpos( $embed_url, '/maps/embed?pb=' ) !== false;
-        if ( $zoom > 0 && ! $has_zoom ) {
-            $embed_url .= '&z=' . $zoom;
+        // Append map type (skip for pb= blobs — type is encoded inside).
+        if ( $map_type && 'm' !== $map_type && strpos( $embed_url, '/maps/embed?pb=' ) === false ) {
+            $embed_url .= '&t=' . $map_type;
         }
 
         if ( empty( $embed_url ) ) {
             if ( $is_editor ) {
-                echo '<div class="paradise-gmap-placeholder">'
-                   . ( $from_si
-                       ? esc_html__( 'The selected address has no Map URL. Go to Paradise → Site Info and add a Google Maps link to that address.', 'paradise-elementor-widgets' )
-                       : esc_html__( 'Enter a Google Maps URL in the Map Source settings.', 'paradise-elementor-widgets' ) )
-                   . '</div>';
+                $msg = ( 'directions' === $mode )
+                    ? esc_html__( 'Enter a destination address in the Directions settings.', 'paradise-elementor-widgets' )
+                    : ( $from_si
+                        ? esc_html__( 'The selected address has no Map URL. Go to Paradise → Site Info and add a Google Maps link.', 'paradise-elementor-widgets' )
+                        : esc_html__( 'Enter a Google Maps URL in the Place settings.', 'paradise-elementor-widgets' ) );
+                echo '<div class="paradise-gmap-placeholder">' . $msg . '</div>';
             }
             return;
         }
@@ -246,5 +346,35 @@ class Paradise_Google_Map_Widget extends \Elementor\Widget_Base {
             ></iframe>
         </div>
         <?php
+    }
+
+    /**
+     * Build a Google Maps directions embed URL.
+     * saddr = origin, daddr = destination, dirflg = travel mode.
+     * If origin is empty, Google Maps shows the route from the user's location.
+     */
+    private function build_directions_url( array $settings ): string {
+        if ( 'site_info' === $settings['dir_dest_source'] ) {
+            $dest = Paradise_Site_Info::get_value( 'addresses', (int) $settings['dir_dest_index'] );
+        } else {
+            $dest = sanitize_text_field( $settings['dir_dest_manual'] ?? '' );
+        }
+
+        if ( empty( $dest ) ) return '';
+
+        $origin = sanitize_text_field( $settings['dir_origin'] ?? '' );
+        $mode   = sanitize_key( $settings['travel_mode'] ?? 'd' );
+
+        $args = [
+            'daddr'  => $dest,
+            'dirflg' => $mode,
+            'output' => 'embed',
+        ];
+
+        if ( $origin !== '' ) {
+            $args['saddr'] = $origin;
+        }
+
+        return 'https://maps.google.com/maps?' . http_build_query( $args );
     }
 }
