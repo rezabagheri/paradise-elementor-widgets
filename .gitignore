@@ -26,3 +26,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Claude Code context
+CLAUDE.md
