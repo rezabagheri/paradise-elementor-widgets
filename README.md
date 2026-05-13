@@ -4,7 +4,7 @@
 
 [![WordPress](https://img.shields.io/badge/WordPress-6.1%2B-blue.svg)](https://wordpress.org)
 [![Elementor](https://img.shields.io/badge/Elementor-3.5%2B-orange.svg)](https://elementor.com)
-[![PHP](https://img.shields.io/badge/PHP-7.4%2B-777BB4.svg)](https://www.php.net)
+[![PHP](https://img.shields.io/badge/PHP-8.0%2B-777BB4.svg)](https://www.php.net)
 [![Version](https://img.shields.io/badge/Version-2.4.0-green.svg)](https://github.com/rezabagheri/paradise-elementor-widgets/releases)
 [![License](https://img.shields.io/badge/License-GPL--2.0%2B-green.svg)](LICENSE)
 
@@ -76,7 +76,7 @@ Phone Link, Google Map, Social Links, Business Hours, and LocalBusiness Schema a
 
 - WordPress 6.1 or higher
 - Elementor 3.5 or higher (free version is sufficient)
-- PHP 7.4 or higher
+- PHP 8.0 or higher
 - Elementor Pro (optional — for Theme Builder and Dynamic Tags on Pro controls)
 
 ---
@@ -165,7 +165,7 @@ No other changes needed — the registry drives settings, toggle UI, and loading
 
 ### Code conventions
 
-- PHP 7.4+ — typed return types, arrow functions where appropriate
+- PHP 8.0+ — typed return types, `mixed` parameter types, arrow functions where appropriate
 - No `!important` in CSS
 - CSS class prefix is widget-specific (e.g. `paradise-bn-*`, `paradise-ab-*`)
 - All output escaped: `esc_html`, `esc_url`, `esc_attr`

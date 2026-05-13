@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.5.0] - 2026-05-13
+
+### Changed
+
+- **Registry-driven asset registration** — `enqueue_assets()` reduced from ~170 lines of hand-written `wp_register_style` / `wp_register_script` calls to a single loop over `Paradise_EW_Admin::$widget_registry`. Adding a new widget now requires only one registry entry plus the asset files at the conventional paths (`assets/css/{slug}.css`, optional `assets/js/{slug}.js`)
+- **Normalized asset handle naming** — every widget exposes a single conventional handle `paradise-{slug}` shared by its CSS and JS (e.g. `paradise-bottom-nav`). The previous mixed `-style` / `-script` suffix pattern has been removed
+- **Minimum PHP raised from 7.4 to 8.0** — matches the codebase, which already used the `mixed` parameter type (PHP 8.0+) and typed properties
+
+### Added
+
+- **Elementor compatibility admin notices** — dismissible warning when Elementor is not active (`plugins_loaded:20` check) and a second one when the active Elementor is older than `PARADISE_EW_MIN_ELEMENTOR_VERSION` (3.5.0). Widget and asset registration is skipped on outdated Elementor so a Widget_Base API drift surfaces as a notice rather than a fatal
+
+### Fixed
+
+- **Bottom Navigation Bar** — corrected the asset handles inside `get_style_depends()` / `get_script_depends()` so the widget's CSS and JS actually load on the frontend. The widget asked for `paradise-bn-bottom-nav-style` / `-script`, but the main file registered `paradise-bottom-nav-style` / `-script`; the mismatch left the widget unstyled and non-interactive on production
+- **Phone Link** — removed dead `get_uwidget_type()` method, a typo of a non-existent Elementor method (`Widget_Base::get_widget_type` does not exist) that was never called anywhere in the codebase
+
+---
+
 ## [2.4.0] - 2026-04-18
 
 ### Added
