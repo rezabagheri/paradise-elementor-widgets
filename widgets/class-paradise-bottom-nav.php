@@ -57,7 +57,7 @@ class Paradise_Bottom_Nav_Widget extends Widget_Base
     public function get_style_depends(): array
     {
         return [
-            'paradise-bn-bottom-nav-style',
+            'paradise-bottom-nav',
             'elementor-icons-fa-solid',
             'elementor-icons-fa-brands',
             'elementor-icons-fa-regular',
@@ -66,7 +66,7 @@ class Paradise_Bottom_Nav_Widget extends Widget_Base
 
     public function get_script_depends(): array
     {
-        return [ 'paradise-bn-bottom-nav-script' ];
+        return [ 'paradise-bottom-nav' ];
     }
 
     // ═══════════════════════════════════════════════════════════════
