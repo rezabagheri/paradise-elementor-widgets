@@ -3,8 +3,8 @@ Contributors: rezabagheri
 Tags: elementor, elementor widgets, bottom navigation, phone link, google map, social links, business hours, schema, local seo, announcement bar, cookie consent, sticky header, off canvas menu, back to top
 Requires at least: 6.1
 Tested up to: 6.7
-Requires PHP: 7.4
-Stable tag: 2.4.0
+Requires PHP: 8.0
+Stable tag: 2.5.0
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -147,6 +147,14 @@ The badge is computed in the visitor's browser using the site's timezone (from W
 
 == Changelog ==
 
+= 2.5.0 =
+* Changed: Asset registration is now registry-driven — `enqueue_assets()` reduced from ~170 hardcoded calls to a single loop over `Paradise_EW_Admin::$widget_registry`. Adding a new widget no longer requires editing the main plugin file.
+* Changed: Asset handle naming normalized to `paradise-{slug}` for both CSS and JS of each widget (no more mixed `-style` / `-script` suffixes).
+* Changed: Raised minimum PHP version from 7.4 to 8.0 to match the codebase (uses `mixed` parameter types and typed properties).
+* Added: Elementor compatibility admin notices — shown when Elementor is missing or older than the required minimum (3.5.0). Widget/asset registration is skipped on outdated Elementor to avoid fatals.
+* Fixed: Bottom Navigation Bar — corrected asset handles so the widget's CSS and JS actually load on the frontend. The widget previously referenced `paradise-bn-bottom-nav-style` / `-script` while the main file registered `paradise-bottom-nav-style` / `-script`; the mismatch meant nothing loaded.
+* Fixed: Phone Link — removed dead `get_uwidget_type()` method (typo of a non-existent Elementor method that was never called).
+
 = 2.4.0 =
 * Added: FAQ Accordion widget — accordion / multi-expand mode, Elementor icon picker (open/closed state), icon position (left/right), open-first-item default, Schema.org FAQPage JSON-LD, full typography and color controls
 * Added: FAQ Post Type — each post is a "FAQ Set" with unlimited Q&A items stored in post meta; TinyMCE rich text editor for answers; toggle on/off in Paradise → Elementor Widgets → Settings
@@ -198,6 +206,9 @@ The badge is computed in the visitor's browser using the site's timezone (from W
 * Bottom Navigation Bar widget
 
 == Upgrade Notice ==
+
+= 2.5.0 =
+Internal refactor (~88% smaller asset registration), Bottom Nav asset-loading bug fixed, and new Elementor compatibility notices. Note: minimum PHP raised to 8.0 — installs still on PHP 7.4 must stay on 2.4.x.
 
 = 2.4.0 =
 New: FAQ Accordion widget and FAQ Post Type. Safe to upgrade — no breaking changes from 2.3.0.
