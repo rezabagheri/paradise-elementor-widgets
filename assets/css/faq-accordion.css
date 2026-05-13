@@ -71,13 +71,16 @@
 
 .paradise-faq-answer {
     display: grid;
-    grid-template-rows: 0fr;
+    /* minmax(0, ...) overrides the default min-content track sizing so 0fr
+       actually collapses to 0. Without this, the inner element's padding
+       forces a ~28px min track size and closed items stay partially visible. */
+    grid-template-rows: minmax(0, 0fr);
     border-top: 1px solid transparent;
     transition: grid-template-rows 0.28s ease, border-color 0.28s ease;
 }
 
 .paradise-faq-item--open > .paradise-faq-answer {
-    grid-template-rows: 1fr;
+    grid-template-rows: minmax(0, 1fr);
     border-top-color: rgba(0, 0, 0, 0.08);
 }
 
