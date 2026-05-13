@@ -52,8 +52,10 @@
         initAll();
     }
 
-    // Elementor editor: re-init when widget is rendered or settings change
-    if (typeof window.elementorFrontend !== 'undefined') {
+    // Elementor editor: re-init when widget is rendered or settings change.
+    // elementorFrontend.hooks is not always available (e.g. when the frontend
+    // global loads without its hooks API ready) — check both before calling addAction.
+    if (typeof window.elementorFrontend !== 'undefined' && window.elementorFrontend.hooks) {
         window.elementorFrontend.hooks.addAction(
             'frontend/element_ready/paradise_faq_accordion.default',
             function ($el) {
