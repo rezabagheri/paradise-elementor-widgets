@@ -6,7 +6,7 @@
  * Description:       Advanced custom Elementor widgets by Paradise. Phone Link, Bottom Navigation Bar, and more.
  * Version:           2.4.0
  * Requires at least: 6.1
- * Requires PHP:      7.4
+ * Requires PHP:      8.0
  * Requires Plugins:  elementor
  * Author:            Reza Bagheri
  * Author URI:        https://www.paradisecyber.com
@@ -23,6 +23,7 @@ if (! defined('ABSPATH')) {
 define('PARADISE_EW_VERSION', '2.4.0');
 define('PARADISE_EW_DIR', plugin_dir_path(__FILE__));
 define('PARADISE_EW_URL', plugin_dir_url(__FILE__));
+define('PARADISE_EW_MIN_ELEMENTOR_VERSION', '3.5.0');
 
 final class Paradise_Elementor_Widgets
 {
@@ -41,7 +42,19 @@ final class Paradise_Elementor_Widgets
         add_action('plugins_loaded', [ $this, 'load_textdomain' ]);
         add_action('plugins_loaded', [ $this, 'load_site_info' ]);
         add_action('plugins_loaded', [ $this, 'load_admin' ]);
+        add_action('plugins_loaded', [ $this, 'check_elementor_loaded' ], 20);
         add_action('elementor/init', [ $this, 'init' ]);
+    }
+
+    /**
+     * Show an admin notice if Elementor is not active. Runs at plugins_loaded:20 so
+     * Elementor's own bootstrap (priority 10) has had a chance to fire elementor/loaded.
+     */
+    public function check_elementor_loaded(): void
+    {
+        if ( ! did_action( 'elementor/loaded' ) ) {
+            add_action( 'admin_notices', [ $this, 'notice_missing_elementor' ] );
+        }
     }
 
     public function load_site_info(): void
@@ -81,11 +94,43 @@ final class Paradise_Elementor_Widgets
 
     public function init(): void
     {
+        // Skip registration on outdated Elementor — show notice instead of risking a fatal.
+        if ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, PARADISE_EW_MIN_ELEMENTOR_VERSION, '<' ) ) {
+            add_action( 'admin_notices', [ $this, 'notice_outdated_elementor' ] );
+            return;
+        }
+
         add_action('elementor/elements/categories_registered', [ $this, 'register_category' ]);
         add_action('elementor/widgets/register', [ $this, 'register_widgets' ]);
         add_action('elementor/frontend/after_enqueue_styles', [ $this, 'enqueue_assets' ]);
         add_action('elementor/editor/after_enqueue_styles', [ $this, 'enqueue_assets' ]);
         add_action('elementor/dynamic_tags/register', [ $this, 'register_dynamic_tags' ]);
+    }
+
+    public function notice_missing_elementor(): void
+    {
+        if ( ! current_user_can( 'activate_plugins' ) ) {
+            return;
+        }
+        printf(
+            '<div class="notice notice-warning is-dismissible"><p>%s</p></div>',
+            esc_html__( 'Paradise Elementor Widgets requires Elementor to be installed and active.', 'paradise-elementor-widgets' )
+        );
+    }
+
+    public function notice_outdated_elementor(): void
+    {
+        if ( ! current_user_can( 'activate_plugins' ) ) {
+            return;
+        }
+        printf(
+            '<div class="notice notice-warning is-dismissible"><p>%s</p></div>',
+            sprintf(
+                /* translators: %s: required Elementor version */
+                esc_html__( 'Paradise Elementor Widgets requires Elementor %s or greater.', 'paradise-elementor-widgets' ),
+                esc_html( PARADISE_EW_MIN_ELEMENTOR_VERSION )
+            )
+        );
     }
 
     public function register_dynamic_tags( $dynamic_tags_manager ): void
@@ -102,180 +147,49 @@ final class Paradise_Elementor_Widgets
         ]);
     }
 
+    /**
+     * Register all per-widget CSS (always) and JS (when widget declares 'js' => true) handles.
+     *
+     * Naming convention derived from the registry key:
+     *   key 'phone_link'  →  handle 'paradise-phone-link', file 'assets/css/phone-link.css'
+     *
+     * Elementor calls each widget's get_style_depends() / get_script_depends() and enqueues
+     * only the handles needed for widgets actually on the page — keeping registration cheap.
+     */
     public function enqueue_assets(): void
     {
-        wp_register_style(
-            'paradise-phone-link',
-            PARADISE_EW_URL . 'assets/css/phone-link.css',
-            [],
-            PARADISE_EW_VERSION
-        );
+        foreach ( Paradise_EW_Admin::get_widget_registry() as $key => $config ) {
+            $slug   = str_replace( '_', '-', $key );
+            $handle = 'paradise-' . $slug;
 
-        wp_register_style(
-            'paradise-author-card',
-            PARADISE_EW_URL . 'assets/css/author-card.css',
-            [],
-            PARADISE_EW_VERSION
-        );
+            wp_register_style(
+                $handle,
+                PARADISE_EW_URL . 'assets/css/' . $slug . '.css',
+                [],
+                PARADISE_EW_VERSION
+            );
 
-        wp_register_style(
-            'paradise-phone-button',
-            PARADISE_EW_URL . 'assets/css/phone-button.css',
-            [],
-            PARADISE_EW_VERSION
-        );
-
-        // paradise-bottom-nav-style — updated for consistency
-        wp_register_style(
-            'paradise-bottom-nav-style',
-            PARADISE_EW_URL . 'assets/css/bottom-nav.css',
-            [],
-            PARADISE_EW_VERSION
-        );
-
-        // paradise-bottom-nav-script — updated for consistency
-        wp_register_script(
-            'paradise-bottom-nav-script',
-            PARADISE_EW_URL . 'assets/js/bottom-nav.js',
-            [],
-            PARADISE_EW_VERSION,
-            true
-        );
-
-        wp_register_style(
-            'paradise-floating-call-btn',
-            PARADISE_EW_URL . 'assets/css/floating-call-btn.css',
-            [],
-            PARADISE_EW_VERSION
-        );
-
-        wp_register_style(
-            'paradise-announcement-bar',
-            PARADISE_EW_URL . 'assets/css/announcement-bar.css',
-            [],
-            PARADISE_EW_VERSION
-        );
-
-        wp_register_script(
-            'paradise-announcement-bar',
-            PARADISE_EW_URL . 'assets/js/announcement-bar.js',
-            [],
-            PARADISE_EW_VERSION,
-            true
-        );
-
-        wp_register_style(
-            'paradise-cookie-consent-bar',
-            PARADISE_EW_URL . 'assets/css/cookie-consent-bar.css',
-            [],
-            PARADISE_EW_VERSION
-        );
-
-        wp_register_script(
-            'paradise-cookie-consent-bar',
-            PARADISE_EW_URL . 'assets/js/cookie-consent-bar.js',
-            [],
-            PARADISE_EW_VERSION,
-            true
-        );
-
-        wp_register_style(
-            'paradise-back-to-top',
-            PARADISE_EW_URL . 'assets/css/back-to-top.css',
-            [],
-            PARADISE_EW_VERSION
-        );
-
-        wp_register_script(
-            'paradise-back-to-top',
-            PARADISE_EW_URL . 'assets/js/back-to-top.js',
-            [],
-            PARADISE_EW_VERSION,
-            true
-        );
-
-        wp_register_style(
-            'paradise-off-canvas-menu',
-            PARADISE_EW_URL . 'assets/css/off-canvas-menu.css',
-            [],
-            PARADISE_EW_VERSION
-        );
-
-        wp_register_script(
-            'paradise-off-canvas-menu',
-            PARADISE_EW_URL . 'assets/js/off-canvas-menu.js',
-            [],
-            PARADISE_EW_VERSION,
-            true
-        );
-
-        wp_register_style(
-            'paradise-sticky-header',
-            PARADISE_EW_URL . 'assets/css/sticky-header.css',
-            [],
-            PARADISE_EW_VERSION
-        );
-
-        wp_register_script(
-            'paradise-sticky-header',
-            PARADISE_EW_URL . 'assets/js/sticky-header.js',
-            [],
-            PARADISE_EW_VERSION,
-            true
-        );
-
-        wp_register_style(
-            'paradise-google-map',
-            PARADISE_EW_URL . 'assets/css/google-map.css',
-            [],
-            PARADISE_EW_VERSION
-        );
-
-        wp_register_style(
-            'paradise-social-links',
-            PARADISE_EW_URL . 'assets/css/social-links.css',
-            [],
-            PARADISE_EW_VERSION
-        );
-
-        wp_register_style(
-            'paradise-business-hours',
-            PARADISE_EW_URL . 'assets/css/business-hours.css',
-            [],
-            PARADISE_EW_VERSION
-        );
-
-        wp_register_script(
-            'paradise-business-hours',
-            PARADISE_EW_URL . 'assets/js/business-hours.js',
-            [],
-            PARADISE_EW_VERSION,
-            true
-        );
-
-        wp_register_style(
-            'paradise-local-business-schema',
-            PARADISE_EW_URL . 'assets/css/local-business-schema.css',
-            [],
-            PARADISE_EW_VERSION
-        );
-
-        wp_register_style(
-            'paradise-faq-accordion',
-            PARADISE_EW_URL . 'assets/css/faq-accordion.css',
-            [],
-            PARADISE_EW_VERSION
-        );
-
-        wp_register_script(
-            'paradise-faq-accordion',
-            PARADISE_EW_URL . 'assets/js/faq-accordion.js',
-            [],
-            PARADISE_EW_VERSION,
-            true
-        );
+            if ( ! empty( $config['js'] ) ) {
+                wp_register_script(
+                    $handle,
+                    PARADISE_EW_URL . 'assets/js/' . $slug . '.js',
+                    [],
+                    PARADISE_EW_VERSION,
+                    true
+                );
+            }
+        }
     }
 
+    /**
+     * Instantiate every enabled widget. File path and class name are derived from the
+     * registry key — see Paradise_EW_Admin::get_widget_registry() for the convention.
+     *
+     * To add a new widget:
+     *   1. Create widgets/class-paradise-{slug}.php with class Paradise_{Key_Ucwords}_Widget
+     *   2. Add one entry to Paradise_EW_Admin::$widget_registry (label + description, plus 'js' => true if it ships JS)
+     *   3. Place assets at assets/css/{slug}.css and (if JS) assets/js/{slug}.js
+     */
     public function register_widgets($widgets_manager): void
     {
         foreach (Paradise_EW_Admin::get_widget_registry() as $key => $config) {
@@ -285,10 +199,6 @@ final class Paradise_Elementor_Widgets
             require_once PARADISE_EW_DIR . $config['file'];
             $widgets_manager->register(new $config['class']());
         }
-
-        // To add a new widget:
-        // 1. Create: widgets/class-paradise-{name}.php
-        // 2. Add one entry to Paradise_EW_Admin::$widget_registry with file + class keys
     }
 }
 

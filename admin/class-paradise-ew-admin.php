@@ -16,31 +16,23 @@ class Paradise_EW_Admin {
     const MENU_SLUG  = 'paradise-widgets';
 
     /**
-     * Widgets that can be toggled on/off.
-     * 'key' must match the identifier used in register_widgets().
-     */
-    /**
-     * Widget registry — single source of truth for settings, toggle UI, and loading.
+     * Widget registry — single source of truth for settings UI, asset loading, and widget instantiation.
      *
-     * Keys:
+     * Per-widget keys:
      *   label       — human-readable name shown in the settings page
      *   description — short description shown in the settings page
-     *   file        — path relative to PARADISE_EW_DIR
-     *   class       — PHP class name to instantiate
-     */
-    /**
-     * Widget registry — UI metadata only.
+     *   js          — (optional, default false) true if the widget ships a JS file
      *
-     * Keys:
-     *   label       — human-readable name shown in the settings page
-     *   description — short description shown in the settings page
+     * The 'file' and 'class' values are derived automatically from the registry key.
+     * get_widget_registry() returns the enriched array so consumers never need to call the helpers directly.
      *
-     * The 'file' and 'class' values are derived automatically from the key
-     * via key_to_file() and key_to_class(). get_widget_registry() returns
-     * the enriched array so consumers never need to call those helpers directly.
-     *
-     * Key convention  →  file: widgets/class-paradise-{key-with-dashes}.php
-     *                 →  class: Paradise_{Key_Ucwords}_Widget
+     * Conventions derived from the key (e.g. 'phone_link'):
+     *   slug    →  str_replace('_', '-', $key)              // 'phone-link'
+     *   file    →  widgets/class-paradise-{slug}.php        // 'widgets/class-paradise-phone-link.php'
+     *   class   →  Paradise_{Key_Ucwords}_Widget            // 'Paradise_Phone_Link_Widget'
+     *   handle  →  paradise-{slug}                          // 'paradise-phone-link'  (same for CSS + JS)
+     *   css     →  assets/css/{slug}.css                    // 'assets/css/phone-link.css'    (always present)
+     *   js      →  assets/js/{slug}.js                      // 'assets/js/phone-link.js'      (only if js => true)
      */
     private static array $widget_registry = [
         'phone_link' => [
@@ -50,6 +42,7 @@ class Paradise_EW_Admin {
         'bottom_nav' => [
             'label'       => 'Bottom Navigation Bar',
             'description' => 'Fixed mobile bottom bar with icons, labels, badges, and speed dial.',
+            'js'          => true,
         ],
         'author_card' => [
             'label'       => 'Author Card',
@@ -66,22 +59,27 @@ class Paradise_EW_Admin {
         'announcement_bar' => [
             'label'       => 'Announcement Bar',
             'description' => 'Fixed full-width banner for announcements, promotions, or alerts. Supports icon, message, CTA button, and dismissal with session/days/permanent memory.',
+            'js'          => true,
         ],
         'cookie_consent_bar' => [
             'label'       => 'Cookie Consent Bar',
             'description' => 'GDPR/cookie consent bar with Accept and Decline buttons. Stores user choice in localStorage with configurable expiry. Dispatches consent events for analytics integration.',
+            'js'          => true,
         ],
         'back_to_top' => [
             'label'       => 'Back to Top',
             'description' => 'Fixed-position button that appears after scrolling past a threshold and smoothly returns the user to the top of the page.',
+            'js'          => true,
         ],
         'off_canvas_menu' => [
             'label'       => 'Off-Canvas Menu',
             'description' => 'Slide-in panel with a WordPress menu. Triggered by an inline button or the Paradise.openOffCanvas() JS API (e.g. from Bottom Nav).',
+            'js'          => true,
         ],
         'sticky_header' => [
             'label'       => 'Sticky Header',
             'description' => 'Place inside any Elementor section to make it sticky. Applies scroll effects (shadow, background change, shrink) when scrolling past a threshold.',
+            'js'          => true,
         ],
         'google_map' => [
             'label'       => 'Google Map',
@@ -94,6 +92,7 @@ class Paradise_EW_Admin {
         'business_hours' => [
             'label'       => 'Business Hours',
             'description' => 'Displays business hours from Site Info with a live Open Now / Closed badge. Highlights today\'s row and supports 12/24-hour format.',
+            'js'          => true,
         ],
         'local_business_schema' => [
             'label'       => 'LocalBusiness Schema',
@@ -102,6 +101,7 @@ class Paradise_EW_Admin {
         'faq_accordion' => [
             'label'       => 'FAQ Accordion',
             'description' => 'Collapsible Q&A list with accordion or multi-expand mode. Supports Schema.org FAQPage markup for Google rich results.',
+            'js'          => true,
         ],
     ];
 
