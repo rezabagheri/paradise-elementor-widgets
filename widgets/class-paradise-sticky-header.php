@@ -16,16 +16,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use Elementor\Controls_Manager;
 
-class Paradise_Sticky_Header_Widget extends \Elementor\Widget_Base {
+class Paradise_Sticky_Header_Widget extends Paradise_Widget_Base {
 
-    public function get_name(): string      { return 'paradise_sticky_header'; }
-    public function get_title(): string     { return esc_html__( 'Sticky Header', 'paradise-elementor-widgets' ); }
-    public function get_icon(): string      { return 'eicon-header'; }
-    public function get_categories(): array { return [ 'paradise' ]; }
-    public function get_keywords(): array   { return [ 'sticky', 'header', 'fixed', 'scroll', 'navigation' ]; }
+    public function get_name(): string    { return 'paradise_sticky_header'; }
+    public function get_title(): string   { return esc_html__( 'Sticky Header', 'paradise-elementor-widgets' ); }
+    public function get_icon(): string    { return 'eicon-header'; }
+    public function get_keywords(): array { return [ 'sticky', 'header', 'fixed', 'scroll', 'navigation' ]; }
 
-    public function get_style_depends(): array  { return [ 'paradise-sticky-header' ]; }
-    public function get_script_depends(): array { return [ 'paradise-sticky-header' ]; }
+    // get_categories() and get_style_depends() come from the base — both match
+    // the defaults (paradise category, 'paradise-sticky-header' style handle).
+    // Override get_script_depends() because this widget ships a JS file.
+    public function get_script_depends(): array { return [ $this->get_default_handle() ]; }
 
     // =========================================================================
     // CONTROLS
