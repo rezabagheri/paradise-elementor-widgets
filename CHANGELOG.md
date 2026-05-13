@@ -23,6 +23,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Bottom Navigation Bar** — corrected the asset handles inside `get_style_depends()` / `get_script_depends()` so the widget's CSS and JS actually load on the frontend. The widget asked for `paradise-bn-bottom-nav-style` / `-script`, but the main file registered `paradise-bottom-nav-style` / `-script`; the mismatch left the widget unstyled and non-interactive on production
 - **Phone Link** — removed dead `get_uwidget_type()` method, a typo of a non-existent Elementor method (`Widget_Base::get_widget_type` does not exist) that was never called anywhere in the codebase
+- **Floating Call Button** — corner offsets (`top` / `right` / `bottom` / `left`) were applied to the outer `.elementor-element` wrapper via `prefix_class`, but `position: fixed` lives on the inner `.paradise-fcb-wrap`. The offsets were ignored on the outer (static-positioned) wrapper and the inner fixed element fell back to its document-flow position. Corner CSS now targets the descendant `.paradise-fcb-wrap` so the button pins to the chosen corner with the configured offsets
+- **FAQ Accordion** — closed items leaked ~28 px of the first answer line because `grid-template-rows: 0fr` was being overridden by the implicit min-content track sizing (the answer's inner padding). Switched to `minmax(0, 0fr)` so the collapsed track really shrinks to 0
+- **FAQ Accordion** — `TypeError: Cannot read properties of undefined (reading 'addAction')` on templates where `elementorFrontend` loaded before its `hooks` API was ready (e.g. `elementor_canvas`). The editor re-init now checks both `elementorFrontend` and `elementorFrontend.hooks` before calling `addAction`
+
+### Documentation
+
+- **README Screenshots section** — added seven viewport-correct screenshots (mobile 390×844 and desktop 1280×800) for Bottom Navigation Bar, Floating Call Button, Announcement Bar, FAQ Accordion, Off-Canvas Menu (open state), Business Hours with the Open Now badge, and Author Card
 
 ---
 

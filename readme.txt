@@ -154,6 +154,10 @@ The badge is computed in the visitor's browser using the site's timezone (from W
 * Added: Elementor compatibility admin notices — shown when Elementor is missing or older than the required minimum (3.5.0). Widget/asset registration is skipped on outdated Elementor to avoid fatals.
 * Fixed: Bottom Navigation Bar — corrected asset handles so the widget's CSS and JS actually load on the frontend. The widget previously referenced `paradise-bn-bottom-nav-style` / `-script` while the main file registered `paradise-bottom-nav-style` / `-script`; the mismatch meant nothing loaded.
 * Fixed: Phone Link — removed dead `get_uwidget_type()` method (typo of a non-existent Elementor method that was never called).
+* Fixed: Floating Call Button — corner offsets are now applied to the position-fixed inner wrapper rather than the static outer wrapper, so the button pins to the chosen corner with the configured offsets (previously it fell back to its document-flow position).
+* Fixed: FAQ Accordion — closed items no longer leak the first line of their answer (`grid-template-rows: minmax(0, 0fr)` overrides the implicit min-content track sizing).
+* Fixed: FAQ Accordion — no more `TypeError` on templates where `elementorFrontend.hooks` is not yet ready (e.g. `elementor_canvas`); the editor re-init now checks both `elementorFrontend` and `.hooks` before calling `addAction`.
+* Documentation: README gains a Screenshots section with seven viewport-correct widget screenshots.
 
 = 2.4.0 =
 * Added: FAQ Accordion widget — accordion / multi-expand mode, Elementor icon picker (open/closed state), icon position (left/right), open-first-item default, Schema.org FAQPage JSON-LD, full typography and color controls
