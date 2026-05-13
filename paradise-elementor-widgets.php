@@ -192,6 +192,13 @@ final class Paradise_Elementor_Widgets
      */
     public function register_widgets($widgets_manager): void
     {
+        // Load the base class once, before any widget file is required — concrete
+        // widgets that opt into Paradise_Widget_Base need their parent class to
+        // exist at file-parse time. Safe to require here: Elementor is already
+        // loaded (we're inside the elementor/widgets/register action), so the
+        // \Elementor\Widget_Base symbol that the base extends is resolvable.
+        require_once PARADISE_EW_DIR . 'includes/class-paradise-widget-base.php';
+
         foreach (Paradise_EW_Admin::get_widget_registry() as $key => $config) {
             if (!Paradise_EW_Admin::widget_enabled($key)) {
                 continue;
