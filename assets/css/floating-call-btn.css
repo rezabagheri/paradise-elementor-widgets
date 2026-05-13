@@ -12,24 +12,27 @@
 
 /*
  * Corner classes are added by Elementor via prefix_class = 'paradise-fcb-corner-'.
- * They translate the CSS-variable offsets into top/right/bottom/left values.
+ * The class lands on the outer .elementor-element wrapper (position: relative),
+ * but the position-fixed element is .paradise-fcb-wrap inside it — so the
+ * top/right/bottom/left offsets must be applied to the descendant wrap, not
+ * the outer wrapper where the corner class lives.
  */
-.paradise-fcb-corner-bottom-right {
+.paradise-fcb-corner-bottom-right .paradise-fcb-wrap {
     bottom: var(--paradise-fcb-offset-v);
     right:  var(--paradise-fcb-offset-h);
 }
 
-.paradise-fcb-corner-bottom-left {
+.paradise-fcb-corner-bottom-left .paradise-fcb-wrap {
     bottom: var(--paradise-fcb-offset-v);
     left:   var(--paradise-fcb-offset-h);
 }
 
-.paradise-fcb-corner-top-right {
+.paradise-fcb-corner-top-right .paradise-fcb-wrap {
     top:   var(--paradise-fcb-offset-v);
     right: var(--paradise-fcb-offset-h);
 }
 
-.paradise-fcb-corner-top-left {
+.paradise-fcb-corner-top-left .paradise-fcb-wrap {
     top:  var(--paradise-fcb-offset-v);
     left: var(--paradise-fcb-offset-h);
 }
