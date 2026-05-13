@@ -22,6 +22,52 @@
 
 ---
 
+## Screenshots
+
+### Bottom Navigation Bar — mobile
+
+A fixed mobile bottom bar with icons, labels, a prominent speed-dial center button, and an animated active indicator. Active item is detected client-side from the URL — no server round-trip, friendly to page caches.
+
+![Bottom Navigation Bar](assets/screenshots/01-bottom-nav.png)
+
+### Floating Call Button — mobile
+
+A pill or circle call-to-action that stays visible while scrolling. Supports `tel:` or WhatsApp, four corner positions, configurable offsets, custom label, and an optional pulse animation.
+
+![Floating Call Button](assets/screenshots/02-floating-call-button.png)
+
+### Announcement Bar — desktop
+
+A full-width banner for promotions and updates, with icon, message, CTA button, close button, and dismissal memory (session / X days / forever) stored in localStorage. Fixed to top or bottom of the viewport.
+
+![Announcement Bar](assets/screenshots/03-announcement-bar.png)
+
+### FAQ Accordion — desktop
+
+Collapsible Q&A — accordion (one open at a time) or multi-expand. Items can be entered manually or pulled from the FAQ Post Type. Outputs Schema.org `FAQPage` JSON-LD for Google rich results.
+
+![FAQ Accordion](assets/screenshots/04-faq-accordion.png)
+
+### Off-Canvas Menu — mobile, open state
+
+A slide-in panel powered by any registered WordPress menu, with a panel header, close button, and overlay-click dismissal. Triggerable from the inline button or programmatically via the `Paradise.openOffCanvas()` JS API (e.g. from Bottom Nav's center button).
+
+![Off-Canvas Menu](assets/screenshots/05-off-canvas-menu.png)
+
+### Business Hours — desktop
+
+Renders the active location's weekly schedule from Site Info with a live "Open Now / Closed" badge. Today's row is highlighted; supports 12-hour and 24-hour formats. The badge updates client-side using the site's configured timezone, independent of the visitor's browser TZ.
+
+![Business Hours](assets/screenshots/06-business-hours.png)
+
+### Author Card — desktop
+
+A profile card for the current or a specific user — photo, name with optional credentials, professional title, bio (with word-limit truncation), social links from the user's Paradise profile, and an optional CTA button. Pairs with the user-profile fields the plugin adds under Users → Edit.
+
+![Author Card](assets/screenshots/07-author-card.png)
+
+---
+
 ## Available Widgets
 
 | Widget | Description |
