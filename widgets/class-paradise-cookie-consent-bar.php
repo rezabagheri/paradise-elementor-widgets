@@ -14,16 +14,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
 
-class Paradise_Cookie_Consent_Bar_Widget extends \Elementor\Widget_Base {
+class Paradise_Cookie_Consent_Bar_Widget extends Paradise_Widget_Base {
 
-    public function get_name(): string      { return 'paradise_cookie_consent_bar'; }
-    public function get_title(): string     { return esc_html__( 'Cookie Consent Bar', 'paradise-elementor-widgets' ); }
-    public function get_icon(): string      { return 'eicon-cookie'; }
-    public function get_categories(): array { return [ 'paradise' ]; }
-    public function get_keywords(): array   { return [ 'cookie', 'consent', 'gdpr', 'privacy', 'bar', 'notice' ]; }
+    public function get_name(): string    { return 'paradise_cookie_consent_bar'; }
+    public function get_title(): string   { return esc_html__( 'Cookie Consent Bar', 'paradise-elementor-widgets' ); }
+    public function get_icon(): string    { return 'eicon-cookie'; }
+    public function get_keywords(): array { return [ 'cookie', 'consent', 'gdpr', 'privacy', 'bar', 'notice' ]; }
 
-    public function get_style_depends(): array  { return [ 'paradise-cookie-consent-bar' ]; }
-    public function get_script_depends(): array { return [ 'paradise-cookie-consent-bar' ]; }
+    // get_categories() and get_style_depends() come from the base — defaults
+    // match. Override get_script_depends() because this widget ships a JS
+    // file for Accept/Decline handling and localStorage expiry.
+    public function get_script_depends(): array { return [ $this->get_default_handle() ]; }
 
     // =========================================================================
     // CONTROLS
