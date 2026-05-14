@@ -275,6 +275,13 @@ class Paradise_EW_Admin {
             [],
             PARADISE_EW_VERSION
         );
+        wp_enqueue_script(
+            'paradise-ew-admin',
+            PARADISE_EW_URL . 'assets/js/admin.js',
+            [],
+            PARADISE_EW_VERSION,
+            true
+        );
     }
 
     // -------------------------------------------------------------------------
