@@ -201,6 +201,35 @@
         } );
     }
 
+    // ── Scroll the success notice into view on post-save reload ─────────────
+
+    /**
+     * After a successful save the page redirects with a query flag
+     * (?settings-updated=true from Options API, or ?saved=1 from the
+     * custom Site Info handler). The notice itself renders at the top
+     * of .wrap — but on long forms (Site Info especially) some browsers
+     * preserve scroll position after a POST→GET redirect and the user
+     * lands back near the Save button, missing the confirmation.
+     *
+     * Smooth-scroll the success notice into view on load. No-op if the
+     * page already shows it (e.g. browser already scrolled to top).
+     */
+    function initScrollOnSave() {
+        var params = new URLSearchParams( window.location.search );
+        if ( ! params.has( 'settings-updated' ) && ! params.has( 'saved' ) ) {
+            return;
+        }
+        // Defer to next tick so the notice is in the DOM and laid out.
+        window.setTimeout( function () {
+            var notice = document.querySelector(
+                '.paradise-ew-admin .notice-success, .paradise-ew-admin .updated'
+            );
+            if ( notice ) {
+                notice.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+            }
+        }, 0 );
+    }
+
     // ── Boot ─────────────────────────────────────────────────────────────────
 
     function init() {
@@ -208,6 +237,7 @@
         initFilter();
         initCopyShortcode();
         initDirtyTracking();
+        initScrollOnSave();
     }
 
     if ( document.readyState === 'loading' ) {
