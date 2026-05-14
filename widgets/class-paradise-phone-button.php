@@ -18,19 +18,19 @@ use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Background;
 
-class Paradise_Phone_Button_Widget extends \Elementor\Widget_Base {
+class Paradise_Phone_Button_Widget extends Paradise_Widget_Base {
 
     use Paradise_Phone_Helper;
 
-    public function get_name(): string       { return 'paradise_phone_button'; }
-    public function get_title(): string      { return 'Phone Button'; }
-    public function get_icon(): string       { return 'eicon-button'; }
-    public function get_categories(): array  { return [ 'paradise' ]; }
-    public function get_keywords(): array    { return [ 'phone', 'button', 'call', 'cta', 'whatsapp' ]; }
+    public function get_name(): string    { return 'paradise_phone_button'; }
+    public function get_title(): string   { return 'Phone Button'; }
+    public function get_icon(): string    { return 'eicon-button'; }
+    public function get_keywords(): array { return [ 'phone', 'button', 'call', 'cta', 'whatsapp' ]; }
 
-    public function get_style_depends(): array {
-        return [ 'paradise-phone-button' ];
-    }
+    // get_categories() and get_style_depends() come from the base — defaults
+    // match (paradise category, 'paradise-phone-button' style handle).
+    // Phone Helper trait stays — it provides phone formatting/normalization
+    // helpers shared with Phone Link, independent of the parent class.
 
     // =========================================================================
     // CONTROLS
