@@ -13,16 +13,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Box_Shadow;
 
-class Paradise_Back_To_Top_Widget extends \Elementor\Widget_Base {
+class Paradise_Back_To_Top_Widget extends Paradise_Widget_Base {
 
-    public function get_name(): string      { return 'paradise_back_to_top'; }
-    public function get_title(): string     { return esc_html__( 'Back to Top', 'paradise-elementor-widgets' ); }
-    public function get_icon(): string      { return 'eicon-arrow-up'; }
-    public function get_categories(): array { return [ 'paradise' ]; }
-    public function get_keywords(): array   { return [ 'back', 'top', 'scroll', 'up', 'button', 'float' ]; }
+    public function get_name(): string    { return 'paradise_back_to_top'; }
+    public function get_title(): string   { return esc_html__( 'Back to Top', 'paradise-elementor-widgets' ); }
+    public function get_icon(): string    { return 'eicon-arrow-up'; }
+    public function get_keywords(): array { return [ 'back', 'top', 'scroll', 'up', 'button', 'float' ]; }
 
-    public function get_style_depends(): array  { return [ 'paradise-back-to-top' ]; }
-    public function get_script_depends(): array { return [ 'paradise-back-to-top' ]; }
+    // get_categories() and get_style_depends() come from the base — defaults
+    // match (paradise category, 'paradise-back-to-top' style handle).
+    // Override get_script_depends() because this widget ships a JS file
+    // for scroll-threshold visibility toggling and smooth-scroll behaviour.
+    public function get_script_depends(): array { return [ $this->get_default_handle() ]; }
 
     // =========================================================================
     // CONTROLS
