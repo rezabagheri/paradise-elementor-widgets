@@ -318,3 +318,60 @@
     height: 220px;
     border: none;
 }
+
+/* ── Icon-only remove buttons ─────────────────────────────────────────────── */
+
+/*
+ * Repeater rows (phones, emails, socials, hours) and location headers all
+ * had a 'Remove' text button. They're now icon-only with an aria-label —
+ * cleaner in dense tables and the trash icon makes the destructive intent
+ * read at a glance.
+ */
+.paradise-si-remove-row,
+.paradise-si-remove-location {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    color: #b32d2e;
+    border-radius: 3px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.paradise-si-remove-row:hover,
+.paradise-si-remove-location:hover,
+.paradise-si-remove-row:focus-visible,
+.paradise-si-remove-location:focus-visible {
+    color: #fff;
+    background: #b32d2e;
+    outline: none;
+}
+
+.paradise-si-remove-row .dashicons,
+.paradise-si-remove-location .dashicons {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* ── Add buttons get an inline plus icon prefix ───────────────────────────── */
+
+.paradise-si-add-row,
+#paradise-si-add-social,
+#paradise-si-add-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.paradise-si-add-row .dashicons,
+#paradise-si-add-social .dashicons,
+#paradise-si-add-location .dashicons {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    line-height: 1;
+}
