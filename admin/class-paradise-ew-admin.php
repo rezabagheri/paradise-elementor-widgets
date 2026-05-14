@@ -22,6 +22,11 @@ class Paradise_EW_Admin {
      *   label       — human-readable name shown in the settings page
      *   description — short description shown in the settings page
      *   js          — (optional, default false) true if the widget ships a JS file
+     *   example     — (optional, default false) marks a developer-reference widget
+     *                 so the settings UI can group it separately
+     *   default     — (optional, default true) initial enabled state when no
+     *                 setting has been saved yet — set to false for example
+     *                 widgets so end-user sites don't see them by default
      *
      * The 'file' and 'class' values are derived automatically from the registry key.
      * get_widget_registry() returns the enriched array so consumers never need to call the helpers directly.
@@ -102,6 +107,18 @@ class Paradise_EW_Admin {
             'label'       => 'FAQ Accordion',
             'description' => 'Collapsible Q&A list with accordion or multi-expand mode. Supports Schema.org FAQPage markup for Google rich results.',
             'js'          => true,
+        ],
+
+        // ---- Examples (developer learning material) -------------------------
+        // These widgets live in the "Paradise Examples" category in the editor,
+        // separate from the production widgets above. Disabled by default so
+        // end-user sites don't see them unless a developer turns them on.
+
+        'feature_card_example' => [
+            'label'       => 'Feature Card (Example)',
+            'description' => 'Heavily-commented reference widget for developers — read widgets/class-paradise-feature-card-example.php to learn every Paradise widget pattern (controls, render, asset handles, base-class usage). Shows in the "Paradise Examples" editor category. Disabled by default.',
+            'example'     => true,
+            'default'     => false,
         ],
     ];
 
@@ -192,11 +209,21 @@ class Paradise_EW_Admin {
 
     /**
      * Returns the stored settings array with safe defaults.
-     * All widgets are enabled by default; integrations are disabled by default.
+     *
+     * Widget defaults: enabled (true) unless the registry entry sets
+     * 'default' => false (used for example/learning widgets that should
+     * stay off on end-user sites unless a developer opts in).
+     *
+     * Feature defaults come from self::$feature_defaults.
      */
     public static function get(): array {
+        $widget_defaults = [];
+        foreach ( self::$widget_registry as $key => $meta ) {
+            $widget_defaults[ $key ] = $meta['default'] ?? true;
+        }
+
         $defaults = [
-            'widgets'  => array_fill_keys( array_keys( self::$widget_registry ), true ),
+            'widgets'  => $widget_defaults,
             'features' => self::$feature_defaults,
         ];
         $stored = get_option( self::OPTION_KEY, [] );
@@ -205,10 +232,12 @@ class Paradise_EW_Admin {
 
     /**
      * Returns true if a specific widget is enabled.
+     * Falls back to the registry's per-widget default if no stored value exists.
      */
     public static function widget_enabled( string $key ): bool {
-        $settings = self::get();
-        return $settings['widgets'][ $key ] ?? true;
+        $settings        = self::get();
+        $registry_default = self::$widget_registry[ $key ]['default'] ?? true;
+        return $settings['widgets'][ $key ] ?? $registry_default;
     }
 
     /**

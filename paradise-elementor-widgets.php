@@ -145,6 +145,15 @@ final class Paradise_Elementor_Widgets
             'title' => esc_html__('Paradise Widgets', 'paradise-elementor-widgets'),
             'icon'  => 'fa fa-plug',
         ]);
+
+        // Separate category for example/reference widgets shipped to help
+        // plugin developers learn the Paradise patterns. Distinct from
+        // the main "Paradise Widgets" category so end users don't confuse
+        // teaching material with production widgets.
+        $elements_manager->add_category('paradise-examples', [
+            'title' => esc_html__('Paradise Examples', 'paradise-elementor-widgets'),
+            'icon'  => 'fa fa-graduation-cap',
+        ]);
     }
 
     /**
