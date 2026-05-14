@@ -20,10 +20,18 @@
 
 .paradise-si-card .postbox-header h2 {
     font-size: 14px;
+    /* WP core ships .postbox-header h2 at padding: 8px 12px, which feels
+       cramped on these wider Site Info cards. A touch more breathing
+       room on both axes makes the title read like a heading, not a label
+       jammed against the card edge. */
+    padding: 12px 18px;
 }
 
 .paradise-si-card .inside {
-    padding: 0 12px 12px;
+    /* padding-top was 0, which let content sit flush against the
+       header's bottom divider. A small top inset separates the two
+       and matches the horizontal rhythm of the header. */
+    padding: 16px 18px;
     margin: 0;
 }
 
