@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.6.0] - 2026-05-14
+
+### Added
+
+- **`Paradise_Widget_Base` abstract class** (`includes/class-paradise-widget-base.php`) — a small shared base inherited by every bundled widget. Centralises the behaviour that was identical across the widget set: `get_categories()` returns `[ 'paradise' ]`, `get_style_depends()` returns the conventional `paradise-{slug}` handle derived from `get_name()`, and `get_script_depends()` defaults to `[]`. Exposes a `get_default_handle()` helper so subclasses with a JS file can write `return [ $this->get_default_handle() ]` instead of repeating a hardcoded handle string. Plugins or themes that fork Paradise can extend the same base to inherit these conventions
+
+### Changed
+
+- **All 15 bundled widgets migrated to `Paradise_Widget_Base`** — each widget drops its hand-written `get_categories()` and `get_style_depends()` overrides where they matched the base default. Widgets that ship a JS file declare `get_script_depends()` through `$this->get_default_handle()` instead of a hardcoded string. Bottom Navigation Bar preserves its extra Font Awesome handles via `array_merge( parent::get_style_depends(), [ … ] )`. No behaviour change for end users — same categories, same asset handles, same render output
+- **README** — File Structure now lists `includes/class-paradise-widget-base.php` and notes that every widget file under `widgets/` extends it. The Developer Guide's "Adding a new widget" section is rewritten to reflect the current workflow: extend `Paradise_Widget_Base`, add a registry entry with just `label`/`description`/optional `js`, drop asset files at the conventional paths, and let the loader handle the rest. Includes the `array_merge( parent::get_style_depends(), … )` pattern for widgets that need extra handles
+
+---
+
 ## [2.5.0] - 2026-05-13
 
 ### Changed

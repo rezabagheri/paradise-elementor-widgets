@@ -4,7 +4,7 @@ Tags: elementor, elementor widgets, bottom navigation, phone link, google map, s
 Requires at least: 6.1
 Tested up to: 6.7
 Requires PHP: 8.0
-Stable tag: 2.5.0
+Stable tag: 2.6.0
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -147,6 +147,11 @@ The badge is computed in the visitor's browser using the site's timezone (from W
 
 == Changelog ==
 
+= 2.6.0 =
+* Added: Paradise_Widget_Base abstract class — a small shared base inherited by every bundled widget. Provides default get_categories(), conventional asset-handle naming from get_name(), and a get_default_handle() helper. Plugins/themes that fork Paradise can extend it to get the same conventions.
+* Changed: All 15 bundled widgets now extend Paradise_Widget_Base, dropping repeated get_categories() and get_style_depends() overrides. Widgets with a JS file declare get_script_depends() through $this->get_default_handle(). Bottom Navigation Bar preserves its extra Font Awesome handles via array_merge(parent::get_style_depends(), [...]). No behaviour change for end users.
+* Documentation: README — File Structure now lists includes/class-paradise-widget-base.php; the Developer Guide's "Adding a new widget" section reflects the current workflow (extend the base, registry takes label/description/js only, asset files at conventional paths get registered automatically).
+
 = 2.5.0 =
 * Changed: Asset registration is now registry-driven — `enqueue_assets()` reduced from ~170 hardcoded calls to a single loop over `Paradise_EW_Admin::$widget_registry`. Adding a new widget no longer requires editing the main plugin file.
 * Changed: Asset handle naming normalized to `paradise-{slug}` for both CSS and JS of each widget (no more mixed `-style` / `-script` suffixes).
@@ -210,6 +215,9 @@ The badge is computed in the visitor's browser using the site's timezone (from W
 * Bottom Navigation Bar widget
 
 == Upgrade Notice ==
+
+= 2.6.0 =
+Internal refactor — all 15 widgets now extend a shared Paradise_Widget_Base. No behaviour change for end users; safe to upgrade from 2.5.0.
 
 = 2.5.0 =
 Internal refactor (~88% smaller asset registration), Bottom Nav asset-loading bug fixed, and new Elementor compatibility notices. Note: minimum PHP raised to 8.0 — installs still on PHP 7.4 must stay on 2.4.x.
