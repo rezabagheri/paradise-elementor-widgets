@@ -8,16 +8,17 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Paradise_Faq_Accordion_Widget extends \Elementor\Widget_Base {
+class Paradise_Faq_Accordion_Widget extends Paradise_Widget_Base {
 
-    public function get_name(): string     { return 'paradise_faq_accordion'; }
-    public function get_title(): string    { return esc_html__( 'FAQ Accordion', 'paradise-elementor-widgets' ); }
-    public function get_icon(): string     { return 'eicon-accordion'; }
-    public function get_categories(): array { return [ 'paradise' ]; }
-    public function get_keywords(): array  { return [ 'faq', 'accordion', 'question', 'answer', 'toggle', 'collapse' ]; }
+    public function get_name(): string    { return 'paradise_faq_accordion'; }
+    public function get_title(): string   { return esc_html__( 'FAQ Accordion', 'paradise-elementor-widgets' ); }
+    public function get_icon(): string    { return 'eicon-accordion'; }
+    public function get_keywords(): array { return [ 'faq', 'accordion', 'question', 'answer', 'toggle', 'collapse' ]; }
 
-    public function get_style_depends(): array  { return [ 'paradise-faq-accordion' ]; }
-    public function get_script_depends(): array { return [ 'paradise-faq-accordion' ]; }
+    // get_categories() and get_style_depends() come from the base — defaults
+    // match. Override get_script_depends() because this widget ships a JS
+    // file for expand/collapse toggling.
+    public function get_script_depends(): array { return [ $this->get_default_handle() ]; }
 
     // ── Controls ──────────────────────────────────────────────────────────────
 
