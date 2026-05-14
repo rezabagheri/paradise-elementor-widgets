@@ -191,13 +191,26 @@
 
 .paradise-si-location {
     border: 1px solid #c3c4c7;
-    border-radius: 3px;
-    margin-bottom: 8px;
+    border-radius: 6px;
+    /* Each location reads as a distinct card: bigger gap + subtle
+       elevation so the eye groups everything inside (phones, emails,
+       address, hours) under one container. Without this, multiple
+       locations stack into one indistinct vertical column. */
+    margin-bottom: 18px;
     background: #fff;
+    box-shadow: 0 1px 2px rgba( 0, 0, 0, 0.04 );
 }
 
 .paradise-si-location:last-child {
     margin-bottom: 0;
+}
+
+.paradise-si-location-header {
+    border-radius: 6px 6px 0 0;
+}
+
+.paradise-si-location--collapsed .paradise-si-location-header {
+    border-radius: 6px;
 }
 
 /* ── Location header ─────────────────────────────────────────────────────── */
@@ -290,7 +303,9 @@
 /* ── Location body ───────────────────────────────────────────────────────── */
 
 .paradise-si-location-body {
-    padding: 4px 16px 16px;
+    /* Even padding all around (was uneven 4 16 16). Makes the inside
+       feel balanced now that sections have their own dividers below. */
+    padding: 18px 18px;
 }
 
 .paradise-si-location--collapsed .paradise-si-location-body {
@@ -299,19 +314,36 @@
 
 /* ── Sections inside a location ──────────────────────────────────────────── */
 
+/*
+ * Each location body holds 4 sub-sections: Phones, Emails, Address & Map,
+ * Business Hours. Previously they ran together — a small section-title
+ * with a thin underline was the only divider. The new scheme:
+ *
+ *   - explicit top border above every section after the first
+ *   - extra padding above the title so the divider has breathing room
+ *   - the title itself is bolder/darker (was small-caps grey) so the
+ *     section structure reads at a glance instead of as a wall of text
+ */
 .paradise-si-section {
-    margin-top: 16px;
+    margin-top: 0;
+    padding-top: 22px;
+    border-top: 1px solid #e5e5e5;
+}
+
+.paradise-si-section:first-of-type {
+    padding-top: 0;
+    border-top: none;
 }
 
 .paradise-si-section-title {
-    font-size: 11px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.6px;
-    color: #888;
-    margin: 0 0 8px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #e0e0e0;
+    color: #1d2327;
+    margin: 0 0 12px;
+    padding-bottom: 0;
+    border-bottom: none;
 }
 
 /* ── KV table (address / map URL) ────────────────────────────────────────── */
