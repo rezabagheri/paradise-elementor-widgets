@@ -357,6 +357,57 @@
     line-height: 1;
 }
 
+/* ── Action cell — copy + remove side-by-side ──────────────────────────── */
+
+.paradise-si-actions {
+    white-space: nowrap;
+}
+
+.paradise-si-actions .button-link {
+    margin: 0 2px;
+}
+
+/* ── Copy-shortcode icon button ────────────────────────────────────────── */
+
+.paradise-si-copy-shortcode {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    color: #2271b1;
+    border-radius: 3px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.paradise-si-copy-shortcode:hover,
+.paradise-si-copy-shortcode:focus-visible {
+    color: #fff;
+    background: #2271b1;
+    outline: none;
+}
+
+.paradise-si-copy-shortcode .dashicons {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* Brief 'copied' confirmation — toggled by JS for ~1.2s after click. */
+.paradise-si-copy-shortcode.is-copied {
+    color: #fff;
+    background: #00a651;
+}
+
+.paradise-si-copy-shortcode.is-copied .dashicons::before {
+    /* Swap the shortcode glyph for a checkmark while the class is on.
+       'dashicons-yes' = check; using the font-content trick keeps it
+       in one element without juggling DOM nodes from JS. */
+    content: "\f147"; /* dashicons-yes */
+}
+
 /* ── Add buttons get an inline plus icon prefix ───────────────────────────── */
 
 .paradise-si-add-row,

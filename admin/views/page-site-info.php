@@ -79,7 +79,10 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
                             <td class="paradise-si-col-drag"><span class="paradise-si-handle dashicons dashicons-menu" title="<?php esc_attr_e( 'Drag to reorder', 'paradise-elementor-widgets' ); ?>"></span></td>
                             <td><input type="text" class="regular-text" name="paradise_site_info[locations][<?php echo $loc_idx; ?>][phones][<?php echo $j; ?>][label]" value="<?php echo esc_attr( $phone['label'] ); ?>" placeholder="<?php esc_attr_e( 'e.g. Main Office', 'paradise-elementor-widgets' ); ?>"></td>
                             <td><input type="text" class="regular-text" name="paradise_site_info[locations][<?php echo $loc_idx; ?>][phones][<?php echo $j; ?>][value]" value="<?php echo esc_attr( $phone['value'] ); ?>" placeholder="+1 888 123 4567"></td>
-                            <td><button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button></td>
+                            <td class="paradise-si-actions">
+                                <button type="button" class="button-link paradise-si-copy-shortcode" data-copy-type="phone" data-copy-location="<?php echo esc_attr( $loc_idx ); ?>" aria-label="<?php esc_attr_e( 'Copy shortcode for this entry', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-shortcode" aria-hidden="true"></span></button>
+                                <button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button>
+                            </td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -105,7 +108,10 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
                             <td class="paradise-si-col-drag"><span class="paradise-si-handle dashicons dashicons-menu" title="<?php esc_attr_e( 'Drag to reorder', 'paradise-elementor-widgets' ); ?>"></span></td>
                             <td><input type="text" class="regular-text" name="paradise_site_info[locations][<?php echo $loc_idx; ?>][emails][<?php echo $j; ?>][label]" value="<?php echo esc_attr( $email['label'] ); ?>" placeholder="<?php esc_attr_e( 'e.g. Support', 'paradise-elementor-widgets' ); ?>"></td>
                             <td><input type="email" class="regular-text" name="paradise_site_info[locations][<?php echo $loc_idx; ?>][emails][<?php echo $j; ?>][value]" value="<?php echo esc_attr( $email['value'] ); ?>" placeholder="hello@example.com"></td>
-                            <td><button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button></td>
+                            <td class="paradise-si-actions">
+                                <button type="button" class="button-link paradise-si-copy-shortcode" data-copy-type="email" data-copy-location="<?php echo esc_attr( $loc_idx ); ?>" aria-label="<?php esc_attr_e( 'Copy shortcode for this entry', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-shortcode" aria-hidden="true"></span></button>
+                                <button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button>
+                            </td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -216,8 +222,9 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
         <span class="paradise-ew-admin__version">v<?php echo esc_html( PARADISE_EW_VERSION ); ?></span>
     </div>
     <p class="paradise-si-intro">
-        <?php esc_html_e( 'Store your business details here. Use them via Elementor Dynamic Tags (⚡) or the shortcode ', 'paradise-elementor-widgets' ); ?>
-        <code>[paradise_site_info type="phone" location="0"]</code>.
+        <?php esc_html_e( 'Store your business details here, then reuse them across the site via Elementor Dynamic Tags (⚡) or the [paradise_site_info] shortcode. Click the', 'paradise-elementor-widgets' ); ?>
+        <span class="dashicons dashicons-shortcode" aria-hidden="true" style="vertical-align: text-bottom;"></span>
+        <?php esc_html_e( 'icon next to any entry below to copy a ready-to-paste shortcode for that specific entry.', 'paradise-elementor-widgets' ); ?>
     </p>
 
     <?php if ( isset( $_GET['saved'] ) ) : ?>
@@ -273,7 +280,10 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
                                 </select>
                             </td>
                             <td><input type="url" class="regular-text" name="paradise_site_info[socials][<?php echo $i; ?>][url]" value="<?php echo esc_attr( $social['url'] ); ?>" placeholder="https://"></td>
-                            <td><button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button></td>
+                            <td class="paradise-si-actions">
+                                <button type="button" class="button-link paradise-si-copy-shortcode" data-copy-type="social" aria-label="<?php esc_attr_e( 'Copy shortcode for this entry', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-shortcode" aria-hidden="true"></span></button>
+                                <button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button>
+                            </td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -321,7 +331,10 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
             </select>
         </td>
         <td><input type="url" class="regular-text" name="paradise_site_info[socials][__INDEX__][url]" value="" placeholder="https://"></td>
-        <td><button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button></td>
+        <td class="paradise-si-actions">
+            <button type="button" class="button-link paradise-si-copy-shortcode" data-copy-type="social" aria-label="<?php esc_attr_e( 'Copy shortcode for this entry', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-shortcode" aria-hidden="true"></span></button>
+            <button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button>
+        </td>
     </tr>
 </template>
 
@@ -330,7 +343,10 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
         <td class="paradise-si-col-drag"><span class="paradise-si-handle dashicons dashicons-menu" title="<?php esc_attr_e( 'Drag to reorder', 'paradise-elementor-widgets' ); ?>"></span></td>
         <td><input type="text" class="regular-text" name="paradise_site_info[locations][__LOC__][phones][__INDEX__][label]" value="" placeholder="<?php esc_attr_e( 'e.g. Main Office', 'paradise-elementor-widgets' ); ?>"></td>
         <td><input type="text" class="regular-text" name="paradise_site_info[locations][__LOC__][phones][__INDEX__][value]" value="" placeholder="+1 888 123 4567"></td>
-        <td><button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button></td>
+        <td class="paradise-si-actions">
+            <button type="button" class="button-link paradise-si-copy-shortcode" data-copy-type="phone" data-copy-location="__LOC__" aria-label="<?php esc_attr_e( 'Copy shortcode for this entry', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-shortcode" aria-hidden="true"></span></button>
+            <button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button>
+        </td>
     </tr>
 </template>
 
@@ -339,7 +355,10 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
         <td class="paradise-si-col-drag"><span class="paradise-si-handle dashicons dashicons-menu" title="<?php esc_attr_e( 'Drag to reorder', 'paradise-elementor-widgets' ); ?>"></span></td>
         <td><input type="text" class="regular-text" name="paradise_site_info[locations][__LOC__][emails][__INDEX__][label]" value="" placeholder="<?php esc_attr_e( 'e.g. Support', 'paradise-elementor-widgets' ); ?>"></td>
         <td><input type="email" class="regular-text" name="paradise_site_info[locations][__LOC__][emails][__INDEX__][value]" value="" placeholder="hello@example.com"></td>
-        <td><button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button></td>
+        <td class="paradise-si-actions">
+            <button type="button" class="button-link paradise-si-copy-shortcode" data-copy-type="email" data-copy-location="__LOC__" aria-label="<?php esc_attr_e( 'Copy shortcode for this entry', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-shortcode" aria-hidden="true"></span></button>
+            <button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button>
+        </td>
     </tr>
 </template>
 
