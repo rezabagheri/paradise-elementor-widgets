@@ -32,6 +32,14 @@
     margin-bottom: 20px;
 }
 
+.paradise-ew-admin__card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 0 0 16px;
+}
+
 .paradise-ew-admin__card-title {
     margin: 0 0 6px;
     font-size: 14px;
@@ -39,9 +47,34 @@
 }
 
 .paradise-ew-admin__card-desc {
-    margin: 0 0 16px;
+    margin: 0;
     color: #646970;
     font-size: 13px;
+}
+
+/* ── Bulk-action header buttons (Enable all / Disable all) ─────────── */
+
+.paradise-ew-bulk {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    line-height: 1;
+    white-space: nowrap;
+    margin-top: 2px;
+}
+
+.paradise-ew-bulk__btn {
+    /* button-link inherits anchor styling from WordPress core; only need
+       to tighten things that don't look right at this size. */
+    padding: 2px 0;
+    font-size: 12px;
+    line-height: 1;
+}
+
+.paradise-ew-bulk__sep {
+    color: #c3c4c7;
 }
 
 /* ── Toggles table ─────────────────────────────── */
