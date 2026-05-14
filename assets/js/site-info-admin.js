@@ -141,6 +141,59 @@
             btn.closest('tr').remove();
         });
 
+        // ── Social: keep platform icon in sync with the <select> value ────────
+
+        /**
+         * Each social row shows the brand SVG of the currently-selected
+         * platform next to its <select>. PHP renders the initial icon;
+         * this handler keeps it correct when the user changes the
+         * selection. SVG strings are passed in via window.paradiseSI
+         * (see Paradise_Site_Info_Admin::enqueue_assets).
+         *
+         * Uses DOMParser instead of innerHTML so the SVG payload is
+         * parsed as XML and attached as a DOM node, not interpreted as
+         * HTML. The SVGs themselves are server-side constants — they
+         * don't include user input — but parsing keeps the door closed
+         * if the source ever changes.
+         */
+        function syncPlatformIcon(select) {
+            var wrap = select.closest('.paradise-si-platform');
+            if (!wrap) return;
+            var icon = wrap.querySelector('.paradise-si-platform-icon');
+            if (!icon) return;
+
+            var slug    = select.value;
+            var iconMap = (window.paradiseSI && window.paradiseSI.platformIcons) || {};
+            var svgText = iconMap[slug] || '';
+
+            // Remove whatever icon was there.
+            while (icon.firstChild) {
+                icon.removeChild(icon.firstChild);
+            }
+
+            // Parse + append (no innerHTML — SVG is treated as a DOM
+            // node, not as an HTML fragment).
+            if (svgText) {
+                var doc   = new DOMParser().parseFromString(svgText, 'image/svg+xml');
+                var svgEl = doc.documentElement;
+                if (svgEl && svgEl.nodeName.toLowerCase() === 'svg') {
+                    icon.appendChild(svgEl);
+                }
+            }
+
+            // Reset brand-colour modifier class so the old colour drops
+            // off, then add the new one (drives the colour from CSS).
+            icon.className = 'paradise-si-platform-icon';
+            if (slug) {
+                icon.classList.add('paradise-si-platform-icon--' + slug);
+            }
+        }
+
+        document.addEventListener('change', function (e) {
+            var select = e.target.closest('.paradise-si-platform select');
+            if (select) syncPlatformIcon(select);
+        });
+
         // ── Business Hours: open/closed toggle (delegated) ────────────────────
 
         document.addEventListener('change', function (e) {
