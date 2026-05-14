@@ -5,15 +5,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once PARADISE_EW_DIR . 'includes/trait-paradise-phone-helper.php';
 
-class Paradise_Phone_Link_Widget extends \Elementor\Widget_Base {
+class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
 
     use Paradise_Phone_Helper;
 
-    public function get_name()       { return 'paradise_phone_link'; }
-    public function get_title()      { return 'Paradise Phone Link'; }
-    public function get_icon()       { return 'eicon-call-to-action'; }
-    public function get_categories()   { return [ 'paradise' ]; }
-    public function get_style_depends(): array { return [ 'paradise-phone-link' ]; }
+    public function get_name()  { return 'paradise_phone_link'; }
+    public function get_title() { return 'Paradise Phone Link'; }
+    public function get_icon()  { return 'eicon-call-to-action'; }
+
+    // get_categories() and get_style_depends() come from the base — defaults
+    // match (paradise category, 'paradise-phone-link' style handle).
+    // Phone Helper trait stays. No JS file.
 
     protected function register_controls() {
 
