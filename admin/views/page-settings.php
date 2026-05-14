@@ -108,6 +108,9 @@ function paradise_ew_render_toggle_card( string $section_id, string $title, stri
         <span class="paradise-ew-admin__version">
             v<?php echo esc_html( PARADISE_EW_VERSION ); ?>
         </span>
+        <span class="paradise-ew-admin__dirty" hidden>
+            <?php esc_html_e( 'Unsaved changes', 'paradise-elementor-widgets' ); ?>
+        </span>
     </div>
 
     <?php settings_errors(); ?>
