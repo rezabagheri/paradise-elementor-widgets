@@ -15,16 +15,17 @@ use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 
-class Paradise_Announcement_Bar_Widget extends \Elementor\Widget_Base {
+class Paradise_Announcement_Bar_Widget extends Paradise_Widget_Base {
 
-    public function get_name(): string      { return 'paradise_announcement_bar'; }
-    public function get_title(): string     { return esc_html__( 'Announcement Bar', 'paradise-elementor-widgets' ); }
-    public function get_icon(): string      { return 'eicon-alert'; }
-    public function get_categories(): array { return [ 'paradise' ]; }
-    public function get_keywords(): array   { return [ 'announcement', 'bar', 'notice', 'banner', 'alert', 'promo' ]; }
+    public function get_name(): string    { return 'paradise_announcement_bar'; }
+    public function get_title(): string   { return esc_html__( 'Announcement Bar', 'paradise-elementor-widgets' ); }
+    public function get_icon(): string    { return 'eicon-alert'; }
+    public function get_keywords(): array { return [ 'announcement', 'bar', 'notice', 'banner', 'alert', 'promo' ]; }
 
-    public function get_style_depends(): array  { return [ 'paradise-announcement-bar' ]; }
-    public function get_script_depends(): array { return [ 'paradise-announcement-bar' ]; }
+    // get_categories() and get_style_depends() come from the base — defaults
+    // match. Override get_script_depends() because this widget ships a JS
+    // file for dismiss behaviour and localStorage memory.
+    public function get_script_depends(): array { return [ $this->get_default_handle() ]; }
 
     // =========================================================================
     // CONTROLS
