@@ -288,11 +288,14 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
                         <tr>
                             <td class="paradise-si-col-drag"><span class="paradise-si-handle dashicons dashicons-menu" title="<?php esc_attr_e( 'Drag to reorder', 'paradise-elementor-widgets' ); ?>"></span></td>
                             <td>
-                                <select name="paradise_site_info[socials][<?php echo $i; ?>][platform]" class="paradise-si-select">
-                                    <?php foreach ( $platforms as $slug => $pname ) : ?>
-                                    <option value="<?php echo esc_attr( $slug ); ?>" <?php selected( $social['platform'] ?? '', $slug ); ?>><?php echo esc_html( $pname ); ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <div class="paradise-si-platform">
+                                    <span class="paradise-si-platform-icon paradise-si-platform-icon--<?php echo esc_attr( $social['platform'] ?? '' ); ?>" aria-hidden="true"><?php echo Paradise_Site_Info::social_icon_svg( $social['platform'] ?? '' ); // phpcs:ignore — vetted inline SVG ?></span>
+                                    <select name="paradise_site_info[socials][<?php echo $i; ?>][platform]" class="paradise-si-select">
+                                        <?php foreach ( $platforms as $slug => $pname ) : ?>
+                                        <option value="<?php echo esc_attr( $slug ); ?>" <?php selected( $social['platform'] ?? '', $slug ); ?>><?php echo esc_html( $pname ); ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
                             </td>
                             <td><input type="url" class="regular-text" name="paradise_site_info[socials][<?php echo $i; ?>][url]" value="<?php echo esc_attr( $social['url'] ); ?>" placeholder="https://"></td>
                             <td class="paradise-si-actions">
@@ -339,11 +342,14 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
     <tr>
         <td class="paradise-si-col-drag"><span class="paradise-si-handle dashicons dashicons-menu" title="<?php esc_attr_e( 'Drag to reorder', 'paradise-elementor-widgets' ); ?>"></span></td>
         <td>
-            <select name="paradise_site_info[socials][__INDEX__][platform]" class="paradise-si-select">
-                <?php foreach ( $platforms as $slug => $pname ) : ?>
-                <option value="<?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $pname ); ?></option>
-                <?php endforeach; ?>
-            </select>
+            <div class="paradise-si-platform">
+                <span class="paradise-si-platform-icon" aria-hidden="true"></span>
+                <select name="paradise_site_info[socials][__INDEX__][platform]" class="paradise-si-select">
+                    <?php foreach ( $platforms as $slug => $pname ) : ?>
+                    <option value="<?php echo esc_attr( $slug ); ?>"><?php echo esc_html( $pname ); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
         </td>
         <td><input type="url" class="regular-text" name="paradise_site_info[socials][__INDEX__][url]" value="" placeholder="https://"></td>
         <td class="paradise-si-actions">

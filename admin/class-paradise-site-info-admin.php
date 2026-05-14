@@ -55,6 +55,21 @@ class Paradise_Site_Info_Admin {
             PARADISE_EW_VERSION,
             true
         );
+
+        // Pass platform → brand SVG map to JS so the platform icon next
+        // to each social <select> can update live when the user changes
+        // the selection. Built server-side from the same source the PHP
+        // render uses (Paradise_Site_Info::social_icon_svg) — single
+        // source of truth for both initial render and live updates.
+        $platform_icons = [];
+        foreach ( array_keys( Paradise_Site_Info::social_platforms() ) as $slug ) {
+            $platform_icons[ $slug ] = Paradise_Site_Info::social_icon_svg( $slug );
+        }
+        wp_add_inline_script(
+            'paradise-site-info-admin',
+            'window.paradiseSI = window.paradiseSI || {}; window.paradiseSI.platformIcons = ' . wp_json_encode( $platform_icons ) . ';',
+            'before'
+        );
     }
 
     // ── Save handler ──────────────────────────────────────────────────────────

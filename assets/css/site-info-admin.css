@@ -144,7 +144,59 @@
     color: #a00;
 }
 
-/* ── Platform select ─────────────────────────────────────────────────────── */
+/* ── Platform select with brand icon ─────────────────────────────────────── */
+
+/*
+ * Each social row's platform cell groups a brand-coloured SVG and the
+ * <select> on one line. The icon sits left, the select to its right —
+ * users see at a glance which network the row points at without
+ * reading the option label. Icon updates live via JS when the select
+ * changes (see admin.js: initSocialIconSync).
+ */
+.paradise-si-platform {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.paradise-si-platform-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    color: #6c7781; /* fallback / unknown platform tint */
+}
+
+.paradise-si-platform-icon:empty {
+    /* No SVG yet (newly-added row before user picks a platform).
+       Leave the space reserved so the select doesn't jump left. */
+    background: #f0f0f1;
+    border-radius: 4px;
+}
+
+/* Explicit pixel size — the bundled SVGs don't carry width/height
+   attributes, so without this the browser falls back to the intrinsic
+   default and the icon balloons way past its parent. */
+.paradise-si-platform-icon svg {
+    width: 22px;
+    height: 22px;
+    display: block;
+}
+
+/* Brand colours — applied via a class on the icon span. Updated by JS
+   when the select changes; PHP renders the initial class on page load. */
+.paradise-si-platform-icon--instagram { color: #E4405F; }
+.paradise-si-platform-icon--facebook  { color: #1877F2; }
+.paradise-si-platform-icon--twitter   { color: #000000; }
+.paradise-si-platform-icon--linkedin  { color: #0A66C2; }
+.paradise-si-platform-icon--youtube   { color: #FF0000; }
+.paradise-si-platform-icon--tiktok    { color: #000000; }
+.paradise-si-platform-icon--pinterest { color: #BD081C; }
+.paradise-si-platform-icon--snapchat  { color: #FFFC00; }
+.paradise-si-platform-icon--threads   { color: #000000; }
+.paradise-si-platform-icon--whatsapp  { color: #25D366; }
 
 .paradise-si-select {
     min-width: 140px;
