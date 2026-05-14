@@ -24,9 +24,8 @@ use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Repeater;
-use Elementor\Widget_Base;
 
-class Paradise_Author_Card_Widget extends Widget_Base {
+class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
     public function get_name(): string {
         return 'paradise_author_card';
@@ -40,13 +39,9 @@ class Paradise_Author_Card_Widget extends Widget_Base {
         return 'eicon-person';
     }
 
-    public function get_categories(): array {
-        return [ 'paradise' ];
-    }
-
-    public function get_style_depends(): array {
-        return [ 'paradise-author-card' ];
-    }
+    // get_categories() and get_style_depends() come from the base — defaults
+    // match (paradise category, 'paradise-author-card' style handle).
+    // No JS file: all interactions are CSS-only.
 
     // =========================================================================
     // Controls
