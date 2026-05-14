@@ -11,17 +11,17 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Paradise_Social_Links_Widget extends \Elementor\Widget_Base {
+class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
 
     public function get_name(): string    { return 'paradise_social_links'; }
     public function get_title(): string   { return esc_html__( 'Social Links', 'paradise-elementor-widgets' ); }
     public function get_icon(): string    { return 'eicon-social-icons'; }
-    public function get_categories(): array { return [ 'paradise' ]; }
     public function get_keywords(): array { return [ 'social', 'icons', 'links', 'instagram', 'facebook', 'share' ]; }
 
-    public function get_style_depends(): array {
-        return [ 'paradise-social-links' ];
-    }
+    // get_categories() and get_style_depends() come from the base — defaults
+    // match (paradise category, 'paradise-social-links' style handle).
+    // No get_script_depends() override needed: the widget uses inline SVG
+    // icons and CSS-only hover animations, with no companion JS file.
 
     // ── Controls ──────────────────────────────────────────────────────────────
 
