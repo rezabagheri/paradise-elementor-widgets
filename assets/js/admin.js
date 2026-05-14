@@ -127,11 +127,109 @@
         return '[paradise_site_info type="' + type + '"' + locAttr + ' index="' + index + '"]';
     }
 
-    function flashCopied( button ) {
-        button.classList.add( 'is-copied' );
-        window.setTimeout( function () {
-            button.classList.remove( 'is-copied' );
-        }, 1200 );
+    /**
+     * Copy text to the clipboard with an HTTP-context fallback.
+     *
+     * navigator.clipboard is only exposed in "secure contexts" — HTTPS
+     * or localhost. Local WordPress dev environments often run over
+     * plain HTTP on a custom hostname (e.g. Valet's *.test), where the
+     * Clipboard API is undefined and the original copy handler silently
+     * failed: users clicked, nothing happened, no error.
+     *
+     * Strategy:
+     *   1. Try navigator.clipboard.writeText() if available.
+     *   2. Otherwise fall back to a temporary <textarea> + the legacy
+     *      document.execCommand('copy'). Deprecated but still
+     *      universally supported and works in non-secure contexts.
+     *
+     * Returns a Promise<boolean> resolving to true on success.
+     */
+    function copyToClipboard( text ) {
+        if ( navigator.clipboard && window.isSecureContext ) {
+            return navigator.clipboard.writeText( text ).then(
+                function () { return true; },
+                function () { return false; }
+            );
+        }
+
+        // Legacy fallback. Off-screen textarea so it can't be seen
+        // or interacted with; position: fixed so it doesn't trigger
+        // page scroll on focus/select; opacity: 0 as a belt-and-braces
+        // hide in case the off-screen positioning fails on some
+        // exotic stylesheet.
+        var ta = document.createElement( 'textarea' );
+        ta.value = text;
+        ta.setAttribute( 'readonly', '' );
+        ta.style.position = 'fixed';
+        ta.style.top      = '0';
+        ta.style.left     = '-9999px';
+        ta.style.opacity  = '0';
+        document.body.appendChild( ta );
+
+        var ok = false;
+        try {
+            ta.select();
+            ta.setSelectionRange( 0, ta.value.length );
+            ok = document.execCommand( 'copy' );
+        } catch ( e ) {
+            ok = false;
+        }
+        ta.remove();
+        return Promise.resolve( ok );
+    }
+
+    /**
+     * Visible feedback after a copy attempt. Two layers on success:
+     *
+     *   1. The button itself flips to a green checkmark for ~1.2s
+     *      (.is-copied class — see site-info-admin.css).
+     *   2. A small "Copied!" toast floats above the button briefly.
+     *      The icon swap alone is too subtle — users were clicking and
+     *      not realising anything had happened. The word "Copied!" sells
+     *      the action in plain language.
+     *
+     * On failure, only the toast renders, with a red variant + different
+     * message — so a misconfigured environment surfaces visibly instead
+     * of silently doing nothing.
+     *
+     * The toast is rendered inside the button (button has position:
+     * relative; toast is absolute) so it anchors per-row without
+     * page-level coordination. CSS owns the fade in/hold/out animation;
+     * JS just spawns the node and cleans it up on animationend (with a
+     * safety timeout in case the event misfires).
+     */
+    function flashCopied( button, ok ) {
+        if ( ok ) {
+            button.classList.add( 'is-copied' );
+            window.setTimeout( function () {
+                button.classList.remove( 'is-copied' );
+            }, 1200 );
+        }
+
+        // Replace any in-flight toast on this same button — rapid
+        // repeat clicks otherwise stack ghosts on top of each other.
+        var existing = button.querySelector( '.paradise-si-copied-toast' );
+        if ( existing ) {
+            existing.remove();
+        }
+
+        var toast = document.createElement( 'span' );
+        toast.className   = 'paradise-si-copied-toast' + ( ok ? '' : ' paradise-si-copied-toast--error' );
+        toast.textContent = ok ? 'Copied!' : 'Copy failed';
+        // Decorative — assistive tech already gets the success from
+        // the button's own state change. Hiding the toast from the
+        // accessibility tree avoids a duplicate announcement.
+        toast.setAttribute( 'aria-hidden', 'true' );
+        button.appendChild( toast );
+
+        function cleanup() {
+            toast.remove();
+        }
+        toast.addEventListener( 'animationend', cleanup, { once: true } );
+        // Safety net: if the animation never fires (tab backgrounded,
+        // reduced-motion stripping animations, etc.) still remove the
+        // node so it doesn't linger on the next click.
+        window.setTimeout( cleanup, 1800 );
     }
 
     function initCopyShortcode() {
@@ -143,11 +241,11 @@
                 return;
             }
             var shortcode = buildShortcode( button );
-            if ( ! shortcode || ! navigator.clipboard ) {
+            if ( ! shortcode ) {
                 return;
             }
-            navigator.clipboard.writeText( shortcode ).then( function () {
-                flashCopied( button );
+            copyToClipboard( shortcode ).then( function ( ok ) {
+                flashCopied( button, ok );
             } );
         } );
     }
