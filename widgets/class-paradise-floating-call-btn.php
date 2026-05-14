@@ -18,7 +18,7 @@ use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 
-class Paradise_Floating_Call_Btn_Widget extends \Elementor\Widget_Base
+class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
 {
     use Paradise_Phone_Helper;
 
@@ -34,19 +34,14 @@ class Paradise_Floating_Call_Btn_Widget extends \Elementor\Widget_Base
     {
         return 'eicon-call-to-action';
     }
-    public function get_categories(): array
-    {
-        return [ 'paradise' ];
-    }
     public function get_keywords(): array
     {
         return [ 'phone', 'float', 'fixed', 'call', 'whatsapp', 'cta', 'sticky' ];
     }
 
-    public function get_style_depends(): array
-    {
-        return [ 'paradise-floating-call-btn' ];
-    }
+    // get_categories() and get_style_depends() come from the base — defaults
+    // match (paradise category, 'paradise-floating-call-btn' style handle).
+    // Phone Helper trait stays. No JS file; positioning is CSS-only.
 
     // =========================================================================
     // CONTROLS
