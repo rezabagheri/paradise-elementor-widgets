@@ -18,16 +18,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
 
-class Paradise_Off_Canvas_Menu_Widget extends \Elementor\Widget_Base {
+class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
 
-    public function get_name(): string      { return 'paradise_off_canvas_menu'; }
-    public function get_title(): string     { return esc_html__( 'Off-Canvas Menu', 'paradise-elementor-widgets' ); }
-    public function get_icon(): string      { return 'eicon-menu-bar'; }
-    public function get_categories(): array { return [ 'paradise' ]; }
-    public function get_keywords(): array   { return [ 'off-canvas', 'menu', 'drawer', 'sidebar', 'nav', 'mobile' ]; }
+    public function get_name(): string    { return 'paradise_off_canvas_menu'; }
+    public function get_title(): string   { return esc_html__( 'Off-Canvas Menu', 'paradise-elementor-widgets' ); }
+    public function get_icon(): string    { return 'eicon-menu-bar'; }
+    public function get_keywords(): array { return [ 'off-canvas', 'menu', 'drawer', 'sidebar', 'nav', 'mobile' ]; }
 
-    public function get_style_depends(): array  { return [ 'paradise-off-canvas-menu' ]; }
-    public function get_script_depends(): array { return [ 'paradise-off-canvas-menu' ]; }
+    // get_categories() and get_style_depends() come from the base — defaults
+    // match. Override get_script_depends() because this widget ships a JS
+    // file for slide-in animation and the Paradise.openOffCanvas() API.
+    public function get_script_depends(): array { return [ $this->get_default_handle() ]; }
 
     // =========================================================================
     // CONTROLS
