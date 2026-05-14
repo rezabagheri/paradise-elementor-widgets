@@ -253,8 +253,20 @@ class Paradise_EW_Admin {
     // -------------------------------------------------------------------------
 
     public static function enqueue_admin_assets( string $hook ): void {
-        // Only load on our settings page
-        if ( 'toplevel_page_' . self::MENU_SLUG !== $hook ) {
+        // Load admin.css on every Paradise admin page, not just the top-level
+        // Settings page. WordPress's admin-page hook strings come in two
+        // shapes for plugins that register submenus under a custom menu:
+        //
+        //   - 'toplevel_page_{slug}'        — the top-level page itself
+        //   - 'paradise_page_{slug}'        — submenus rendered via
+        //                                     add_submenu_page() under
+        //                                     the "Paradise" top-level
+        //
+        // Checking the prefix instead of a single exact match lets one
+        // stylesheet cover the whole Paradise admin area (Settings,
+        // Site Info, Import/Export, …) with a single declaration here.
+        if ( ! str_starts_with( $hook, 'toplevel_page_' . self::MENU_SLUG )
+            && ! str_starts_with( $hook, 'paradise_page_' ) ) {
             return;
         }
         wp_enqueue_style(
