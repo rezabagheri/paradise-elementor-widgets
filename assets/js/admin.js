@@ -8,6 +8,10 @@
  *   - Live filter input ([data-paradise-filter]) that hides rows whose
  *     label/description don't match the typed term. Empty cards (no visible
  *     rows after filtering) collapse to a "no matches" hint.
+ *   - Per-row Copy Shortcode buttons (.paradise-si-copy-shortcode) on the
+ *     Site Info page: reads the current label/platform value from the
+ *     same <tr> and writes a [paradise_site_info ...] shortcode to the
+ *     clipboard, then briefly flips the button icon to a checkmark.
  *
  * Vanilla JS, no jQuery. Runs once on DOMContentLoaded (or immediately if
  * the parser passed our script tag at the end of <body>).
@@ -76,11 +80,77 @@
         } );
     }
 
+    // ── Copy shortcode (Site Info repeaters) ────────────────────────────────
+
+    /**
+     * Build the [paradise_site_info ...] shortcode for the row that the
+     * given button lives in. Reads the current value of the label/platform
+     * field — so the shortcode reflects unsaved edits, not just what the
+     * server rendered.
+     */
+    function buildShortcode( button ) {
+        var row      = button.closest( 'tr' );
+        var type     = button.getAttribute( 'data-copy-type' );      // 'phone' | 'email' | 'social'
+        var location = button.getAttribute( 'data-copy-location' ); // optional, present on phone/email only
+
+        if ( ! row || ! type ) {
+            return '';
+        }
+
+        if ( 'social' === type ) {
+            var platformSelect = row.querySelector( 'select' );
+            var platform       = platformSelect ? platformSelect.value : '';
+            if ( ! platform ) {
+                return '';
+            }
+            return '[paradise_site_info type="social" platform="' + platform + '"]';
+        }
+
+        // Phone / Email: prefer label (human-readable), fall back to the
+        // row's current position in its tbody as the numeric index.
+        var labelInput = row.querySelector( 'input[name*="[label]"]' );
+        var label      = labelInput ? labelInput.value.trim() : '';
+        var locAttr    = location ? ' location="' + location + '"' : '';
+
+        if ( label ) {
+            return '[paradise_site_info type="' + type + '"' + locAttr + ' label="' + label + '"]';
+        }
+
+        var index = Array.prototype.indexOf.call( row.parentNode.children, row );
+        return '[paradise_site_info type="' + type + '"' + locAttr + ' index="' + index + '"]';
+    }
+
+    function flashCopied( button ) {
+        button.classList.add( 'is-copied' );
+        window.setTimeout( function () {
+            button.classList.remove( 'is-copied' );
+        }, 1200 );
+    }
+
+    function initCopyShortcode() {
+        // Event delegation on document so cloned rows (added via JS by
+        // site-info-admin.js) inherit the behaviour without re-binding.
+        document.addEventListener( 'click', function ( e ) {
+            var button = e.target.closest( '.paradise-si-copy-shortcode' );
+            if ( ! button ) {
+                return;
+            }
+            var shortcode = buildShortcode( button );
+            if ( ! shortcode || ! navigator.clipboard ) {
+                return;
+            }
+            navigator.clipboard.writeText( shortcode ).then( function () {
+                flashCopied( button );
+            } );
+        } );
+    }
+
     // ── Boot ─────────────────────────────────────────────────────────────────
 
     function init() {
         initBulk();
         initFilter();
+        initCopyShortcode();
     }
 
     if ( document.readyState === 'loading' ) {
