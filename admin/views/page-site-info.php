@@ -224,11 +224,23 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
             <?php esc_html_e( 'Unsaved changes', 'paradise-elementor-widgets' ); ?>
         </span>
     </div>
-    <p class="paradise-si-intro">
-        <?php esc_html_e( 'Store your business details here, then reuse them across the site via Elementor Dynamic Tags (⚡) or the [paradise_site_info] shortcode. Click the', 'paradise-elementor-widgets' ); ?>
-        <span class="dashicons dashicons-shortcode" aria-hidden="true" style="vertical-align: text-bottom;"></span>
-        <?php esc_html_e( 'icon next to any entry below to copy a ready-to-paste shortcode for that specific entry.', 'paradise-elementor-widgets' ); ?>
-    </p>
+    <div class="paradise-si-intro">
+        <p>
+            <?php esc_html_e( 'Store your business details here once, then reuse them anywhere on the site — two equally good ways:', 'paradise-elementor-widgets' ); ?>
+        </p>
+        <ul class="paradise-si-intro__methods">
+            <li>
+                <strong><?php esc_html_e( 'In Elementor (recommended):', 'paradise-elementor-widgets' ); ?></strong>
+                <?php esc_html_e( 'open the ⚡ Dynamic Tags menu on any text or URL control and pick a Paradise tag (Phone, Email, Address, Social URL, …). Paradise registers one Dynamic Tag per Site Info type — Elementor handles location and label selection in the tag UI.', 'paradise-elementor-widgets' ); ?>
+            </li>
+            <li>
+                <strong><?php esc_html_e( 'Outside Elementor:', 'paradise-elementor-widgets' ); ?></strong>
+                <?php esc_html_e( 'paste the [paradise_site_info] shortcode anywhere WordPress runs shortcodes. Click the', 'paradise-elementor-widgets' ); ?>
+                <span class="dashicons dashicons-shortcode" aria-hidden="true"></span>
+                <?php esc_html_e( 'icon next to any entry below to copy a ready-to-paste shortcode for that specific entry.', 'paradise-elementor-widgets' ); ?>
+            </li>
+        </ul>
+    </div>
 
     <?php if ( isset( $_GET['saved'] ) ) : ?>
     <div class="notice notice-success is-dismissible"><p><?php esc_html_e( 'Site info saved.', 'paradise-elementor-widgets' ); ?></p></div>
