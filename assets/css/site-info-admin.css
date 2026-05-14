@@ -516,6 +516,11 @@
 /* ── Copy-shortcode icon button ────────────────────────────────────────── */
 
 .paradise-si-copy-shortcode {
+    /* position: relative anchors the .paradise-si-copied-toast that JS
+       spawns inside this button on a successful copy — see admin.js
+       flashCopied(). Without this, the toast would position relative to
+       the nearest positioned ancestor (the table cell or further up). */
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -552,6 +557,84 @@
        'dashicons-yes' = check; using the font-content trick keeps it
        in one element without juggling DOM nodes from JS. */
     content: "\f147"; /* dashicons-yes */
+}
+
+/* ── "Copied!" toast above the copy button ─────────────────────────────── */
+
+/*
+ * On a successful copy, JS appends a .paradise-si-copied-toast span inside
+ * the button. Reason: the icon swap (shortcode glyph → checkmark) alone
+ * was too subtle — users reported clicking and not noticing anything had
+ * happened. The word "Copied!" floating above the button in plain
+ * language sells the success state.
+ *
+ * Positioned absolute so it floats over neighbouring rows without
+ * pushing layout; pointer-events: none so it can't intercept a follow-up
+ * click; aria-hidden in JS so screen readers don't double-announce
+ * (the button's own state change is already in the accessibility tree).
+ */
+.paradise-si-copied-toast {
+    position: absolute;
+    /* Sit just above the 28px-tall button with a small gap. */
+    bottom: calc( 100% + 6px );
+    left: 50%;
+    transform: translateX( -50% );
+    /* Stay above adjacent rows / tooltips. WP admin's max z-index in
+       page content is generally < 100; this clears that comfortably
+       without colliding with admin bar / modal layers (10000+). */
+    z-index: 100;
+    padding: 4px 8px;
+    background: #1d2327;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    border-radius: 3px;
+    pointer-events: none;
+    box-shadow: 0 2px 6px rgba( 0, 0, 0, 0.15 );
+    /* Quick fade-in, brief hold, gentle fade-out. forwards keeps the
+       end state (opacity 0) applied after the animation so the toast
+       isn't briefly visible again before JS removes the node. */
+    animation: paradise-si-copied-toast 1.5s ease forwards;
+}
+
+/* Error variant — both clipboard paths failed. Red bg makes the
+   failure read at a glance instead of hiding in a console.error. */
+.paradise-si-copied-toast--error {
+    background: #b32d2e;
+}
+
+/* Small downward-pointing arrow tying the toast to the button. */
+.paradise-si-copied-toast::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX( -50% );
+    border: 4px solid transparent;
+    border-top-color: #1d2327;
+}
+
+.paradise-si-copied-toast--error::after {
+    border-top-color: #b32d2e;
+}
+
+@keyframes paradise-si-copied-toast {
+    0%   { opacity: 0; transform: translate( -50%, 4px ); }
+    15%  { opacity: 1; transform: translate( -50%, 0 ); }
+    75%  { opacity: 1; transform: translate( -50%, 0 ); }
+    100% { opacity: 0; transform: translate( -50%, -2px ); }
+}
+
+/* Respect user motion preferences — no slide, just a crossfade. */
+@media ( prefers-reduced-motion: reduce ) {
+    @keyframes paradise-si-copied-toast {
+        0%   { opacity: 0; }
+        15%  { opacity: 1; }
+        75%  { opacity: 1; }
+        100% { opacity: 0; }
+    }
 }
 
 /* ── Add buttons get an inline plus icon prefix ───────────────────────────── */
