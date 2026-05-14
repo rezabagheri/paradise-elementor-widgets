@@ -422,9 +422,15 @@
     width: 28px;
     height: 28px;
     padding: 0;
-    color: #b32d2e;
+    /* Subtle red tint at rest so the icon reads as destructive without
+       a click. Pair with a confirm() dialog in the JS — the icon's
+       visual warning is one half of the safety net; the dialog is the
+       other (and the real protection against misclicks). */
+    color: #a00;
+    background: #fbeaea;
+    border: 1px solid transparent;
     border-radius: 3px;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 .paradise-si-remove-row:hover,
@@ -433,6 +439,7 @@
 .paradise-si-remove-location:focus-visible {
     color: #fff;
     background: #b32d2e;
+    border-color: #8a1f20;
     outline: none;
 }
 
