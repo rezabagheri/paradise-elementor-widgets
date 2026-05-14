@@ -218,6 +218,33 @@
 
         // ── Map URL: live preview (debounced, delegated) ──────────────────────
 
+        /**
+         * Validate that the URL looks like a Google Maps embed URL before
+         * we hand it to an iframe. Without this, every keystroke while
+         * the user is mid-typing — or a copy-pasted partial URL, or a
+         * placeholder like the one Google's documentation shows — hits
+         * Google with a malformed request and the iframe console fills
+         * with 400 errors plus failures from Google's own share-modal.js
+         * inside the frame.
+         *
+         * Pattern allowed: anything under www.google.com/maps/embed
+         * (the URL that Google's "Share → Embed a map" output gives you).
+         * Anything else we silently hide the preview and skip the load.
+         */
+        function isValidMapEmbedUrl(url) {
+            if (!url) return false;
+            try {
+                var u = new URL(url);
+                return (
+                    u.protocol === 'https:' &&
+                    /(^|\.)google\.com$/i.test(u.hostname) &&
+                    u.pathname.indexOf('/maps/embed') === 0
+                );
+            } catch (_) {
+                return false;
+            }
+        }
+
         var mapTimer;
         document.addEventListener('input', function (e) {
             if (!e.target.classList.contains('paradise-si-map-url-input')) return;
@@ -231,7 +258,7 @@
                 if (!preview) return;
 
                 var frame = preview.querySelector('iframe');
-                if (url) {
+                if (isValidMapEmbedUrl(url)) {
                     if (frame) frame.src = url;
                     preview.style.display = '';
                 } else {
