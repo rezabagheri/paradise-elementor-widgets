@@ -55,7 +55,7 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
             <button type="button" class="paradise-si-location-toggle button-link" aria-expanded="true">
                 <span class="dashicons dashicons-arrow-down-alt2"></span>
             </button>
-            <button type="button" class="paradise-si-remove-location button-link"><?php esc_html_e( 'Remove', 'paradise-elementor-widgets' ); ?></button>
+            <button type="button" class="paradise-si-remove-location button-link" aria-label="<?php esc_attr_e( 'Remove this location', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button>
         </div>
 
         <!-- ── Body ──────────────────────────────────────────────────────── -->
@@ -79,12 +79,12 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
                             <td class="paradise-si-col-drag"><span class="paradise-si-handle dashicons dashicons-menu" title="<?php esc_attr_e( 'Drag to reorder', 'paradise-elementor-widgets' ); ?>"></span></td>
                             <td><input type="text" class="regular-text" name="paradise_site_info[locations][<?php echo $loc_idx; ?>][phones][<?php echo $j; ?>][label]" value="<?php echo esc_attr( $phone['label'] ); ?>" placeholder="<?php esc_attr_e( 'e.g. Main Office', 'paradise-elementor-widgets' ); ?>"></td>
                             <td><input type="text" class="regular-text" name="paradise_site_info[locations][<?php echo $loc_idx; ?>][phones][<?php echo $j; ?>][value]" value="<?php echo esc_attr( $phone['value'] ); ?>" placeholder="+1 888 123 4567"></td>
-                            <td><button type="button" class="button-link paradise-si-remove-row"><?php esc_html_e( 'Remove', 'paradise-elementor-widgets' ); ?></button></td>
+                            <td><button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                <p><button type="button" class="button paradise-si-add-row" data-section="phones" data-location="<?php echo $loc_idx; ?>"><?php esc_html_e( '+ Add Phone', 'paradise-elementor-widgets' ); ?></button></p>
+                <p><button type="button" class="button paradise-si-add-row" data-section="phones" data-location="<?php echo $loc_idx; ?>"><span class="dashicons dashicons-plus-alt2" aria-hidden="true"></span><?php esc_html_e( 'Add Phone', 'paradise-elementor-widgets' ); ?></button></p>
             </div>
 
             <!-- Emails ──────────────────────────────────────────────────── -->
@@ -105,12 +105,12 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
                             <td class="paradise-si-col-drag"><span class="paradise-si-handle dashicons dashicons-menu" title="<?php esc_attr_e( 'Drag to reorder', 'paradise-elementor-widgets' ); ?>"></span></td>
                             <td><input type="text" class="regular-text" name="paradise_site_info[locations][<?php echo $loc_idx; ?>][emails][<?php echo $j; ?>][label]" value="<?php echo esc_attr( $email['label'] ); ?>" placeholder="<?php esc_attr_e( 'e.g. Support', 'paradise-elementor-widgets' ); ?>"></td>
                             <td><input type="email" class="regular-text" name="paradise_site_info[locations][<?php echo $loc_idx; ?>][emails][<?php echo $j; ?>][value]" value="<?php echo esc_attr( $email['value'] ); ?>" placeholder="hello@example.com"></td>
-                            <td><button type="button" class="button-link paradise-si-remove-row"><?php esc_html_e( 'Remove', 'paradise-elementor-widgets' ); ?></button></td>
+                            <td><button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                <p><button type="button" class="button paradise-si-add-row" data-section="emails" data-location="<?php echo $loc_idx; ?>"><?php esc_html_e( '+ Add Email', 'paradise-elementor-widgets' ); ?></button></p>
+                <p><button type="button" class="button paradise-si-add-row" data-section="emails" data-location="<?php echo $loc_idx; ?>"><span class="dashicons dashicons-plus-alt2" aria-hidden="true"></span><?php esc_html_e( 'Add Email', 'paradise-elementor-widgets' ); ?></button></p>
             </div>
 
             <!-- Address & Map ────────────────────────────────────────────── -->
@@ -273,12 +273,12 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
                                 </select>
                             </td>
                             <td><input type="url" class="regular-text" name="paradise_site_info[socials][<?php echo $i; ?>][url]" value="<?php echo esc_attr( $social['url'] ); ?>" placeholder="https://"></td>
-                            <td><button type="button" class="button-link paradise-si-remove-row"><?php esc_html_e( 'Remove', 'paradise-elementor-widgets' ); ?></button></td>
+                            <td><button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                <p><button type="button" id="paradise-si-add-social" class="button"><?php esc_html_e( '+ Add Social Link', 'paradise-elementor-widgets' ); ?></button></p>
+                <p><button type="button" id="paradise-si-add-social" class="button"><span class="dashicons dashicons-plus-alt2" aria-hidden="true"></span><?php esc_html_e( 'Add Social Link', 'paradise-elementor-widgets' ); ?></button></p>
             </div>
         </div>
 
@@ -294,7 +294,7 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
                     endforeach; ?>
                 </div>
                 <p>
-                    <button type="button" id="paradise-si-add-location" class="button"><?php esc_html_e( '+ Add Location', 'paradise-elementor-widgets' ); ?></button>
+                    <button type="button" id="paradise-si-add-location" class="button"><span class="dashicons dashicons-plus-alt2" aria-hidden="true"></span><?php esc_html_e( 'Add Location', 'paradise-elementor-widgets' ); ?></button>
                 </p>
             </div>
         </div>
@@ -321,7 +321,7 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
             </select>
         </td>
         <td><input type="url" class="regular-text" name="paradise_site_info[socials][__INDEX__][url]" value="" placeholder="https://"></td>
-        <td><button type="button" class="button-link paradise-si-remove-row"><?php esc_html_e( 'Remove', 'paradise-elementor-widgets' ); ?></button></td>
+        <td><button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button></td>
     </tr>
 </template>
 
@@ -330,7 +330,7 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
         <td class="paradise-si-col-drag"><span class="paradise-si-handle dashicons dashicons-menu" title="<?php esc_attr_e( 'Drag to reorder', 'paradise-elementor-widgets' ); ?>"></span></td>
         <td><input type="text" class="regular-text" name="paradise_site_info[locations][__LOC__][phones][__INDEX__][label]" value="" placeholder="<?php esc_attr_e( 'e.g. Main Office', 'paradise-elementor-widgets' ); ?>"></td>
         <td><input type="text" class="regular-text" name="paradise_site_info[locations][__LOC__][phones][__INDEX__][value]" value="" placeholder="+1 888 123 4567"></td>
-        <td><button type="button" class="button-link paradise-si-remove-row"><?php esc_html_e( 'Remove', 'paradise-elementor-widgets' ); ?></button></td>
+        <td><button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button></td>
     </tr>
 </template>
 
@@ -339,7 +339,7 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
         <td class="paradise-si-col-drag"><span class="paradise-si-handle dashicons dashicons-menu" title="<?php esc_attr_e( 'Drag to reorder', 'paradise-elementor-widgets' ); ?>"></span></td>
         <td><input type="text" class="regular-text" name="paradise_site_info[locations][__LOC__][emails][__INDEX__][label]" value="" placeholder="<?php esc_attr_e( 'e.g. Support', 'paradise-elementor-widgets' ); ?>"></td>
         <td><input type="email" class="regular-text" name="paradise_site_info[locations][__LOC__][emails][__INDEX__][value]" value="" placeholder="hello@example.com"></td>
-        <td><button type="button" class="button-link paradise-si-remove-row"><?php esc_html_e( 'Remove', 'paradise-elementor-widgets' ); ?></button></td>
+        <td><button type="button" class="button-link paradise-si-remove-row" aria-label="<?php esc_attr_e( 'Remove this row', 'paradise-elementor-widgets' ); ?>"><span class="dashicons dashicons-trash" aria-hidden="true"></span></button></td>
     </tr>
 </template>
 
