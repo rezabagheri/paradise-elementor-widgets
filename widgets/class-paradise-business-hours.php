@@ -10,16 +10,18 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Paradise_Business_Hours_Widget extends \Elementor\Widget_Base {
+class Paradise_Business_Hours_Widget extends Paradise_Widget_Base {
 
     public function get_name(): string    { return 'paradise_business_hours'; }
     public function get_title(): string   { return esc_html__( 'Business Hours', 'paradise-elementor-widgets' ); }
     public function get_icon(): string    { return 'eicon-clock-o'; }
-    public function get_categories(): array { return [ 'paradise' ]; }
     public function get_keywords(): array { return [ 'hours', 'business', 'schedule', 'open', 'closed', 'time' ]; }
 
-    public function get_style_depends(): array  { return [ 'paradise-business-hours' ]; }
-    public function get_script_depends(): array { return [ 'paradise-business-hours' ]; }
+    // get_categories() and get_style_depends() come from the base — defaults
+    // match (paradise category, 'paradise-business-hours' style handle).
+    // Override get_script_depends() because this widget ships a JS file
+    // for the live "Open Now / Closed" badge update.
+    public function get_script_depends(): array { return [ $this->get_default_handle() ]; }
 
     // ── Controls ──────────────────────────────────────────────────────────────
 
