@@ -12,15 +12,16 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Paradise_Local_Business_Schema_Widget extends \Elementor\Widget_Base {
+class Paradise_Local_Business_Schema_Widget extends Paradise_Widget_Base {
 
     public function get_name(): string    { return 'paradise_local_business_schema'; }
     public function get_title(): string   { return esc_html__( 'LocalBusiness Schema', 'paradise-elementor-widgets' ); }
     public function get_icon(): string    { return 'eicon-code'; }
-    public function get_categories(): array { return [ 'paradise' ]; }
     public function get_keywords(): array { return [ 'schema', 'seo', 'json-ld', 'structured', 'local', 'business' ]; }
 
-    public function get_style_depends(): array { return [ 'paradise-local-business-schema' ]; }
+    // get_categories() and get_style_depends() come from the base — defaults
+    // match (paradise category, 'paradise-local-business-schema' style handle).
+    // No get_script_depends() override needed: this widget has no JS file.
 
     // ── Controls ──────────────────────────────────────────────────────────────
 
