@@ -26,7 +26,14 @@
             return;
         }
         table.querySelectorAll( 'input[type="checkbox"]' ).forEach( function ( cb ) {
+            if ( cb.checked === enable ) {
+                return;
+            }
             cb.checked = enable;
+            // Programmatic .checked = X doesn't fire a change event on
+            // its own, so the dirty tracker (which listens to change)
+            // wouldn't notice the bulk flip. Dispatch one explicitly.
+            cb.dispatchEvent( new Event( 'change', { bubbles: true } ) );
         } );
     }
 
@@ -145,12 +152,62 @@
         } );
     }
 
+    // ── Unsaved-changes indicator ───────────────────────────────────────────
+
+    /**
+     * Shows the .paradise-ew-admin__dirty pill in the page header as soon
+     * as any form field changes, and warns the user via the browser's
+     * native confirm dialog if they try to navigate away with unsaved work.
+     *
+     * Once dirty, stays dirty until the page reloads (the form submission
+     * flow on Settings / Site Info redirects back, so the indicator
+     * resets naturally on the next render).
+     */
+    function initDirtyTracking() {
+        var indicator = document.querySelector( '.paradise-ew-admin__dirty' );
+        var form      = document.querySelector( '.paradise-ew-admin form' );
+        if ( ! indicator || ! form ) {
+            return;
+        }
+
+        var isDirty = false;
+
+        function markDirty() {
+            if ( isDirty ) {
+                return;
+            }
+            isDirty = true;
+            indicator.hidden = false;
+        }
+
+        form.addEventListener( 'input',  markDirty );
+        form.addEventListener( 'change', markDirty );
+
+        // Native confirm dialog before leaving with unsaved work. Modern
+        // browsers ignore the message string and show their own generic
+        // copy — a non-empty returnValue is the trigger.
+        window.addEventListener( 'beforeunload', function ( e ) {
+            if ( ! isDirty ) {
+                return;
+            }
+            e.preventDefault();
+            e.returnValue = '';
+        } );
+
+        // Form submission counts as "saving" — clear the flag so the
+        // beforeunload handler doesn't fire on the redirect that follows.
+        form.addEventListener( 'submit', function () {
+            isDirty = false;
+        } );
+    }
+
     // ── Boot ─────────────────────────────────────────────────────────────────
 
     function init() {
         initBulk();
         initFilter();
         initCopyShortcode();
+        initDirtyTracking();
     }
 
     if ( document.readyState === 'loading' ) {

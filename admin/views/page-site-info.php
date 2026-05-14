@@ -220,6 +220,9 @@ function paradise_si_render_location( $loc_idx, array $loc, array $hours, array 
     <div class="paradise-ew-admin__header">
         <h1><?php esc_html_e( 'Site Info', 'paradise-elementor-widgets' ); ?></h1>
         <span class="paradise-ew-admin__version">v<?php echo esc_html( PARADISE_EW_VERSION ); ?></span>
+        <span class="paradise-ew-admin__dirty" hidden>
+            <?php esc_html_e( 'Unsaved changes', 'paradise-elementor-widgets' ); ?>
+        </span>
     </div>
     <p class="paradise-si-intro">
         <?php esc_html_e( 'Store your business details here, then reuse them across the site via Elementor Dynamic Tags (⚡) or the [paradise_site_info] shortcode. Click the', 'paradise-elementor-widgets' ); ?>
