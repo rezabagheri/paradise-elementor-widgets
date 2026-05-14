@@ -154,11 +154,12 @@ paradise-elementor-widgets/
 │       ├── page-settings.php         # Widget toggle UI
 │       └── page-site-info.php        # Site Info editor UI
 ├── includes/
-│   ├── class-paradise-site-info.php  # Site Info data model + shortcode
+│   ├── class-paradise-widget-base.php # Abstract base class extended by every widget
+│   ├── class-paradise-site-info.php   # Site Info data model + shortcode
 │   ├── class-paradise-dynamic-tags.php
-│   ├── class-paradise-faq-cpt.php    # FAQ Post Type — sets + TinyMCE meta box
+│   ├── class-paradise-faq-cpt.php     # FAQ Post Type — sets + TinyMCE meta box
 │   └── trait-paradise-phone-helper.php
-├── widgets/                          # One file per widget
+├── widgets/                          # One file per widget — each extends Paradise_Widget_Base
 │   ├── class-paradise-phone-link.php
 │   ├── class-paradise-phone-button.php
 │   ├── class-paradise-floating-call-btn.php
@@ -185,21 +186,61 @@ paradise-elementor-widgets/
 
 ### Adding a new widget
 
-1. Create `widgets/class-paradise-{slug}.php` with a class extending `\Elementor\Widget_Base`
+1. Create `widgets/class-paradise-{slug}.php` with a class extending `Paradise_Widget_Base`:
+
+```php
+<?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+class Paradise_My_Widget_Widget extends Paradise_Widget_Base {
+
+    public function get_name(): string    { return 'paradise_my_widget'; }
+    public function get_title(): string   { return esc_html__( 'My Widget', 'paradise-elementor-widgets' ); }
+    public function get_icon(): string    { return 'eicon-star'; }
+    public function get_keywords(): array { return [ 'my', 'widget' ]; }
+
+    // get_categories() and get_style_depends() come from the base.
+    // Defaults: [ 'paradise' ] category and [ 'paradise-{slug}' ] style handle.
+    //
+    // Add this only if the widget ships a JS file:
+    // public function get_script_depends(): array { return [ $this->get_default_handle() ]; }
+
+    protected function register_controls(): void { /* ... */ }
+    protected function render(): void { /* ... */ }
+}
+```
+
 2. Add one entry to `$widget_registry` in `admin/class-paradise-ew-admin.php`:
 
 ```php
 'my_widget' => [
     'label'       => 'My Widget',
     'description' => 'Short description for the settings toggle page.',
-    'file'        => 'widgets/class-paradise-my-widget.php',
-    'class'       => 'Paradise_My_Widget',
+    'js'          => true,   // only if the widget ships a JS file; omit otherwise
 ],
 ```
 
-3. Register CSS/JS handles in `enqueue_assets()` in the main plugin file (use `wp_register_*`, not `wp_enqueue_*` — each widget's `get_style_depends()` / `get_script_depends()` handles enqueueing).
+The `file` path and `class` name are derived automatically from the registry key by convention:
+`'my_widget'` → file `widgets/class-paradise-my-widget.php` → class `Paradise_My_Widget_Widget`.
 
-No other changes needed — the registry drives settings, toggle UI, and loading automatically.
+3. Place asset files at the conventional paths — they will be registered automatically:
+    - `assets/css/my-widget.css`  (required)
+    - `assets/js/my-widget.js`  (only if `'js' => true` in the registry)
+
+Nothing else to touch. The main plugin file iterates the registry to register handles, the settings page auto-lists the widget with a toggle, and the widget loader auto-instantiates it.
+
+### Need extra asset dependencies?
+
+If the widget needs more than the conventional `paradise-{slug}` handle (e.g. Bottom Nav loads the bundled Font Awesome stylesheets so user-picked icons render), override `get_style_depends()` and merge on top of the base default:
+
+```php
+public function get_style_depends(): array {
+    return array_merge( parent::get_style_depends(), [
+        'elementor-icons-fa-solid',
+        'elementor-icons-fa-brands',
+    ] );
+}
+```
 
 ### Constants
 
