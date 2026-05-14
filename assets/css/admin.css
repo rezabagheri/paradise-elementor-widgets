@@ -142,3 +142,26 @@
     cursor: not-allowed;
 }
 
+/* ── Import / Export page ──────────────────────────── */
+
+.paradise-ie-card {
+    max-width: 700px;
+    margin-bottom: 20px;
+}
+
+.paradise-ie-card .postbox-header h2 {
+    font-size: 14px;
+}
+
+.paradise-ie-card .inside {
+    padding: 12px 16px 16px;
+}
+
+.paradise-ie-card .inside p {
+    margin-top: 0;
+}
+
+.paradise-ie-card .notice.inline {
+    margin: 10px 0 14px;
+}
+
