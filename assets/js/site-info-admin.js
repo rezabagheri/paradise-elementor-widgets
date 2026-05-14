@@ -63,6 +63,13 @@
         document.addEventListener('click', function (e) {
             var btn = e.target.closest('.paradise-si-remove-location');
             if (!btn) return;
+            // Destructive: locations carry phones, emails, address, hours —
+            // a misclick wipes a lot. Confirm before removing. The actual
+            // delete from the database only happens on form save, but the
+            // user has already lost the row's state by that point.
+            if (!window.confirm('Remove this location? Its phones, emails, address, and hours will be removed when you save.')) {
+                return;
+            }
             var loc = btn.closest('.paradise-si-location');
             if (loc) {
                 loc.remove();
@@ -124,7 +131,14 @@
 
         document.addEventListener('click', function (e) {
             var btn = e.target.closest('.paradise-si-remove-row');
-            if (btn) btn.closest('tr').remove();
+            if (!btn) return;
+            // Cheap confirm so a misclick on the trash icon doesn't
+            // silently lose the row. The phrasing is short — these are
+            // small rows (a phone, an email, a social link).
+            if (!window.confirm('Remove this row?')) {
+                return;
+            }
+            btn.closest('tr').remove();
         });
 
         // ── Business Hours: open/closed toggle (delegated) ────────────────────
