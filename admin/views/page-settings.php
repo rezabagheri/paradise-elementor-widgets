@@ -72,6 +72,12 @@ function paradise_ew_render_toggle_card( string $section_id, string $title, stri
                 <tr>
                     <td class="paradise-ew-toggles__name">
                         <?php echo esc_html( $item['label'] ); ?>
+                        <?php if ( isset( $item['default'] ) && false === $item['default'] ) : ?>
+                            <span class="paradise-ew-badge paradise-ew-badge--default-off"
+                                  title="<?php esc_attr_e( 'This entry is disabled by default — enable it explicitly to use it on this site.', 'paradise-elementor-widgets' ); ?>">
+                                <?php esc_html_e( 'Off by default', 'paradise-elementor-widgets' ); ?>
+                            </span>
+                        <?php endif; ?>
                     </td>
                     <td class="paradise-ew-toggles__desc">
                         <?php echo esc_html( $item['description'] ); ?>
@@ -105,6 +111,20 @@ function paradise_ew_render_toggle_card( string $section_id, string $title, stri
     </div>
 
     <?php settings_errors(); ?>
+
+    <div class="paradise-ew-filter">
+        <label for="paradise-ew-filter-input" class="screen-reader-text">
+            <?php esc_html_e( 'Filter widgets and features', 'paradise-elementor-widgets' ); ?>
+        </label>
+        <input
+            type="search"
+            id="paradise-ew-filter-input"
+            class="paradise-ew-filter__input"
+            placeholder="<?php esc_attr_e( 'Filter — type to narrow widgets and features…', 'paradise-elementor-widgets' ); ?>"
+            data-paradise-filter
+            autocomplete="off"
+        >
+    </div>
 
     <form method="post" action="options.php">
         <?php settings_fields( Paradise_EW_Admin::OPTION_KEY . '_group' ); ?>

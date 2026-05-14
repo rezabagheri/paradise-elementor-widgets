@@ -77,6 +77,51 @@
     color: #c3c4c7;
 }
 
+/* ── Filter input (above the form, scopes all toggle tables) ───────── */
+
+.paradise-ew-filter {
+    max-width: 780px;
+    margin: 0 0 18px;
+}
+
+.paradise-ew-filter__input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    font-size: 13px;
+    line-height: 1.4;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.paradise-ew-filter__input:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: none;
+}
+
+/* ── Inline badge next to a widget/feature label ───────────────────── */
+
+.paradise-ew-badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 8px;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.5;
+    border-radius: 10px;
+    vertical-align: middle;
+    cursor: help;
+}
+
+.paradise-ew-badge--default-off {
+    background: #fef7cd;
+    color: #8a6d3b;
+    border: 1px solid #f7e69a;
+}
+
 /* ── Toggles table ─────────────────────────────── */
 .paradise-ew-toggles {
     width: 100%;
