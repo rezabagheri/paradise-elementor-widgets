@@ -19,7 +19,6 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
 use Elementor\Icons_Manager;
@@ -27,7 +26,7 @@ use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Border;
 
-class Paradise_Bottom_Nav_Widget extends Widget_Base
+class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
 {
     // ═══════════════════════════════════════════════════════════════
     // IDENTITY
@@ -45,28 +44,29 @@ class Paradise_Bottom_Nav_Widget extends Widget_Base
     {
         return 'eicon-nav-menu';
     }
-    public function get_categories(): array
-    {
-        return [ 'paradise' ];
-    }
     public function get_keywords(): array
     {
         return [ 'bottom', 'nav', 'mobile', 'menu', 'navigation', 'bar', 'tab' ];
     }
 
+    // get_categories() comes from the base — returns [ 'paradise' ].
+    //
+    // get_style_depends() extends the base default with Elementor's bundled
+    // Font Awesome icon stylesheets so user-picked icons on nav items render
+    // correctly. parent::get_style_depends() returns [ 'paradise-bottom-nav' ]
+    // via the conventional naming, so we just merge in the FA extras.
     public function get_style_depends(): array
     {
-        return [
-            'paradise-bottom-nav',
+        return array_merge( parent::get_style_depends(), [
             'elementor-icons-fa-solid',
             'elementor-icons-fa-brands',
             'elementor-icons-fa-regular',
-        ];
+        ] );
     }
 
     public function get_script_depends(): array
     {
-        return [ 'paradise-bottom-nav' ];
+        return [ $this->get_default_handle() ];
     }
 
     // ═══════════════════════════════════════════════════════════════
