@@ -22,6 +22,27 @@
     border-radius: 3px;
 }
 
+/* "Unsaved changes" indicator that JS reveals when a form field changes.
+   Lives in the page header next to the version badge. Hidden by default
+   (the markup ships with the `hidden` attribute); flipping the attribute
+   from JS is the only state machine. */
+.paradise-ew-admin__dirty {
+    font-size: 12px;
+    color: #b32d2e;
+    font-weight: 500;
+    padding: 2px 10px;
+    border-radius: 99px;
+    background: #fcf0f1;
+    border: 1px solid #f1c4c6;
+}
+
+.paradise-ew-admin__dirty::before {
+    content: "●";
+    margin-right: 6px;
+    font-size: 9px;
+    vertical-align: 1px;
+}
+
 /* ── Card ──────────────────────────────────────── */
 .paradise-ew-admin__card {
     background: #fff;
