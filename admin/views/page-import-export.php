@@ -15,9 +15,12 @@ $error_messages = [
     'invalid_json' => esc_html__( 'The file does not contain valid JSON. It may be corrupt or not a Paradise export file.', 'paradise-elementor-widgets' ),
 ];
 ?>
-<div class="wrap">
+<div class="wrap paradise-ew-admin">
 
-    <h1><?php esc_html_e( 'Import / Export', 'paradise-elementor-widgets' ); ?></h1>
+    <div class="paradise-ew-admin__header">
+        <h1><?php esc_html_e( 'Import / Export', 'paradise-elementor-widgets' ); ?></h1>
+        <span class="paradise-ew-admin__version">v<?php echo esc_html( PARADISE_EW_VERSION ); ?></span>
+    </div>
 
     <?php if ( 'success' === $import_status ) : ?>
     <div class="notice notice-success is-dismissible">
