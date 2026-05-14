@@ -152,8 +152,24 @@
 
 /* ── Business Hours table ────────────────────────────────────────────────── */
 
+/* Sized to its content rather than stretching 100% — without this the
+   From / To columns inherit ~half the leftover table width each, leaving
+   a huge empty gap between the From input and the To input. */
+.paradise-si-hours-table {
+    width: auto;
+}
+
 .paradise-si-hours-table .paradise-si-col-day  { width: 130px; }
 .paradise-si-hours-table .paradise-si-col-open { width: 100px; }
+
+/* From and To columns: lock to the input width + a small gutter so
+   the two inputs sit next to each other instead of drifting apart. */
+.paradise-si-hours-table thead th:nth-child(3),
+.paradise-si-hours-table thead th:nth-child(4),
+.paradise-si-hours-table tbody td:nth-child(3),
+.paradise-si-hours-table tbody td:nth-child(4) {
+    width: 130px;
+}
 
 .paradise-si-time {
     width: 110px;
@@ -481,12 +497,29 @@
 
 /* ── Add buttons get an inline plus icon prefix ───────────────────────────── */
 
+/*
+ * Two visual fixes here:
+ *
+ * 1. Align the icon to the text baseline. WordPress's default
+ *    .button uses line-height: 2.15 (~28px on a 13px font); the dashicon
+ *    inside uses line-height: 1. Even with align-items: center, the
+ *    dashicon glyph's own internal metrics sit it slightly above the
+ *    text baseline. Forcing line-height: 1 on the whole button and
+ *    re-adding vertical padding makes both children share the same
+ *    line-height, so center alignment is mathematical.
+ *
+ * 2. Use a 6px gap (was 4px) so the icon doesn't visually fuse with
+ *    the label.
+ */
 .paradise-si-add-row,
 #paradise-si-add-social,
 #paradise-si-add-location {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
+    line-height: 1;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 
 .paradise-si-add-row .dashicons,
