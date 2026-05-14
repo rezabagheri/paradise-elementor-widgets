@@ -11,17 +11,16 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Paradise_Google_Map_Widget extends \Elementor\Widget_Base {
+class Paradise_Google_Map_Widget extends Paradise_Widget_Base {
 
     public function get_name(): string    { return 'paradise_google_map'; }
     public function get_title(): string   { return esc_html__( 'Google Map', 'paradise-elementor-widgets' ); }
     public function get_icon(): string    { return 'eicon-google-maps'; }
-    public function get_categories(): array { return [ 'paradise' ]; }
     public function get_keywords(): array { return [ 'map', 'google', 'location', 'address', 'embed' ]; }
 
-    public function get_style_depends(): array {
-        return [ 'paradise-google-map' ];
-    }
+    // get_categories() and get_style_depends() come from the base — defaults
+    // match (paradise category, 'paradise-google-map' style handle).
+    // No JS file: the iframe is fully declarative.
 
     // ── Controls ──────────────────────────────────────────────────────────────
 
