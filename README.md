@@ -242,6 +242,29 @@ public function get_style_depends(): array {
 }
 ```
 
+### Learning from the example widget
+
+The plugin ships a fully-working reference widget at:
+
+```
+widgets/class-paradise-feature-card-example.php
+```
+
+It's heavily commented — every section, every control, every render decision is annotated with what it does and **why**. Read it top to bottom to see every pattern you'll need:
+
+- extending `Paradise_Widget_Base` (and when to override its defaults)
+- overriding `get_categories()` to land in a different editor category
+- splitting `register_controls()` into per-section private methods
+- every common control type (`TEXT`, `TEXTAREA`, `ICONS`, `URL`, `COLOR`, `SLIDER`, `DIMENSIONS`, `CHOOSE`)
+- group controls (Typography, Border, Box Shadow)
+- `add_responsive_control()` for per-breakpoint values
+- conditions that hide controls reactively (`'link[url]!' => ''`)
+- the `{{WRAPPER}}` selector pattern that scopes CSS to the widget instance
+- `start_controls_tabs()` for Normal / Hover state pairs
+- safe rendering with `esc_html()`, `wp_kses_post()`, `Icons_Manager::render_icon()`, and `add_link_attributes()`
+
+The example widget lives in its own **Paradise Examples** editor category (separate from the production **Paradise Widgets** category) and is **disabled by default** in the settings. End-user sites won't see it. Turn it on under *Paradise → Elementor Widgets* when you want to inspect it inside Elementor.
+
 ### Constants
 
 | Constant | Value |
