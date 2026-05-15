@@ -4,7 +4,7 @@
  * Plugin Name:       Paradise Elementor Widgets
  * Plugin URI:        https://www.paradisecyber.com/elementor-widgets
  * Description:       Advanced custom Elementor widgets by Paradise. Phone Link, Bottom Navigation Bar, and more.
- * Version:           2.7.0
+ * Version:           2.8.0
  * Requires at least: 6.1
  * Requires PHP:      8.0
  * Requires Plugins:  elementor
@@ -20,7 +20,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-define('PARADISE_EW_VERSION', '2.7.0');
+define('PARADISE_EW_VERSION', '2.8.0');
 define('PARADISE_EW_DIR', plugin_dir_path(__FILE__));
 define('PARADISE_EW_URL', plugin_dir_url(__FILE__));
 define('PARADISE_EW_MIN_ELEMENTOR_VERSION', '3.5.0');
@@ -41,6 +41,7 @@ final class Paradise_Elementor_Widgets
     {
         add_action('plugins_loaded', [ $this, 'load_textdomain' ]);
         add_action('plugins_loaded', [ $this, 'load_site_info' ]);
+        add_action('plugins_loaded', [ $this, 'load_custom_fields' ]);
         add_action('plugins_loaded', [ $this, 'load_admin' ]);
         add_action('plugins_loaded', [ $this, 'check_elementor_loaded' ], 20);
         add_action('elementor/init', [ $this, 'init' ]);
@@ -63,6 +64,12 @@ final class Paradise_Elementor_Widgets
         add_action('init', [ 'Paradise_Site_Info', 'register_shortcode' ]);
     }
 
+    public function load_custom_fields(): void
+    {
+        require_once PARADISE_EW_DIR . 'includes/class-paradise-custom-fields.php';
+        add_action('init', [ 'Paradise_Custom_Fields', 'register_shortcode' ]);
+    }
+
     public function load_admin(): void
     {
         require_once PARADISE_EW_DIR . 'admin/class-paradise-ew-admin.php';
@@ -73,6 +80,9 @@ final class Paradise_Elementor_Widgets
 
         require_once PARADISE_EW_DIR . 'admin/class-paradise-site-info-admin.php';
         Paradise_Site_Info_Admin::init();
+
+        require_once PARADISE_EW_DIR . 'admin/class-paradise-custom-fields-admin.php';
+        Paradise_Custom_Fields_Admin::init();
 
         require_once PARADISE_EW_DIR . 'admin/class-paradise-import-export.php';
         Paradise_Import_Export::init();
@@ -137,6 +147,9 @@ final class Paradise_Elementor_Widgets
     {
         require_once PARADISE_EW_DIR . 'includes/class-paradise-dynamic-tags.php';
         Paradise_Dynamic_Tags::register( $dynamic_tags_manager );
+
+        require_once PARADISE_EW_DIR . 'includes/class-paradise-custom-fields-dynamic-tags.php';
+        Paradise_CF_Tags::register( $dynamic_tags_manager );
     }
 
     public function register_category($elements_manager): void

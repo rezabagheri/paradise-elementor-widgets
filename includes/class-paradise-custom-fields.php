@@ -1,0 +1,342 @@
+<?php
+/**
+ * Paradise Custom Fields
+ *
+ * User-defined static fields organized into groups. Fields are addressed
+ * by a globally-unique key (groups exist only for admin organization).
+ *
+ * This is intentionally NOT a replacement for ACF — fields here are
+ * site-wide constants (copyright text, footer logo, etc.) not attached
+ * to post types or taxonomies.
+ *
+ * Data structure (paradise_custom_fields option):
+ * {
+ *   groups: [
+ *     {
+ *       slug:   string,                  // 'footer'
+ *       label:  string,                  // 'Footer'
+ *       fields: [
+ *         { key: 'copyright', label: 'Copyright', type: 'text',     value: '© 2026 …' },
+ *         { key: 'logo',      label: 'Logo',      type: 'image',    value: 123        },
+ *         ...
+ *       ],
+ *     },
+ *     ...
+ *   ]
+ * }
+ *
+ * Usage:
+ *   Paradise_Custom_Fields::get_value('copyright')              → raw stored value
+ *   Paradise_Custom_Fields::render('copyright')                 → escaped/output string
+ *   Paradise_Custom_Fields::render('logo', 'html')              → <img …>
+ *   [paradise_field key="copyright"]
+ *   [paradise_field key="logo" output="html"]
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+class Paradise_Custom_Fields {
+
+    const OPTION_KEY = 'paradise_custom_fields';
+
+    // ── Type registry ─────────────────────────────────────────────────────────
+
+    /**
+     * Available field types.
+     *
+     * Each entry MUST provide:
+     *   label       — string, shown in the admin type <select>
+     *   sanitize    — callable(mixed $value): mixed
+     *                 Pre-save sanitizer. Receives the raw POST value
+     *                 (already unslashed), returns the value as it
+     *                 should be persisted in the option.
+     *   render      — callable(mixed $value, string $output): string
+     *                 Output transformer. Receives the stored value
+     *                 and the user-requested output mode (from the
+     *                 shortcode `output` attribute), returns the final
+     *                 string to emit. Must escape for HTML context.
+     *   el_category — string (one of: 'text', 'url', 'image')
+     *                 Elementor dynamic-tag category this type maps to.
+     *                 Used by the dynamic tags shipped in a follow-up
+     *                 release to decide which SELECT shows which fields.
+     *
+     * Filter `paradise_custom_field_types` lets sites add their own
+     * types (color, number, etc.) without modifying this file.
+     *
+     * @return array<string, array{label:string, sanitize:callable, render:callable, el_category:string}>
+     */
+    public static function get_types(): array {
+        $types = [
+            // ── text ──────────────────────────────────────────────────────────
+            // Simple one-line string. Stored as plain text, output as
+            // HTML-escaped text. Output mode is ignored (text has no
+            // meaningful variants).
+            'text' => [
+                'label'       => __( 'Text', 'paradise-elementor-widgets' ),
+                'sanitize'    => static fn( $v ) => sanitize_text_field( (string) $v ),
+                'render'      => static fn( $v, $output ) => esc_html( (string) $v ),
+                'el_category' => 'text',
+            ],
+
+            // ── textarea ──────────────────────────────────────────────────────
+            // Multi-line text. `sanitize_textarea_field` preserves newlines
+            // (unlike `sanitize_text_field`) while still stripping HTML and
+            // control chars. Render escapes first, then runs wpautop so the
+            // output mirrors how WP renders post content (paragraphs in <p>,
+            // single newlines as <br>). `output="raw"` gives the plain
+            // escaped string — useful when injecting into a context where
+            // tags would break (e.g. an HTML attribute).
+            'textarea' => [
+                'label'       => __( 'Textarea', 'paradise-elementor-widgets' ),
+                'sanitize'    => static fn( $v ) => sanitize_textarea_field( (string) $v ),
+                'render'      => static fn( $v, $output ) => 'raw' === $output
+                    ? esc_html( (string) $v )
+                    : wpautop( esc_html( (string) $v ) ),
+                'el_category' => 'text',
+            ],
+
+
+            // ── url ───────────────────────────────────────────────────────────
+            // Single URL string. esc_url_raw and esc_url are NOT
+            // interchangeable: esc_url_raw is for storage (no HTML
+            // entity encoding — `&` stays as `&`), esc_url is for HTML
+            // output (HTML-encodes special chars so the URL is safe in
+            // an attribute). Using esc_url_raw inside HTML output would
+            // emit `?a=1&b=2` instead of `?a=1&amp;b=2` — invalid HTML.
+            //
+            //   output=""     → escaped URL (default; suitable for href/src)
+            //   output="link" → <a href="...">URL</a>
+            'url' => [
+                'label'       => __( 'URL', 'paradise-elementor-widgets' ),
+                'sanitize'    => static fn( $v ) => esc_url_raw( (string) $v ),
+                'render'      => static function ( $v, $output ) {
+                    $url = (string) $v;
+                    if ( $url === '' ) {
+                        return '';
+                    }
+                    return match ( $output ) {
+                        'link' => '<a href="' . esc_url( $url ) . '">' . esc_html( $url ) . '</a>',
+                        default => esc_url( $url ),
+                    };
+                },
+                'el_category' => 'url',
+            ],
+
+            // ── image ─────────────────────────────────────────────────────────
+            // Attachment ID stored as int. We store the ID (not the URL) so
+            // the URL stays fresh if WP regenerates sizes, the file is moved
+            // to a CDN, or the user replaces the media file. Render converts
+            // ID → URL/HTML at output time via the WP attachment helpers.
+            //
+            //   output=""     → wp_get_attachment_url($id), HTML-escaped
+            //   output="html" → <img …> with srcset, alt, loading="lazy"
+            //                   (wp_get_attachment_image handles all of these)
+            //   output="id"   → the numeric ID as a string
+            'image' => [
+                'label'       => __( 'Image', 'paradise-elementor-widgets' ),
+                'sanitize'    => static fn( $v ) => absint( $v ),
+                'render'      => static function ( $v, $output ) {
+                    $id = absint( $v );
+                    if ( $id === 0 ) {
+                        return '';
+                    }
+                    return match ( $output ) {
+                        'html'  => (string) wp_get_attachment_image( $id, 'full' ),
+                        'id'    => (string) $id,
+                        default => esc_url( (string) wp_get_attachment_url( $id ) ),
+                    };
+                },
+                'el_category' => 'image',
+            ],
+        ];
+
+        return apply_filters( 'paradise_custom_field_types', $types );
+    }
+
+    /**
+     * Return [slug => label] map of type slugs to display labels — useful
+     * for building the type <select> in the admin UI.
+     *
+     * @return array<string, string>
+     */
+    public static function get_type_options(): array {
+        $options = [];
+        foreach ( self::get_types() as $slug => $type ) {
+            $options[ $slug ] = $type['label'];
+        }
+        return $options;
+    }
+
+    // ── Internal data loading ─────────────────────────────────────────────────
+
+    private static function load(): array {
+        $data = (array) get_option( self::OPTION_KEY, [] );
+        if ( ! isset( $data['groups'] ) || ! is_array( $data['groups'] ) ) {
+            $data['groups'] = [];
+        }
+        return $data;
+    }
+
+    // ── Data access ───────────────────────────────────────────────────────────
+
+    /**
+     * Return all groups, sequentially indexed.
+     *
+     * @return array<int, array{slug:string, label:string, fields:array}>
+     */
+    public static function get_groups(): array {
+        return array_values( self::load()['groups'] ?? [] );
+    }
+
+    /**
+     * Find a field by its globally-unique key. Returns null if not found.
+     *
+     * @return array{key:string, label:string, type:string, value:mixed}|null
+     */
+    public static function get_field( string $key ): ?array {
+        foreach ( self::get_groups() as $group ) {
+            foreach ( $group['fields'] ?? [] as $field ) {
+                if ( ( $field['key'] ?? '' ) === $key ) {
+                    return $field;
+                }
+            }
+        }
+        return null;
+    }
+
+    /** Get the raw stored value for a field, or empty string if not found. */
+    public static function get_value( string $key ): mixed {
+        $field = self::get_field( $key );
+        return $field['value'] ?? '';
+    }
+
+    /**
+     * Render a field through its type's render callback.
+     *
+     * @param string $key    Field key.
+     * @param string $output Output mode passed through to the type's renderer
+     *                       (meaning is type-specific — e.g. for image:
+     *                       '' → URL, 'html' → <img>).
+     * @return string  HTML-safe output. Returns '' if the field doesn't
+     *                 exist or its type is no longer registered.
+     */
+    public static function render( string $key, string $output = '' ): string {
+        $field = self::get_field( $key );
+        if ( null === $field ) {
+            return '';
+        }
+
+        $types = self::get_types();
+        $type  = $types[ $field['type'] ] ?? null;
+        if ( null === $type || ! is_callable( $type['render'] ?? null ) ) {
+            return '';
+        }
+
+        return (string) call_user_func( $type['render'], $field['value'] ?? '', $output );
+    }
+
+    // ── Persistence ───────────────────────────────────────────────────────────
+
+    /**
+     * Save raw POST data to the option, running each field through its
+     * type's sanitize callback. Unknown types are dropped. Groups with
+     * neither a slug nor a label are dropped (truly empty). Fields with
+     * no key and no label, or an unregistered type, are dropped.
+     *
+     * If a group's slug is empty but its label is set, the slug is
+     * auto-derived from the label via sanitize_title() — same pattern
+     * WP uses for post and category slugs. Field keys behave the same
+     * way: empty key + non-empty label = key derived from label.
+     */
+    public static function save( array $raw ): void {
+        $types = self::get_types();
+        $data  = [ 'groups' => [] ];
+
+        $seen_keys = []; // enforce globally-unique field keys
+
+        foreach ( $raw['groups'] ?? [] as $group_raw ) {
+            $slug  = sanitize_key( $group_raw['slug']  ?? '' );
+            $label = sanitize_text_field( $group_raw['label'] ?? '' );
+
+            // Auto-derive slug from label if the user only filled the
+            // label (common UX pattern — they think of the group by name).
+            if ( $slug === '' && $label !== '' ) {
+                $slug = sanitize_key( sanitize_title( $label ) );
+            }
+            if ( $slug === '' ) {
+                continue;
+            }
+
+            $fields = [];
+            foreach ( $group_raw['fields'] ?? [] as $field_raw ) {
+                $key        = sanitize_key( $field_raw['key']  ?? '' );
+                $type       = sanitize_key( $field_raw['type'] ?? '' );
+                $field_label = sanitize_text_field( $field_raw['label'] ?? '' );
+
+                // Same auto-derive trick for field keys.
+                if ( $key === '' && $field_label !== '' ) {
+                    $key = sanitize_key( sanitize_title( $field_label ) );
+                }
+                if ( $key === '' || ! isset( $types[ $type ] ) ) {
+                    continue;
+                }
+                if ( isset( $seen_keys[ $key ] ) ) {
+                    // First occurrence wins — duplicates from a stale
+                    // submission are silently dropped rather than
+                    // overwriting. The admin UI should prevent dupes
+                    // before submit, so this is just a guardrail.
+                    continue;
+                }
+                $seen_keys[ $key ] = true;
+
+                $sanitize = $types[ $type ]['sanitize'] ?? null;
+                $value    = is_callable( $sanitize )
+                    ? call_user_func( $sanitize, $field_raw['value'] ?? '' )
+                    : '';
+
+                $fields[] = [
+                    'key'   => $key,
+                    'label' => $field_label,
+                    'type'  => $type,
+                    'value' => $value,
+                ];
+            }
+
+            $data['groups'][] = [
+                'slug'   => $slug,
+                'label'  => $label,
+                'fields' => $fields,
+            ];
+        }
+
+        update_option( self::OPTION_KEY, $data );
+    }
+
+    // ── Shortcode ─────────────────────────────────────────────────────────────
+
+    public static function register_shortcode(): void {
+        add_shortcode( 'paradise_field', [ __CLASS__, 'shortcode_handler' ] );
+    }
+
+    /**
+     * [paradise_field key="copyright"]            → escaped text
+     * [paradise_field key="logo" output="html"]   → <img …>
+     *
+     * Returns an empty string for unknown keys (callers can fall back).
+     */
+    public static function shortcode_handler( array $atts ): string {
+        $atts = shortcode_atts( [
+            'key'    => '',
+            'output' => '',
+        ], $atts, 'paradise_field' );
+
+        $key = trim( (string) $atts['key'] );
+        if ( $key === '' ) {
+            return '';
+        }
+
+        return self::render( $key, (string) $atts['output'] );
+    }
+}
