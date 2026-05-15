@@ -4,7 +4,7 @@ Tags: elementor, elementor widgets, bottom navigation, phone link, google map, s
 Requires at least: 6.1
 Tested up to: 6.7
 Requires PHP: 8.0
-Stable tag: 2.6.0
+Stable tag: 2.7.0
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -146,6 +146,22 @@ The badge is computed in the visitor's browser using the site's timezone (from W
 7. Widget panel — Paradise Widgets category
 
 == Changelog ==
+
+= 2.7.0 =
+* Added: Feature Card example widget — a heavily-commented reference widget for developers extending Paradise. Lives in its own "Paradise Examples" Elementor category, disabled by default. New optional registry flags `example` and `default` (per-widget enabled-by-default state). Companion CSS at `assets/css/feature-card-example.css`.
+* Added: Per-row Copy Shortcode buttons on Site Info phone, email, and social rows. Each button reads the row's current (unsaved) label/platform and writes the matching `[paradise_site_info ...]` shortcode to the clipboard. Click feedback: green checkmark icon swap plus a "Copied!" toast above the button.
+* Added: Brand-coloured platform icons next to each social `<select>` on the Site Info page (Instagram, Facebook, X, LinkedIn, YouTube, TikTok, Pinterest, Snapchat, Threads, WhatsApp). Updates live when the platform changes. New helper `Paradise_Site_Info::social_icon_svg()`.
+* Added: Settings page improvements — widgets grouped into three cards (Production / Developer Examples / Features), each with Enable all / Disable all bulk actions. Live filter input narrows the visible list as you type. "Off by default" badge for widgets that ship disabled.
+* Added: "Unsaved changes" pill in the Settings and Site Info page headers. Native `beforeunload` warning blocks accidental navigation. Clears on save.
+* Added: Confirm dialog before destructive actions on Site Info — wordier copy for locations (which carry phones, emails, address, hours), short copy for row-level deletes.
+* Added: Visual separation between Locations and their sub-sections on Site Info — each location reads as a distinct card with phones/emails/address/hours as clearly separated panels.
+* Changed: Site Info admin page — card layout reshaped, Remove/Add buttons restyled as icon-only with leading plus glyphs and a soft-red destructive tint, intro rewritten as a two-method callout (Dynamic Tags recommended; shortcode for outside Elementor).
+* Changed: Import / Export admin page — header now matches the Settings page (title + version badge); inline `<style>` block moved to `assets/css/admin.css`.
+* Changed: Admin asset enqueue — `admin.js` now enqueued alongside `admin.css` on every Paradise admin page. Page detection uses a prefix check so new submenu pages get the assets automatically.
+* Fixed: Copy Shortcode now works on plain HTTP (e.g. local dev on Valet `*.test` domains). `navigator.clipboard` is only defined in secure contexts; falls back to a temporary `<textarea>` + `document.execCommand('copy')` so the button works regardless of HTTPS. Red "Copy failed" toast surfaces if both paths fail.
+* Fixed: Google Maps preview iframe no longer flickers with 400 errors during typing or on malformed URLs. The map URL field validates the URL as an `https://google.com/maps/embed` URL before pointing the iframe at it.
+* Fixed: Save confirmation visible after long-form save — Site Info now smooth-scrolls the success notice into view on the post-save reload, so users on long pages don't miss the confirmation.
+* Documentation: README — Developer Guide gains a "Learning from the example widget" subsection that points new contributors at the example widget as a complete, commented blueprint.
 
 = 2.6.0 =
 * Added: Paradise_Widget_Base abstract class — a small shared base inherited by every bundled widget. Provides default get_categories(), conventional asset-handle naming from get_name(), and a get_default_handle() helper. Plugins/themes that fork Paradise can extend it to get the same conventions.

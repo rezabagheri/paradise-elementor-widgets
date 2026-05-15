@@ -5,7 +5,7 @@
 [![WordPress](https://img.shields.io/badge/WordPress-6.1%2B-blue.svg)](https://wordpress.org)
 [![Elementor](https://img.shields.io/badge/Elementor-3.5%2B-orange.svg)](https://elementor.com)
 [![PHP](https://img.shields.io/badge/PHP-8.0%2B-777BB4.svg)](https://www.php.net)
-[![Version](https://img.shields.io/badge/Version-2.4.0-green.svg)](https://github.com/rezabagheri/paradise-elementor-widgets/releases)
+[![Version](https://img.shields.io/badge/Version-2.7.0-green.svg)](https://github.com/rezabagheri/paradise-elementor-widgets/releases)
 [![License](https://img.shields.io/badge/License-GPL--2.0%2B-green.svg)](LICENSE)
 
 ---
@@ -284,6 +284,32 @@ The example widget lives in its own **Paradise Examples** editor category (separ
 ---
 
 ## Version History
+
+### v2.7.0 (May 2026)
+
+- Feature Card example widget — heavily-commented reference for developers in its own "Paradise Examples" category, disabled by default
+- New optional registry flags: `example` (metadata) and `default` (per-widget enabled-by-default state)
+- Site Info admin page rebuilt — distinct location cards, sub-section dividers, icon-only Remove/Add buttons, intro rewritten as a two-method callout (Dynamic Tags + shortcode)
+- Per-row Copy Shortcode buttons on phones / emails / socials with "Copied!" toast feedback; brand-coloured platform icons next to each social select
+- Settings page grouped into Production / Developer Examples / Features cards with Enable all / Disable all bulk actions and a live filter input; "Off by default" badge
+- "Unsaved changes" pill in admin headers with `beforeunload` guard
+- Fixed: Copy Shortcode now works on plain HTTP (Valet `*.test`) via `execCommand` fallback; Google Maps preview validates the embed URL before loading
+
+### v2.6.0 (May 2026)
+
+- `Paradise_Widget_Base` abstract class — small shared base inherited by every bundled widget; provides default `get_categories()`, conventional `paradise-{slug}` asset handle naming from `get_name()`, and a `get_default_handle()` helper
+- All 15 bundled widgets migrated to extend `Paradise_Widget_Base`, dropping repeated `get_categories()` and `get_style_depends()` overrides
+
+### v2.5.0 (May 2026)
+
+- Registry-driven asset registration — `enqueue_assets()` reduced from ~170 hardcoded calls to a single loop over the widget registry
+- Asset handle naming normalized to `paradise-{slug}` for both CSS and JS of each widget
+- Minimum PHP raised from 7.4 to 8.0 to match the codebase
+- Elementor compatibility admin notices — shown when Elementor is missing or older than 3.5.0; widget/asset registration is skipped on outdated Elementor to avoid fatals
+- Fixed: Bottom Navigation Bar asset handle mismatch left the widget unstyled and non-interactive on the frontend
+- Fixed: Floating Call Button corner offsets now apply to the position-fixed inner wrapper (not the static outer wrapper)
+- Fixed: FAQ Accordion — closed items no longer leak the first line of the answer (`grid-template-rows: minmax(0, 0fr)`); no more `TypeError` on canvas templates where `elementorFrontend.hooks` is not yet ready
+- README gains a Screenshots section with seven viewport-correct widget screenshots
 
 ### v2.4.0 (April 2026)
 
