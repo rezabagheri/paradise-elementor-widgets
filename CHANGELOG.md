@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.7.0] - 2026-05-15
+
+### Added
+
+- **Feature Card example widget** (`widgets/class-paradise-feature-card-example.php`) — a heavily-commented reference widget for developers extending Paradise. Lives in its own "Paradise Examples" Elementor category, disabled by default so it doesn't appear on end-user sites. Introduces two optional registry flags: `example` (metadata for future UI grouping) and `default` (per-widget enabled-by-default state — defaults to `true` if absent, set `false` for example widgets). `Paradise_EW_Admin::get()` and `widget_enabled()` honour the per-widget `default`. Companion CSS at `assets/css/feature-card-example.css`
+- **Per-row Copy Shortcode buttons** on Site Info phone, email, and social link rows. Each button reads the row's *current* (unsaved) label or platform value and writes the corresponding `[paradise_site_info ...]` shortcode to the clipboard. Click feedback: green checkmark icon swap plus a "Copied!" toast above the button (~1.5s slide-up + fade-out)
+- **Brand-coloured platform icons** next to each social `<select>` on the Site Info admin page (Instagram, Facebook, X, LinkedIn, YouTube, TikTok, Pinterest, Snapchat, Threads, WhatsApp). Updates live when the platform selection changes. New helper `Paradise_Site_Info::social_icon_svg()` is the single source of truth for both initial PHP render and live JS update
+- **Settings page improvements** — widgets grouped into three cards (Production widgets / Developer Examples / Features), each with Enable all / Disable all bulk actions. A live filter input above the form narrows the visible list as you type. "Off by default" badge surfaces example widgets that ship disabled
+- **"Unsaved changes" pill** in the Settings and Site Info page headers. Appears on first edit; a native `beforeunload` warning blocks accidental navigation. Clears on save
+- **Confirm dialog before destructive actions** on Site Info — wordier copy for locations (which carry phones, emails, address, and hours) and short copy for row-level deletes
+- **Visual separation between Locations and their sub-sections** on Site Info — each location reads as a distinct card with phones / emails / address / hours as clearly separated panels inside
+
+### Changed
+
+- **Site Info admin page** — card layout reshaped (consistent padding, location cards as distinct units), Remove and Add buttons restyled as icon-only with leading plus glyphs and a soft-red destructive tint, intro rewritten as a two-method callout (Dynamic Tags recommended; shortcode for outside Elementor)
+- **Import / Export admin page** — header now matches the Settings page (title + version badge); previously-inline `<style>` block moved to `assets/css/admin.css`
+- **Admin asset enqueue** — `paradise-ew-admin` script (`admin.js`) now enqueued alongside the existing CSS on every Paradise admin page. Page detection uses a prefix check (`toplevel_page_` + `paradise_page_`) so new submenu pages get the assets automatically
+
+### Fixed
+
+- **Copy Shortcode works on plain HTTP** (e.g. local dev on Valet `*.test` domains). `navigator.clipboard` is only defined in secure contexts, so the original handler silently failed on HTTP. Now falls back to a temporary `<textarea>` + `document.execCommand('copy')` — universally supported, works in non-secure contexts. A red "Copy failed" toast surfaces if both paths fail, so silent failures are gone in both directions
+- **Google Maps preview iframe no longer flickers with 400 errors** during typing or on malformed URLs. The map URL field's live preview now validates the URL as an `https://google.com/maps/embed` URL before pointing the iframe at it; invalid URLs hide the preview and skip the load
+- **Save confirmation visible after long-form save** — Site Info redirects back to a long page after submit; some browsers preserve scroll position and the user lands near the Save button, missing the success notice at the top of `.wrap`. The page now smooth-scrolls the success notice into view on the post-save reload
+
+### Documentation
+
+- **README** — Developer Guide gains a "Learning from the example widget" subsection that points new contributors at `widgets/class-paradise-feature-card-example.php` as a complete, commented blueprint covering registry registration, Elementor controls, render output, asset loading, and the conventions enforced by `Paradise_Widget_Base`
+
+---
+
 ## [2.6.0] - 2026-05-14
 
 ### Added
