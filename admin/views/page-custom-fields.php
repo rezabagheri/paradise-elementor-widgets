@@ -81,6 +81,93 @@ function paradise_cf_render_value( string $name_prefix, string $type, $value ): 
             </div>
         </div>
 
+        <!-- date -->
+        <div class="paradise-cf-value-variant" data-type="date">
+            <input type="date"
+                name="<?php echo esc_attr( $name_prefix ); ?>[value]"
+                value="<?php echo $type === 'date' ? esc_attr( $val ) : ''; ?>"
+                <?php disabled( $type !== 'date' ); ?>>
+        </div>
+
+        <!-- time -->
+        <div class="paradise-cf-value-variant" data-type="time">
+            <input type="time"
+                name="<?php echo esc_attr( $name_prefix ); ?>[value]"
+                value="<?php echo $type === 'time' ? esc_attr( $val ) : ''; ?>"
+                <?php disabled( $type !== 'time' ); ?>>
+        </div>
+
+        <!-- email -->
+        <div class="paradise-cf-value-variant" data-type="email">
+            <input type="email"
+                class="regular-text"
+                name="<?php echo esc_attr( $name_prefix ); ?>[value]"
+                value="<?php echo $type === 'email' ? esc_attr( $val ) : ''; ?>"
+                <?php disabled( $type !== 'email' ); ?>
+                placeholder="hello@example.com">
+        </div>
+
+        <!-- number -->
+        <div class="paradise-cf-value-variant" data-type="number">
+            <input type="number"
+                class="small-text"
+                name="<?php echo esc_attr( $name_prefix ); ?>[value]"
+                value="<?php echo $type === 'number' ? esc_attr( $val ) : ''; ?>"
+                <?php disabled( $type !== 'number' ); ?>>
+        </div>
+
+        <!-- color -->
+        <div class="paradise-cf-value-variant" data-type="color">
+            <input type="color"
+                class="paradise-cf-color-input"
+                name="<?php echo esc_attr( $name_prefix ); ?>[value]"
+                value="<?php echo $type === 'color' && $val !== '' ? esc_attr( $val ) : '#000000'; ?>"
+                <?php disabled( $type !== 'color' ); ?>>
+            <span class="paradise-cf-color-hex"><?php echo $type === 'color' ? esc_html( $val ) : ''; ?></span>
+        </div>
+
+        <!-- range (open-bounded integer pair, stored as "min,max") -->
+        <div class="paradise-cf-value-variant" data-type="range">
+            <?php
+            // Parse stored "min,max"; defaults are blank when the field is
+            // new so the user types their own numbers (no implied bounds).
+            // Only the hidden input below posts — the two number inputs are
+            // UI-only (no name attribute), JS keeps them in sync with the
+            // hidden storage and enforces min ≤ max on each input event.
+            $range_raw   = ( $type === 'range' && $val !== '' ) ? (string) $val : '';
+            $range_parts = $range_raw !== '' ? explode( ',', $range_raw ) : [];
+            $r_min       = isset( $range_parts[0] ) ? (int) $range_parts[0] : 0;
+            $r_max       = isset( $range_parts[1] ) ? (int) $range_parts[1] : 0;
+            if ( $r_min > $r_max ) {
+                [ $r_min, $r_max ] = [ $r_max, $r_min ];
+            }
+            ?>
+            <div class="paradise-cf-range-double">
+                <label class="paradise-cf-range-control">
+                    <span class="paradise-cf-range-handle-label"><?php esc_html_e( 'Min', 'paradise-elementor-widgets' ); ?></span>
+                    <input type="number"
+                        class="paradise-cf-range-min small-text"
+                        step="1"
+                        value="<?php echo esc_attr( (string) $r_min ); ?>"
+                        <?php disabled( $type !== 'range' ); ?>>
+                </label>
+                <span class="paradise-cf-range-sep" aria-hidden="true">–</span>
+                <label class="paradise-cf-range-control">
+                    <span class="paradise-cf-range-handle-label"><?php esc_html_e( 'Max', 'paradise-elementor-widgets' ); ?></span>
+                    <input type="number"
+                        class="paradise-cf-range-max small-text"
+                        step="1"
+                        value="<?php echo esc_attr( (string) $r_max ); ?>"
+                        <?php disabled( $type !== 'range' ); ?>>
+                </label>
+                <input type="hidden"
+                    name="<?php echo esc_attr( $name_prefix ); ?>[value]"
+                    value="<?php echo esc_attr( $r_min . ',' . $r_max ); ?>"
+                    class="paradise-cf-range-storage"
+                    <?php disabled( $type !== 'range' ); ?>>
+            </div>
+        </div>
+
     </div>
     <?php
 }

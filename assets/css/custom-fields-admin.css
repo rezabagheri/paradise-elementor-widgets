@@ -126,7 +126,13 @@
 .paradise-cf-value[data-active-type="text"]     .paradise-cf-value-variant[data-type="text"],
 .paradise-cf-value[data-active-type="textarea"] .paradise-cf-value-variant[data-type="textarea"],
 .paradise-cf-value[data-active-type="url"]      .paradise-cf-value-variant[data-type="url"],
-.paradise-cf-value[data-active-type="image"]    .paradise-cf-value-variant[data-type="image"] {
+.paradise-cf-value[data-active-type="image"]    .paradise-cf-value-variant[data-type="image"],
+.paradise-cf-value[data-active-type="date"]     .paradise-cf-value-variant[data-type="date"],
+.paradise-cf-value[data-active-type="time"]     .paradise-cf-value-variant[data-type="time"],
+.paradise-cf-value[data-active-type="email"]    .paradise-cf-value-variant[data-type="email"],
+.paradise-cf-value[data-active-type="number"]   .paradise-cf-value-variant[data-type="number"],
+.paradise-cf-value[data-active-type="color"]    .paradise-cf-value-variant[data-type="color"],
+.paradise-cf-value[data-active-type="range"]    .paradise-cf-value-variant[data-type="range"] {
     display: block;
 }
 
@@ -152,6 +158,65 @@
  */
 .paradise-cf-wrap [hidden] {
     display: none !important;
+}
+
+/* ── Color picker — hex shown alongside the native swatch ──────────────── */
+
+/*
+ * Scoped to the active state so we don't override the `display: none`
+ * base rule (attribute selectors carry specificity — an unscoped
+ * `display: flex` here would make the colour input visible on EVERY
+ * row regardless of the selected type).
+ */
+.paradise-cf-value[data-active-type="color"] .paradise-cf-value-variant[data-type="color"] {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.paradise-cf-color-input {
+    width: 48px;
+    height: 32px;
+    padding: 0;
+    border: 1px solid #c3c4c7;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.paradise-cf-color-hex {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    color: #50575e;
+}
+
+/* ── Range — open-bounded integer pair (Min – Max) ────────────────────── */
+
+/*
+ * Inline layout: [Min: ___] – [Max: ___]. Number inputs show their value
+ * directly so no companion display span is needed. Only the hidden
+ * sibling input below the labels posts the canonical "min,max" string.
+ */
+.paradise-cf-range-double {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.paradise-cf-range-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.paradise-cf-range-handle-label {
+    font-size: 12px;
+    color: #50575e;
+}
+
+.paradise-cf-range-sep {
+    color: #50575e;
+    user-select: none;
 }
 
 /* ── Sortable placeholder ───────────────────────────────────────────────── */

@@ -150,6 +150,169 @@ class Paradise_Custom_Fields {
                 },
                 'el_category' => 'image',
             ],
+
+            // ── date ──────────────────────────────────────────────────────────
+            // ISO-8601 (YYYY-MM-DD) stored, locale-formatted on output. Sanitize
+            // accepts the strict ISO shape only — anything else collapses to ''
+            // so a corrupted POST can't write garbage into the option.
+            //
+            //   output=""          → date_i18n(get_option('date_format'), …)
+            //   output="raw"       → YYYY-MM-DD (e.g. for HTML <time datetime>)
+            //   output="timestamp" → Unix seconds at midnight site-tz
+            'date' => [
+                'label'       => __( 'Date', 'paradise-elementor-widgets' ),
+                'sanitize'    => static fn( $v ) => preg_match( '/^\d{4}-\d{2}-\d{2}$/', (string) $v ) ? (string) $v : '',
+                'render'      => static function ( $v, $output ) {
+                    $iso = (string) $v;
+                    if ( $iso === '' ) {
+                        return '';
+                    }
+                    $ts = strtotime( $iso . ' 00:00:00' );
+                    if ( $ts === false ) {
+                        return '';
+                    }
+                    return match ( $output ) {
+                        'raw'       => esc_html( $iso ),
+                        'timestamp' => (string) $ts,
+                        default     => esc_html( (string) date_i18n( (string) get_option( 'date_format' ), $ts ) ),
+                    };
+                },
+                'el_category' => 'text',
+            ],
+
+            // ── time ──────────────────────────────────────────────────────────
+            // HH:MM (24-hour) stored, locale-formatted on output. Anchored to
+            // "today" so date_i18n can format it through the same pipeline as
+            // dates without inventing a custom time formatter.
+            //
+            //   output=""    → date_i18n(get_option('time_format'), …)
+            //   output="raw" → HH:MM
+            'time' => [
+                'label'       => __( 'Time', 'paradise-elementor-widgets' ),
+                'sanitize'    => static fn( $v ) => preg_match( '/^\d{2}:\d{2}$/', (string) $v ) ? (string) $v : '',
+                'render'      => static function ( $v, $output ) {
+                    $hm = (string) $v;
+                    if ( $hm === '' ) {
+                        return '';
+                    }
+                    $ts = strtotime( 'today ' . $hm );
+                    if ( $ts === false ) {
+                        return '';
+                    }
+                    return match ( $output ) {
+                        'raw'   => esc_html( $hm ),
+                        default => esc_html( (string) date_i18n( (string) get_option( 'time_format' ), $ts ) ),
+                    };
+                },
+                'el_category' => 'text',
+            ],
+
+            // ── email ─────────────────────────────────────────────────────────
+            // Visible in both TEXT and URL dynamic-tag dropdowns — the latter
+            // lets Button/Link controls bind a mailto: directly. Render gives
+            // a plain escaped address by default, and a mailto: form on demand
+            // (used by both the URL dynamic tag and the shortcode link mode).
+            //
+            //   output=""       → escaped email string
+            //   output="mailto" → mailto: URL (used for Button URL bindings)
+            //   output="link"   → <a href="mailto:…">email</a>
+            'email' => [
+                'label'       => __( 'Email', 'paradise-elementor-widgets' ),
+                'sanitize'    => static fn( $v ) => sanitize_email( (string) $v ),
+                'render'      => static function ( $v, $output ) {
+                    $email = (string) $v;
+                    if ( $email === '' ) {
+                        return '';
+                    }
+                    return match ( $output ) {
+                        'mailto' => esc_url( 'mailto:' . $email ),
+                        'link'   => '<a href="' . esc_url( 'mailto:' . $email ) . '">' . esc_html( $email ) . '</a>',
+                        default  => esc_html( $email ),
+                    };
+                },
+                // Two categories: text (Heading, Button label, etc.) AND
+                // url (Button URL, Link control). field_options_for_category
+                // accepts both string and array shapes — see the registry
+                // helper's comment for the rationale.
+                'el_category' => [ 'text', 'url' ],
+            ],
+
+            // ── number ────────────────────────────────────────────────────────
+            // Integer stored. Validation via filter_var so '1.5' coerces
+            // cleanly (it returns false and we fall back to 0). PHP's
+            // (int) cast would silently truncate '1.5' to 1 — semantically
+            // different and harder to catch.
+            'number' => [
+                'label'       => __( 'Number', 'paradise-elementor-widgets' ),
+                'sanitize'    => static fn( $v ) => (int) filter_var( (string) $v, FILTER_VALIDATE_INT ),
+                'render'      => static fn( $v, $output ) => esc_html( (string) (int) $v ),
+                'el_category' => 'text',
+            ],
+
+            // ── color ─────────────────────────────────────────────────────────
+            // 6-digit hex (#RRGGBB). Lowercased on save for cache friendliness.
+            // Anything that doesn't match the hex pattern (e.g. 'rgb(…)' or a
+            // 3-digit shorthand) collapses to '' rather than being stored.
+            'color' => [
+                'label'       => __( 'Color', 'paradise-elementor-widgets' ),
+                'sanitize'    => static fn( $v ) => preg_match( '/^#[0-9a-fA-F]{6}$/', (string) $v ) ? strtolower( (string) $v ) : '',
+                'render'      => static fn( $v, $output ) => esc_html( (string) $v ),
+                'el_category' => 'text',
+            ],
+
+            // ── range ─────────────────────────────────────────────────────────
+            // An open-bounded integer pair representing an interval (min,max).
+            // Bounds are NOT clamped — a user can pick 50–200, 1–10, -40–40,
+            // or anything that makes sense for their data. Sanitize only
+            // enforces "both are integers" and swaps them if min > max so the
+            // stored form's ordering invariant always holds.
+            //
+            // Stored as the comma string "min,max" for simplicity and
+            // round-trip friendliness. A legacy single value (e.g. "50" from
+            // an earlier preview of this type) migrates to "0,50" on save.
+            //
+            //   output=""    → "10 – 80" (en-dash)
+            //   output="min" → "10"
+            //   output="max" → "80"
+            //   output="raw" → "10,80"
+            'range' => [
+                'label'    => __( 'Range', 'paradise-elementor-widgets' ),
+                'sanitize' => static function ( $v ) {
+                    $raw = trim( (string) $v );
+                    if ( $raw === '' ) {
+                        return '';
+                    }
+                    $parts = explode( ',', $raw );
+                    if ( count( $parts ) === 1 ) {
+                        // Legacy single-value migration: treat as max with min=0.
+                        $min = 0;
+                        $max = (int) filter_var( $parts[0], FILTER_VALIDATE_INT );
+                    } else {
+                        $min = (int) filter_var( $parts[0], FILTER_VALIDATE_INT );
+                        $max = (int) filter_var( $parts[1], FILTER_VALIDATE_INT );
+                    }
+                    if ( $min > $max ) {
+                        [ $min, $max ] = [ $max, $min ];
+                    }
+                    return $min . ',' . $max;
+                },
+                'render'   => static function ( $v, $output ) {
+                    $raw = (string) $v;
+                    if ( $raw === '' ) {
+                        return '';
+                    }
+                    $parts = explode( ',', $raw );
+                    $min   = (int) ( $parts[0] ?? 0 );
+                    $max   = (int) ( $parts[1] ?? $min );
+                    return match ( $output ) {
+                        'min'   => esc_html( (string) $min ),
+                        'max'   => esc_html( (string) $max ),
+                        'raw'   => esc_html( $raw ),
+                        default => esc_html( $min . ' – ' . $max ), // en-dash
+                    };
+                },
+                'el_category' => 'text',
+            ],
         ];
 
         return apply_filters( 'paradise_custom_field_types', $types );
