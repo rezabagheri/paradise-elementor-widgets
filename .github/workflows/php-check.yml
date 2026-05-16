@@ -13,7 +13,11 @@ jobs:
 
     strategy:
       matrix:
-        php-version: ["7.4", "8.1", "8.2", "8.3"]
+        # Plugin declares `Requires PHP: 8.0` — match expressions and
+        # other 8.x-only syntax mean 7.4 cannot parse the codebase.
+        # Test the declared minimum (8.0) through the version the dev
+        # environment runs (8.4).
+        php-version: ["8.0", "8.1", "8.2", "8.3", "8.4"]
 
     steps:
       - name: Checkout

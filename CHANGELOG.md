@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.8.0] - 2026-05-15
+
+### Added
+
+- **Custom Fields** — user-defined static fields organized into groups, accessed via shortcode and Elementor Dynamic Tags. Field keys are globally unique; groups exist only for admin organization. First types shipped: text, textarea, url, image. Storage in `paradise_custom_fields` option; field rendering driven by a type registry (`sanitize` + `render` callbacks per type) so adding a new type is one entry. Filter `paradise_custom_field_types` lets sites add their own types without forking. Shortcode: `[paradise_field key="..." output="..."]` — `output` is per-type (e.g. `html` on image renders `<img>` with `srcset` via `wp_get_attachment_image()`).
+- **Elementor Dynamic Tags for Custom Fields** — three tags under a "Paradise Custom Fields" group: `paradise-cf-text` (TEXT_CATEGORY, surfaces text + textarea fields), `paradise-cf-url` (URL_CATEGORY), and `paradise-cf-image` (IMAGE_CATEGORY, returns `{id, url}` so responsive `srcset` works). Each tag's field SELECT is built from the type registry's `el_category` mapping — adding new fields populates the dropdown automatically.
+- **"Custom Fields" admin page** under the Paradise menu with drag-to-reorder for groups and fields, type-aware value inputs (one variant active at a time via CSS attribute selectors), and the WP media picker for image fields. Group slug and field key auto-derive from their label (`sanitize_title`) when empty so a casual save doesn't silently drop data.
+
 ## [2.7.0] - 2026-05-15
 
 ### Added
