@@ -126,16 +126,46 @@ function paradise_cf_render_value( string $name_prefix, string $type, $value ): 
             <span class="paradise-cf-color-hex"><?php echo $type === 'color' ? esc_html( $val ) : ''; ?></span>
         </div>
 
-        <!-- range -->
+        <!-- range (open-bounded integer pair, stored as "min,max") -->
         <div class="paradise-cf-value-variant" data-type="range">
-            <?php $range_val = ( $type === 'range' && $val !== '' ) ? (int) $val : 0; ?>
-            <input type="range"
-                class="paradise-cf-range-input"
-                min="0" max="100" step="1"
-                name="<?php echo esc_attr( $name_prefix ); ?>[value]"
-                value="<?php echo esc_attr( (string) $range_val ); ?>"
-                <?php disabled( $type !== 'range' ); ?>>
-            <span class="paradise-cf-range-value"><?php echo esc_html( (string) $range_val ); ?></span>
+            <?php
+            // Parse stored "min,max"; defaults are blank when the field is
+            // new so the user types their own numbers (no implied bounds).
+            // Only the hidden input below posts — the two number inputs are
+            // UI-only (no name attribute), JS keeps them in sync with the
+            // hidden storage and enforces min ≤ max on each input event.
+            $range_raw   = ( $type === 'range' && $val !== '' ) ? (string) $val : '';
+            $range_parts = $range_raw !== '' ? explode( ',', $range_raw ) : [];
+            $r_min       = isset( $range_parts[0] ) ? (int) $range_parts[0] : 0;
+            $r_max       = isset( $range_parts[1] ) ? (int) $range_parts[1] : 0;
+            if ( $r_min > $r_max ) {
+                [ $r_min, $r_max ] = [ $r_max, $r_min ];
+            }
+            ?>
+            <div class="paradise-cf-range-double">
+                <label class="paradise-cf-range-control">
+                    <span class="paradise-cf-range-handle-label"><?php esc_html_e( 'Min', 'paradise-elementor-widgets' ); ?></span>
+                    <input type="number"
+                        class="paradise-cf-range-min small-text"
+                        step="1"
+                        value="<?php echo esc_attr( (string) $r_min ); ?>"
+                        <?php disabled( $type !== 'range' ); ?>>
+                </label>
+                <span class="paradise-cf-range-sep" aria-hidden="true">–</span>
+                <label class="paradise-cf-range-control">
+                    <span class="paradise-cf-range-handle-label"><?php esc_html_e( 'Max', 'paradise-elementor-widgets' ); ?></span>
+                    <input type="number"
+                        class="paradise-cf-range-max small-text"
+                        step="1"
+                        value="<?php echo esc_attr( (string) $r_max ); ?>"
+                        <?php disabled( $type !== 'range' ); ?>>
+                </label>
+                <input type="hidden"
+                    name="<?php echo esc_attr( $name_prefix ); ?>[value]"
+                    value="<?php echo esc_attr( $r_min . ',' . $r_max ); ?>"
+                    class="paradise-cf-range-storage"
+                    <?php disabled( $type !== 'range' ); ?>>
+            </div>
         </div>
 
     </div>

@@ -261,14 +261,56 @@ class Paradise_Custom_Fields {
             ],
 
             // ── range ─────────────────────────────────────────────────────────
-            // 0–100 integer slider. Bounds are fixed at this version; if you
-            // want different bounds, use the `number` type instead. clamp via
-            // min/max so a tampered POST (e.g. -1 or 999) is normalised, not
-            // dropped — preserving the user's intent at the closest valid value.
+            // An open-bounded integer pair representing an interval (min,max).
+            // Bounds are NOT clamped — a user can pick 50–200, 1–10, -40–40,
+            // or anything that makes sense for their data. Sanitize only
+            // enforces "both are integers" and swaps them if min > max so the
+            // stored form's ordering invariant always holds.
+            //
+            // Stored as the comma string "min,max" for simplicity and
+            // round-trip friendliness. A legacy single value (e.g. "50" from
+            // an earlier preview of this type) migrates to "0,50" on save.
+            //
+            //   output=""    → "10 – 80" (en-dash)
+            //   output="min" → "10"
+            //   output="max" → "80"
+            //   output="raw" → "10,80"
             'range' => [
-                'label'       => __( 'Range (0–100)', 'paradise-elementor-widgets' ),
-                'sanitize'    => static fn( $v ) => max( 0, min( 100, (int) filter_var( (string) $v, FILTER_VALIDATE_INT ) ) ),
-                'render'      => static fn( $v, $output ) => esc_html( (string) (int) $v ),
+                'label'    => __( 'Range', 'paradise-elementor-widgets' ),
+                'sanitize' => static function ( $v ) {
+                    $raw = trim( (string) $v );
+                    if ( $raw === '' ) {
+                        return '';
+                    }
+                    $parts = explode( ',', $raw );
+                    if ( count( $parts ) === 1 ) {
+                        // Legacy single-value migration: treat as max with min=0.
+                        $min = 0;
+                        $max = (int) filter_var( $parts[0], FILTER_VALIDATE_INT );
+                    } else {
+                        $min = (int) filter_var( $parts[0], FILTER_VALIDATE_INT );
+                        $max = (int) filter_var( $parts[1], FILTER_VALIDATE_INT );
+                    }
+                    if ( $min > $max ) {
+                        [ $min, $max ] = [ $max, $min ];
+                    }
+                    return $min . ',' . $max;
+                },
+                'render'   => static function ( $v, $output ) {
+                    $raw = (string) $v;
+                    if ( $raw === '' ) {
+                        return '';
+                    }
+                    $parts = explode( ',', $raw );
+                    $min   = (int) ( $parts[0] ?? 0 );
+                    $max   = (int) ( $parts[1] ?? $min );
+                    return match ( $output ) {
+                        'min'   => esc_html( (string) $min ),
+                        'max'   => esc_html( (string) $max ),
+                        'raw'   => esc_html( $raw ),
+                        default => esc_html( $min . ' – ' . $max ), // en-dash
+                    };
+                },
                 'el_category' => 'text',
             ],
         ];

@@ -228,28 +228,49 @@
             if (choose)  choose.textContent = id ? 'Change Image' : 'Choose Image';
         }
 
-        // ── Range slider + color picker: live value display ────────────────────
+        // ── Color picker: live hex display ─────────────────────────────────────
+
+        document.addEventListener('input', function (e) {
+            var colorInput = e.target.closest('.paradise-cf-color-input');
+            if (!colorInput) return;
+            var display = colorInput.parentElement.querySelector('.paradise-cf-color-hex');
+            if (display) display.textContent = colorInput.value;
+        });
+
+        // ── Range (open-bounded pair): sync hidden storage on input ───────────
 
         /**
-         * Two type variants render a small companion <span> next to the native
-         * input — range shows the integer value, color shows the hex code.
-         * Listening on `input` (not `change`) means the number tracks the user
-         * mid-drag for range, and updates as soon as a colour is hovered in
-         * the OS picker. Delegated so newly-cloned rows pick the handler up
-         * without extra wiring.
+         * Each range field renders two <input type="number"> elements (Min,
+         * Max) plus a hidden input that stores the canonical "min,max"
+         * string. Only the hidden input has a `name` attribute, so only it
+         * posts. The two number inputs are UI-only.
+         *
+         * On every `input` event we update the hidden storage. We do NOT
+         * enforce min ≤ max mid-type — typing a new Min like "150" before
+         * later changing Max from 100 to 200 would otherwise feel hostile
+         * (Max would jump under the user's fingers). The PHP sanitize on
+         * save handles the swap, which is the right boundary to enforce
+         * the invariant.
          */
         document.addEventListener('input', function (e) {
-            var rangeInput = e.target.closest('.paradise-cf-range-input');
-            if (rangeInput) {
-                var rDisplay = rangeInput.parentElement.querySelector('.paradise-cf-range-value');
-                if (rDisplay) rDisplay.textContent = rangeInput.value;
-                return;
-            }
-            var colorInput = e.target.closest('.paradise-cf-color-input');
-            if (colorInput) {
-                var cDisplay = colorInput.parentElement.querySelector('.paradise-cf-color-hex');
-                if (cDisplay) cDisplay.textContent = colorInput.value;
-            }
+            var t = e.target;
+            var isMin = t.classList && t.classList.contains('paradise-cf-range-min');
+            var isMax = t.classList && t.classList.contains('paradise-cf-range-max');
+            if (!isMin && !isMax) return;
+
+            var wrap     = t.closest('.paradise-cf-range-double');
+            var minInput = wrap.querySelector('.paradise-cf-range-min');
+            var maxInput = wrap.querySelector('.paradise-cf-range-max');
+            var storage  = wrap.querySelector('.paradise-cf-range-storage');
+
+            // parseInt('', 10) is NaN; coerce to 0 so the stored form stays
+            // "min,max" (both integers) even while the user is mid-typing.
+            var minV = parseInt(minInput.value, 10);
+            var maxV = parseInt(maxInput.value, 10);
+            if (isNaN(minV)) minV = 0;
+            if (isNaN(maxV)) maxV = 0;
+
+            if (storage) storage.value = minV + ',' + maxV;
         });
 
         // ── Copy shortcode ────────────────────────────────────────────────────

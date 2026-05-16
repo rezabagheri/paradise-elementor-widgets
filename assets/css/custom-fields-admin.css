@@ -162,7 +162,13 @@
 
 /* ── Color picker — hex shown alongside the native swatch ──────────────── */
 
-.paradise-cf-value-variant[data-type="color"] {
+/*
+ * Scoped to the active state so we don't override the `display: none`
+ * base rule (attribute selectors carry specificity — an unscoped
+ * `display: flex` here would make the colour input visible on EVERY
+ * row regardless of the selected type).
+ */
+.paradise-cf-value[data-active-type="color"] .paradise-cf-value-variant[data-type="color"] {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -183,25 +189,34 @@
     color: #50575e;
 }
 
-/* ── Range slider — current value shown live ──────────────────────────── */
+/* ── Range — open-bounded integer pair (Min – Max) ────────────────────── */
 
-.paradise-cf-value-variant[data-type="range"] {
+/*
+ * Inline layout: [Min: ___] – [Max: ___]. Number inputs show their value
+ * directly so no companion display span is needed. Only the hidden
+ * sibling input below the labels posts the canonical "min,max" string.
+ */
+.paradise-cf-range-double {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
-.paradise-cf-range-input {
-    flex: 1;
-    max-width: 280px;
+.paradise-cf-range-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 
-.paradise-cf-range-value {
-    display: inline-block;
-    min-width: 2.5em;
-    text-align: right;
-    font-variant-numeric: tabular-nums;
+.paradise-cf-range-handle-label {
+    font-size: 12px;
     color: #50575e;
+}
+
+.paradise-cf-range-sep {
+    color: #50575e;
+    user-select: none;
 }
 
 /* ── Sortable placeholder ───────────────────────────────────────────────── */
