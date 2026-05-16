@@ -16,7 +16,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `email` is the first field type whose Elementor dynamic-tag binding is **multi-category** — it appears in both the TEXT dropdown (Heading / Button label) and the URL dropdown (Button URL, bound as `mailto:`). Shortcode supports `output="mailto"` and `output="link"` variants.
   - `number` uses `FILTER_VALIDATE_INT` so `'1.5'` is rejected rather than silently truncated. `color` validates `#RRGGBB` and lowercases on save. `range` is an **open-bounded integer pair** (Min/Max) — pick any integers (e.g. 50–200, 1–10, -40–40); stored as `"min,max"`. Render variants: `output="min"`, `output="max"`, `output="raw"`. Sanitize swaps Min and Max if entered out of order so the stored form's ordering invariant always holds.
 - **Array-shaped `el_category` in the type registry** — `'text'` or `['text', 'url']`. Backward-compatible: existing string-valued types keep working. Filter `paradise_custom_field_types` lets sites add their own multi-category types without forking.
-- **Live value display in the admin** — range slider shows its current value next to it, updating mid-drag; color picker shows the chosen hex next to the swatch.
+- **Live hex display next to the color picker** — admin shows the chosen `#RRGGBB` next to the native swatch and updates as the user hovers/picks.
+
+## [2.8.1] - 2026-05-15
+
+### Fixed
+
+- **Cookie Consent Bar widget icon** — was `eicon-cookie`, which doesn't exist in Elementor's icon font, so the widget appeared icon-less in the editor's widget panel. Replaced with `eicon-info-circle` (visually distinct from the Announcement Bar's `eicon-alert`).
 
 ## [2.8.0] - 2026-05-15
 

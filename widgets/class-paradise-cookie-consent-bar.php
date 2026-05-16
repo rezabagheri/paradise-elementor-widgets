@@ -18,7 +18,7 @@ class Paradise_Cookie_Consent_Bar_Widget extends Paradise_Widget_Base {
 
     public function get_name(): string    { return 'paradise_cookie_consent_bar'; }
     public function get_title(): string   { return esc_html__( 'Cookie Consent Bar', 'paradise-elementor-widgets' ); }
-    public function get_icon(): string    { return 'eicon-cookie'; }
+    public function get_icon(): string    { return 'eicon-info-circle'; }
     public function get_keywords(): array { return [ 'cookie', 'consent', 'gdpr', 'privacy', 'bar', 'notice' ]; }
 
     // get_categories() and get_style_depends() come from the base — defaults
