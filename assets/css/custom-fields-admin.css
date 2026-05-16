@@ -126,7 +126,13 @@
 .paradise-cf-value[data-active-type="text"]     .paradise-cf-value-variant[data-type="text"],
 .paradise-cf-value[data-active-type="textarea"] .paradise-cf-value-variant[data-type="textarea"],
 .paradise-cf-value[data-active-type="url"]      .paradise-cf-value-variant[data-type="url"],
-.paradise-cf-value[data-active-type="image"]    .paradise-cf-value-variant[data-type="image"] {
+.paradise-cf-value[data-active-type="image"]    .paradise-cf-value-variant[data-type="image"],
+.paradise-cf-value[data-active-type="date"]     .paradise-cf-value-variant[data-type="date"],
+.paradise-cf-value[data-active-type="time"]     .paradise-cf-value-variant[data-type="time"],
+.paradise-cf-value[data-active-type="email"]    .paradise-cf-value-variant[data-type="email"],
+.paradise-cf-value[data-active-type="number"]   .paradise-cf-value-variant[data-type="number"],
+.paradise-cf-value[data-active-type="color"]    .paradise-cf-value-variant[data-type="color"],
+.paradise-cf-value[data-active-type="range"]    .paradise-cf-value-variant[data-type="range"] {
     display: block;
 }
 
@@ -152,6 +158,50 @@
  */
 .paradise-cf-wrap [hidden] {
     display: none !important;
+}
+
+/* ── Color picker — hex shown alongside the native swatch ──────────────── */
+
+.paradise-cf-value-variant[data-type="color"] {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.paradise-cf-color-input {
+    width: 48px;
+    height: 32px;
+    padding: 0;
+    border: 1px solid #c3c4c7;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.paradise-cf-color-hex {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    color: #50575e;
+}
+
+/* ── Range slider — current value shown live ──────────────────────────── */
+
+.paradise-cf-value-variant[data-type="range"] {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.paradise-cf-range-input {
+    flex: 1;
+    max-width: 280px;
+}
+
+.paradise-cf-range-value {
+    display: inline-block;
+    min-width: 2.5em;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    color: #50575e;
 }
 
 /* ── Sortable placeholder ───────────────────────────────────────────────── */

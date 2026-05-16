@@ -46,13 +46,17 @@ class Paradise_CF_Tags {
      * Build a [field_key => "Group Label — Field Label"] options array
      * for fields whose type maps to the given Elementor el_category.
      *
-     * `text` category includes BOTH 'text' and 'textarea' field types
-     * because their registry value of `el_category` is the same.
+     * A type's `el_category` may be either a single string ('text') or
+     * an array (['text', 'url']) — the latter lets one field type (e.g.
+     * email) surface in multiple Elementor dropdowns. Both shapes are
+     * accepted here, so existing string-valued types keep working.
      */
     public static function field_options_for_category( string $el_category ): array {
         $valid_types = [];
         foreach ( Paradise_Custom_Fields::get_types() as $type_slug => $type ) {
-            if ( ( $type['el_category'] ?? '' ) === $el_category ) {
+            $cats = $type['el_category'] ?? '';
+            $cats = is_array( $cats ) ? $cats : [ $cats ];
+            if ( in_array( $el_category, $cats, true ) ) {
                 $valid_types[ $type_slug ] = true;
             }
         }

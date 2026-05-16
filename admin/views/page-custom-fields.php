@@ -81,6 +81,63 @@ function paradise_cf_render_value( string $name_prefix, string $type, $value ): 
             </div>
         </div>
 
+        <!-- date -->
+        <div class="paradise-cf-value-variant" data-type="date">
+            <input type="date"
+                name="<?php echo esc_attr( $name_prefix ); ?>[value]"
+                value="<?php echo $type === 'date' ? esc_attr( $val ) : ''; ?>"
+                <?php disabled( $type !== 'date' ); ?>>
+        </div>
+
+        <!-- time -->
+        <div class="paradise-cf-value-variant" data-type="time">
+            <input type="time"
+                name="<?php echo esc_attr( $name_prefix ); ?>[value]"
+                value="<?php echo $type === 'time' ? esc_attr( $val ) : ''; ?>"
+                <?php disabled( $type !== 'time' ); ?>>
+        </div>
+
+        <!-- email -->
+        <div class="paradise-cf-value-variant" data-type="email">
+            <input type="email"
+                class="regular-text"
+                name="<?php echo esc_attr( $name_prefix ); ?>[value]"
+                value="<?php echo $type === 'email' ? esc_attr( $val ) : ''; ?>"
+                <?php disabled( $type !== 'email' ); ?>
+                placeholder="hello@example.com">
+        </div>
+
+        <!-- number -->
+        <div class="paradise-cf-value-variant" data-type="number">
+            <input type="number"
+                class="small-text"
+                name="<?php echo esc_attr( $name_prefix ); ?>[value]"
+                value="<?php echo $type === 'number' ? esc_attr( $val ) : ''; ?>"
+                <?php disabled( $type !== 'number' ); ?>>
+        </div>
+
+        <!-- color -->
+        <div class="paradise-cf-value-variant" data-type="color">
+            <input type="color"
+                class="paradise-cf-color-input"
+                name="<?php echo esc_attr( $name_prefix ); ?>[value]"
+                value="<?php echo $type === 'color' && $val !== '' ? esc_attr( $val ) : '#000000'; ?>"
+                <?php disabled( $type !== 'color' ); ?>>
+            <span class="paradise-cf-color-hex"><?php echo $type === 'color' ? esc_html( $val ) : ''; ?></span>
+        </div>
+
+        <!-- range -->
+        <div class="paradise-cf-value-variant" data-type="range">
+            <?php $range_val = ( $type === 'range' && $val !== '' ) ? (int) $val : 0; ?>
+            <input type="range"
+                class="paradise-cf-range-input"
+                min="0" max="100" step="1"
+                name="<?php echo esc_attr( $name_prefix ); ?>[value]"
+                value="<?php echo esc_attr( (string) $range_val ); ?>"
+                <?php disabled( $type !== 'range' ); ?>>
+            <span class="paradise-cf-range-value"><?php echo esc_html( (string) $range_val ); ?></span>
+        </div>
+
     </div>
     <?php
 }

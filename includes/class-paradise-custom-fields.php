@@ -150,6 +150,127 @@ class Paradise_Custom_Fields {
                 },
                 'el_category' => 'image',
             ],
+
+            // ── date ──────────────────────────────────────────────────────────
+            // ISO-8601 (YYYY-MM-DD) stored, locale-formatted on output. Sanitize
+            // accepts the strict ISO shape only — anything else collapses to ''
+            // so a corrupted POST can't write garbage into the option.
+            //
+            //   output=""          → date_i18n(get_option('date_format'), …)
+            //   output="raw"       → YYYY-MM-DD (e.g. for HTML <time datetime>)
+            //   output="timestamp" → Unix seconds at midnight site-tz
+            'date' => [
+                'label'       => __( 'Date', 'paradise-elementor-widgets' ),
+                'sanitize'    => static fn( $v ) => preg_match( '/^\d{4}-\d{2}-\d{2}$/', (string) $v ) ? (string) $v : '',
+                'render'      => static function ( $v, $output ) {
+                    $iso = (string) $v;
+                    if ( $iso === '' ) {
+                        return '';
+                    }
+                    $ts = strtotime( $iso . ' 00:00:00' );
+                    if ( $ts === false ) {
+                        return '';
+                    }
+                    return match ( $output ) {
+                        'raw'       => esc_html( $iso ),
+                        'timestamp' => (string) $ts,
+                        default     => esc_html( (string) date_i18n( (string) get_option( 'date_format' ), $ts ) ),
+                    };
+                },
+                'el_category' => 'text',
+            ],
+
+            // ── time ──────────────────────────────────────────────────────────
+            // HH:MM (24-hour) stored, locale-formatted on output. Anchored to
+            // "today" so date_i18n can format it through the same pipeline as
+            // dates without inventing a custom time formatter.
+            //
+            //   output=""    → date_i18n(get_option('time_format'), …)
+            //   output="raw" → HH:MM
+            'time' => [
+                'label'       => __( 'Time', 'paradise-elementor-widgets' ),
+                'sanitize'    => static fn( $v ) => preg_match( '/^\d{2}:\d{2}$/', (string) $v ) ? (string) $v : '',
+                'render'      => static function ( $v, $output ) {
+                    $hm = (string) $v;
+                    if ( $hm === '' ) {
+                        return '';
+                    }
+                    $ts = strtotime( 'today ' . $hm );
+                    if ( $ts === false ) {
+                        return '';
+                    }
+                    return match ( $output ) {
+                        'raw'   => esc_html( $hm ),
+                        default => esc_html( (string) date_i18n( (string) get_option( 'time_format' ), $ts ) ),
+                    };
+                },
+                'el_category' => 'text',
+            ],
+
+            // ── email ─────────────────────────────────────────────────────────
+            // Visible in both TEXT and URL dynamic-tag dropdowns — the latter
+            // lets Button/Link controls bind a mailto: directly. Render gives
+            // a plain escaped address by default, and a mailto: form on demand
+            // (used by both the URL dynamic tag and the shortcode link mode).
+            //
+            //   output=""       → escaped email string
+            //   output="mailto" → mailto: URL (used for Button URL bindings)
+            //   output="link"   → <a href="mailto:…">email</a>
+            'email' => [
+                'label'       => __( 'Email', 'paradise-elementor-widgets' ),
+                'sanitize'    => static fn( $v ) => sanitize_email( (string) $v ),
+                'render'      => static function ( $v, $output ) {
+                    $email = (string) $v;
+                    if ( $email === '' ) {
+                        return '';
+                    }
+                    return match ( $output ) {
+                        'mailto' => esc_url( 'mailto:' . $email ),
+                        'link'   => '<a href="' . esc_url( 'mailto:' . $email ) . '">' . esc_html( $email ) . '</a>',
+                        default  => esc_html( $email ),
+                    };
+                },
+                // Two categories: text (Heading, Button label, etc.) AND
+                // url (Button URL, Link control). field_options_for_category
+                // accepts both string and array shapes — see the registry
+                // helper's comment for the rationale.
+                'el_category' => [ 'text', 'url' ],
+            ],
+
+            // ── number ────────────────────────────────────────────────────────
+            // Integer stored. Validation via filter_var so '1.5' coerces
+            // cleanly (it returns false and we fall back to 0). PHP's
+            // (int) cast would silently truncate '1.5' to 1 — semantically
+            // different and harder to catch.
+            'number' => [
+                'label'       => __( 'Number', 'paradise-elementor-widgets' ),
+                'sanitize'    => static fn( $v ) => (int) filter_var( (string) $v, FILTER_VALIDATE_INT ),
+                'render'      => static fn( $v, $output ) => esc_html( (string) (int) $v ),
+                'el_category' => 'text',
+            ],
+
+            // ── color ─────────────────────────────────────────────────────────
+            // 6-digit hex (#RRGGBB). Lowercased on save for cache friendliness.
+            // Anything that doesn't match the hex pattern (e.g. 'rgb(…)' or a
+            // 3-digit shorthand) collapses to '' rather than being stored.
+            'color' => [
+                'label'       => __( 'Color', 'paradise-elementor-widgets' ),
+                'sanitize'    => static fn( $v ) => preg_match( '/^#[0-9a-fA-F]{6}$/', (string) $v ) ? strtolower( (string) $v ) : '',
+                'render'      => static fn( $v, $output ) => esc_html( (string) $v ),
+                'el_category' => 'text',
+            ],
+
+            // ── range ─────────────────────────────────────────────────────────
+            // 0–100 integer slider. Bounds are fixed at this version; if you
+            // want different bounds, use the `number` type instead. clamp via
+            // min/max so a tampered POST (e.g. -1 or 999) is normalised, not
+            // dropped — preserving the user's intent at the closest valid value.
+            'range' => [
+                'label'       => __( 'Range (0–100)', 'paradise-elementor-widgets' ),
+                'sanitize'    => static fn( $v ) => max( 0, min( 100, (int) filter_var( (string) $v, FILTER_VALIDATE_INT ) ) ),
+                'render'      => static fn( $v, $output ) => esc_html( (string) (int) $v ),
+                'el_category' => 'text',
+            ],
         ];
 
         return apply_filters( 'paradise_custom_field_types', $types );

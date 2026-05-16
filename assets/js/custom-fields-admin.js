@@ -228,6 +228,30 @@
             if (choose)  choose.textContent = id ? 'Change Image' : 'Choose Image';
         }
 
+        // ── Range slider + color picker: live value display ────────────────────
+
+        /**
+         * Two type variants render a small companion <span> next to the native
+         * input — range shows the integer value, color shows the hex code.
+         * Listening on `input` (not `change`) means the number tracks the user
+         * mid-drag for range, and updates as soon as a colour is hovered in
+         * the OS picker. Delegated so newly-cloned rows pick the handler up
+         * without extra wiring.
+         */
+        document.addEventListener('input', function (e) {
+            var rangeInput = e.target.closest('.paradise-cf-range-input');
+            if (rangeInput) {
+                var rDisplay = rangeInput.parentElement.querySelector('.paradise-cf-range-value');
+                if (rDisplay) rDisplay.textContent = rangeInput.value;
+                return;
+            }
+            var colorInput = e.target.closest('.paradise-cf-color-input');
+            if (colorInput) {
+                var cDisplay = colorInput.parentElement.querySelector('.paradise-cf-color-hex');
+                if (cDisplay) cDisplay.textContent = colorInput.value;
+            }
+        });
+
         // ── Copy shortcode ────────────────────────────────────────────────────
 
         document.addEventListener('click', function (e) {
