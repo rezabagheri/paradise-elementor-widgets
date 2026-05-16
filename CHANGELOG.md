@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.8.1] - 2026-05-15
+
+### Fixed
+
+- **Cookie Consent Bar widget icon** — was `eicon-cookie`, which doesn't exist in Elementor's icon font, so the widget appeared icon-less in the editor's widget panel. Replaced with `eicon-info-circle` (visually distinct from the Announcement Bar's `eicon-alert`).
+
 ## [2.8.0] - 2026-05-15
 
 ### Added
