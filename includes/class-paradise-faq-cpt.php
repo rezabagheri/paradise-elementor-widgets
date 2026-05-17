@@ -35,15 +35,15 @@ class Paradise_FAQ_CPT {
     public static function register_post_type(): void {
         register_post_type( self::POST_TYPE, [
             'labels' => [
-                'name'               => esc_html__( 'FAQs',                   'paradise-elementor-widgets' ),
-                'singular_name'      => esc_html__( 'FAQ',                    'paradise-elementor-widgets' ),
-                'add_new_item'       => esc_html__( 'Add New FAQ Set',        'paradise-elementor-widgets' ),
-                'edit_item'          => esc_html__( 'Edit FAQ Set',           'paradise-elementor-widgets' ),
-                'new_item'           => esc_html__( 'New FAQ Set',            'paradise-elementor-widgets' ),
-                'search_items'       => esc_html__( 'Search FAQs',            'paradise-elementor-widgets' ),
-                'not_found'          => esc_html__( 'No FAQ sets found.',     'paradise-elementor-widgets' ),
-                'not_found_in_trash' => esc_html__( 'No FAQ sets in Trash.',  'paradise-elementor-widgets' ),
-                'menu_name'          => esc_html__( 'FAQs',                   'paradise-elementor-widgets' ),
+                'name'               => esc_html__( 'FAQs',                   'paradise-widgets-for-elementor' ),
+                'singular_name'      => esc_html__( 'FAQ',                    'paradise-widgets-for-elementor' ),
+                'add_new_item'       => esc_html__( 'Add New FAQ Set',        'paradise-widgets-for-elementor' ),
+                'edit_item'          => esc_html__( 'Edit FAQ Set',           'paradise-widgets-for-elementor' ),
+                'new_item'           => esc_html__( 'New FAQ Set',            'paradise-widgets-for-elementor' ),
+                'search_items'       => esc_html__( 'Search FAQs',            'paradise-widgets-for-elementor' ),
+                'not_found'          => esc_html__( 'No FAQ sets found.',     'paradise-widgets-for-elementor' ),
+                'not_found_in_trash' => esc_html__( 'No FAQ sets in Trash.',  'paradise-widgets-for-elementor' ),
+                'menu_name'          => esc_html__( 'FAQs',                   'paradise-widgets-for-elementor' ),
             ],
             'public'       => false,
             'show_ui'      => true,
@@ -61,7 +61,7 @@ class Paradise_FAQ_CPT {
     public static function add_meta_boxes(): void {
         add_meta_box(
             'paradise_faq_items',
-            esc_html__( 'FAQ Items', 'paradise-elementor-widgets' ),
+            esc_html__( 'FAQ Items', 'paradise-widgets-for-elementor' ),
             [ __CLASS__, 'render_meta_box' ],
             self::POST_TYPE,
             'normal',
@@ -82,15 +82,15 @@ class Paradise_FAQ_CPT {
                     <div class="paradise-faq-mb-row-header">
                         <span class="paradise-faq-mb-num"><?php echo esc_html( (string) ( $i + 1 ) ); ?></span>
                         <span class="paradise-faq-mb-preview"><?php echo esc_html( mb_substr( $item['question'] ?? '', 0, 60 ) ); ?></span>
-                        <button type="button" class="paradise-faq-mb-remove button-link-delete"><?php esc_html_e( 'Remove', 'paradise-elementor-widgets' ); ?></button>
+                        <button type="button" class="paradise-faq-mb-remove button-link-delete"><?php esc_html_e( 'Remove', 'paradise-widgets-for-elementor' ); ?></button>
                     </div>
                     <div class="paradise-faq-mb-fields">
                         <p>
-                            <label><?php esc_html_e( 'Question', 'paradise-elementor-widgets' ); ?></label>
+                            <label><?php esc_html_e( 'Question', 'paradise-widgets-for-elementor' ); ?></label>
                             <input type="text" class="widefat paradise-faq-mb-q" name="paradise_faq_q[]" value="<?php echo esc_attr( $item['question'] ?? '' ); ?>">
                         </p>
                         <p class="paradise-faq-mb-answer-wrap">
-                            <label><?php esc_html_e( 'Answer', 'paradise-elementor-widgets' ); ?></label>
+                            <label><?php esc_html_e( 'Answer', 'paradise-widgets-for-elementor' ); ?></label>
                             <?php
                             wp_editor(
                                 wp_kses_post( $item['answer'] ?? '' ),
@@ -114,7 +114,7 @@ class Paradise_FAQ_CPT {
             </div>
             <p class="paradise-faq-mb-footer">
                 <button type="button" class="button" id="paradise-faq-mb-add">
-                    + <?php esc_html_e( 'Add Item', 'paradise-elementor-widgets' ); ?>
+                    + <?php esc_html_e( 'Add Item', 'paradise-widgets-for-elementor' ); ?>
                 </button>
             </p>
         </div>
@@ -178,9 +178,9 @@ class Paradise_FAQ_CPT {
             true
         );
         wp_localize_script( 'paradise-faq-meta-box', 'paradiseFaqMb', [
-            'labelQuestion' => __( 'Question', 'paradise-elementor-widgets' ),
-            'labelAnswer'   => __( 'Answer',   'paradise-elementor-widgets' ),
-            'labelRemove'   => __( 'Remove',   'paradise-elementor-widgets' ),
+            'labelQuestion' => __( 'Question', 'paradise-widgets-for-elementor' ),
+            'labelAnswer'   => __( 'Answer',   'paradise-widgets-for-elementor' ),
+            'labelRemove'   => __( 'Remove',   'paradise-widgets-for-elementor' ),
             'rowCount'      => count( self::get_raw_items( $post->ID ) ),
         ] );
     }
@@ -192,8 +192,8 @@ class Paradise_FAQ_CPT {
         foreach ( $columns as $key => $label ) {
             $new[ $key ] = $label;
             if ( 'title' === $key ) {
-                $new['faq_item_count']     = esc_html__( 'Items',          'paradise-elementor-widgets' );
-                $new['faq_first_question'] = esc_html__( 'First Question', 'paradise-elementor-widgets' );
+                $new['faq_item_count']     = esc_html__( 'Items',          'paradise-widgets-for-elementor' );
+                $new['faq_first_question'] = esc_html__( 'First Question', 'paradise-widgets-for-elementor' );
             }
         }
         unset( $new['date'] );
@@ -241,7 +241,7 @@ class Paradise_FAQ_CPT {
             'no_found_rows'  => true,
         ] );
 
-        $options = [ '' => esc_html__( '— Select FAQ Set —', 'paradise-elementor-widgets' ) ];
+        $options = [ '' => esc_html__( '— Select FAQ Set —', 'paradise-widgets-for-elementor' ) ];
         foreach ( $posts as $p ) {
             $options[ $p->ID ] = $p->post_title;
         }

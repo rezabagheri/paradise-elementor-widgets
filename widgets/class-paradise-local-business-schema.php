@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Paradise_Local_Business_Schema_Widget extends Paradise_Widget_Base {
 
     public function get_name(): string    { return 'paradise_local_business_schema'; }
-    public function get_title(): string   { return esc_html__( 'LocalBusiness Schema', 'paradise-elementor-widgets' ); }
+    public function get_title(): string   { return esc_html__( 'LocalBusiness Schema', 'paradise-widgets-for-elementor' ); }
     public function get_icon(): string    { return 'eicon-code'; }
     public function get_keywords(): array { return [ 'schema', 'seo', 'json-ld', 'structured', 'local', 'business' ]; }
 
@@ -28,21 +28,21 @@ class Paradise_Local_Business_Schema_Widget extends Paradise_Widget_Base {
     protected function register_controls(): void {
 
         $this->start_controls_section( 'section_business', [
-            'label' => esc_html__( 'Business Info', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Business Info', 'paradise-widgets-for-elementor' ),
             'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
         ] );
 
         $this->add_control( 'business_name', [
-            'label'       => esc_html__( 'Business Name', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'Business Name', 'paradise-widgets-for-elementor' ),
             'type'        => \Elementor\Controls_Manager::TEXT,
             'placeholder' => get_bloginfo( 'name' ),
-            'description' => esc_html__( 'Leave blank to use the site title.', 'paradise-elementor-widgets' ),
+            'description' => esc_html__( 'Leave blank to use the site title.', 'paradise-widgets-for-elementor' ),
             'label_block' => true,
             'dynamic'     => [ 'active' => true ],
         ] );
 
         $this->add_control( 'business_type', [
-            'label'   => esc_html__( 'Business Type', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Business Type', 'paradise-widgets-for-elementor' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => 'LocalBusiness',
             'options' => [
@@ -63,18 +63,18 @@ class Paradise_Local_Business_Schema_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'description', [
-            'label'      => esc_html__( 'Description', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Description', 'paradise-widgets-for-elementor' ),
             'type'       => \Elementor\Controls_Manager::TEXTAREA,
             'rows'       => 3,
             'dynamic'    => [ 'active' => true ],
         ] );
 
         $this->add_control( 'price_range', [
-            'label'   => esc_html__( 'Price Range', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Price Range', 'paradise-widgets-for-elementor' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => '',
             'options' => [
-                ''      => esc_html__( '— Not specified —', 'paradise-elementor-widgets' ),
+                ''      => esc_html__( '— Not specified —', 'paradise-widgets-for-elementor' ),
                 '$'     => '$',
                 '$$'    => '$$',
                 '$$$'   => '$$$',
@@ -85,27 +85,27 @@ class Paradise_Local_Business_Schema_Widget extends Paradise_Widget_Base {
         $this->end_controls_section();
 
         $this->start_controls_section( 'section_site_info', [
-            'label' => esc_html__( 'Site Info Mapping', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Site Info Mapping', 'paradise-widgets-for-elementor' ),
             'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
         ] );
 
         $this->add_control( 'location_index', [
-            'label'       => esc_html__( 'Location', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'Location', 'paradise-widgets-for-elementor' ),
             'type'        => \Elementor\Controls_Manager::SELECT,
             'options'     => Paradise_Site_Info::get_location_select_options(),
             'default'     => '0',
-            'description' => esc_html__( 'Pulls phone, address, and hours from this location.', 'paradise-elementor-widgets' ),
+            'description' => esc_html__( 'Pulls phone, address, and hours from this location.', 'paradise-widgets-for-elementor' ),
         ] );
 
         $this->add_control( 'include_socials', [
-            'label'        => esc_html__( 'Include Social Links (sameAs)', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Include Social Links (sameAs)', 'paradise-widgets-for-elementor' ),
             'type'         => \Elementor\Controls_Manager::SWITCHER,
             'default'      => 'yes',
             'return_value' => 'yes',
         ] );
 
         $this->add_control( 'include_hours', [
-            'label'        => esc_html__( 'Include Business Hours', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Include Business Hours', 'paradise-widgets-for-elementor' ),
             'type'         => \Elementor\Controls_Manager::SWITCHER,
             'default'      => 'yes',
             'return_value' => 'yes',
@@ -194,8 +194,8 @@ class Paradise_Local_Business_Schema_Widget extends Paradise_Widget_Base {
 
         if ( $is_editor ) {
             echo '<div class="paradise-lbs-editor-notice">'
-               . '<strong>' . esc_html__( 'LocalBusiness Schema', 'paradise-elementor-widgets' ) . '</strong> — '
-               . esc_html__( 'JSON-LD is injected here on the live page. Invisible to visitors.', 'paradise-elementor-widgets' )
+               . '<strong>' . esc_html__( 'LocalBusiness Schema', 'paradise-widgets-for-elementor' ) . '</strong> — '
+               . esc_html__( 'JSON-LD is injected here on the live page. Invisible to visitors.', 'paradise-widgets-for-elementor' )
                . '</div>';
         }
     }

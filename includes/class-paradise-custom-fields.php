@@ -74,7 +74,7 @@ class Paradise_Custom_Fields {
             // HTML-escaped text. Output mode is ignored (text has no
             // meaningful variants).
             'text' => [
-                'label'       => __( 'Text', 'paradise-elementor-widgets' ),
+                'label'       => __( 'Text', 'paradise-widgets-for-elementor' ),
                 'sanitize'    => static fn( $v ) => sanitize_text_field( (string) $v ),
                 'render'      => static fn( $v, $output ) => esc_html( (string) $v ),
                 'el_category' => 'text',
@@ -89,7 +89,7 @@ class Paradise_Custom_Fields {
             // escaped string — useful when injecting into a context where
             // tags would break (e.g. an HTML attribute).
             'textarea' => [
-                'label'       => __( 'Textarea', 'paradise-elementor-widgets' ),
+                'label'       => __( 'Textarea', 'paradise-widgets-for-elementor' ),
                 'sanitize'    => static fn( $v ) => sanitize_textarea_field( (string) $v ),
                 'render'      => static fn( $v, $output ) => 'raw' === $output
                     ? esc_html( (string) $v )
@@ -109,7 +109,7 @@ class Paradise_Custom_Fields {
             //   output=""     → escaped URL (default; suitable for href/src)
             //   output="link" → <a href="...">URL</a>
             'url' => [
-                'label'       => __( 'URL', 'paradise-elementor-widgets' ),
+                'label'       => __( 'URL', 'paradise-widgets-for-elementor' ),
                 'sanitize'    => static fn( $v ) => esc_url_raw( (string) $v ),
                 'render'      => static function ( $v, $output ) {
                     $url = (string) $v;
@@ -135,7 +135,7 @@ class Paradise_Custom_Fields {
             //                   (wp_get_attachment_image handles all of these)
             //   output="id"   → the numeric ID as a string
             'image' => [
-                'label'       => __( 'Image', 'paradise-elementor-widgets' ),
+                'label'       => __( 'Image', 'paradise-widgets-for-elementor' ),
                 'sanitize'    => static fn( $v ) => absint( $v ),
                 'render'      => static function ( $v, $output ) {
                     $id = absint( $v );
@@ -160,7 +160,7 @@ class Paradise_Custom_Fields {
             //   output="raw"       → YYYY-MM-DD (e.g. for HTML <time datetime>)
             //   output="timestamp" → Unix seconds at midnight site-tz
             'date' => [
-                'label'       => __( 'Date', 'paradise-elementor-widgets' ),
+                'label'       => __( 'Date', 'paradise-widgets-for-elementor' ),
                 'sanitize'    => static fn( $v ) => preg_match( '/^\d{4}-\d{2}-\d{2}$/', (string) $v ) ? (string) $v : '',
                 'render'      => static function ( $v, $output ) {
                     $iso = (string) $v;
@@ -188,7 +188,7 @@ class Paradise_Custom_Fields {
             //   output=""    → date_i18n(get_option('time_format'), …)
             //   output="raw" → HH:MM
             'time' => [
-                'label'       => __( 'Time', 'paradise-elementor-widgets' ),
+                'label'       => __( 'Time', 'paradise-widgets-for-elementor' ),
                 'sanitize'    => static fn( $v ) => preg_match( '/^\d{2}:\d{2}$/', (string) $v ) ? (string) $v : '',
                 'render'      => static function ( $v, $output ) {
                     $hm = (string) $v;
@@ -217,7 +217,7 @@ class Paradise_Custom_Fields {
             //   output="mailto" → mailto: URL (used for Button URL bindings)
             //   output="link"   → <a href="mailto:…">email</a>
             'email' => [
-                'label'       => __( 'Email', 'paradise-elementor-widgets' ),
+                'label'       => __( 'Email', 'paradise-widgets-for-elementor' ),
                 'sanitize'    => static fn( $v ) => sanitize_email( (string) $v ),
                 'render'      => static function ( $v, $output ) {
                     $email = (string) $v;
@@ -243,7 +243,7 @@ class Paradise_Custom_Fields {
             // (int) cast would silently truncate '1.5' to 1 — semantically
             // different and harder to catch.
             'number' => [
-                'label'       => __( 'Number', 'paradise-elementor-widgets' ),
+                'label'       => __( 'Number', 'paradise-widgets-for-elementor' ),
                 'sanitize'    => static fn( $v ) => (int) filter_var( (string) $v, FILTER_VALIDATE_INT ),
                 'render'      => static fn( $v, $output ) => esc_html( (string) (int) $v ),
                 'el_category' => 'text',
@@ -254,7 +254,7 @@ class Paradise_Custom_Fields {
             // Anything that doesn't match the hex pattern (e.g. 'rgb(…)' or a
             // 3-digit shorthand) collapses to '' rather than being stored.
             'color' => [
-                'label'       => __( 'Color', 'paradise-elementor-widgets' ),
+                'label'       => __( 'Color', 'paradise-widgets-for-elementor' ),
                 'sanitize'    => static fn( $v ) => preg_match( '/^#[0-9a-fA-F]{6}$/', (string) $v ) ? strtolower( (string) $v ) : '',
                 'render'      => static fn( $v, $output ) => esc_html( (string) $v ),
                 'el_category' => 'text',
@@ -276,7 +276,7 @@ class Paradise_Custom_Fields {
             //   output="max" → "80"
             //   output="raw" → "10,80"
             'range' => [
-                'label'    => __( 'Range', 'paradise-elementor-widgets' ),
+                'label'    => __( 'Range', 'paradise-widgets-for-elementor' ),
                 'sanitize' => static function ( $v ) {
                     $raw = trim( (string) $v );
                     if ( $raw === '' ) {

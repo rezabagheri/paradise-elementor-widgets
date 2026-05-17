@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
 
     public function get_name(): string    { return 'paradise_social_links'; }
-    public function get_title(): string   { return esc_html__( 'Social Links', 'paradise-elementor-widgets' ); }
+    public function get_title(): string   { return esc_html__( 'Social Links', 'paradise-widgets-for-elementor' ); }
     public function get_icon(): string    { return 'eicon-social-icons'; }
     public function get_keywords(): array { return [ 'social', 'icons', 'links', 'instagram', 'facebook', 'share' ]; }
 
@@ -30,37 +30,37 @@ class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
         // ── Links ─────────────────────────────────────────────────────────────
 
         $this->start_controls_section( 'section_links', [
-            'label' => esc_html__( 'Links', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Links', 'paradise-widgets-for-elementor' ),
             'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
         ] );
 
         $this->add_control( 'source', [
-            'label'   => esc_html__( 'Source', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Source', 'paradise-widgets-for-elementor' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => 'site_info',
             'options' => [
-                'site_info' => esc_html__( 'Site Info', 'paradise-elementor-widgets' ),
-                'custom'    => esc_html__( 'Custom', 'paradise-elementor-widgets' ),
+                'site_info' => esc_html__( 'Site Info', 'paradise-widgets-for-elementor' ),
+                'custom'    => esc_html__( 'Custom', 'paradise-widgets-for-elementor' ),
             ],
         ] );
 
         $platforms = Paradise_Site_Info::social_platforms();
 
         $this->add_control( 'custom_items', [
-            'label'       => esc_html__( 'Social Links', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'Social Links', 'paradise-widgets-for-elementor' ),
             'type'        => \Elementor\Controls_Manager::REPEATER,
             'condition'   => [ 'source' => 'custom' ],
             'fields'      => [
                 [
                     'name'    => 'platform',
-                    'label'   => esc_html__( 'Platform', 'paradise-elementor-widgets' ),
+                    'label'   => esc_html__( 'Platform', 'paradise-widgets-for-elementor' ),
                     'type'    => \Elementor\Controls_Manager::SELECT,
                     'options' => $platforms,
                     'default' => 'instagram',
                 ],
                 [
                     'name'        => 'url',
-                    'label'       => esc_html__( 'URL', 'paradise-elementor-widgets' ),
+                    'label'       => esc_html__( 'URL', 'paradise-widgets-for-elementor' ),
                     'type'        => \Elementor\Controls_Manager::URL,
                     'placeholder' => 'https://',
                     'dynamic'     => [ 'active' => true ],
@@ -70,7 +70,7 @@ class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'open_new_tab', [
-            'label'        => esc_html__( 'Open in New Tab', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Open in New Tab', 'paradise-widgets-for-elementor' ),
             'type'         => \Elementor\Controls_Manager::SWITCHER,
             'default'      => 'yes',
             'return_value' => 'yes',
@@ -81,40 +81,40 @@ class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
         // ── Display ───────────────────────────────────────────────────────────
 
         $this->start_controls_section( 'section_display', [
-            'label' => esc_html__( 'Display', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Display', 'paradise-widgets-for-elementor' ),
             'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
         ] );
 
         $this->add_control( 'display_mode', [
-            'label'        => esc_html__( 'Show', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Show', 'paradise-widgets-for-elementor' ),
             'type'         => \Elementor\Controls_Manager::SELECT,
             'default'      => 'icon_only',
             'options'      => [
-                'icon_only'  => esc_html__( 'Icon Only', 'paradise-elementor-widgets' ),
-                'icon_label' => esc_html__( 'Icon + Label', 'paradise-elementor-widgets' ),
-                'label_only' => esc_html__( 'Label Only', 'paradise-elementor-widgets' ),
+                'icon_only'  => esc_html__( 'Icon Only', 'paradise-widgets-for-elementor' ),
+                'icon_label' => esc_html__( 'Icon + Label', 'paradise-widgets-for-elementor' ),
+                'label_only' => esc_html__( 'Label Only', 'paradise-widgets-for-elementor' ),
             ],
             'prefix_class' => 'paradise-sl-display-',
         ] );
 
         $this->add_control( 'layout', [
-            'label'        => esc_html__( 'Layout', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Layout', 'paradise-widgets-for-elementor' ),
             'type'         => \Elementor\Controls_Manager::SELECT,
             'default'      => 'horizontal',
             'options'      => [
-                'horizontal' => esc_html__( 'Horizontal', 'paradise-elementor-widgets' ),
-                'vertical'   => esc_html__( 'Vertical', 'paradise-elementor-widgets' ),
+                'horizontal' => esc_html__( 'Horizontal', 'paradise-widgets-for-elementor' ),
+                'vertical'   => esc_html__( 'Vertical', 'paradise-widgets-for-elementor' ),
             ],
             'prefix_class' => 'paradise-sl-layout-',
         ] );
 
         $this->add_responsive_control( 'alignment', [
-            'label'     => esc_html__( 'Alignment', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Alignment', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::CHOOSE,
             'options'   => [
-                'flex-start' => [ 'title' => esc_html__( 'Left', 'paradise-elementor-widgets' ),   'icon' => 'eicon-text-align-left' ],
-                'center'     => [ 'title' => esc_html__( 'Center', 'paradise-elementor-widgets' ), 'icon' => 'eicon-text-align-center' ],
-                'flex-end'   => [ 'title' => esc_html__( 'Right', 'paradise-elementor-widgets' ),  'icon' => 'eicon-text-align-right' ],
+                'flex-start' => [ 'title' => esc_html__( 'Left', 'paradise-widgets-for-elementor' ),   'icon' => 'eicon-text-align-left' ],
+                'center'     => [ 'title' => esc_html__( 'Center', 'paradise-widgets-for-elementor' ), 'icon' => 'eicon-text-align-center' ],
+                'flex-end'   => [ 'title' => esc_html__( 'Right', 'paradise-widgets-for-elementor' ),  'icon' => 'eicon-text-align-right' ],
             ],
             'selectors' => [
                 '{{WRAPPER}} .paradise-sl-wrap' => 'justify-content: {{VALUE}}; align-items: {{VALUE}};',
@@ -126,12 +126,12 @@ class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
         // ── Style: Icons ──────────────────────────────────────────────────────
 
         $this->start_controls_section( 'section_style_icons', [
-            'label' => esc_html__( 'Icons', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Icons', 'paradise-widgets-for-elementor' ),
             'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
         ] );
 
         $this->add_responsive_control( 'icon_size', [
-            'label'      => esc_html__( 'Icon Size', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Icon Size', 'paradise-widgets-for-elementor' ),
             'type'       => \Elementor\Controls_Manager::SLIDER,
             'size_units' => [ 'px' ],
             'range'      => [ 'px' => [ 'min' => 12, 'max' => 80 ] ],
@@ -143,7 +143,7 @@ class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_responsive_control( 'item_padding', [
-            'label'      => esc_html__( 'Item Padding', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Item Padding', 'paradise-widgets-for-elementor' ),
             'type'       => \Elementor\Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', 'em' ],
             'selectors'  => [
@@ -152,7 +152,7 @@ class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_responsive_control( 'gap', [
-            'label'      => esc_html__( 'Gap Between Items', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Gap Between Items', 'paradise-widgets-for-elementor' ),
             'type'       => \Elementor\Controls_Manager::SLIDER,
             'size_units' => [ 'px' ],
             'range'      => [ 'px' => [ 'min' => 0, 'max' => 60 ] ],
@@ -163,12 +163,12 @@ class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'color_mode', [
-            'label'        => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Color', 'paradise-widgets-for-elementor' ),
             'type'         => \Elementor\Controls_Manager::SELECT,
             'default'      => 'uniform',
             'options'      => [
-                'brand'   => esc_html__( 'Brand Colors', 'paradise-elementor-widgets' ),
-                'uniform' => esc_html__( 'Uniform Color', 'paradise-elementor-widgets' ),
+                'brand'   => esc_html__( 'Brand Colors', 'paradise-widgets-for-elementor' ),
+                'uniform' => esc_html__( 'Uniform Color', 'paradise-widgets-for-elementor' ),
             ],
             'prefix_class' => 'paradise-sl-color-',
         ] );
@@ -176,11 +176,11 @@ class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
         $this->start_controls_tabs( 'tabs_icon_color' );
 
         $this->start_controls_tab( 'tab_icon_normal', [
-            'label' => esc_html__( 'Normal', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Normal', 'paradise-widgets-for-elementor' ),
         ] );
 
         $this->add_control( 'uniform_color', [
-            'label'     => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Color', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'default'   => '#555555',
             'selectors' => [
@@ -192,11 +192,11 @@ class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
         $this->end_controls_tab();
 
         $this->start_controls_tab( 'tab_icon_hover', [
-            'label' => esc_html__( 'Hover', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Hover', 'paradise-widgets-for-elementor' ),
         ] );
 
         $this->add_control( 'uniform_hover_color', [
-            'label'     => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Color', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}}.paradise-sl-color-uniform .paradise-sl-item:hover' => 'color: {{VALUE}};',
@@ -208,32 +208,32 @@ class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
         $this->end_controls_tabs();
 
         $this->add_control( 'hover_animation', [
-            'label'        => esc_html__( 'Hover Animation', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Hover Animation', 'paradise-widgets-for-elementor' ),
             'type'         => \Elementor\Controls_Manager::SELECT,
             'default'      => 'lift',
             'options'      => [
-                'none'        => esc_html__( 'None', 'paradise-elementor-widgets' ),
-                'lift'        => esc_html__( 'Lift', 'paradise-elementor-widgets' ),
-                'scale'       => esc_html__( 'Scale', 'paradise-elementor-widgets' ),
-                'color_shift' => esc_html__( 'Color Shift', 'paradise-elementor-widgets' ),
+                'none'        => esc_html__( 'None', 'paradise-widgets-for-elementor' ),
+                'lift'        => esc_html__( 'Lift', 'paradise-widgets-for-elementor' ),
+                'scale'       => esc_html__( 'Scale', 'paradise-widgets-for-elementor' ),
+                'color_shift' => esc_html__( 'Color Shift', 'paradise-widgets-for-elementor' ),
             ],
             'prefix_class' => 'paradise-sl-hover-',
         ] );
 
         $this->add_control( 'shape', [
-            'label'        => esc_html__( 'Icon Shape', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Icon Shape', 'paradise-widgets-for-elementor' ),
             'type'         => \Elementor\Controls_Manager::SELECT,
             'default'      => 'none',
             'options'      => [
-                'none'    => esc_html__( 'None', 'paradise-elementor-widgets' ),
-                'circle'  => esc_html__( 'Circle', 'paradise-elementor-widgets' ),
-                'rounded' => esc_html__( 'Rounded Square', 'paradise-elementor-widgets' ),
+                'none'    => esc_html__( 'None', 'paradise-widgets-for-elementor' ),
+                'circle'  => esc_html__( 'Circle', 'paradise-widgets-for-elementor' ),
+                'rounded' => esc_html__( 'Rounded Square', 'paradise-widgets-for-elementor' ),
             ],
             'prefix_class' => 'paradise-sl-shape-',
         ] );
 
         $this->add_responsive_control( 'shape_size', [
-            'label'      => esc_html__( 'Shape Size', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Shape Size', 'paradise-widgets-for-elementor' ),
             'type'       => \Elementor\Controls_Manager::SLIDER,
             'size_units' => [ 'px' ],
             'range'      => [ 'px' => [ 'min' => 24, 'max' => 80 ] ],
@@ -245,7 +245,7 @@ class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'shape_bg', [
-            'label'     => esc_html__( 'Background', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Background', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} .paradise-sl-icon-wrap' => 'background-color: {{VALUE}};',
@@ -258,7 +258,7 @@ class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
         // ── Style: Labels ─────────────────────────────────────────────────────
 
         $this->start_controls_section( 'section_style_labels', [
-            'label'     => esc_html__( 'Labels', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Labels', 'paradise-widgets-for-elementor' ),
             'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
             'condition' => [ 'display_mode!' => 'icon_only' ],
         ] );
@@ -269,7 +269,7 @@ class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'label_color', [
-            'label'     => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Color', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} .paradise-sl-label' => 'color: {{VALUE}};',
@@ -316,8 +316,8 @@ class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
         if ( empty( $items ) ) {
             if ( $is_editor ) {
                 $msg = $from_si
-                    ? esc_html__( 'No social links saved in Site Info. Go to Paradise → Site Info to add them.', 'paradise-elementor-widgets' )
-                    : esc_html__( 'Add social links in the widget settings.', 'paradise-elementor-widgets' );
+                    ? esc_html__( 'No social links saved in Site Info. Go to Paradise → Site Info to add them.', 'paradise-widgets-for-elementor' )
+                    : esc_html__( 'Add social links in the widget settings.', 'paradise-widgets-for-elementor' );
                 echo '<div class="paradise-sl-placeholder">' . $msg . '</div>';
             }
             return;
@@ -330,7 +330,7 @@ class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
         ?>
         <div class="paradise-sl-wrap">
             <?php if ( $from_si && $is_editor ) : ?>
-            <div class="paradise-sl-si-badge"><?php esc_html_e( '⚡ Live from Site Info', 'paradise-elementor-widgets' ); ?></div>
+            <div class="paradise-sl-si-badge"><?php esc_html_e( '⚡ Live from Site Info', 'paradise-widgets-for-elementor' ); ?></div>
             <?php endif; ?>
 
             <?php foreach ( $items as $item ) :

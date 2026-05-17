@@ -1,18 +1,19 @@
 <?php
 
 /**
- * Plugin Name:       Paradise Elementor Widgets
+ * Plugin Name:       Paradise Widgets for Elementor
  * Plugin URI:        https://www.paradisecyber.com/elementor-widgets
  * Description:       Advanced custom Elementor widgets by Paradise. Phone Link, Bottom Navigation Bar, and more.
- * Version:           2.9.0
+ * Version:           3.0.0
  * Requires at least: 6.1
+ * Tested up to:      6.9
  * Requires PHP:      8.0
  * Requires Plugins:  elementor
  * Author:            Reza Bagheri
  * Author URI:        https://www.paradisecyber.com
  * License:           GPL-2.0+
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       paradise-elementor-widgets
+ * Text Domain:       paradise-widgets-for-elementor
  * Domain Path:       /languages
  */
 
@@ -20,7 +21,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-define('PARADISE_EW_VERSION', '2.9.0');
+define('PARADISE_EW_VERSION', '3.0.0');
 define('PARADISE_EW_DIR', plugin_dir_path(__FILE__));
 define('PARADISE_EW_URL', plugin_dir_url(__FILE__));
 define('PARADISE_EW_MIN_ELEMENTOR_VERSION', '3.5.0');
@@ -96,7 +97,7 @@ final class Paradise_Elementor_Widgets
     public function load_textdomain(): void
     {
         load_plugin_textdomain(
-            'paradise-elementor-widgets',
+            'paradise-widgets-for-elementor',
             false,
             dirname(plugin_basename(__FILE__)) . '/languages'
         );
@@ -124,7 +125,7 @@ final class Paradise_Elementor_Widgets
         }
         printf(
             '<div class="notice notice-warning is-dismissible"><p>%s</p></div>',
-            esc_html__( 'Paradise Elementor Widgets requires Elementor to be installed and active.', 'paradise-elementor-widgets' )
+            esc_html__( 'Paradise Widgets for Elementor requires Elementor to be installed and active.', 'paradise-widgets-for-elementor' )
         );
     }
 
@@ -137,7 +138,7 @@ final class Paradise_Elementor_Widgets
             '<div class="notice notice-warning is-dismissible"><p>%s</p></div>',
             sprintf(
                 /* translators: %s: required Elementor version */
-                esc_html__( 'Paradise Elementor Widgets requires Elementor %s or greater.', 'paradise-elementor-widgets' ),
+                esc_html__( 'Paradise Widgets for Elementor requires Elementor %s or greater.', 'paradise-widgets-for-elementor' ),
                 esc_html( PARADISE_EW_MIN_ELEMENTOR_VERSION )
             )
         );
@@ -155,7 +156,7 @@ final class Paradise_Elementor_Widgets
     public function register_category($elements_manager): void
     {
         $elements_manager->add_category('paradise', [
-            'title' => esc_html__('Paradise Widgets', 'paradise-elementor-widgets'),
+            'title' => esc_html__('Paradise Widgets', 'paradise-widgets-for-elementor'),
             'icon'  => 'fa fa-plug',
         ]);
 
@@ -164,7 +165,7 @@ final class Paradise_Elementor_Widgets
         // the main "Paradise Widgets" category so end users don't confuse
         // teaching material with production widgets.
         $elements_manager->add_category('paradise-examples', [
-            'title' => esc_html__('Paradise Examples', 'paradise-elementor-widgets'),
+            'title' => esc_html__('Paradise Examples', 'paradise-widgets-for-elementor'),
             'icon'  => 'fa fa-graduation-cap',
         ]);
     }

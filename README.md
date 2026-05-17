@@ -1,4 +1,4 @@
-# Paradise Elementor Widgets
+# Paradise Widgets for Elementor
 
 **Advanced custom Elementor widgets** focused on mobile experience, direct contact, local SEO, and high performance.
 

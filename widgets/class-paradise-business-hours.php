@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Paradise_Business_Hours_Widget extends Paradise_Widget_Base {
 
     public function get_name(): string    { return 'paradise_business_hours'; }
-    public function get_title(): string   { return esc_html__( 'Business Hours', 'paradise-elementor-widgets' ); }
+    public function get_title(): string   { return esc_html__( 'Business Hours', 'paradise-widgets-for-elementor' ); }
     public function get_icon(): string    { return 'eicon-clock-o'; }
     public function get_keywords(): array { return [ 'hours', 'business', 'schedule', 'open', 'closed', 'time' ]; }
 
@@ -30,45 +30,45 @@ class Paradise_Business_Hours_Widget extends Paradise_Widget_Base {
         // ── Display ───────────────────────────────────────────────────────────
 
         $this->start_controls_section( 'section_display', [
-            'label' => esc_html__( 'Display', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Display', 'paradise-widgets-for-elementor' ),
             'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
         ] );
 
         $this->add_control( 'location_index', [
-            'label'   => esc_html__( 'Location', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Location', 'paradise-widgets-for-elementor' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'options' => Paradise_Site_Info::get_location_select_options(),
             'default' => '0',
         ] );
 
         $this->add_control( 'show_badge', [
-            'label'        => esc_html__( 'Show Open/Closed Badge', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Show Open/Closed Badge', 'paradise-widgets-for-elementor' ),
             'type'         => \Elementor\Controls_Manager::SWITCHER,
             'default'      => 'yes',
             'return_value' => 'yes',
         ] );
 
         $this->add_control( 'highlight_today', [
-            'label'        => esc_html__( 'Highlight Today', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Highlight Today', 'paradise-widgets-for-elementor' ),
             'type'         => \Elementor\Controls_Manager::SWITCHER,
             'default'      => 'yes',
             'return_value' => 'yes',
         ] );
 
         $this->add_control( 'time_format', [
-            'label'   => esc_html__( 'Time Format', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Time Format', 'paradise-widgets-for-elementor' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => '12h',
             'options' => [
-                '12h' => esc_html__( '12-hour (9:00 AM)', 'paradise-elementor-widgets' ),
-                '24h' => esc_html__( '24-hour (09:00)',   'paradise-elementor-widgets' ),
+                '12h' => esc_html__( '12-hour (9:00 AM)', 'paradise-widgets-for-elementor' ),
+                '24h' => esc_html__( '24-hour (09:00)',   'paradise-widgets-for-elementor' ),
             ],
         ] );
 
         $this->add_control( 'closed_label', [
-            'label'   => esc_html__( 'Closed Day Text', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Closed Day Text', 'paradise-widgets-for-elementor' ),
             'type'    => \Elementor\Controls_Manager::TEXT,
-            'default' => esc_html__( 'Closed', 'paradise-elementor-widgets' ),
+            'default' => esc_html__( 'Closed', 'paradise-widgets-for-elementor' ),
         ] );
 
         $this->end_controls_section();
@@ -76,20 +76,20 @@ class Paradise_Business_Hours_Widget extends Paradise_Widget_Base {
         // ── Style: Badge ──────────────────────────────────────────────────────
 
         $this->start_controls_section( 'section_style_badge', [
-            'label'     => esc_html__( 'Badge', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Badge', 'paradise-widgets-for-elementor' ),
             'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
             'condition' => [ 'show_badge' => 'yes' ],
         ] );
 
         $this->add_control( 'badge_open_bg', [
-            'label'     => esc_html__( 'Open — Background', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Open — Background', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'default'   => '#00a651',
             'selectors' => [ '{{WRAPPER}} .paradise-bh-badge--open' => 'background-color: {{VALUE}};' ],
         ] );
 
         $this->add_control( 'badge_closed_bg', [
-            'label'     => esc_html__( 'Closed — Background', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Closed — Background', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'default'   => '#cc0000',
             'selectors' => [ '{{WRAPPER}} .paradise-bh-badge--closed' => 'background-color: {{VALUE}};' ],
@@ -105,7 +105,7 @@ class Paradise_Business_Hours_Widget extends Paradise_Widget_Base {
         // ── Style: Table ──────────────────────────────────────────────────────
 
         $this->start_controls_section( 'section_style_table', [
-            'label' => esc_html__( 'Table', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Table', 'paradise-widgets-for-elementor' ),
             'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
         ] );
 
@@ -115,19 +115,19 @@ class Paradise_Business_Hours_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'day_color', [
-            'label'     => esc_html__( 'Day Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Day Color', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-bh-day' => 'color: {{VALUE}};' ],
         ] );
 
         $this->add_control( 'hours_color', [
-            'label'     => esc_html__( 'Hours Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Hours Color', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-bh-hours' => 'color: {{VALUE}};' ],
         ] );
 
         $this->add_control( 'today_bg', [
-            'label'     => esc_html__( 'Today Row Background', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Today Row Background', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'default'   => '#f0f8f0',
             'selectors' => [ '{{WRAPPER}} .paradise-bh-row--today' => 'background-color: {{VALUE}};' ],
@@ -135,14 +135,14 @@ class Paradise_Business_Hours_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'closed_color', [
-            'label'     => esc_html__( 'Closed Day Text Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Closed Day Text Color', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'default'   => '#aaaaaa',
             'selectors' => [ '{{WRAPPER}} .paradise-bh-row--closed .paradise-bh-hours' => 'color: {{VALUE}};' ],
         ] );
 
         $this->add_responsive_control( 'row_padding', [
-            'label'      => esc_html__( 'Row Padding', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Row Padding', 'paradise-widgets-for-elementor' ),
             'type'       => \Elementor\Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', 'em' ],
             'selectors'  => [
@@ -177,7 +177,7 @@ class Paradise_Business_Hours_Widget extends Paradise_Widget_Base {
         $hours          = Paradise_Site_Info::get_hours( $location );
         $days           = Paradise_Site_Info::days();
         $time_format    = $settings['time_format'] ?? '12h';
-        $closed_label   = esc_html( $settings['closed_label'] ?: __( 'Closed', 'paradise-elementor-widgets' ) );
+        $closed_label   = esc_html( $settings['closed_label'] ?: __( 'Closed', 'paradise-widgets-for-elementor' ) );
         $show_badge     = 'yes' === $settings['show_badge'];
         $highlight      = 'yes' === $settings['highlight_today'];
         $is_open_now    = Paradise_Site_Info::is_open_now( $location );
@@ -203,7 +203,7 @@ class Paradise_Business_Hours_Widget extends Paradise_Widget_Base {
         >
             <?php if ( $show_badge ) : ?>
             <div class="paradise-bh-badge <?php echo $is_open_now ? 'paradise-bh-badge--open' : 'paradise-bh-badge--closed'; ?>">
-                <?php echo $is_open_now ? esc_html__( 'Open Now', 'paradise-elementor-widgets' ) : esc_html__( 'Closed', 'paradise-elementor-widgets' ); ?>
+                <?php echo $is_open_now ? esc_html__( 'Open Now', 'paradise-widgets-for-elementor' ) : esc_html__( 'Closed', 'paradise-widgets-for-elementor' ); ?>
             </div>
             <?php endif; ?>
 

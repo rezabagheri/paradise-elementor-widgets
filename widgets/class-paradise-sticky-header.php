@@ -19,7 +19,7 @@ use Elementor\Controls_Manager;
 class Paradise_Sticky_Header_Widget extends Paradise_Widget_Base {
 
     public function get_name(): string    { return 'paradise_sticky_header'; }
-    public function get_title(): string   { return esc_html__( 'Sticky Header', 'paradise-elementor-widgets' ); }
+    public function get_title(): string   { return esc_html__( 'Sticky Header', 'paradise-widgets-for-elementor' ); }
     public function get_icon(): string    { return 'eicon-header'; }
     public function get_keywords(): array { return [ 'sticky', 'header', 'fixed', 'scroll', 'navigation' ]; }
 
@@ -41,26 +41,26 @@ class Paradise_Sticky_Header_Widget extends Paradise_Widget_Base {
 
     private function section_behavior(): void {
         $this->start_controls_section( 'section_behavior', [
-            'label' => esc_html__( 'Sticky Behavior', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Sticky Behavior', 'paradise-widgets-for-elementor' ),
         ] );
 
         $this->add_control( 'sticky_notice', [
             'type'            => Controls_Manager::RAW_HTML,
-            'raw'             => esc_html__( 'Place this widget inside the section you want to make sticky. The section will stick to the top of the page while scrolling.', 'paradise-elementor-widgets' ),
+            'raw'             => esc_html__( 'Place this widget inside the section you want to make sticky. The section will stick to the top of the page while scrolling.', 'paradise-widgets-for-elementor' ),
             'content_classes' => 'elementor-descriptor',
         ] );
 
         $this->add_control( 'scroll_threshold', [
-            'label'       => esc_html__( 'Scroll Threshold (px)', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'Scroll Threshold (px)', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::NUMBER,
             'default'     => 50,
             'min'         => 0,
-            'description' => esc_html__( 'Pixels scrolled from top before the shadow and background effects activate.', 'paradise-elementor-widgets' ),
+            'description' => esc_html__( 'Pixels scrolled from top before the shadow and background effects activate.', 'paradise-widgets-for-elementor' ),
             'separator'   => 'before',
         ] );
 
         $this->add_control( 'z_index', [
-            'label'   => esc_html__( 'Z-Index', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Z-Index', 'paradise-widgets-for-elementor' ),
             'type'    => Controls_Manager::NUMBER,
             'default' => 9990,
             'min'     => 1,
@@ -73,25 +73,25 @@ class Paradise_Sticky_Header_Widget extends Paradise_Widget_Base {
 
     private function section_style_scrolled(): void {
         $this->start_controls_section( 'section_style_scrolled', [
-            'label' => esc_html__( 'Scrolled State', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Scrolled State', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ] );
 
         $this->add_control( 'scrolled_notice', [
             'type'            => Controls_Manager::RAW_HTML,
-            'raw'             => esc_html__( 'These styles apply to the parent section once the scroll threshold is reached.', 'paradise-elementor-widgets' ),
+            'raw'             => esc_html__( 'These styles apply to the parent section once the scroll threshold is reached.', 'paradise-widgets-for-elementor' ),
             'content_classes' => 'elementor-descriptor',
         ] );
 
         $this->add_control( 'scrolled_bg', [
-            'label'       => esc_html__( 'Background Color', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'Background Color', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::COLOR,
-            'description' => esc_html__( 'Leave empty to keep the section\'s original background.', 'paradise-elementor-widgets' ),
+            'description' => esc_html__( 'Leave empty to keep the section\'s original background.', 'paradise-widgets-for-elementor' ),
             'separator'   => 'before',
         ] );
 
         $this->add_control( 'show_shadow', [
-            'label'        => esc_html__( 'Drop Shadow', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Drop Shadow', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
             'return_value' => 'yes',
             'default'      => 'yes',
@@ -99,14 +99,14 @@ class Paradise_Sticky_Header_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'shadow_color', [
-            'label'     => esc_html__( 'Shadow Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Shadow Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => 'rgba(0,0,0,0.12)',
             'condition' => [ 'show_shadow' => 'yes' ],
         ] );
 
         $this->add_control( 'animation_duration', [
-            'label'     => esc_html__( 'Transition Duration (ms)', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Transition Duration (ms)', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::NUMBER,
             'default'   => 300,
             'min'       => 0,
@@ -115,7 +115,7 @@ class Paradise_Sticky_Header_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'shrink_enabled', [
-            'label'        => esc_html__( 'Shrink on Scroll', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Shrink on Scroll', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
             'return_value' => 'yes',
             'default'      => '',
@@ -123,12 +123,12 @@ class Paradise_Sticky_Header_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'scrolled_padding_v', [
-            'label'       => esc_html__( 'Scrolled Vertical Padding', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'Scrolled Vertical Padding', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::SLIDER,
             'size_units'  => [ 'px' ],
             'range'       => [ 'px' => [ 'min' => 0, 'max' => 80 ] ],
             'default'     => [ 'size' => 8, 'unit' => 'px' ],
-            'description' => esc_html__( 'Top and bottom padding of the section when scrolled.', 'paradise-elementor-widgets' ),
+            'description' => esc_html__( 'Top and bottom padding of the section when scrolled.', 'paradise-widgets-for-elementor' ),
             'condition'   => [ 'shrink_enabled' => 'yes' ],
         ] );
 
@@ -178,11 +178,11 @@ class Paradise_Sticky_Header_Widget extends Paradise_Widget_Base {
                 <path fill-rule="evenodd" d="M18 10A8 8 0 1 1 2 10a8 8 0 0 1 16 0Zm-8-5a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V6a1 1 0 0 1 1-1Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd"/>
             </svg>
             <span>
-                <strong><?php esc_html_e( 'Sticky Header active', 'paradise-elementor-widgets' ); ?></strong>
+                <strong><?php esc_html_e( 'Sticky Header active', 'paradise-widgets-for-elementor' ); ?></strong>
                 &mdash;
-                <?php esc_html_e( 'this section will stick to the top when scrolling.', 'paradise-elementor-widgets' ); ?>
+                <?php esc_html_e( 'this section will stick to the top when scrolling.', 'paradise-widgets-for-elementor' ); ?>
                 <?php if ( $shrink ) : ?>
-                <?php esc_html_e( 'Shrink effect enabled.', 'paradise-elementor-widgets' ); ?>
+                <?php esc_html_e( 'Shrink effect enabled.', 'paradise-widgets-for-elementor' ); ?>
                 <?php endif; ?>
             </span>
         </div>

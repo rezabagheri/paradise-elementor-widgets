@@ -1,10 +1,10 @@
-=== Paradise Elementor Widgets ===
+=== Paradise Widgets for Elementor ===
 Contributors: rezabagheri
-Tags: elementor, elementor widgets, bottom navigation, phone link, google map, social links, business hours, schema, local seo, announcement bar, cookie consent, sticky header, off canvas menu, back to top
+Tags: elementor, widgets, bottom navigation, phone link, google map, social links, business hours, schema, local seo, announcement bar, cookie consent, sticky header, off canvas menu, back to top
 Requires at least: 6.1
-Tested up to: 6.7
+Tested up to: 6.9
 Requires PHP: 8.0
-Stable tag: 2.7.0
+Stable tag: 3.0.0
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Advanced custom Elementor widgets for mobile UX, contact, local SEO, and busines
 
 == Description ==
 
-Paradise Elementor Widgets adds powerful, mobile-focused widgets to Elementor. All widgets share a centralized **Site Info** data store (phones, emails, addresses, social links, business hours) so you configure your business details once and reuse them everywhere.
+Paradise Widgets for Elementor adds powerful, mobile-focused widgets to Elementor. All widgets share a centralized **Site Info** data store (phones, emails, addresses, social links, business hours) so you configure your business details once and reuse them everywhere.
 
 **Site Info**
 Centralized business data configured under Paradise → Elementor Widgets. Exposes a `[paradise_site_info]` shortcode and Elementor Dynamic Tags. All widgets that display phone numbers, addresses, maps, social links, or business hours read from Site Info automatically.
@@ -103,7 +103,7 @@ A collapsible Q&A list with accordion mode (one item open at a time) or multi-ex
 == Installation ==
 
 1. Make sure Elementor (free) is installed and activated.
-2. Upload the `paradise-elementor-widgets` folder to `/wp-content/plugins/`.
+2. Upload the `paradise-widgets-for-elementor` folder to `/wp-content/plugins/`.
 3. Activate the plugin from **Plugins** in the WordPress admin.
 4. Configure business details under **Paradise → Elementor Widgets → Site Info**.
 5. Open Elementor editor — the **Paradise Widgets** category will appear in the widget panel.
@@ -146,6 +146,22 @@ The badge is computed in the visitor's browser using the site's timezone (from W
 7. Widget panel — Paradise Widgets category
 
 == Changelog ==
+
+= 3.0.0 =
+* Changed: Plugin renamed from "Paradise Elementor Widgets" to "Paradise Widgets for Elementor" to comply with WordPress.org trademark policy. Text domain changed from `paradise-elementor-widgets` to `paradise-widgets-for-elementor`. No data migration required.
+* Added: `Tested up to: 6.9` in the plugin header.
+
+= 2.9.0 =
+* Added: Six new Custom Field types — `date`, `time`, `email`, `number`, `color`, `range`. Date and time render via WordPress's site-wide `date_format` / `time_format` by default. Number uses `FILTER_VALIDATE_INT` (rejects `'1.5'` rather than truncating). Color validates `#RRGGBB`. Range is an open-bounded integer pair (`Min,Max`) — pick any integers; sanitize swaps endpoints if out of order.
+* Added: Array-shaped `el_category` in the type registry — `email` is the first type whose Elementor dynamic-tag binding is multi-category (appears in both TEXT and URL dropdowns so it can populate Heading text AND a Button URL as `mailto:`).
+* Added: Live hex display next to the color picker in admin.
+
+= 2.8.1 =
+* Fixed: Cookie Consent Bar widget icon — `eicon-cookie` doesn't exist in Elementor's icon font; replaced with `eicon-info-circle` so the widget shows an icon in the editor's widget panel.
+
+= 2.8.0 =
+* Added: Custom Fields system — user-defined static fields organized into groups, accessed via `[paradise_field key="…"]` shortcode and three Elementor Dynamic Tags (Text / URL / Image). First types: text, textarea, url, image. Storage in `paradise_custom_fields` option. Type registry is filterable via `paradise_custom_field_types` for site-level extension.
+* Added: "Custom Fields" admin page under Paradise menu with drag-to-reorder, type-aware value inputs, and the WP media picker for image fields. Group slug and field key auto-derive from their label when blank.
 
 = 2.7.0 =
 * Added: Feature Card example widget — a heavily-commented reference widget for developers extending Paradise. Lives in its own "Paradise Examples" Elementor category, disabled by default. New optional registry flags `example` and `default` (per-widget enabled-by-default state). Companion CSS at `assets/css/feature-card-example.css`.
@@ -231,6 +247,9 @@ The badge is computed in the visitor's browser using the site's timezone (from W
 * Bottom Navigation Bar widget
 
 == Upgrade Notice ==
+
+= 3.0.0 =
+Plugin renamed (folder + text domain). No data migration required. If you reference the text domain in custom code, update `paradise-elementor-widgets` to `paradise-widgets-for-elementor`.
 
 = 2.6.0 =
 Internal refactor — all 15 widgets now extend a shared Paradise_Widget_Base. No behaviour change for end users; safe to upgrade from 2.5.0.
