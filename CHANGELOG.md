@@ -24,6 +24,7 @@ and a fresh empty `## [Unreleased]` replaces it.
 ### Changed
 
 - **Plugin slug aligned with the rename to "Paradise Widgets for Elementor"** — the main plugin file is now `paradise-widgets-for-elementor.php` (was `paradise-elementor-widgets.php`). The local install directory should also be renamed to `paradise-widgets-for-elementor/` to match the WordPress.org submission slug. No data migration required (option keys, class names, constants are unchanged).
+- **Admin menu icon redesigned** — replaced the placeholder `<text>P</text>` SVG with the brand swoosh-P silhouette derived from `.wordpress-org/icon.svg`. Single-colour (WP admin unfocused-icon grey `#a7aaad`) so it follows the Dashicons convention. Same shape as the public-facing icon and banner, just monochrome for the admin context.
 
 ### Fixed
 <!-- bugs and regressions -->

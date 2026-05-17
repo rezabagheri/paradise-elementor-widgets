@@ -306,12 +306,28 @@ class Paradise_EW_Admin {
     }
 
     // -------------------------------------------------------------------------
-    // Menu icon (simple "P" monogram as inline SVG)
+    // Menu icon — silhouette of the brand "P" derived from .wordpress-org/icon.svg
     // -------------------------------------------------------------------------
-
+    //
+    // The big WP.org plugin-directory icon (256×256, red P on a dark rounded
+    // plate) can't ride into the WP admin menu — that slot is 20×20 and WP
+    // applies a CSS filter that flattens the icon to a single colour anyway.
+    // So we extract just the P silhouette from the big icon's path data,
+    // keep the 256×256 viewBox (the browser scales it down cleanly), and
+    // paint it with the WP admin's default unfocused-icon grey #a7aaad so
+    // it sits next to core Dashicons without standing out.
+    //
+    // Brand consistency: same swoosh-P shape that appears on the WP.org
+    // banner and the plugin icon — just rendered single-colour for the
+    // admin's monochrome icon convention.
+    //
+    // Hand-drawn path (not <text>) — the previous version used a sans-serif
+    // <text>P</text> and rendered as whatever fallback font the browser had.
     private static function menu_icon_svg(): string {
-        return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#a7aaad">'
-             . '<text x="2" y="16" font-size="16" font-family="sans-serif" font-weight="700">P</text>'
+        return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="#a7aaad">'
+             . '<path d="M 80 208 L 110 96 C 122 64, 154 50, 184 58 C 214 66, 222 100, 206 130'
+             .          ' C 192 156, 162 162, 138 152 C 134 150, 130 148, 128 144'
+             .          ' L 116 196 L 110 218 Z"/>'
              . '</svg>';
     }
 
