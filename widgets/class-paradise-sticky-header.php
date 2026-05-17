@@ -44,11 +44,10 @@ class Paradise_Sticky_Header_Widget extends Paradise_Widget_Base {
             'label' => esc_html__( 'Sticky Behavior', 'paradise-widgets-for-elementor' ),
         ] );
 
-        $this->add_control( 'sticky_notice', [
-            'type'            => Controls_Manager::RAW_HTML,
-            'raw'             => esc_html__( 'Place this widget inside the section you want to make sticky. The section will stick to the top of the page while scrolling.', 'paradise-widgets-for-elementor' ),
-            'content_classes' => 'elementor-descriptor',
-        ] );
+        $this->add_descriptor(
+            'sticky_notice',
+            esc_html__( 'Place this widget inside the section you want to make sticky. The section will stick to the top of the page while scrolling.', 'paradise-widgets-for-elementor' )
+        );
 
         $this->add_control( 'scroll_threshold', [
             'label'       => esc_html__( 'Scroll Threshold (px)', 'paradise-widgets-for-elementor' ),
@@ -77,11 +76,10 @@ class Paradise_Sticky_Header_Widget extends Paradise_Widget_Base {
             'tab'   => Controls_Manager::TAB_STYLE,
         ] );
 
-        $this->add_control( 'scrolled_notice', [
-            'type'            => Controls_Manager::RAW_HTML,
-            'raw'             => esc_html__( 'These styles apply to the parent section once the scroll threshold is reached.', 'paradise-widgets-for-elementor' ),
-            'content_classes' => 'elementor-descriptor',
-        ] );
+        $this->add_descriptor(
+            'scrolled_notice',
+            esc_html__( 'These styles apply to the parent section once the scroll threshold is reached.', 'paradise-widgets-for-elementor' )
+        );
 
         $this->add_control( 'scrolled_bg', [
             'label'       => esc_html__( 'Background Color', 'paradise-widgets-for-elementor' ),
@@ -172,21 +170,17 @@ class Paradise_Sticky_Header_Widget extends Paradise_Widget_Base {
         ?>
         <div class="paradise-shdr-ctrl" <?php echo $data; ?>></div>
 
-        <?php if ( $is_editor ) : ?>
-        <div class="paradise-shdr-editor-notice">
-            <svg viewBox="0 0 20 20" width="16" height="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor">
-                <path fill-rule="evenodd" d="M18 10A8 8 0 1 1 2 10a8 8 0 0 1 16 0Zm-8-5a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V6a1 1 0 0 1 1-1Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd"/>
-            </svg>
-            <span>
-                <strong><?php esc_html_e( 'Sticky Header active', 'paradise-widgets-for-elementor' ); ?></strong>
-                &mdash;
-                <?php esc_html_e( 'this section will stick to the top when scrolling.', 'paradise-widgets-for-elementor' ); ?>
-                <?php if ( $shrink ) : ?>
-                <?php esc_html_e( 'Shrink effect enabled.', 'paradise-widgets-for-elementor' ); ?>
-                <?php endif; ?>
-            </span>
-        </div>
-        <?php endif; ?>
+        <?php if ( $is_editor ) :
+            $this->editor_notice(
+                sprintf(
+                    '<strong>%s</strong> &mdash; %s%s',
+                    esc_html__( 'Sticky Header active', 'paradise-widgets-for-elementor' ),
+                    esc_html__( 'this section will stick to the top when scrolling.', 'paradise-widgets-for-elementor' ),
+                    $shrink ? ' ' . esc_html__( 'Shrink effect enabled.', 'paradise-widgets-for-elementor' ) : ''
+                ),
+                'paradise-shdr-editor-notice'
+            );
+        endif; ?>
         <?php
     }
 }
