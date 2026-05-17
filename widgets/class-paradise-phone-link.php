@@ -449,9 +449,9 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
         $raw_phone = trim( $settings['phone_number'] ?? '' );
 
         if ( empty( $raw_phone ) ) {
-            if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                echo '<p style="color:#cc0000; font-size:13px;">&#9888; Phone number is empty.</p>';
-            }
+            $this->render_editor_placeholder(
+                __( 'Set the phone number in the widget settings.', 'paradise-widgets-for-elementor' )
+            );
             return;
         }
 
