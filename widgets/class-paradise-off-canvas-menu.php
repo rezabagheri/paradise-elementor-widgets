@@ -561,19 +561,17 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
 
         </div><!-- .paradise-ocm-wrap -->
 
-        <?php if ( $is_editor ) : ?>
-        <div class="paradise-ocm-editor-notice">
-            <svg viewBox="0 0 20 20" width="16" height="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor">
-                <path fill-rule="evenodd" d="M18 10A8 8 0 1 1 2 10a8 8 0 0 1 16 0Zm-8-5a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V6a1 1 0 0 1 1-1Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd"/>
-            </svg>
-            <span>
-                <?php esc_html_e( 'Off-Canvas Menu', 'paradise-widgets-for-elementor' ); ?>
-                &mdash;
-                <?php esc_html_e( 'Public API:', 'paradise-widgets-for-elementor' ); ?>
-                <strong>Paradise.openOffCanvas('<?php echo esc_html( $panel_id ); ?>')</strong>
-            </span>
-        </div>
-        <?php endif; ?>
+        <?php if ( $is_editor ) :
+            $this->editor_notice(
+                sprintf(
+                    '%s &mdash; %s <strong>Paradise.openOffCanvas(\'%s\')</strong>',
+                    esc_html__( 'Off-Canvas Menu', 'paradise-widgets-for-elementor' ),
+                    esc_html__( 'Public API:', 'paradise-widgets-for-elementor' ),
+                    esc_html( $panel_id )
+                ),
+                'paradise-ocm-editor-notice'
+            );
+        endif; ?>
         <?php
     }
 }
