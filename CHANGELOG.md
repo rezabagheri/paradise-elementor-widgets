@@ -22,13 +22,15 @@ and a fresh empty `## [Unreleased]` replaces it.
 <!-- new features / new public APIs -->
 
 ### Changed
-<!-- behaviour or surface changes that aren't strictly fixes -->
+
+- **Plugin slug aligned with the rename to "Paradise Widgets for Elementor"** — the main plugin file is now `paradise-widgets-for-elementor.php` (was `paradise-elementor-widgets.php`). The local install directory should also be renamed to `paradise-widgets-for-elementor/` to match the WordPress.org submission slug. No data migration required (option keys, class names, constants are unchanged).
 
 ### Fixed
 <!-- bugs and regressions -->
 
 ### Notes
-<!-- migration hints, deprecations, anything contributors should know -->
+
+- **Existing installs** (the dev's own, since the plugin has no external users yet) need a one-time deactivate/reactivate after pulling this change: `wp plugin deactivate paradise-elementor-widgets && mv paradise-elementor-widgets paradise-widgets-for-elementor && wp plugin activate paradise-widgets-for-elementor`. WordPress's stored `active_plugins` references the old folder/file path; the rename makes WP look up a path that no longer exists, so a re-activation is required to register the new path.
 
 ## [3.1.0] - 2026-05-17
 
