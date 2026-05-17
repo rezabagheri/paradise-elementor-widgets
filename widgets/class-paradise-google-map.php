@@ -86,7 +86,7 @@ class Paradise_Google_Map_Widget extends Paradise_Widget_Base {
         $this->add_control( 'manual_url', [
             'label'       => esc_html__( 'Map URL', 'paradise-widgets-for-elementor' ),
             'type'        => \Elementor\Controls_Manager::TEXT,
-            'placeholder' => 'https://www.google.com/maps/embed?pb=...',
+            'placeholder' => __( 'https://www.google.com/maps/embed?pb=...', 'paradise-widgets-for-elementor' ),
             'description' => esc_html__( 'Paste any Google Maps URL (share link, place, or directions). For best results: Share → Embed a map → copy the src from the iframe code.', 'paradise-widgets-for-elementor' ),
             'label_block' => true,
             'condition'   => [ 'source' => 'manual' ],
@@ -132,7 +132,7 @@ class Paradise_Google_Map_Widget extends Paradise_Widget_Base {
         $this->add_control( 'dir_dest_manual', [
             'label'       => esc_html__( 'Destination Address', 'paradise-widgets-for-elementor' ),
             'type'        => \Elementor\Controls_Manager::TEXT,
-            'placeholder' => '17354 Tribune St, Granada Hills, CA 91344',
+            'placeholder' => __( '17354 Tribune St, Granada Hills, CA 91344', 'paradise-widgets-for-elementor' ),
             'label_block' => true,
             'condition'   => [ 'dir_dest_source' => 'manual' ],
             'dynamic'     => [ 'active' => true ],

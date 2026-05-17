@@ -97,12 +97,12 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
     private function section_source(): void
     {
         $this->start_controls_section('sec_source', [
-            'label' => 'Items Source',
+            'label' => __( 'Items Source', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_CONTENT,
         ]);
 
         $this->add_control('items_source', [
-            'label'   => 'Source',
+            'label'   => __( 'Source', 'paradise-widgets-for-elementor' ),
             'type'    => Controls_Manager::SELECT,
             'default' => 'repeater',
             'options' => [
@@ -121,17 +121,17 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
     private function section_wp_menu(): void
     {
         $this->start_controls_section('sec_wp_menu', [
-            'label'     => 'WordPress Menu',
+            'label'     => __( 'WordPress Menu', 'paradise-widgets-for-elementor' ),
             'tab'       => Controls_Manager::TAB_CONTENT,
             'condition' => [ 'items_source' => 'wp_menu' ],
         ]);
 
         $this->add_control('wp_menu_slug', [
-            'label'       => 'Select Menu',
+            'label'       => __( 'Select Menu', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::SELECT,
             'options'     => $this->get_wp_menus(),
             'default'     => '',
-            'description' => 'Create menus via Appearance → Menus.',
+            'description' => __( 'Create menus via Appearance → Menus.', 'paradise-widgets-for-elementor' ),
         ]);
 
         $this->add_control('wp_menu_icons_note', [
@@ -150,7 +150,7 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
     private function section_repeater(): void
     {
         $this->start_controls_section('sec_repeater', [
-            'label'     => 'Menu Items',
+            'label'     => __( 'Menu Items', 'paradise-widgets-for-elementor' ),
             'tab'       => Controls_Manager::TAB_CONTENT,
             'condition' => [ 'items_source' => 'repeater' ],
         ]);
@@ -158,20 +158,20 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         $repeater = new Repeater();
 
         $repeater->add_control('item_label', [
-            'label'       => 'Label',
+            'label'       => __( 'Label', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::TEXT,
             'default'     => 'Home',
             'label_block' => true,
         ]);
 
         $repeater->add_control('item_icon', [
-            'label'   => 'Icon',
+            'label'   => __( 'Icon', 'paradise-widgets-for-elementor' ),
             'type'    => Controls_Manager::ICONS,
             'default' => [ 'value' => 'fas fa-home', 'library' => 'fa-solid' ],
         ]);
 
         $repeater->add_control('item_url', [
-            'label'       => 'Link',
+            'label'       => __( 'Link', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::URL,
             'placeholder' => site_url('/'),
             'default'     => [ 'url' => '' ],
@@ -179,17 +179,17 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
 
         // ── Badge ──────────────────────────────────────────────────
         $repeater->add_control('badge_enabled', [
-            'label'        => 'Badge',
+            'label'        => __( 'Badge', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
-            'label_on'     => 'Yes',
-            'label_off'    => 'No',
+            'label_on'     => __( 'Yes', 'paradise-widgets-for-elementor' ),
+            'label_off'    => __( 'No', 'paradise-widgets-for-elementor' ),
             'return_value' => 'yes',
             'default'      => 'no',
             'separator'    => 'before',
         ]);
 
         $repeater->add_control('badge_source', [
-            'label'     => 'Badge Value Source',
+            'label'     => __( 'Badge Value Source', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SELECT,
             'default'   => 'static',
             'options'   => [
@@ -201,7 +201,7 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $repeater->add_control('badge_value', [
-            'label'     => 'Badge Number',
+            'label'     => __( 'Badge Number', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::NUMBER,
             'default'   => 1,
             'min'       => 0,
@@ -213,7 +213,7 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $repeater->add_control('badge_hide_zero', [
-            'label'        => 'Hide When Zero',
+            'label'        => __( 'Hide When Zero', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
             'return_value' => 'yes',
             'default'      => 'yes',
@@ -221,15 +221,15 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $repeater->add_control('item_custom_id', [
-            'label'       => 'CSS ID',
+            'label'       => __( 'CSS ID', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::TEXT,
-            'placeholder' => 'e.g. nav-home',
-            'description' => 'For CSS/JS targeting and JS-driven badge.',
+            'placeholder' => __( 'e.g. nav-home', 'paradise-widgets-for-elementor' ),
+            'description' => __( 'For CSS/JS targeting and JS-driven badge.', 'paradise-widgets-for-elementor' ),
             'separator'   => 'before',
         ]);
 
         $this->add_control('nav_items', [
-            'label'       => 'Items',
+            'label'       => __( 'Items', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::REPEATER,
             'fields'      => $repeater->get_controls(),
             'default'     => [
@@ -253,15 +253,15 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
     private function section_visibility(): void
     {
         $this->start_controls_section('sec_visibility', [
-            'label' => 'Visibility & Labels',
+            'label' => __( 'Visibility & Labels', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_CONTENT,
         ]);
 
         $this->add_control('show_labels', [
-            'label'        => 'Show Labels',
+            'label'        => __( 'Show Labels', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
-            'label_on'     => 'Yes',
-            'label_off'    => 'No',
+            'label_on'     => __( 'Yes', 'paradise-widgets-for-elementor' ),
+            'label_off'    => __( 'No', 'paradise-widgets-for-elementor' ),
             'return_value' => 'yes',
             'default'      => 'yes',
         ]);
@@ -272,13 +272,13 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         // This control overrides display per breakpoint — exactly
         // like the native "Hide on Device" control in Elementor Pro.
         $this->add_control('vis_heading', [
-            'label'     => 'Show Bar On',
+            'label'     => __( 'Show Bar On', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::HEADING,
             'separator' => 'before',
         ]);
 
         $this->add_responsive_control('bar_display', [
-            'label'     => 'Display',
+            'label'     => __( 'Display', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SELECT,
             'options'   => [
                 'none'  => 'Hidden',
@@ -306,35 +306,35 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
     private function section_center_button(): void
     {
         $this->start_controls_section('sec_center', [
-            'label' => 'Center Button (Floating)',
+            'label' => __( 'Center Button (Floating)', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_CONTENT,
         ]);
 
         $this->add_control('center_enabled', [
-            'label'        => 'Enable Center Button',
+            'label'        => __( 'Enable Center Button', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
-            'label_on'     => 'Yes',
-            'label_off'    => 'No',
+            'label_on'     => __( 'Yes', 'paradise-widgets-for-elementor' ),
+            'label_off'    => __( 'No', 'paradise-widgets-for-elementor' ),
             'return_value' => 'yes',
             'default'      => 'yes',
         ]);
 
         $this->add_control('center_label', [
-            'label'     => 'Label',
+            'label'     => __( 'Label', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::TEXT,
             'default'   => 'Menu',
             'condition' => [ 'center_enabled' => 'yes' ],
         ]);
 
         $this->add_control('center_icon', [
-            'label'     => 'Icon',
+            'label'     => __( 'Icon', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::ICONS,
             'default'   => [ 'value' => 'fas fa-plus', 'library' => 'fa-solid' ],
             'condition' => [ 'center_enabled' => 'yes' ],
         ]);
 
         $this->add_control('center_action', [
-            'label'     => 'Button Action',
+            'label'     => __( 'Button Action', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SELECT,
             'default'   => 'link',
             'options'   => [
@@ -347,17 +347,17 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('center_url', [
-            'label'     => 'Link',
+            'label'     => __( 'Link', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::URL,
             'default'   => [ 'url' => '' ],
             'condition' => [ 'center_enabled' => 'yes', 'center_action' => 'link' ],
         ]);
 
         $this->add_control('center_js_hook', [
-            'label'       => 'Hook Name',
+            'label'       => __( 'Hook Name', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::TEXT,
-            'placeholder' => 'e.g. openCart',
-            'description' => 'Fires: <code>ebn:hook:openCart</code> on document.',
+            'placeholder' => __( 'e.g. openCart', 'paradise-widgets-for-elementor' ),
+            'description' => __( 'Fires: <code>ebn:hook:openCart</code> on document.', 'paradise-widgets-for-elementor' ),
             'condition'   => [ 'center_enabled' => 'yes', 'center_action' => 'js_hook' ],
         ]);
 
@@ -368,12 +368,12 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $dial_repeater = new Repeater();
-        $dial_repeater->add_control('dial_label', [ 'label' => 'Label', 'type' => Controls_Manager::TEXT, 'default' => 'Item' ]);
-        $dial_repeater->add_control('dial_icon', [ 'label' => 'Icon',  'type' => Controls_Manager::ICONS, 'default' => [ 'value' => 'fas fa-star', 'library' => 'fa-solid' ] ]);
-        $dial_repeater->add_control('dial_url', [ 'label' => 'Link',  'type' => Controls_Manager::URL,   'default' => [ 'url' => '' ] ]);
+        $dial_repeater->add_control('dial_label', [ 'label' => __( 'Label', 'paradise-widgets-for-elementor' ), 'type' => Controls_Manager::TEXT, 'default' => 'Item' ]);
+        $dial_repeater->add_control('dial_icon', [ 'label' => __( 'Icon', 'paradise-widgets-for-elementor' ),  'type' => Controls_Manager::ICONS, 'default' => [ 'value' => 'fas fa-star', 'library' => 'fa-solid' ] ]);
+        $dial_repeater->add_control('dial_url', [ 'label' => __( 'Link', 'paradise-widgets-for-elementor' ),  'type' => Controls_Manager::URL,   'default' => [ 'url' => '' ] ]);
 
         $this->add_control('speed_dial_items', [
-            'label'       => 'Speed Dial Items',
+            'label'       => __( 'Speed Dial Items', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::REPEATER,
             'fields'      => $dial_repeater->get_controls(),
             'default'     => [
@@ -394,12 +394,12 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
     private function section_active_state(): void
     {
         $this->start_controls_section('sec_active', [
-            'label' => 'Active State',
+            'label' => __( 'Active State', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_CONTENT,
         ]);
 
         $this->add_control('active_detection', [
-            'label'   => 'Detection Method',
+            'label'   => __( 'Detection Method', 'paradise-widgets-for-elementor' ),
             'type'    => Controls_Manager::SELECT,
             'default' => 'both',
             'options' => [
@@ -410,17 +410,17 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('active_manual_index', [
-            'label'       => 'Default Active Item',
+            'label'       => __( 'Default Active Item', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::NUMBER,
             'default'     => 1,
             'min'         => 1,
             'max'         => 10,
-            'description' => 'Item number (1 = first). Used when no URL match is found.',
+            'description' => __( 'Item number (1 = first). Used when no URL match is found.', 'paradise-widgets-for-elementor' ),
             'condition'   => [ 'active_detection' => [ 'manual', 'both' ] ],
         ]);
 
         $this->add_control('active_match_mode', [
-            'label'     => 'URL Match Mode',
+            'label'     => __( 'URL Match Mode', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SELECT,
             'default'   => 'pathname',
             'options'   => [
@@ -440,12 +440,12 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
     private function section_style_bar(): void
     {
         $this->start_controls_section('sec_style_bar', [
-            'label' => 'Bar',
+            'label' => __( 'Bar', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ]);
 
         $this->add_control('bar_position', [
-            'label'   => 'Bar Position',
+            'label'   => __( 'Bar Position', 'paradise-widgets-for-elementor' ),
             'type'    => Controls_Manager::SELECT,
             'default' => 'full',
             'options' => [
@@ -455,7 +455,7 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('bar_max_width', [
-            'label'      => 'Max Width',
+            'label'      => __( 'Max Width', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px', '%' ],
             'range'      => [ 'px' => [ 'min' => 280, 'max' => 800 ], '%' => [ 'min' => 40, 'max' => 100 ] ],
@@ -465,7 +465,7 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('bar_bottom_offset', [
-            'label'      => 'Bottom Offset',
+            'label'      => __( 'Bottom Offset', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px' ],
             'range'      => [ 'px' => [ 'min' => 0, 'max' => 60 ] ],
@@ -475,7 +475,7 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('bar_bg', [
-            'label'     => 'Background Color',
+            'label'     => __( 'Background Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#ffffff',
             'selectors' => [ '{{WRAPPER}} .paradise-bn-bar' => 'background-color: {{VALUE}};' ],
@@ -493,7 +493,7 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('bar_radius', [
-            'label'      => 'Border Radius',
+            'label'      => __( 'Border Radius', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', '%' ],
             'default'    => [ 'top' => '0', 'right' => '0', 'bottom' => '0', 'left' => '0', 'isLinked' => true, 'unit' => 'px' ],
@@ -522,12 +522,12 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
     private function section_style_items(): void
     {
         $this->start_controls_section('sec_style_items', [
-            'label' => 'Items',
+            'label' => __( 'Items', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ]);
 
         $this->add_control('icon_size', [
-            'label'      => 'Icon Size',
+            'label'      => __( 'Icon Size', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px' ],
             'range'      => [ 'px' => [ 'min' => 14, 'max' => 36 ] ],
@@ -539,7 +539,7 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('icon_label_gap', [
-            'label'      => 'Icon / Label Gap',
+            'label'      => __( 'Icon / Label Gap', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px' ],
             'range'      => [ 'px' => [ 'min' => 0, 'max' => 12 ] ],
@@ -549,7 +549,7 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
 
         $this->add_group_control(Group_Control_Typography::get_type(), [
             'name'     => 'label_typography',
-            'label'    => 'Label Typography',
+            'label'    => __( 'Label Typography', 'paradise-widgets-for-elementor' ),
             'selector' => '{{WRAPPER}} .paradise-bn-label',
             'fields_options' => [
                 'font_size'   => [ 'default' => [ 'unit' => 'px', 'size' => 10 ] ],
@@ -559,9 +559,9 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
 
         $this->start_controls_tabs('tabs_item_colors');
 
-        $this->start_controls_tab('tab_item_normal', [ 'label' => 'Normal' ]);
+        $this->start_controls_tab('tab_item_normal', [ 'label' => __( 'Normal', 'paradise-widgets-for-elementor' ) ]);
         $this->add_control('icon_color', [
-            'label'     => 'Icon Color',
+            'label'     => __( 'Icon Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#b0bec5',
             'selectors' => [
@@ -570,16 +570,16 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
             ],
         ]);
         $this->add_control('label_color', [
-            'label'     => 'Label Color',
+            'label'     => __( 'Label Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#b0bec5',
             'selectors' => [ '{{WRAPPER}} .paradise-bn-item:not(.paradise-bn-item--active) .paradise-bn-label' => 'color: {{VALUE}};' ],
         ]);
         $this->end_controls_tab();
 
-        $this->start_controls_tab('tab_item_active', [ 'label' => 'Active' ]);
+        $this->start_controls_tab('tab_item_active', [ 'label' => __( 'Active', 'paradise-widgets-for-elementor' ) ]);
         $this->add_control('icon_color_active', [
-            'label'     => 'Icon Color',
+            'label'     => __( 'Icon Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#F5A623',
             'selectors' => [
@@ -588,7 +588,7 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
             ],
         ]);
         $this->add_control('label_color_active', [
-            'label'     => 'Label Color',
+            'label'     => __( 'Label Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#F5A623',
             'selectors' => [ '{{WRAPPER}} .paradise-bn-item--active .paradise-bn-label' => 'color: {{VALUE}};' ],
@@ -606,12 +606,12 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
     private function section_style_indicator(): void
     {
         $this->start_controls_section('sec_style_indicator', [
-            'label' => 'Active Indicator',
+            'label' => __( 'Active Indicator', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ]);
 
         $this->add_control('indicator_style', [
-            'label'   => 'Style',
+            'label'   => __( 'Style', 'paradise-widgets-for-elementor' ),
             'type'    => Controls_Manager::SELECT,
             'default' => 'top_bar',
             'options' => [
@@ -625,7 +625,7 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('indicator_color', [
-            'label'     => 'Color',
+            'label'     => __( 'Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#F5A623',
             'selectors' => [
@@ -638,7 +638,7 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('indicator_size', [
-            'label'      => 'Size',
+            'label'      => __( 'Size', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px' ],
             'range'      => [ 'px' => [ 'min' => 2, 'max' => 40 ] ],
@@ -651,10 +651,10 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('indicator_animated', [
-            'label'        => 'Animated (slide)',
+            'label'        => __( 'Animated (slide)', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
-            'label_on'     => 'Yes',
-            'label_off'    => 'No',
+            'label_on'     => __( 'Yes', 'paradise-widgets-for-elementor' ),
+            'label_off'    => __( 'No', 'paradise-widgets-for-elementor' ),
             'return_value' => 'yes',
             'default'      => 'yes',
             'condition'    => [ 'indicator_style' => [ 'top_bar', 'bot_bar' ] ],
@@ -670,26 +670,26 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
     private function section_style_badge(): void
     {
         $this->start_controls_section('sec_style_badge', [
-            'label' => 'Badge',
+            'label' => __( 'Badge', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ]);
 
         $this->add_control('badge_bg', [
-            'label'     => 'Background Color',
+            'label'     => __( 'Background Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#e53935',
             'selectors' => [ '{{WRAPPER}} .paradise-bn-badge' => 'background-color: {{VALUE}};' ],
         ]);
 
         $this->add_control('badge_text_color', [
-            'label'     => 'Text Color',
+            'label'     => __( 'Text Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#ffffff',
             'selectors' => [ '{{WRAPPER}} .paradise-bn-badge' => 'color: {{VALUE}};' ],
         ]);
 
         $this->add_control('badge_size', [
-            'label'      => 'Size',
+            'label'      => __( 'Size', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px' ],
             'range'      => [ 'px' => [ 'min' => 12, 'max' => 24 ] ],
@@ -709,13 +709,13 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
     private function section_style_center(): void
     {
         $this->start_controls_section('sec_style_center', [
-            'label'     => 'Center Button',
+            'label'     => __( 'Center Button', 'paradise-widgets-for-elementor' ),
             'tab'       => Controls_Manager::TAB_STYLE,
             'condition' => [ 'center_enabled' => 'yes' ],
         ]);
 
         $this->add_control('center_size', [
-            'label'      => 'Button Size',
+            'label'      => __( 'Button Size', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px' ],
             'range'      => [ 'px' => [ 'min' => 44, 'max' => 80 ] ],
@@ -724,14 +724,14 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('center_bg', [
-            'label'     => 'Background Color',
+            'label'     => __( 'Background Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#F5A623',
             'selectors' => [ '{{WRAPPER}} .paradise-bn-center-btn' => 'background-color: {{VALUE}};' ],
         ]);
 
         $this->add_control('center_icon_color', [
-            'label'     => 'Icon Color',
+            'label'     => __( 'Icon Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#ffffff',
             'selectors' => [
@@ -741,7 +741,7 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('center_icon_size', [
-            'label'      => 'Icon Size',
+            'label'      => __( 'Icon Size', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px' ],
             'range'      => [ 'px' => [ 'min' => 14, 'max' => 36 ] ],
@@ -753,7 +753,7 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('center_lift', [
-            'label'      => 'Lift (above bar)',
+            'label'      => __( 'Lift (above bar)', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px' ],
             'range'      => [ 'px' => [ 'min' => 0, 'max' => 30 ] ],
@@ -780,21 +780,21 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
     private function section_style_animation(): void
     {
         $this->start_controls_section('sec_style_animation', [
-            'label' => 'Entrance Animation',
+            'label' => __( 'Entrance Animation', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ]);
 
         $this->add_control('anim_enabled', [
-            'label'        => 'Enable',
+            'label'        => __( 'Enable', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
-            'label_on'     => 'Yes',
-            'label_off'    => 'No',
+            'label_on'     => __( 'Yes', 'paradise-widgets-for-elementor' ),
+            'label_off'    => __( 'No', 'paradise-widgets-for-elementor' ),
             'return_value' => 'yes',
             'default'      => 'yes',
         ]);
 
         $this->add_control('anim_style', [
-            'label'     => 'Style',
+            'label'     => __( 'Style', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SELECT,
             'default'   => 'slide_up',
             'options'   => [ 'slide_up' => 'Slide Up', 'fade' => 'Fade In', 'both' => 'Slide Up + Fade' ],
@@ -802,7 +802,7 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('anim_duration', [
-            'label'     => 'Duration (ms)',
+            'label'     => __( 'Duration (ms)', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SLIDER,
             'range'     => [ 'px' => [ 'min' => 100, 'max' => 1000, 'step' => 50 ] ],
             'default'   => [ 'size' => 350 ],

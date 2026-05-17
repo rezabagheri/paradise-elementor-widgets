@@ -55,7 +55,7 @@ class Paradise_Phone_Button_Widget extends Paradise_Widget_Base {
         $this->add_control( 'phone_number', [
             'label'       => esc_html__( 'Phone Number', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::TEXT,
-            'placeholder' => '+1 (888) 780-0904',
+            'placeholder' => __( '+1 (888) 780-0904', 'paradise-widgets-for-elementor' ),
             'description' => esc_html__( 'Accepts any format — normalized automatically.', 'paradise-widgets-for-elementor' ),
             'dynamic'     => [ 'active' => true ],
             'label_block' => true,
@@ -78,7 +78,7 @@ class Paradise_Phone_Button_Widget extends Paradise_Widget_Base {
         $this->add_control( 'country_code_custom', [
             'label'       => esc_html__( 'Custom Country Code', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::TEXT,
-            'placeholder' => '1',
+            'placeholder' => __( '1', 'paradise-widgets-for-elementor' ),
             'description' => esc_html__( 'Digits only, without +', 'paradise-widgets-for-elementor' ),
             'condition'   => [ 'country_code' => 'custom' ],
         ] );
@@ -120,7 +120,7 @@ class Paradise_Phone_Button_Widget extends Paradise_Widget_Base {
             'label'       => esc_html__( 'Prefix', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::TEXT,
             'default'     => esc_html__( 'CALL ', 'paradise-widgets-for-elementor' ),
-            'placeholder' => 'CALL ',
+            'placeholder' => __( 'CALL ', 'paradise-widgets-for-elementor' ),
             'description' => esc_html__( 'Text shown before the number (e.g. "CALL ", "TEL: ").', 'paradise-widgets-for-elementor' ),
             'condition'   => [ 'text_mode' => 'auto' ],
         ] );
@@ -191,7 +191,7 @@ class Paradise_Phone_Button_Widget extends Paradise_Widget_Base {
         $this->add_control( 'custom_mask', [
             'label'       => esc_html__( 'Custom Mask', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::TEXT,
-            'placeholder' => '(###) ###-####',
+            'placeholder' => __( '(###) ###-####', 'paradise-widgets-for-elementor' ),
             'description' => esc_html__( 'Use # for each digit. Example: (###) ###-####', 'paradise-widgets-for-elementor' ),
             'label_block' => true,
             'condition'   => [ 'display_format' => 'custom_mask' ],

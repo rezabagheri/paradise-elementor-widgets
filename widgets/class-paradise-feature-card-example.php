@@ -219,7 +219,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
             [
                 'label'       => esc_html__( 'Link', 'paradise-widgets-for-elementor' ),
                 'type'        => Controls_Manager::URL,
-                'placeholder' => 'https://example.com',
+                'placeholder' => __( 'https://example.com', 'paradise-widgets-for-elementor' ),
                 'default'     => [
                     'url'         => '',
                     'is_external' => false,

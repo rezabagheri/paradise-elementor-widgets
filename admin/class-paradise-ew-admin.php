@@ -31,6 +31,10 @@ class Paradise_EW_Admin {
      * The 'file' and 'class' values are derived automatically from the registry key.
      * get_widget_registry() returns the enriched array so consumers never need to call the helpers directly.
      *
+     * Method-not-property because PHP forbids function calls (like __()) in
+     * static property initialisers — and the labels/descriptions need to go
+     * through __() so wp i18n make-pot picks them up.
+     *
      * Conventions derived from the key (e.g. 'phone_link'):
      *   slug    →  str_replace('_', '-', $key)              // 'phone-link'
      *   file    →  widgets/class-paradise-{slug}.php        // 'widgets/class-paradise-phone-link.php'
@@ -39,102 +43,107 @@ class Paradise_EW_Admin {
      *   css     →  assets/css/{slug}.css                    // 'assets/css/phone-link.css'    (always present)
      *   js      →  assets/js/{slug}.js                      // 'assets/js/phone-link.js'      (only if js => true)
      */
-    private static array $widget_registry = [
-        'phone_link' => [
-            'label'       => 'Phone Link',
-            'description' => 'Clickable phone number with icon, prefix, and formatting options.',
-        ],
-        'bottom_nav' => [
-            'label'       => 'Bottom Navigation Bar',
-            'description' => 'Fixed mobile bottom bar with icons, labels, badges, and speed dial.',
-            'js'          => true,
-        ],
-        'author_card' => [
-            'label'       => 'Author Card',
-            'description' => 'Author profile card with photo, credentials, bio, custom fields, and CTA button.',
-        ],
-        'phone_button' => [
-            'label'       => 'Phone Button',
-            'description' => 'Fully-styled CTA button for phone calls or WhatsApp. Supports custom text, icon, colors, hover, and border radius.',
-        ],
-        'floating_call_btn' => [
-            'label'       => 'Floating Call Button',
-            'description' => 'Fixed-position call/WhatsApp button that stays visible while scrolling. Supports icon, optional label, pulse animation, and corner positioning.',
-        ],
-        'announcement_bar' => [
-            'label'       => 'Announcement Bar',
-            'description' => 'Fixed full-width banner for announcements, promotions, or alerts. Supports icon, message, CTA button, and dismissal with session/days/permanent memory.',
-            'js'          => true,
-        ],
-        'cookie_consent_bar' => [
-            'label'       => 'Cookie Consent Bar',
-            'description' => 'GDPR/cookie consent bar with Accept and Decline buttons. Stores user choice in localStorage with configurable expiry. Dispatches consent events for analytics integration.',
-            'js'          => true,
-        ],
-        'back_to_top' => [
-            'label'       => 'Back to Top',
-            'description' => 'Fixed-position button that appears after scrolling past a threshold and smoothly returns the user to the top of the page.',
-            'js'          => true,
-        ],
-        'off_canvas_menu' => [
-            'label'       => 'Off-Canvas Menu',
-            'description' => 'Slide-in panel with a WordPress menu. Triggered by an inline button or the Paradise.openOffCanvas() JS API (e.g. from Bottom Nav).',
-            'js'          => true,
-        ],
-        'sticky_header' => [
-            'label'       => 'Sticky Header',
-            'description' => 'Place inside any Elementor section to make it sticky. Applies scroll effects (shadow, background change, shrink) when scrolling past a threshold.',
-            'js'          => true,
-        ],
-        'google_map' => [
-            'label'       => 'Google Map',
-            'description' => 'Embeds a Google Map via iframe. Source can be a Site Info address (Map URL field) or a manually entered URL. Supports border radius, shadow, and height controls.',
-        ],
-        'social_links' => [
-            'label'       => 'Social Links',
-            'description' => 'Row or column of social media icon links. Source: Site Info socials or custom list. Supports brand/uniform colors, hover animations, icon shapes, and icon+label display modes.',
-        ],
-        'business_hours' => [
-            'label'       => 'Business Hours',
-            'description' => 'Displays business hours from Site Info with a live Open Now / Closed badge. Highlights today\'s row and supports 12/24-hour format.',
-            'js'          => true,
-        ],
-        'local_business_schema' => [
-            'label'       => 'LocalBusiness Schema',
-            'description' => 'Invisible widget that outputs Schema.org JSON-LD markup using Site Info data (name, phone, address, hours, social links). Helps Google display rich results.',
-        ],
-        'faq_accordion' => [
-            'label'       => 'FAQ Accordion',
-            'description' => 'Collapsible Q&A list with accordion or multi-expand mode. Supports Schema.org FAQPage markup for Google rich results.',
-            'js'          => true,
-        ],
+    private static function widget_registry(): array {
+        return [
+            'phone_link' => [
+                'label'       => __( 'Phone Link', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Clickable phone number with icon, prefix, and formatting options.', 'paradise-widgets-for-elementor' ),
+            ],
+            'bottom_nav' => [
+                'label'       => __( 'Bottom Navigation Bar', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Fixed mobile bottom bar with icons, labels, badges, and speed dial.', 'paradise-widgets-for-elementor' ),
+                'js'          => true,
+            ],
+            'author_card' => [
+                'label'       => __( 'Author Card', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Author profile card with photo, credentials, bio, custom fields, and CTA button.', 'paradise-widgets-for-elementor' ),
+            ],
+            'phone_button' => [
+                'label'       => __( 'Phone Button', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Fully-styled CTA button for phone calls or WhatsApp. Supports custom text, icon, colors, hover, and border radius.', 'paradise-widgets-for-elementor' ),
+            ],
+            'floating_call_btn' => [
+                'label'       => __( 'Floating Call Button', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Fixed-position call/WhatsApp button that stays visible while scrolling. Supports icon, optional label, pulse animation, and corner positioning.', 'paradise-widgets-for-elementor' ),
+            ],
+            'announcement_bar' => [
+                'label'       => __( 'Announcement Bar', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Fixed full-width banner for announcements, promotions, or alerts. Supports icon, message, CTA button, and dismissal with session/days/permanent memory.', 'paradise-widgets-for-elementor' ),
+                'js'          => true,
+            ],
+            'cookie_consent_bar' => [
+                'label'       => __( 'Cookie Consent Bar', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'GDPR/cookie consent bar with Accept and Decline buttons. Stores user choice in localStorage with configurable expiry. Dispatches consent events for analytics integration.', 'paradise-widgets-for-elementor' ),
+                'js'          => true,
+            ],
+            'back_to_top' => [
+                'label'       => __( 'Back to Top', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Fixed-position button that appears after scrolling past a threshold and smoothly returns the user to the top of the page.', 'paradise-widgets-for-elementor' ),
+                'js'          => true,
+            ],
+            'off_canvas_menu' => [
+                'label'       => __( 'Off-Canvas Menu', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Slide-in panel with a WordPress menu. Triggered by an inline button or the Paradise.openOffCanvas() JS API (e.g. from Bottom Nav).', 'paradise-widgets-for-elementor' ),
+                'js'          => true,
+            ],
+            'sticky_header' => [
+                'label'       => __( 'Sticky Header', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Place inside any Elementor section to make it sticky. Applies scroll effects (shadow, background change, shrink) when scrolling past a threshold.', 'paradise-widgets-for-elementor' ),
+                'js'          => true,
+            ],
+            'google_map' => [
+                'label'       => __( 'Google Map', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Embeds a Google Map via iframe. Source can be a Site Info address (Map URL field) or a manually entered URL. Supports border radius, shadow, and height controls.', 'paradise-widgets-for-elementor' ),
+            ],
+            'social_links' => [
+                'label'       => __( 'Social Links', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Row or column of social media icon links. Source: Site Info socials or custom list. Supports brand/uniform colors, hover animations, icon shapes, and icon+label display modes.', 'paradise-widgets-for-elementor' ),
+            ],
+            'business_hours' => [
+                'label'       => __( 'Business Hours', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Displays business hours from Site Info with a live Open Now / Closed badge. Highlights today\'s row and supports 12/24-hour format.', 'paradise-widgets-for-elementor' ),
+                'js'          => true,
+            ],
+            'local_business_schema' => [
+                'label'       => __( 'LocalBusiness Schema', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Invisible widget that outputs Schema.org JSON-LD markup using Site Info data (name, phone, address, hours, social links). Helps Google display rich results.', 'paradise-widgets-for-elementor' ),
+            ],
+            'faq_accordion' => [
+                'label'       => __( 'FAQ Accordion', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Collapsible Q&A list with accordion or multi-expand mode. Supports Schema.org FAQPage markup for Google rich results.', 'paradise-widgets-for-elementor' ),
+                'js'          => true,
+            ],
 
-        // ---- Examples (developer learning material) -------------------------
-        // These widgets live in the "Paradise Examples" category in the editor,
-        // separate from the production widgets above. Disabled by default so
-        // end-user sites don't see them unless a developer turns them on.
+            // ---- Examples (developer learning material) -------------------------
+            // These widgets live in the "Paradise Examples" category in the editor,
+            // separate from the production widgets above. Disabled by default so
+            // end-user sites don't see them unless a developer turns them on.
 
-        'feature_card_example' => [
-            'label'       => 'Feature Card (Example)',
-            'description' => 'Heavily-commented reference widget for developers — read widgets/class-paradise-feature-card-example.php to learn every Paradise widget pattern (controls, render, asset handles, base-class usage). Shows in the "Paradise Examples" editor category. Disabled by default.',
-            'example'     => true,
-            'default'     => false,
-        ],
-    ];
+            'feature_card_example' => [
+                'label'       => __( 'Feature Card (Example)', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Heavily-commented reference widget for developers — read widgets/class-paradise-feature-card-example.php to learn every Paradise widget pattern (controls, render, asset handles, base-class usage). Shows in the "Paradise Examples" editor category. Disabled by default.', 'paradise-widgets-for-elementor' ),
+                'example'     => true,
+                'default'     => false,
+            ],
+        ];
+    }
 
     /**
      * Plugin feature flags — each key defaults to the value in $feature_defaults.
+     * Same method-not-property reason as widget_registry() above.
      */
-    private static array $feature_registry = [
-        'show_profile_social' => [
-            'label'       => 'Social Links fields on user profiles',
-            'description' => 'Shows the Paradise Social Links section on the WordPress user profile edit page (wp-admin → Users → Edit). Disable if you manage social links elsewhere.',
-        ],
-        'faq_cpt' => [
-            'label'       => 'FAQ Post Type',
-            'description' => 'Registers a "FAQs" post type so you can manage Q&A items centrally and use them in the FAQ Accordion widget. Disable if you only use static FAQ items.',
-        ],
-    ];
+    private static function feature_registry(): array {
+        return [
+            'show_profile_social' => [
+                'label'       => __( 'Social Links fields on user profiles', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Shows the Paradise Social Links section on the WordPress user profile edit page (wp-admin → Users → Edit). Disable if you manage social links elsewhere.', 'paradise-widgets-for-elementor' ),
+            ],
+            'faq_cpt' => [
+                'label'       => __( 'FAQ Post Type', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Registers a "FAQs" post type so you can manage Q&A items centrally and use them in the FAQ Accordion widget. Disable if you only use static FAQ items.', 'paradise-widgets-for-elementor' ),
+            ],
+        ];
+    }
 
     /** Default value for each feature when the option has never been saved. */
     private static array $feature_defaults = [
@@ -194,10 +203,10 @@ class Paradise_EW_Admin {
      */
     public static function sanitize_settings( mixed $input ): array {
         $clean = [];
-        foreach ( array_keys( self::$widget_registry ) as $key ) {
+        foreach ( array_keys( self::widget_registry() ) as $key ) {
             $clean['widgets'][ $key ] = ! empty( $input['widgets'][ $key ] );
         }
-        foreach ( array_keys( self::$feature_registry ) as $key ) {
+        foreach ( array_keys( self::feature_registry() ) as $key ) {
             $clean['features'][ $key ] = ! empty( $input['features'][ $key ] );
         }
         return $clean;
@@ -218,7 +227,7 @@ class Paradise_EW_Admin {
      */
     public static function get(): array {
         $widget_defaults = [];
-        foreach ( self::$widget_registry as $key => $meta ) {
+        foreach ( self::widget_registry() as $key => $meta ) {
             $widget_defaults[ $key ] = $meta['default'] ?? true;
         }
 
@@ -236,7 +245,7 @@ class Paradise_EW_Admin {
      */
     public static function widget_enabled( string $key ): bool {
         $settings        = self::get();
-        $registry_default = self::$widget_registry[ $key ]['default'] ?? true;
+        $registry_default = self::widget_registry()[ $key ]['default'] ?? true;
         return $settings['widgets'][ $key ] ?? $registry_default;
     }
 
@@ -316,7 +325,7 @@ class Paradise_EW_Admin {
      */
     public static function get_widget_registry(): array {
         $enriched = [];
-        foreach ( self::$widget_registry as $key => $meta ) {
+        foreach ( self::widget_registry() as $key => $meta ) {
             $enriched[ $key ] = $meta + [
                 'file'  => self::key_to_file( $key ),
                 'class' => self::key_to_class( $key ),
@@ -343,6 +352,6 @@ class Paradise_EW_Admin {
     }
 
     public static function get_feature_registry(): array {
-        return self::$feature_registry;
+        return self::feature_registry();
     }
 }
