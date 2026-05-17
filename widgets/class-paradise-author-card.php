@@ -290,11 +290,10 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
             'tab'   => Controls_Manager::TAB_CONTENT,
         ] );
 
-        $this->add_control( 'custom_fields_notice', [
-            'type'            => Controls_Manager::RAW_HTML,
-            'raw'             => esc_html__( 'Enter the user meta key for each field. Works with ACF, User Meta plugins, or any custom user meta.', 'paradise-widgets-for-elementor' ),
-            'content_classes' => 'elementor-descriptor',
-        ] );
+        $this->add_descriptor(
+            'custom_fields_notice',
+            esc_html__( 'Enter the user meta key for each field. Works with ACF, User Meta plugins, or any custom user meta.', 'paradise-widgets-for-elementor' )
+        );
 
         $repeater = new Repeater();
 
