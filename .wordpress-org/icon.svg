@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Paradise Widgets for Elementor">
+  <title>Paradise Widgets for Elementor</title>
+
+  <!-- Rounded square plate gives the icon a defined silhouette at 64px and below -->
+  <rect width="256" height="256" rx="56" fill="#0F0F12"/>
+
+  <!-- Dark depth swoosh: stronger contrast so it reads at 64px -->
+  <path fill="#3A3A44" d="
+    M 58 206
+    C 48 132, 78 78, 138 56
+    C 158 50, 176 50, 192 56
+    L 184 78
+    C 168 72, 152 74, 138 80
+    C 92 100, 70 148, 80 200
+    Z"/>
+
+  <!-- Main P silhouette: solid red, single closed form. No inner negative-space
+       cutout — silhouette wins over detail at small sizes. -->
+  <path fill="#E30613" d="
+    M 80 208
+    L 110 96
+    C 122 64, 154 50, 184 58
+    C 214 66, 222 100, 206 130
+    C 192 156, 162 162, 138 152
+    C 134 150, 130 148, 128 144
+    L 116 196
+    L 110 218
+    Z"/>
+</svg>

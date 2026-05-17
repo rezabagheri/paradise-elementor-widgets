@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 772 250" role="img" aria-label="Paradise Widgets for Elementor">
+  <title>Paradise Widgets for Elementor</title>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0F0F12"/>
+      <stop offset="1" stop-color="#1C1C24"/>
+    </linearGradient>
+    <linearGradient id="redSweep" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#E30613"/>
+      <stop offset="1" stop-color="#B00510"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="772" height="250" fill="url(#bg)"/>
+
+  <!-- Subtle off-canvas swoosh in red for energy -->
+  <path opacity="0.18" fill="url(#redSweep)" d="
+    M -50 220
+    C 100 60, 350 40, 600 120
+    L 820 120
+    L 820 280
+    L -50 280 Z"/>
+
+  <!-- Logo mark on the left -->
+  <g transform="translate(48 50) scale(0.59)">
+    <rect width="256" height="256" rx="56" fill="#0F0F12" stroke="#26262C" stroke-width="2"/>
+    <path fill="#3A3A44" d="M 58 206 C 48 132, 78 78, 138 56 C 158 50, 176 50, 192 56 L 184 78 C 168 72, 152 74, 138 80 C 92 100, 70 148, 80 200 Z"/>
+    <path fill="url(#redSweep)" d="M 80 208 L 110 96 C 122 64, 154 50, 184 58 C 214 66, 222 100, 206 130 C 192 156, 162 162, 138 152 C 134 150, 130 148, 128 144 L 116 196 L 110 218 Z"/>
+  </g>
+
+  <!-- Wordmark -->
+  <g transform="translate(240 0)" font-family="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif">
+    <text x="0" y="120" font-size="56" font-weight="800" fill="#FFFFFF" letter-spacing="-1.5">Paradise</text>
+    <text x="0" y="160" font-size="22" font-weight="500" fill="#9A9AA8" letter-spacing="0.5">Widgets for Elementor</text>
+    <text x="0" y="200" font-size="13" font-weight="400" fill="#6A6A78" letter-spacing="0.3">Phone Link · Bottom Nav · Off-Canvas · Business Hours · &amp; more</text>
+  </g>
+</svg>
