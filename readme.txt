@@ -4,7 +4,7 @@ Tags: elementor, widgets, bottom navigation, phone link, google map, social link
 Requires at least: 6.1
 Tested up to: 6.9
 Requires PHP: 8.0
-Stable tag: 3.0.0
+Stable tag: 3.1.0
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -147,6 +147,18 @@ The badge is computed in the visitor's browser using the site's timezone (from W
 
 == Changelog ==
 
+= 3.1.0 =
+* Added: Initial translation template at `languages/paradise-widgets-for-elementor.pot` (651 translatable strings).
+* Added: WordPress.org plugin-directory marketing assets in `.wordpress-org/` — `icon.svg` (256×256), `icon-256x256.png` / `icon-128x128.png`, `banner-772x250.svg` / `banner-1544x500.svg` plus PNG exports, and a README documenting the SVN deployment mapping.
+* Changed: i18n audit pass — ~166 Elementor control strings (`label`, `label_on`, `label_off`, `description`, `placeholder`, `title`) across widgets/, admin/, and includes/ are now wrapped in `__()` so they're picked up by `wp i18n make-pot` and translatable.
+* Changed: `Paradise_EW_Admin` widget and feature registries refactored from static array properties to static methods so `__()` calls are valid inside them (PHP forbids function calls in static property initialisers). Public API (`get_widget_registry()` / `get_feature_registry()`) unchanged.
+* Changed: `Location %d` placeholder in Site Info now carries a `/* translators: */` comment.
+
+= 3.0.1 =
+* Fixed: International display incorrectly prepended the widget's *Country Code* setting to numbers that already had their own `+CC` prefix. The shared phone helper now carries a built-in ITU-T E.164 country-code table (~120 entries) and detects the embedded cc from inputs like `+37493583161` (Armenia) before the strip-and-format pipeline runs.
+* Changed: The three phone widgets (Phone Link, Phone Button, Floating Call Button) now show an Elementor-native dashed placeholder when the phone number field is empty, instead of an inline red-text warning. Editor only — frontend stays silent.
+* Added: `Paradise_Widget_Base::render_editor_placeholder( string $hint )` shared helper.
+
 = 3.0.0 =
 * Changed: Plugin renamed from "Paradise Elementor Widgets" to "Paradise Widgets for Elementor" to comply with WordPress.org trademark policy. Text domain changed from `paradise-elementor-widgets` to `paradise-widgets-for-elementor`. No data migration required.
 * Added: `Tested up to: 6.9` in the plugin header.
@@ -247,6 +259,9 @@ The badge is computed in the visitor's browser using the site's timezone (from W
 * Bottom Navigation Bar widget
 
 == Upgrade Notice ==
+
+= 3.1.0 =
+i18n compliance pass: ~166 strings now wrapped in `__()`, .pot template shipped, plugin is fully translation-ready. No behavioural changes. First release using the new dev-phase batching cadence (changes since 3.0.1 accumulated under [Unreleased] in CHANGELOG.md). Safe to upgrade.
 
 = 3.0.0 =
 Plugin renamed (folder + text domain). No data migration required. If you reference the text domain in custom code, update `paradise-elementor-widgets` to `paradise-widgets-for-elementor`.
