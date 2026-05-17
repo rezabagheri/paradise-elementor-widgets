@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+<!--
+Active development pile. Every merged PR that touches user-visible
+behaviour adds an entry under one of the headings below. We do NOT
+bump the plugin version, tag, or cut a GitHub Release for each PR
+during this phase — that batches into the next milestone release.
+Section gets renamed to `## [X.Y.Z] - YYYY-MM-DD` at release time
+and a fresh empty `## [Unreleased]` replaces it.
+-->
+
+### Added
+<!-- new features / new public APIs -->
+
+### Changed
+<!-- behaviour or surface changes that aren't strictly fixes -->
+
+### Fixed
+<!-- bugs and regressions -->
+
+### Notes
+<!-- migration hints, deprecations, anything contributors should know -->
+
+---
+
 ## [3.0.1] - 2026-05-17
 
 ### Fixed
