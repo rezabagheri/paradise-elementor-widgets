@@ -25,9 +25,13 @@ and a fresh empty `## [Unreleased]` replaces it.
 
 - **Plugin slug aligned with the rename to "Paradise Widgets for Elementor"** — the main plugin file is now `paradise-widgets-for-elementor.php` (was `paradise-elementor-widgets.php`). The local install directory should also be renamed to `paradise-widgets-for-elementor/` to match the WordPress.org submission slug. No data migration required (option keys, class names, constants are unchanged).
 - **Admin menu icon redesigned** — replaced the placeholder `<text>P</text>` SVG with the brand swoosh-P silhouette derived from `.wordpress-org/icon.svg`. Single-colour (WP admin unfocused-icon grey `#a7aaad`) so it follows the Dashicons convention. Same shape as the public-facing icon and banner, just monochrome for the admin context.
+- **Admin menu split into two pages** — the former combined settings page is now "Elementor Widgets" (per-widget enable/disable toggles, still the landing page) and a new "Settings" submenu (plugin-wide feature flags such as the FAQ post type and user-profile social fields). Existing widget URLs continue to work because the toggles page keeps the parent slug.
+- **Toggle-card helper extracted to a shared partial** — `paradise_ew_render_toggle_card()` moved from inside `admin/views/page-settings.php` (now `page-widgets.php`) to `admin/views/partials/render-toggle-card.php`. Both admin pages `require_once` the partial, so the rendering is one source of truth.
+- **Admin assets cache-bust on save during development** — `wp_enqueue_style`/`wp_enqueue_script` use the file's `filemtime()` as the version when `WP_DEBUG` is on, and fall back to `PARADISE_EW_VERSION` in production so CDNs and browser caches still behave correctly. No more hard-refresh needed after CSS/JS edits in local dev.
 
 ### Fixed
-<!-- bugs and regressions -->
+
+- **Clicking "Paradise" in the admin menu no longer opens the FAQs list page** when the FAQ post-type feature is on. WordPress treats the first submenu registered under a parent as the landing page (not whichever submenu's slug matches the parent), and core's `_add_post_type_submenus` runs at `admin_menu` priority 10. Our `register_menus` now hooks at priority 9 so our submenus land first, restoring the expected "click Paradise → see Widgets" behaviour. The same fix applies to any other CPT registered with `show_in_menu => 'paradise-widgets'`.
 
 ### Notes
 
