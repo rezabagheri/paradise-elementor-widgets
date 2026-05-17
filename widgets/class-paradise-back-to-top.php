@@ -269,19 +269,17 @@ class Paradise_Back_To_Top_Widget extends Paradise_Widget_Base {
             <?php echo $icon_html; ?>
         </button>
 
-        <?php if ( $is_editor ) : ?>
-        <div class="paradise-btt-editor-notice">
-            <svg viewBox="0 0 20 20" width="16" height="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor">
-                <path fill-rule="evenodd" d="M18 10A8 8 0 1 1 2 10a8 8 0 0 1 16 0Zm-8-5a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V6a1 1 0 0 1 1-1Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd"/>
-            </svg>
-            <span>
-                <?php esc_html_e( 'Back to Top Button', 'paradise-widgets-for-elementor' ); ?>
-                &mdash;
-                <?php esc_html_e( 'appears after scrolling', 'paradise-widgets-for-elementor' ); ?>
-                <strong><?php echo esc_html( $threshold ); ?>px</strong>
-            </span>
-        </div>
-        <?php endif; ?>
+        <?php if ( $is_editor ) :
+            $this->editor_notice(
+                sprintf(
+                    '%s &mdash; %s <strong>%dpx</strong>',
+                    esc_html__( 'Back to Top Button', 'paradise-widgets-for-elementor' ),
+                    esc_html__( 'appears after scrolling', 'paradise-widgets-for-elementor' ),
+                    $threshold
+                ),
+                'paradise-btt-editor-notice'
+            );
+        endif; ?>
         <?php
     }
 }
