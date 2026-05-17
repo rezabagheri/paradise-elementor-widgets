@@ -264,3 +264,183 @@
     margin: 10px 0 14px;
 }
 
+/* ── Dashboard ─────────────────────────────────────── */
+
+.paradise-ew-dashboard__subtitle {
+    color: #646970;
+    font-size: 14px;
+    margin: -10px 0 20px;
+    max-width: 780px;
+}
+
+.paradise-ew-dashboard__stats {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+}
+
+.paradise-ew-dashboard__stats li {
+    margin: 0;
+}
+
+.paradise-ew-dashboard__stats strong {
+    display: block;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.1;
+    color: #1d2327;
+}
+
+.paradise-ew-dashboard__stats span {
+    color: #646970;
+    font-size: 13px;
+}
+
+.paradise-ew-dashboard__shortcuts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.paradise-ew-dashboard__shortcut {
+    display: block;
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    padding: 16px 18px;
+    color: inherit;
+    text-decoration: none;
+    transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+
+.paradise-ew-dashboard__shortcut:hover,
+.paradise-ew-dashboard__shortcut:focus {
+    border-color: #2271b1;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+    transform: translateY(-1px);
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+}
+
+.paradise-ew-dashboard__shortcut .dashicons {
+    color: #2271b1;
+    font-size: 26px;
+    width: 26px;
+    height: 26px;
+    margin-bottom: 8px;
+}
+
+.paradise-ew-dashboard__shortcut-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0 0 4px;
+    color: #1d2327;
+}
+
+.paradise-ew-dashboard__shortcut-desc {
+    margin: 0;
+    color: #646970;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.paradise-ew-dashboard__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+}
+
+.paradise-ew-dashboard__links li {
+    margin: 0;
+}
+
+.paradise-ew-dashboard__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #2271b1;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.paradise-ew-dashboard__link:hover,
+.paradise-ew-dashboard__link:focus {
+    text-decoration: underline;
+    color: #135e96;
+}
+
+.paradise-ew-dashboard__link .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: inherit;
+}
+
+.paradise-ew-status {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.paradise-ew-status__row td {
+    padding: 8px 0;
+    border-top: 1px solid #f0f0f1;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.paradise-ew-status__row:first-child td {
+    border-top: none;
+}
+
+.paradise-ew-status__icon {
+    width: 28px;
+}
+
+.paradise-ew-status__icon .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.paradise-ew-status__label {
+    color: #1d2327;
+    font-weight: 500;
+    width: 40%;
+}
+
+.paradise-ew-status__value {
+    color: #1d2327;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px;
+}
+
+.paradise-ew-status__required {
+    color: #8c8f94;
+    font-size: 12px;
+    text-align: right;
+}
+
+.paradise-ew-status--ok .paradise-ew-status__icon .dashicons {
+    color: #00a32a;
+}
+
+.paradise-ew-status--warning .paradise-ew-status__icon .dashicons {
+    color: #dba617;
+}
+
+.paradise-ew-status--fail .paradise-ew-status__icon .dashicons {
+    color: #d63638;
+}
+
+.paradise-ew-status--info .paradise-ew-status__icon .dashicons {
+    color: #2271b1;
+}
+

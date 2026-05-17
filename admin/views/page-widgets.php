@@ -4,8 +4,8 @@
  *
  * Variables available: $settings (array from Paradise_EW_Admin::get())
  *
- * Plugin-wide feature flags (FAQ CPT, profile fields, …) live on the
- * separate "Settings" page (admin/views/page-settings.php).
+ * Plugin-wide feature flags (developer mode, FAQ CPT, profile fields) live
+ * on the separate "Settings" page (admin/views/page-settings.php).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -66,6 +66,7 @@ foreach ( Paradise_EW_Admin::get_widget_registry() as $key => $widget ) {
             $settings['widgets'] ?? []
         ); ?>
 
+        <?php if ( Paradise_EW_Admin::feature_enabled( 'developer_mode' ) ) : ?>
         <?php paradise_ew_render_toggle_card(
             'widgets-examples',
             esc_html__( 'Developer Examples', 'paradise-widgets-for-elementor' ),
@@ -74,6 +75,7 @@ foreach ( Paradise_EW_Admin::get_widget_registry() as $key => $widget ) {
             'widgets',
             $settings['widgets'] ?? []
         ); ?>
+        <?php endif; ?>
 
         <?php submit_button( esc_html__( 'Save Widgets', 'paradise-widgets-for-elementor' ) ); ?>
     </form>
