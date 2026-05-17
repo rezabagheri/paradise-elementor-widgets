@@ -4,7 +4,7 @@
  * Plugin Name:       Paradise Widgets for Elementor
  * Plugin URI:        https://www.paradisecyber.com/elementor-widgets
  * Description:       Advanced custom Elementor widgets by Paradise. Phone Link, Bottom Navigation Bar, and more.
- * Version:           3.0.1
+ * Version:           3.1.0
  * Requires at least: 6.1
  * Tested up to:      6.9
  * Requires PHP:      8.0
@@ -21,7 +21,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-define('PARADISE_EW_VERSION', '3.0.1');
+define('PARADISE_EW_VERSION', '3.1.0');
 define('PARADISE_EW_DIR', plugin_dir_path(__FILE__));
 define('PARADISE_EW_URL', plugin_dir_url(__FILE__));
 define('PARADISE_EW_MIN_ELEMENTOR_VERSION', '3.5.0');
