@@ -26,8 +26,8 @@ class Paradise_Site_Info_Admin {
     public static function register_menu(): void {
         add_submenu_page(
             'paradise-widgets',
-            esc_html__( 'Site Info', 'paradise-elementor-widgets' ),
-            esc_html__( 'Site Info', 'paradise-elementor-widgets' ),
+            esc_html__( 'Site Info', 'paradise-widgets-for-elementor' ),
+            esc_html__( 'Site Info', 'paradise-widgets-for-elementor' ),
             'manage_options',
             self::PAGE_SLUG,
             [ __CLASS__, 'render_page' ]
@@ -76,7 +76,7 @@ class Paradise_Site_Info_Admin {
 
     public static function handle_save(): void {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__( 'Unauthorized', 'paradise-elementor-widgets' ) );
+            wp_die( esc_html__( 'Unauthorized', 'paradise-widgets-for-elementor' ) );
         }
 
         check_admin_referer( self::NONCE );

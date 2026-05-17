@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.0.0] - 2026-05-17
+
+### Changed
+
+- **Plugin renamed**: `Paradise Elementor Widgets` → `Paradise Widgets for Elementor` (and the text domain from `paradise-elementor-widgets` → `paradise-widgets-for-elementor`). The original name embedded a third-party trademark ("Elementor"), which is disallowed in the WordPress.org plugin directory under the "no trademark in name" policy. The new name follows the standard "for X" pattern, which the directory accepts. No option keys or stored data structures change — only the human-readable label and the i18n text domain.
+- **`Tested up to: 6.9`** added to the plugin header (required by WordPress.org for plugin submission).
+
+### Notes
+
+- For sites that reference the text domain in custom code (`__('…', 'paradise-elementor-widgets')`), update to the new domain (`paradise-widgets-for-elementor`). The plugin folder name can also be renamed for full consistency with the new slug.
+
 ## [2.9.0] - 2026-05-15
 
 ### Added

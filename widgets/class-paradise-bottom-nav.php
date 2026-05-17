@@ -865,7 +865,7 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
         ?>
         <nav class="<?php echo $wrapper_classes; ?>"
              dir="<?php echo esc_attr($dir); ?>"
-             aria-label="<?php esc_attr_e('Bottom navigation', 'paradise-elementor-widgets'); ?>"
+             aria-label="<?php esc_attr_e('Bottom navigation', 'paradise-widgets-for-elementor'); ?>"
              data-paradise-bn='<?php echo wp_json_encode($data); ?>'>
 
             <div class="paradise-bn-bar">

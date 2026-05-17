@@ -21,7 +21,7 @@ use Elementor\Group_Control_Typography;
 class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
 
     public function get_name(): string    { return 'paradise_off_canvas_menu'; }
-    public function get_title(): string   { return esc_html__( 'Off-Canvas Menu', 'paradise-elementor-widgets' ); }
+    public function get_title(): string   { return esc_html__( 'Off-Canvas Menu', 'paradise-widgets-for-elementor' ); }
     public function get_icon(): string    { return 'eicon-menu-bar'; }
     public function get_keywords(): array { return [ 'off-canvas', 'menu', 'drawer', 'sidebar', 'nav', 'mobile' ]; }
 
@@ -48,31 +48,31 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
 
     private function section_trigger(): void {
         $this->start_controls_section( 'section_trigger', [
-            'label' => esc_html__( 'Trigger Button', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Trigger Button', 'paradise-widgets-for-elementor' ),
         ] );
 
         $this->add_control( 'trigger_icon', [
-            'label'   => esc_html__( 'Icon', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Icon', 'paradise-widgets-for-elementor' ),
             'type'    => Controls_Manager::ICONS,
             'default' => [ 'value' => 'eicon-menu-bar', 'library' => 'eicons' ],
         ] );
 
         $this->add_control( 'trigger_label', [
-            'label'     => esc_html__( 'Label', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Label', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::TEXT,
-            'default'   => esc_html__( 'Menu', 'paradise-elementor-widgets' ),
+            'default'   => esc_html__( 'Menu', 'paradise-widgets-for-elementor' ),
             'dynamic'   => [ 'active' => true ],
             'separator' => 'before',
         ] );
 
         $this->add_control( 'trigger_label_position', [
-            'label'   => esc_html__( 'Label Position', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Label Position', 'paradise-widgets-for-elementor' ),
             'type'    => Controls_Manager::SELECT,
             'default' => 'none',
             'options' => [
-                'none'   => esc_html__( 'Hidden',      'paradise-elementor-widgets' ),
-                'after'  => esc_html__( 'After Icon',  'paradise-elementor-widgets' ),
-                'before' => esc_html__( 'Before Icon', 'paradise-elementor-widgets' ),
+                'none'   => esc_html__( 'Hidden',      'paradise-widgets-for-elementor' ),
+                'after'  => esc_html__( 'After Icon',  'paradise-widgets-for-elementor' ),
+                'before' => esc_html__( 'Before Icon', 'paradise-widgets-for-elementor' ),
             ],
             'condition' => [ 'trigger_label!' => '' ],
         ] );
@@ -84,16 +84,16 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
 
     private function section_panel(): void {
         $this->start_controls_section( 'section_panel', [
-            'label' => esc_html__( 'Panel', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Panel', 'paradise-widgets-for-elementor' ),
         ] );
 
         $this->add_control( 'panel_position', [
-            'label'        => esc_html__( 'Slide In From', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Slide In From', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::CHOOSE,
             'default'      => 'right',
             'options'      => [
-                'left'  => [ 'title' => esc_html__( 'Left',  'paradise-elementor-widgets' ), 'icon' => 'eicon-h-align-left' ],
-                'right' => [ 'title' => esc_html__( 'Right', 'paradise-elementor-widgets' ), 'icon' => 'eicon-h-align-right' ],
+                'left'  => [ 'title' => esc_html__( 'Left',  'paradise-widgets-for-elementor' ), 'icon' => 'eicon-h-align-left' ],
+                'right' => [ 'title' => esc_html__( 'Right', 'paradise-widgets-for-elementor' ), 'icon' => 'eicon-h-align-right' ],
             ],
             'prefix_class' => 'paradise-ocm-pos-',
             'render_type'  => 'template',
@@ -101,13 +101,13 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
 
         // Build registered WP menu options
         $nav_menus    = wp_get_nav_menus();
-        $menu_options = [ '0' => esc_html__( '— Select a menu —', 'paradise-elementor-widgets' ) ];
+        $menu_options = [ '0' => esc_html__( '— Select a menu —', 'paradise-widgets-for-elementor' ) ];
         foreach ( $nav_menus as $menu ) {
             $menu_options[ $menu->term_id ] = $menu->name;
         }
 
         $this->add_control( 'nav_menu', [
-            'label'     => esc_html__( 'Menu', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Menu', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SELECT,
             'options'   => $menu_options,
             'default'   => '0',
@@ -115,7 +115,7 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'panel_title', [
-            'label'     => esc_html__( 'Panel Title', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Panel Title', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::TEXT,
             'default'   => '',
             'dynamic'   => [ 'active' => true ],
@@ -123,14 +123,14 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'show_close_btn', [
-            'label'        => esc_html__( 'Show Close Button', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Show Close Button', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
             'return_value' => 'yes',
             'default'      => 'yes',
         ] );
 
         $this->add_control( 'close_on_overlay', [
-            'label'        => esc_html__( 'Close on Overlay Click', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Close on Overlay Click', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
             'return_value' => 'yes',
             'default'      => 'yes',
@@ -143,12 +143,12 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
 
     private function section_style_trigger(): void {
         $this->start_controls_section( 'section_style_trigger', [
-            'label' => esc_html__( 'Trigger Button', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Trigger Button', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ] );
 
         $this->add_responsive_control( 'trigger_icon_size', [
-            'label'      => esc_html__( 'Icon Size', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Icon Size', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px', 'em' ],
             'range'      => [ 'px' => [ 'min' => 12, 'max' => 60 ] ],
@@ -160,7 +160,7 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_responsive_control( 'trigger_label_gap', [
-            'label'      => esc_html__( 'Icon–Label Gap', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Icon–Label Gap', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px' ],
             'range'      => [ 'px' => [ 'min' => 0, 'max' => 24 ] ],
@@ -172,17 +172,17 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
         $this->start_controls_tabs( 'trigger_tabs', [ 'separator' => 'before' ] );
 
             $this->start_controls_tab( 'trigger_tab_normal', [
-                'label' => esc_html__( 'Normal', 'paradise-elementor-widgets' ),
+                'label' => esc_html__( 'Normal', 'paradise-widgets-for-elementor' ),
             ] );
 
             $this->add_control( 'trigger_bg', [
-                'label'     => esc_html__( 'Background', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Background', 'paradise-widgets-for-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [ '{{WRAPPER}} .paradise-ocm-trigger' => 'background-color: {{VALUE}};' ],
             ] );
 
             $this->add_control( 'trigger_color', [
-                'label'     => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Color', 'paradise-widgets-for-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'default'   => '#333333',
                 'selectors' => [
@@ -195,17 +195,17 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
             $this->end_controls_tab();
 
             $this->start_controls_tab( 'trigger_tab_hover', [
-                'label' => esc_html__( 'Hover', 'paradise-elementor-widgets' ),
+                'label' => esc_html__( 'Hover', 'paradise-widgets-for-elementor' ),
             ] );
 
             $this->add_control( 'trigger_bg_hover', [
-                'label'     => esc_html__( 'Background', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Background', 'paradise-widgets-for-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [ '{{WRAPPER}} .paradise-ocm-trigger:hover' => 'background-color: {{VALUE}};' ],
             ] );
 
             $this->add_control( 'trigger_color_hover', [
-                'label'     => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Color', 'paradise-widgets-for-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .paradise-ocm-trigger:hover'     => 'color: {{VALUE}};',
@@ -219,7 +219,7 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
         $this->end_controls_tabs();
 
         $this->add_responsive_control( 'trigger_padding', [
-            'label'      => esc_html__( 'Padding', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Padding', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', 'em' ],
             'default'    => [ 'top' => 8, 'right' => 8, 'bottom' => 8, 'left' => 8, 'unit' => 'px', 'isLinked' => true ],
@@ -231,7 +231,7 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_responsive_control( 'trigger_border_radius', [
-            'label'      => esc_html__( 'Border Radius', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Border Radius', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', '%' ],
             'selectors'  => [
@@ -254,12 +254,12 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
 
     private function section_style_panel(): void {
         $this->start_controls_section( 'section_style_panel', [
-            'label' => esc_html__( 'Panel', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Panel', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ] );
 
         $this->add_responsive_control( 'panel_width', [
-            'label'      => esc_html__( 'Width', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Width', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px', '%', 'vw' ],
             'range'      => [ 'px' => [ 'min' => 200, 'max' => 800 ] ],
@@ -268,14 +268,14 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'panel_bg', [
-            'label'     => esc_html__( 'Background', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Background', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#ffffff',
             'selectors' => [ '{{WRAPPER}} .paradise-ocm-panel' => 'background-color: {{VALUE}};' ],
         ] );
 
         $this->add_control( 'animation_duration', [
-            'label'     => esc_html__( 'Animation Duration (ms)', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Animation Duration (ms)', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::NUMBER,
             'default'   => 300,
             'min'       => 100,
@@ -284,7 +284,7 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'z_index', [
-            'label'     => esc_html__( 'Z-Index', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Z-Index', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::NUMBER,
             'default'   => 9995,
             'selectors' => [ '{{WRAPPER}} .paradise-ocm-panel' => 'z-index: {{VALUE}}; --paradise-ocm-overlay-z: calc({{VALUE}} - 1);' ],
@@ -297,18 +297,18 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
 
     private function section_style_header(): void {
         $this->start_controls_section( 'section_style_header', [
-            'label' => esc_html__( 'Panel Header', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Panel Header', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ] );
 
         $this->add_control( 'header_bg', [
-            'label'     => esc_html__( 'Background', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Background', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-ocm-panel-header' => 'background-color: {{VALUE}};' ],
         ] );
 
         $this->add_responsive_control( 'header_padding', [
-            'label'      => esc_html__( 'Padding', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Padding', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', 'em' ],
             'default'    => [ 'top' => 16, 'right' => 16, 'bottom' => 16, 'left' => 16, 'unit' => 'px', 'isLinked' => true ],
@@ -319,7 +319,7 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'panel_title_color', [
-            'label'     => esc_html__( 'Title Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Title Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#333333',
             'selectors' => [ '{{WRAPPER}} .paradise-ocm-panel-title' => 'color: {{VALUE}};' ],
@@ -334,7 +334,7 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_responsive_control( 'close_size', [
-            'label'      => esc_html__( 'Close Button Size', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Close Button Size', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px' ],
             'range'      => [ 'px' => [ 'min' => 12, 'max' => 40 ] ],
@@ -345,7 +345,7 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'close_color', [
-            'label'     => esc_html__( 'Close Button Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Close Button Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#666666',
             'selectors' => [ '{{WRAPPER}} .paradise-ocm-close' => 'color: {{VALUE}};' ],
@@ -353,7 +353,7 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'close_color_hover', [
-            'label'     => esc_html__( 'Close Button Hover Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Close Button Hover Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#111111',
             'selectors' => [ '{{WRAPPER}} .paradise-ocm-close:hover' => 'color: {{VALUE}};' ],
@@ -367,25 +367,25 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
 
     private function section_style_menu(): void {
         $this->start_controls_section( 'section_style_menu', [
-            'label' => esc_html__( 'Menu Items', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Menu Items', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ] );
 
         $this->start_controls_tabs( 'menu_tabs' );
 
             $this->start_controls_tab( 'menu_tab_normal', [
-                'label' => esc_html__( 'Normal', 'paradise-elementor-widgets' ),
+                'label' => esc_html__( 'Normal', 'paradise-widgets-for-elementor' ),
             ] );
 
             $this->add_control( 'item_color', [
-                'label'     => esc_html__( 'Text Color', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Text Color', 'paradise-widgets-for-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'default'   => '#333333',
                 'selectors' => [ '{{WRAPPER}} .paradise-ocm-menu a' => 'color: {{VALUE}};' ],
             ] );
 
             $this->add_control( 'item_bg', [
-                'label'     => esc_html__( 'Background', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Background', 'paradise-widgets-for-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [ '{{WRAPPER}} .paradise-ocm-menu a' => 'background-color: {{VALUE}};' ],
             ] );
@@ -393,17 +393,17 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
             $this->end_controls_tab();
 
             $this->start_controls_tab( 'menu_tab_hover', [
-                'label' => esc_html__( 'Hover', 'paradise-elementor-widgets' ),
+                'label' => esc_html__( 'Hover', 'paradise-widgets-for-elementor' ),
             ] );
 
             $this->add_control( 'item_color_hover', [
-                'label'     => esc_html__( 'Text Color', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Text Color', 'paradise-widgets-for-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [ '{{WRAPPER}} .paradise-ocm-menu a:hover' => 'color: {{VALUE}};' ],
             ] );
 
             $this->add_control( 'item_bg_hover', [
-                'label'     => esc_html__( 'Background', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Background', 'paradise-widgets-for-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [ '{{WRAPPER}} .paradise-ocm-menu a:hover' => 'background-color: {{VALUE}};' ],
             ] );
@@ -413,7 +413,7 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
         $this->end_controls_tabs();
 
         $this->add_responsive_control( 'item_padding', [
-            'label'      => esc_html__( 'Item Padding', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Item Padding', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', 'em' ],
             'default'    => [ 'top' => 12, 'right' => 16, 'bottom' => 12, 'left' => 16, 'unit' => 'px', 'isLinked' => false ],
@@ -425,7 +425,7 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'item_divider_color', [
-            'label'     => esc_html__( 'Divider Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Divider Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#eeeeee',
             'selectors' => [
@@ -446,12 +446,12 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
 
     private function section_style_overlay(): void {
         $this->start_controls_section( 'section_style_overlay', [
-            'label' => esc_html__( 'Overlay', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Overlay', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ] );
 
         $this->add_control( 'overlay_color', [
-            'label'     => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => 'rgba(0,0,0,0.5)',
             'selectors' => [ '{{WRAPPER}} .paradise-ocm-overlay' => 'background-color: {{VALUE}};' ],
@@ -502,7 +502,7 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
             <button class="paradise-ocm-trigger"
                     aria-expanded="false"
                     aria-controls="<?php echo esc_attr( $panel_element_id ); ?>"
-                    aria-label="<?php esc_attr_e( 'Open menu', 'paradise-elementor-widgets' ); ?>"
+                    aria-label="<?php esc_attr_e( 'Open menu', 'paradise-widgets-for-elementor' ); ?>"
                     type="button">
                 <?php if ( 'before' === $trigger_label_pos ) echo $label_html; ?>
                 <?php echo $icon_html; ?>
@@ -517,7 +517,7 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
                  id="<?php echo esc_attr( $panel_element_id ); ?>"
                  role="dialog"
                  aria-modal="true"
-                 aria-label="<?php echo $panel_title ? esc_attr( $panel_title ) : esc_attr__( 'Navigation', 'paradise-elementor-widgets' ); ?>">
+                 aria-label="<?php echo $panel_title ? esc_attr( $panel_title ) : esc_attr__( 'Navigation', 'paradise-widgets-for-elementor' ); ?>">
 
                 <?php if ( $panel_title || $show_close ) : ?>
                 <div class="paradise-ocm-panel-header">
@@ -527,7 +527,7 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
 
                     <?php if ( $show_close ) : ?>
                     <button class="paradise-ocm-close"
-                            aria-label="<?php esc_attr_e( 'Close menu', 'paradise-elementor-widgets' ); ?>"
+                            aria-label="<?php esc_attr_e( 'Close menu', 'paradise-widgets-for-elementor' ); ?>"
                             type="button">
                         <svg viewBox="0 0 14 14" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <line x1="1" y1="1" x2="13" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -539,7 +539,7 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
                 <?php endif; ?>
 
                 <nav class="paradise-ocm-nav"
-                     aria-label="<?php esc_attr_e( 'Off-canvas navigation', 'paradise-elementor-widgets' ); ?>">
+                     aria-label="<?php esc_attr_e( 'Off-canvas navigation', 'paradise-widgets-for-elementor' ); ?>">
                     <?php
                     if ( $menu_id > 0 ) {
                         wp_nav_menu( [
@@ -551,7 +551,7 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
                         ] );
                     } elseif ( $is_editor ) {
                         echo '<p class="paradise-ocm-no-menu">'
-                            . esc_html__( 'Select a menu in the Panel settings.', 'paradise-elementor-widgets' )
+                            . esc_html__( 'Select a menu in the Panel settings.', 'paradise-widgets-for-elementor' )
                             . '</p>';
                     }
                     ?>
@@ -567,9 +567,9 @@ class Paradise_Off_Canvas_Menu_Widget extends Paradise_Widget_Base {
                 <path fill-rule="evenodd" d="M18 10A8 8 0 1 1 2 10a8 8 0 0 1 16 0Zm-8-5a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V6a1 1 0 0 1 1-1Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd"/>
             </svg>
             <span>
-                <?php esc_html_e( 'Off-Canvas Menu', 'paradise-elementor-widgets' ); ?>
+                <?php esc_html_e( 'Off-Canvas Menu', 'paradise-widgets-for-elementor' ); ?>
                 &mdash;
-                <?php esc_html_e( 'Public API:', 'paradise-elementor-widgets' ); ?>
+                <?php esc_html_e( 'Public API:', 'paradise-widgets-for-elementor' ); ?>
                 <strong>Paradise.openOffCanvas('<?php echo esc_html( $panel_id ); ?>')</strong>
             </span>
         </div>

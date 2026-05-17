@@ -146,7 +146,7 @@ class Paradise_Site_Info {
         $locations = self::get_locations();
 
         if ( empty( $locations ) ) {
-            return [ '' => esc_html__( '— No locations saved —', 'paradise-elementor-widgets' ) ];
+            return [ '' => esc_html__( '— No locations saved —', 'paradise-widgets-for-elementor' ) ];
         }
 
         $options = [];
@@ -154,7 +154,7 @@ class Paradise_Site_Info {
             $label       = trim( $loc['label'] ?? '' );
             $options[ $i ] = $label !== ''
                 ? $label
-                : sprintf( esc_html__( 'Location %d', 'paradise-elementor-widgets' ), $i + 1 );
+                : sprintf( esc_html__( 'Location %d', 'paradise-widgets-for-elementor' ), $i + 1 );
         }
 
         return $options;
@@ -167,7 +167,7 @@ class Paradise_Site_Info {
         $items = self::get( $type, $location );
 
         if ( empty( $items ) ) {
-            return [ '' => esc_html__( '— No items saved —', 'paradise-elementor-widgets' ) ];
+            return [ '' => esc_html__( '— No items saved —', 'paradise-widgets-for-elementor' ) ];
         }
 
         $options = [];
@@ -191,13 +191,13 @@ class Paradise_Site_Info {
     /** @return array<string, string>  slug → display label */
     public static function days(): array {
         return [
-            'monday'    => esc_html__( 'Monday',    'paradise-elementor-widgets' ),
-            'tuesday'   => esc_html__( 'Tuesday',   'paradise-elementor-widgets' ),
-            'wednesday' => esc_html__( 'Wednesday', 'paradise-elementor-widgets' ),
-            'thursday'  => esc_html__( 'Thursday',  'paradise-elementor-widgets' ),
-            'friday'    => esc_html__( 'Friday',    'paradise-elementor-widgets' ),
-            'saturday'  => esc_html__( 'Saturday',  'paradise-elementor-widgets' ),
-            'sunday'    => esc_html__( 'Sunday',    'paradise-elementor-widgets' ),
+            'monday'    => esc_html__( 'Monday',    'paradise-widgets-for-elementor' ),
+            'tuesday'   => esc_html__( 'Tuesday',   'paradise-widgets-for-elementor' ),
+            'wednesday' => esc_html__( 'Wednesday', 'paradise-widgets-for-elementor' ),
+            'thursday'  => esc_html__( 'Thursday',  'paradise-widgets-for-elementor' ),
+            'friday'    => esc_html__( 'Friday',    'paradise-widgets-for-elementor' ),
+            'saturday'  => esc_html__( 'Saturday',  'paradise-widgets-for-elementor' ),
+            'sunday'    => esc_html__( 'Sunday',    'paradise-widgets-for-elementor' ),
         ];
     }
 

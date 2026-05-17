@@ -63,11 +63,11 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
     private function section_phone(): void
     {
         $this->start_controls_section('section_phone', [
-            'label' => esc_html__('Phone', 'paradise-elementor-widgets'),
+            'label' => esc_html__('Phone', 'paradise-widgets-for-elementor'),
         ]);
 
         $this->add_control('phone_number', [
-            'label'       => esc_html__('Phone Number', 'paradise-elementor-widgets'),
+            'label'       => esc_html__('Phone Number', 'paradise-widgets-for-elementor'),
             'type'        => Controls_Manager::TEXT,
             'placeholder' => '+1 (888) 780-0904',
             'dynamic'     => [ 'active' => true ],
@@ -75,7 +75,7 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('country_code', [
-            'label'   => esc_html__('Country Code', 'paradise-elementor-widgets'),
+            'label'   => esc_html__('Country Code', 'paradise-widgets-for-elementor'),
             'type'    => Controls_Manager::SELECT,
             'default' => '1',
             'options' => [
@@ -84,25 +84,25 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
                 '49'     => '🇩🇪 DE (+49)',
                 '98'     => '🇮🇷 IR (+98)',
                 '971'    => '🇦🇪 UAE (+971)',
-                'custom' => esc_html__('Custom', 'paradise-elementor-widgets'),
+                'custom' => esc_html__('Custom', 'paradise-widgets-for-elementor'),
             ],
         ]);
 
         $this->add_control('country_code_custom', [
-            'label'     => esc_html__('Custom Country Code', 'paradise-elementor-widgets'),
+            'label'     => esc_html__('Custom Country Code', 'paradise-widgets-for-elementor'),
             'type'      => Controls_Manager::TEXT,
             'placeholder' => '1',
-            'description' => esc_html__('Digits only, without +', 'paradise-elementor-widgets'),
+            'description' => esc_html__('Digits only, without +', 'paradise-widgets-for-elementor'),
             'condition' => [ 'country_code' => 'custom' ],
         ]);
 
         $this->add_control('link_type', [
-            'label'     => esc_html__('Action', 'paradise-elementor-widgets'),
+            'label'     => esc_html__('Action', 'paradise-widgets-for-elementor'),
             'type'      => Controls_Manager::SELECT,
             'default'   => 'tel',
             'options'   => [
-                'tel'      => esc_html__('Phone Call (tel:)', 'paradise-elementor-widgets'),
-                'whatsapp' => esc_html__('Open WhatsApp', 'paradise-elementor-widgets'),
+                'tel'      => esc_html__('Phone Call (tel:)', 'paradise-widgets-for-elementor'),
+                'whatsapp' => esc_html__('Open WhatsApp', 'paradise-widgets-for-elementor'),
             ],
             'separator' => 'before',
         ]);
@@ -115,28 +115,28 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
     private function section_format(): void
     {
         $this->start_controls_section('section_format', [
-            'label' => esc_html__('Phone Format', 'paradise-elementor-widgets'),
+            'label' => esc_html__('Phone Format', 'paradise-widgets-for-elementor'),
         ]);
 
         $this->add_control('display_format', [
-            'label'   => esc_html__('Display Format', 'paradise-elementor-widgets'),
+            'label'   => esc_html__('Display Format', 'paradise-widgets-for-elementor'),
             'type'    => Controls_Manager::SELECT,
             'default' => 'raw',
             'options' => [
-                'raw'           => esc_html__('Raw (as entered)', 'paradise-elementor-widgets'),
-                'international' => esc_html__('International  e.g. +1 888 780 0904', 'paradise-elementor-widgets'),
-                'local'         => esc_html__('Local  e.g. (888) 780-0904', 'paradise-elementor-widgets'),
-                'dashes'        => esc_html__('Dashes  e.g. 888-780-0904', 'paradise-elementor-widgets'),
-                'dots'          => esc_html__('Dots  e.g. 888.780.0904', 'paradise-elementor-widgets'),
-                'custom_mask'   => esc_html__('Custom Mask', 'paradise-elementor-widgets'),
+                'raw'           => esc_html__('Raw (as entered)', 'paradise-widgets-for-elementor'),
+                'international' => esc_html__('International  e.g. +1 888 780 0904', 'paradise-widgets-for-elementor'),
+                'local'         => esc_html__('Local  e.g. (888) 780-0904', 'paradise-widgets-for-elementor'),
+                'dashes'        => esc_html__('Dashes  e.g. 888-780-0904', 'paradise-widgets-for-elementor'),
+                'dots'          => esc_html__('Dots  e.g. 888.780.0904', 'paradise-widgets-for-elementor'),
+                'custom_mask'   => esc_html__('Custom Mask', 'paradise-widgets-for-elementor'),
             ],
         ]);
 
         $this->add_control('custom_mask', [
-            'label'       => esc_html__('Custom Mask', 'paradise-elementor-widgets'),
+            'label'       => esc_html__('Custom Mask', 'paradise-widgets-for-elementor'),
             'type'        => Controls_Manager::TEXT,
             'placeholder' => '(###) ###-####',
-            'description' => esc_html__('Use # for each digit. Example: (###) ###-####', 'paradise-elementor-widgets'),
+            'description' => esc_html__('Use # for each digit. Example: (###) ###-####', 'paradise-widgets-for-elementor'),
             'label_block' => true,
             'condition'   => [ 'display_format' => 'custom_mask' ],
         ]);
@@ -149,17 +149,17 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
     private function section_label(): void
     {
         $this->start_controls_section('section_label', [
-            'label' => esc_html__('Icon & Label', 'paradise-elementor-widgets'),
+            'label' => esc_html__('Icon & Label', 'paradise-widgets-for-elementor'),
         ]);
 
         $this->add_control('selected_icon', [
-            'label'   => esc_html__('Icon', 'paradise-elementor-widgets'),
+            'label'   => esc_html__('Icon', 'paradise-widgets-for-elementor'),
             'type'    => Controls_Manager::ICONS,
             'default' => [ 'value' => 'fas fa-phone', 'library' => 'fa-solid' ],
         ]);
 
         $this->add_control('show_label', [
-            'label'        => esc_html__('Show Label', 'paradise-elementor-widgets'),
+            'label'        => esc_html__('Show Label', 'paradise-widgets-for-elementor'),
             'type'         => Controls_Manager::SWITCHER,
             'return_value' => 'yes',
             'default'      => '',
@@ -167,20 +167,20 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('label_source', [
-            'label'     => esc_html__('Label Source', 'paradise-elementor-widgets'),
+            'label'     => esc_html__('Label Source', 'paradise-widgets-for-elementor'),
             'type'      => Controls_Manager::SELECT,
             'default'   => 'formatted_number',
             'options'   => [
-                'formatted_number' => esc_html__('Formatted Number', 'paradise-elementor-widgets'),
-                'custom_text'      => esc_html__('Custom Text', 'paradise-elementor-widgets'),
+                'formatted_number' => esc_html__('Formatted Number', 'paradise-widgets-for-elementor'),
+                'custom_text'      => esc_html__('Custom Text', 'paradise-widgets-for-elementor'),
             ],
             'condition' => [ 'show_label' => 'yes' ],
         ]);
 
         $this->add_control('label_text', [
-            'label'       => esc_html__('Custom Label', 'paradise-elementor-widgets'),
+            'label'       => esc_html__('Custom Label', 'paradise-widgets-for-elementor'),
             'type'        => Controls_Manager::TEXT,
-            'default'     => esc_html__('Call Us', 'paradise-elementor-widgets'),
+            'default'     => esc_html__('Call Us', 'paradise-widgets-for-elementor'),
             'dynamic'     => [ 'active' => true ],
             'condition'   => [ 'show_label' => 'yes', 'label_source' => 'custom_text' ],
         ]);
@@ -193,25 +193,25 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
     private function section_style_position(): void
     {
         $this->start_controls_section('section_style_pos', [
-            'label' => esc_html__('Position', 'paradise-elementor-widgets'),
+            'label' => esc_html__('Position', 'paradise-widgets-for-elementor'),
             'tab'   => Controls_Manager::TAB_STYLE,
         ]);
 
         $this->add_control('corner', [
-            'label'        => esc_html__('Corner', 'paradise-elementor-widgets'),
+            'label'        => esc_html__('Corner', 'paradise-widgets-for-elementor'),
             'type'         => Controls_Manager::CHOOSE,
             'default'      => 'bottom-right',
             'options'      => [
-                'bottom-left'  => [ 'title' => esc_html__('Bottom Left', 'paradise-elementor-widgets'), 'icon' => 'eicon-v-align-bottom' ],
-                'bottom-right' => [ 'title' => esc_html__('Bottom Right', 'paradise-elementor-widgets'), 'icon' => 'eicon-v-align-bottom' ],
-                'top-left'     => [ 'title' => esc_html__('Top Left', 'paradise-elementor-widgets'), 'icon' => 'eicon-v-align-top' ],
-                'top-right'    => [ 'title' => esc_html__('Top Right', 'paradise-elementor-widgets'), 'icon' => 'eicon-v-align-top' ],
+                'bottom-left'  => [ 'title' => esc_html__('Bottom Left', 'paradise-widgets-for-elementor'), 'icon' => 'eicon-v-align-bottom' ],
+                'bottom-right' => [ 'title' => esc_html__('Bottom Right', 'paradise-widgets-for-elementor'), 'icon' => 'eicon-v-align-bottom' ],
+                'top-left'     => [ 'title' => esc_html__('Top Left', 'paradise-widgets-for-elementor'), 'icon' => 'eicon-v-align-top' ],
+                'top-right'    => [ 'title' => esc_html__('Top Right', 'paradise-widgets-for-elementor'), 'icon' => 'eicon-v-align-top' ],
             ],
             'prefix_class' => 'paradise-fcb-corner-',
         ]);
 
         $this->add_responsive_control('offset_v', [
-            'label'      => esc_html__('Vertical Offset', 'paradise-elementor-widgets'),
+            'label'      => esc_html__('Vertical Offset', 'paradise-widgets-for-elementor'),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px', 'em', '%' ],
             'range'      => [ 'px' => [ 'min' => 0, 'max' => 200 ] ],
@@ -223,7 +223,7 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_responsive_control('offset_h', [
-            'label'      => esc_html__('Horizontal Offset', 'paradise-elementor-widgets'),
+            'label'      => esc_html__('Horizontal Offset', 'paradise-widgets-for-elementor'),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px', 'em', '%' ],
             'range'      => [ 'px' => [ 'min' => 0, 'max' => 200 ] ],
@@ -234,7 +234,7 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('z_index', [
-            'label'     => esc_html__('Z-Index', 'paradise-elementor-widgets'),
+            'label'     => esc_html__('Z-Index', 'paradise-widgets-for-elementor'),
             'type'      => Controls_Manager::NUMBER,
             'default'   => 9999,
             'selectors' => [ '{{WRAPPER}} .paradise-fcb-wrap' => 'z-index: {{VALUE}};' ],
@@ -249,12 +249,12 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
     private function section_style_button(): void
     {
         $this->start_controls_section('section_style_btn', [
-            'label' => esc_html__('Button', 'paradise-elementor-widgets'),
+            'label' => esc_html__('Button', 'paradise-widgets-for-elementor'),
             'tab'   => Controls_Manager::TAB_STYLE,
         ]);
 
         $this->add_responsive_control('btn_size', [
-            'label'      => esc_html__('Size', 'paradise-elementor-widgets'),
+            'label'      => esc_html__('Size', 'paradise-widgets-for-elementor'),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px', 'em' ],
             'range'      => [ 'px' => [ 'min' => 32, 'max' => 120 ] ],
@@ -276,18 +276,18 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
         $this->start_controls_tabs('btn_tabs');
 
         $this->start_controls_tab('btn_tab_normal', [
-            'label' => esc_html__('Normal', 'paradise-elementor-widgets'),
+            'label' => esc_html__('Normal', 'paradise-widgets-for-elementor'),
         ]);
 
         $this->add_control('btn_bg', [
-            'label'     => esc_html__('Background', 'paradise-elementor-widgets'),
+            'label'     => esc_html__('Background', 'paradise-widgets-for-elementor'),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#2d3e50',
             'selectors' => [ '{{WRAPPER}} .paradise-fcb-btn' => 'background-color: {{VALUE}};' ],
         ]);
 
         $this->add_control('btn_color', [
-            'label'     => esc_html__('Color', 'paradise-elementor-widgets'),
+            'label'     => esc_html__('Color', 'paradise-widgets-for-elementor'),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#ffffff',
             'selectors' => [
@@ -299,17 +299,17 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
         $this->end_controls_tab();
 
         $this->start_controls_tab('btn_tab_hover', [
-            'label' => esc_html__('Hover', 'paradise-elementor-widgets'),
+            'label' => esc_html__('Hover', 'paradise-widgets-for-elementor'),
         ]);
 
         $this->add_control('btn_bg_hover', [
-            'label'     => esc_html__('Background', 'paradise-elementor-widgets'),
+            'label'     => esc_html__('Background', 'paradise-widgets-for-elementor'),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-fcb-btn:hover' => 'background-color: {{VALUE}};' ],
         ]);
 
         $this->add_control('btn_color_hover', [
-            'label'     => esc_html__('Color', 'paradise-elementor-widgets'),
+            'label'     => esc_html__('Color', 'paradise-widgets-for-elementor'),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} .paradise-fcb-btn:hover'      => 'color: {{VALUE}};',
@@ -318,7 +318,7 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('hover_animation', [
-            'label'        => esc_html__('Animation', 'paradise-elementor-widgets'),
+            'label'        => esc_html__('Animation', 'paradise-widgets-for-elementor'),
             'type'         => Controls_Manager::HOVER_ANIMATION,
             'prefix_class' => 'elementor-animation-',
         ]);
@@ -328,7 +328,7 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
         $this->end_controls_tabs();
 
         $this->add_responsive_control('btn_border_radius', [
-            'label'      => esc_html__('Border Radius', 'paradise-elementor-widgets'),
+            'label'      => esc_html__('Border Radius', 'paradise-widgets-for-elementor'),
             'type'       => Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', '%' ],
             'default'    => [ 'top' => 50, 'right' => 50, 'bottom' => 50, 'left' => 50, 'unit' => '%', 'isLinked' => true ],
@@ -350,7 +350,7 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_responsive_control('btn_padding', [
-            'label'      => esc_html__('Padding', 'paradise-elementor-widgets'),
+            'label'      => esc_html__('Padding', 'paradise-widgets-for-elementor'),
             'type'       => Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', 'em' ],
             'selectors'  => [
@@ -369,19 +369,19 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
     private function section_style_pulse(): void
     {
         $this->start_controls_section('section_style_pulse', [
-            'label' => esc_html__('Pulse Animation', 'paradise-elementor-widgets'),
+            'label' => esc_html__('Pulse Animation', 'paradise-widgets-for-elementor'),
             'tab'   => Controls_Manager::TAB_STYLE,
         ]);
 
         $this->add_control('pulse_enabled', [
-            'label'        => esc_html__('Enable Pulse', 'paradise-elementor-widgets'),
+            'label'        => esc_html__('Enable Pulse', 'paradise-widgets-for-elementor'),
             'type'         => Controls_Manager::SWITCHER,
             'return_value' => 'yes',
             'default'      => 'yes',
         ]);
 
         $this->add_control('pulse_color', [
-            'label'     => esc_html__('Pulse Color', 'paradise-elementor-widgets'),
+            'label'     => esc_html__('Pulse Color', 'paradise-widgets-for-elementor'),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#2d3e50',
             'selectors' => [
@@ -391,7 +391,7 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('pulse_size', [
-            'label'      => esc_html__('Spread', 'paradise-elementor-widgets'),
+            'label'      => esc_html__('Spread', 'paradise-widgets-for-elementor'),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px' ],
             'range'      => [ 'px' => [ 'min' => 4, 'max' => 40 ] ],
@@ -403,7 +403,7 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_control('pulse_duration', [
-            'label'      => esc_html__('Speed (seconds)', 'paradise-elementor-widgets'),
+            'label'      => esc_html__('Speed (seconds)', 'paradise-widgets-for-elementor'),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 's' ],
             'range'      => [ 's' => [ 'min' => 0.5, 'max' => 4, 'step' => 0.1 ] ],
@@ -422,12 +422,12 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
     private function section_style_icon(): void
     {
         $this->start_controls_section('section_style_icon', [
-            'label' => esc_html__('Icon', 'paradise-elementor-widgets'),
+            'label' => esc_html__('Icon', 'paradise-widgets-for-elementor'),
             'tab'   => Controls_Manager::TAB_STYLE,
         ]);
 
         $this->add_responsive_control('icon_size', [
-            'label'      => esc_html__('Size', 'paradise-elementor-widgets'),
+            'label'      => esc_html__('Size', 'paradise-widgets-for-elementor'),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px', 'em' ],
             'range'      => [ 'px' => [ 'min' => 10, 'max' => 80 ] ],
@@ -439,7 +439,7 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
         ]);
 
         $this->add_responsive_control('icon_gap', [
-            'label'      => esc_html__('Gap', 'paradise-elementor-widgets'),
+            'label'      => esc_html__('Gap', 'paradise-widgets-for-elementor'),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px' ],
             'range'      => [ 'px' => [ 'min' => 0, 'max' => 24 ] ],
@@ -474,8 +474,8 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
 
         // aria-label uses the displayed text
         $aria = 'whatsapp' === $link_type
-            ? sprintf(esc_html__('WhatsApp %s', 'paradise-elementor-widgets'), $display_text)
-            : sprintf(esc_html__('Call %s', 'paradise-elementor-widgets'), $display_text);
+            ? sprintf(esc_html__('WhatsApp %s', 'paradise-widgets-for-elementor'), $display_text)
+            : sprintf(esc_html__('Call %s', 'paradise-widgets-for-elementor'), $display_text);
 
         $show_label  = 'yes' === ($settings['show_label'] ?? '');
         $pulse       = 'yes' === ($settings['pulse_enabled'] ?? 'yes');
@@ -487,7 +487,7 @@ class Paradise_Floating_Call_Btn_Widget extends Paradise_Widget_Base
             $label_source = $settings['label_source'] ?? 'formatted_number';
             $label_text = ('formatted_number' === $label_source)
                 ? $display_text
-                : ($settings['label_text'] ?? esc_html__('Call Us', 'paradise-elementor-widgets'));
+                : ($settings['label_text'] ?? esc_html__('Call Us', 'paradise-widgets-for-elementor'));
         }
 
         $btn_classes = array_filter([

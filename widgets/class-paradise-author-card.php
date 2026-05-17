@@ -32,7 +32,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
     }
 
     public function get_title(): string {
-        return esc_html__( 'Author Card', 'paradise-elementor-widgets' );
+        return esc_html__( 'Author Card', 'paradise-widgets-for-elementor' );
     }
 
     public function get_icon(): string {
@@ -60,25 +60,25 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         // ── Author source ─────────────────────────────────────────────────────
         $this->start_controls_section( 'section_author', [
-            'label' => esc_html__( 'Author', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Author', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_CONTENT,
         ] );
 
         $this->add_control( 'author_source', [
-            'label'   => esc_html__( 'Author Source', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Author Source', 'paradise-widgets-for-elementor' ),
             'type'    => Controls_Manager::SELECT,
             'default' => 'current',
             'options' => [
-                'current'  => esc_html__( 'Current Post Author', 'paradise-elementor-widgets' ),
-                'specific' => esc_html__( 'Specific User', 'paradise-elementor-widgets' ),
+                'current'  => esc_html__( 'Current Post Author', 'paradise-widgets-for-elementor' ),
+                'specific' => esc_html__( 'Specific User', 'paradise-widgets-for-elementor' ),
             ],
         ] );
 
         $this->add_control( 'user_id', [
-            'label'       => esc_html__( 'User ID', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'User ID', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::NUMBER,
             'min'         => 1,
-            'description' => esc_html__( 'Find User ID in wp-admin → Users → hover the user name.', 'paradise-elementor-widgets' ),
+            'description' => esc_html__( 'Find User ID in wp-admin → Users → hover the user name.', 'paradise-widgets-for-elementor' ),
             'condition'   => [ 'author_source' => 'specific' ],
             'dynamic'     => [ 'active' => true ],
         ] );
@@ -87,35 +87,35 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         // ── Photo ─────────────────────────────────────────────────────────────
         $this->start_controls_section( 'section_photo', [
-            'label' => esc_html__( 'Photo', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Photo', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_CONTENT,
         ] );
 
         $this->add_control( 'show_photo', [
-            'label'        => esc_html__( 'Show Photo', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Show Photo', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
             'default'      => 'yes',
             'return_value' => 'yes',
         ] );
 
         $this->add_control( 'photo_source', [
-            'label'     => esc_html__( 'Photo Source', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Photo Source', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SELECT,
             'default'   => 'paradise',
             'options'   => [
-                'paradise' => esc_html__( 'Paradise Profile Photo', 'paradise-elementor-widgets' ),
-                'gravatar' => esc_html__( 'Gravatar / WordPress Avatar', 'paradise-elementor-widgets' ),
-                'meta_key' => esc_html__( 'Custom Meta Key', 'paradise-elementor-widgets' ),
-                'static'   => esc_html__( 'Static Image', 'paradise-elementor-widgets' ),
+                'paradise' => esc_html__( 'Paradise Profile Photo', 'paradise-widgets-for-elementor' ),
+                'gravatar' => esc_html__( 'Gravatar / WordPress Avatar', 'paradise-widgets-for-elementor' ),
+                'meta_key' => esc_html__( 'Custom Meta Key', 'paradise-widgets-for-elementor' ),
+                'static'   => esc_html__( 'Static Image', 'paradise-widgets-for-elementor' ),
             ],
             'condition' => [ 'show_photo' => 'yes' ],
         ] );
 
         $this->add_control( 'photo_meta_key', [
-            'label'       => esc_html__( 'Meta Key', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'Meta Key', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::TEXT,
             'placeholder' => 'e.g. acf_profile_photo',
-            'description' => esc_html__( 'User meta key that holds an attachment ID or image URL.', 'paradise-elementor-widgets' ),
+            'description' => esc_html__( 'User meta key that holds an attachment ID or image URL.', 'paradise-widgets-for-elementor' ),
             'condition'   => [
                 'show_photo'   => 'yes',
                 'photo_source' => 'meta_key',
@@ -123,7 +123,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'photo_static', [
-            'label'     => esc_html__( 'Image', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Image', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::MEDIA,
             'condition' => [
                 'show_photo'   => 'yes',
@@ -132,14 +132,14 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'photo_image_size', [
-            'label'     => esc_html__( 'Image Resolution', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Image Resolution', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SELECT,
             'default'   => 'medium',
             'options'   => [
-                'thumbnail' => esc_html__( 'Thumbnail (150px)', 'paradise-elementor-widgets' ),
-                'medium'    => esc_html__( 'Medium (300px)', 'paradise-elementor-widgets' ),
-                'large'     => esc_html__( 'Large (1024px)', 'paradise-elementor-widgets' ),
-                'full'      => esc_html__( 'Full', 'paradise-elementor-widgets' ),
+                'thumbnail' => esc_html__( 'Thumbnail (150px)', 'paradise-widgets-for-elementor' ),
+                'medium'    => esc_html__( 'Medium (300px)', 'paradise-widgets-for-elementor' ),
+                'large'     => esc_html__( 'Large (1024px)', 'paradise-widgets-for-elementor' ),
+                'full'      => esc_html__( 'Full', 'paradise-widgets-for-elementor' ),
             ],
             'condition' => [
                 'show_photo'   => 'yes',
@@ -151,69 +151,69 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         // ── Info ──────────────────────────────────────────────────────────────
         $this->start_controls_section( 'section_info', [
-            'label' => esc_html__( 'Info', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Info', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_CONTENT,
         ] );
 
         $this->add_control( 'show_name', [
-            'label'        => esc_html__( 'Show Name', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Show Name', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
             'default'      => 'yes',
             'return_value' => 'yes',
         ] );
 
         $this->add_control( 'name_format', [
-            'label'     => esc_html__( 'Name Format', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Name Format', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SELECT,
             'default'   => 'display_name',
             'options'   => [
-                'display_name' => esc_html__( 'Display Name', 'paradise-elementor-widgets' ),
-                'first_last'   => esc_html__( 'First Last', 'paradise-elementor-widgets' ),
-                'last_first'   => esc_html__( 'Last, First', 'paradise-elementor-widgets' ),
-                'first'        => esc_html__( 'First Name Only', 'paradise-elementor-widgets' ),
-                'last'         => esc_html__( 'Last Name Only', 'paradise-elementor-widgets' ),
+                'display_name' => esc_html__( 'Display Name', 'paradise-widgets-for-elementor' ),
+                'first_last'   => esc_html__( 'First Last', 'paradise-widgets-for-elementor' ),
+                'last_first'   => esc_html__( 'Last, First', 'paradise-widgets-for-elementor' ),
+                'first'        => esc_html__( 'First Name Only', 'paradise-widgets-for-elementor' ),
+                'last'         => esc_html__( 'Last Name Only', 'paradise-widgets-for-elementor' ),
             ],
             'condition' => [ 'show_name' => 'yes' ],
         ] );
 
         $this->add_control( 'show_credentials', [
-            'label'        => esc_html__( 'Show Credentials', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Show Credentials', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
             'default'      => 'yes',
             'return_value' => 'yes',
-            'description'  => esc_html__( 'Degree/license abbreviations shown inline after the name (e.g. "Anna Kravtson, D.O."). Reads paradise_profile_credentials from user meta.', 'paradise-elementor-widgets' ),
+            'description'  => esc_html__( 'Degree/license abbreviations shown inline after the name (e.g. "Anna Kravtson, D.O."). Reads paradise_profile_credentials from user meta.', 'paradise-widgets-for-elementor' ),
             'condition'    => [ 'show_name' => 'yes' ],
         ] );
 
         $this->add_control( 'credentials_separator', [
-            'label'     => esc_html__( 'Credentials Separator', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Credentials Separator', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::TEXT,
             'default'   => ', ',
             'condition' => [ 'show_credentials' => 'yes', 'show_name' => 'yes' ],
         ] );
 
         $this->add_control( 'show_title', [
-            'label'        => esc_html__( 'Show Role / Position', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Show Role / Position', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
             'default'      => 'yes',
             'return_value' => 'yes',
-            'description'  => esc_html__( 'Role or position shown as a subtitle below the name (e.g. "Medical Writer & Clinical Contributor"). Reads paradise_profile_title from user meta.', 'paradise-elementor-widgets' ),
+            'description'  => esc_html__( 'Role or position shown as a subtitle below the name (e.g. "Medical Writer & Clinical Contributor"). Reads paradise_profile_title from user meta.', 'paradise-widgets-for-elementor' ),
         ] );
 
         $this->add_control( 'show_bio', [
-            'label'        => esc_html__( 'Show Bio', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Show Bio', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
             'default'      => 'yes',
             'return_value' => 'yes',
-            'description'  => esc_html__( 'Reads the WordPress "Biographical Info" field.', 'paradise-elementor-widgets' ),
+            'description'  => esc_html__( 'Reads the WordPress "Biographical Info" field.', 'paradise-widgets-for-elementor' ),
         ] );
 
         $this->add_control( 'bio_word_limit', [
-            'label'       => esc_html__( 'Bio Word Limit', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'Bio Word Limit', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::NUMBER,
             'min'         => 0,
             'default'     => 0,
-            'description' => esc_html__( '0 = no limit.', 'paradise-elementor-widgets' ),
+            'description' => esc_html__( '0 = no limit.', 'paradise-widgets-for-elementor' ),
             'condition'   => [ 'show_bio' => 'yes' ],
         ] );
 
@@ -221,20 +221,20 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         // ── Links ─────────────────────────────────────────────────────────────
         $this->start_controls_section( 'section_links', [
-            'label' => esc_html__( 'Links', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Links', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_CONTENT,
         ] );
 
         $link_options = [
-            'none'    => esc_html__( 'None', 'paradise-elementor-widgets' ),
-            'archive' => esc_html__( 'Author Archive', 'paradise-elementor-widgets' ),
-            'website' => esc_html__( 'Author Website', 'paradise-elementor-widgets' ),
-            'custom'  => esc_html__( 'Custom URL', 'paradise-elementor-widgets' ),
+            'none'    => esc_html__( 'None', 'paradise-widgets-for-elementor' ),
+            'archive' => esc_html__( 'Author Archive', 'paradise-widgets-for-elementor' ),
+            'website' => esc_html__( 'Author Website', 'paradise-widgets-for-elementor' ),
+            'custom'  => esc_html__( 'Custom URL', 'paradise-widgets-for-elementor' ),
         ];
 
         // Photo link
         $this->add_control( 'photo_link_to', [
-            'label'     => esc_html__( 'Photo Link', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Photo Link', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SELECT,
             'default'   => 'none',
             'options'   => $link_options,
@@ -242,14 +242,14 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'photo_link_url', [
-            'label'     => esc_html__( 'Photo URL', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Photo URL', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::URL,
             'dynamic'   => [ 'active' => true ],
             'condition' => [ 'show_photo' => 'yes', 'photo_link_to' => 'custom' ],
         ] );
 
         $this->add_control( 'photo_link_target', [
-            'label'        => esc_html__( 'Open Photo Link in New Tab', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Open Photo Link in New Tab', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
             'return_value' => '_blank',
             'condition'    => [ 'show_photo' => 'yes', 'photo_link_to!' => 'none' ],
@@ -261,7 +261,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         // Name link
         $this->add_control( 'name_link_to', [
-            'label'     => esc_html__( 'Name Link', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Name Link', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SELECT,
             'default'   => 'none',
             'options'   => $link_options,
@@ -269,14 +269,14 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'name_link_url', [
-            'label'     => esc_html__( 'Name URL', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Name URL', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::URL,
             'dynamic'   => [ 'active' => true ],
             'condition' => [ 'show_name' => 'yes', 'name_link_to' => 'custom' ],
         ] );
 
         $this->add_control( 'name_link_target', [
-            'label'        => esc_html__( 'Open Name Link in New Tab', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Open Name Link in New Tab', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
             'return_value' => '_blank',
             'condition'    => [ 'show_name' => 'yes', 'name_link_to!' => 'none' ],
@@ -286,65 +286,65 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         // ── Custom Fields ─────────────────────────────────────────────────────
         $this->start_controls_section( 'section_custom_fields', [
-            'label' => esc_html__( 'Custom Fields', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Custom Fields', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_CONTENT,
         ] );
 
         $this->add_control( 'custom_fields_notice', [
             'type'            => Controls_Manager::RAW_HTML,
-            'raw'             => esc_html__( 'Enter the user meta key for each field. Works with ACF, User Meta plugins, or any custom user meta.', 'paradise-elementor-widgets' ),
+            'raw'             => esc_html__( 'Enter the user meta key for each field. Works with ACF, User Meta plugins, or any custom user meta.', 'paradise-widgets-for-elementor' ),
             'content_classes' => 'elementor-descriptor',
         ] );
 
         $repeater = new Repeater();
 
         $repeater->add_control( 'field_label', [
-            'label'       => esc_html__( 'Label', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'Label', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::TEXT,
-            'placeholder' => esc_html__( 'e.g. Specialty', 'paradise-elementor-widgets' ),
+            'placeholder' => esc_html__( 'e.g. Specialty', 'paradise-widgets-for-elementor' ),
         ] );
 
         $repeater->add_control( 'field_meta_key', [
-            'label'       => esc_html__( 'Meta Key', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'Meta Key', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::TEXT,
-            'placeholder' => esc_html__( 'e.g. acf_specialty', 'paradise-elementor-widgets' ),
+            'placeholder' => esc_html__( 'e.g. acf_specialty', 'paradise-widgets-for-elementor' ),
         ] );
 
         $repeater->add_control( 'field_show_label', [
-            'label'        => esc_html__( 'Show Label', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Show Label', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
             'default'      => 'yes',
             'return_value' => 'yes',
         ] );
 
         $repeater->add_control( 'field_type', [
-            'label'   => esc_html__( 'Display Type', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Display Type', 'paradise-widgets-for-elementor' ),
             'type'    => Controls_Manager::SELECT,
             'default' => 'text',
             'options' => [
-                'text'  => esc_html__( 'Text', 'paradise-elementor-widgets' ),
-                'link'  => esc_html__( 'Link', 'paradise-elementor-widgets' ),
-                'email' => esc_html__( 'Email', 'paradise-elementor-widgets' ),
-                'badge' => esc_html__( 'Badge', 'paradise-elementor-widgets' ),
+                'text'  => esc_html__( 'Text', 'paradise-widgets-for-elementor' ),
+                'link'  => esc_html__( 'Link', 'paradise-widgets-for-elementor' ),
+                'email' => esc_html__( 'Email', 'paradise-widgets-for-elementor' ),
+                'badge' => esc_html__( 'Badge', 'paradise-widgets-for-elementor' ),
             ],
         ] );
 
         $repeater->add_control( 'field_link_label', [
-            'label'       => esc_html__( 'Link Label', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'Link Label', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::TEXT,
-            'description' => esc_html__( 'Leave empty to show the URL as label.', 'paradise-elementor-widgets' ),
+            'description' => esc_html__( 'Leave empty to show the URL as label.', 'paradise-widgets-for-elementor' ),
             'condition'   => [ 'field_type' => 'link' ],
         ] );
 
         $repeater->add_control( 'field_link_target', [
-            'label'        => esc_html__( 'Open in New Tab', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Open in New Tab', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
             'return_value' => '_blank',
             'condition'    => [ 'field_type' => [ 'link', 'email' ] ],
         ] );
 
         $this->add_control( 'custom_fields', [
-            'label'       => esc_html__( 'Fields', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'Fields', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::REPEATER,
             'fields'      => $repeater->get_controls(),
             'title_field' => '{{{ field_label || field_meta_key }}}',
@@ -354,26 +354,26 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         // ── Social Links ──────────────────────────────────────────────────────
         $this->start_controls_section( 'section_social', [
-            'label' => esc_html__( 'Social Links', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Social Links', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_CONTENT,
         ] );
 
         $this->add_control( 'show_social', [
-            'label'        => esc_html__( 'Show Social Links', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Show Social Links', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
             'default'      => 'yes',
             'return_value' => 'yes',
-            'description'  => esc_html__( 'Links are set per user in wp-admin → Users → Edit User → Social Links.', 'paradise-elementor-widgets' ),
+            'description'  => esc_html__( 'Links are set per user in wp-admin → Users → Edit User → Social Links.', 'paradise-widgets-for-elementor' ),
         ] );
 
         $this->add_control( 'social_display', [
-            'label'     => esc_html__( 'Display', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Display', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SELECT,
             'default'   => 'icon_only',
             'options'   => [
-                'icon_only'  => esc_html__( 'Icon Only', 'paradise-elementor-widgets' ),
-                'icon_label' => esc_html__( 'Icon + Label', 'paradise-elementor-widgets' ),
-                'label_only' => esc_html__( 'Label Only', 'paradise-elementor-widgets' ),
+                'icon_only'  => esc_html__( 'Icon Only', 'paradise-widgets-for-elementor' ),
+                'icon_label' => esc_html__( 'Icon + Label', 'paradise-widgets-for-elementor' ),
+                'label_only' => esc_html__( 'Label Only', 'paradise-widgets-for-elementor' ),
             ],
             'condition' => [ 'show_social' => 'yes' ],
         ] );
@@ -382,39 +382,39 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         // ── Button ────────────────────────────────────────────────────────────
         $this->start_controls_section( 'section_button', [
-            'label' => esc_html__( 'Button', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Button', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_CONTENT,
         ] );
 
         $this->add_control( 'show_button', [
-            'label'        => esc_html__( 'Show Button', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Show Button', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
             'default'      => '',
             'return_value' => 'yes',
         ] );
 
         $this->add_control( 'button_text', [
-            'label'     => esc_html__( 'Text', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Text', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::TEXT,
-            'default'   => esc_html__( 'View Profile', 'paradise-elementor-widgets' ),
+            'default'   => esc_html__( 'View Profile', 'paradise-widgets-for-elementor' ),
             'condition' => [ 'show_button' => 'yes' ],
             'dynamic'   => [ 'active' => true ],
         ] );
 
         $this->add_control( 'button_url_type', [
-            'label'     => esc_html__( 'Link To', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Link To', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SELECT,
             'default'   => 'website',
             'options'   => [
-                'website' => esc_html__( 'Author\'s Website', 'paradise-elementor-widgets' ),
-                'archive' => esc_html__( 'Author Archive', 'paradise-elementor-widgets' ),
-                'custom'  => esc_html__( 'Custom URL', 'paradise-elementor-widgets' ),
+                'website' => esc_html__( 'Author\'s Website', 'paradise-widgets-for-elementor' ),
+                'archive' => esc_html__( 'Author Archive', 'paradise-widgets-for-elementor' ),
+                'custom'  => esc_html__( 'Custom URL', 'paradise-widgets-for-elementor' ),
             ],
             'condition' => [ 'show_button' => 'yes' ],
         ] );
 
         $this->add_control( 'button_url', [
-            'label'     => esc_html__( 'URL', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'URL', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::URL,
             'dynamic'   => [ 'active' => true ],
             'condition' => [
@@ -424,7 +424,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'button_new_tab', [
-            'label'        => esc_html__( 'Open in New Tab', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Open in New Tab', 'paradise-widgets-for-elementor' ),
             'type'         => Controls_Manager::SWITCHER,
             'return_value' => '_blank',
             'condition'    => [ 'show_button' => 'yes' ],
@@ -441,18 +441,18 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         // ── Card Container ────────────────────────────────────────────────────
         $this->start_controls_section( 'style_card', [
-            'label' => esc_html__( 'Card', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Card', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ] );
 
         $this->add_control( 'card_bg_color', [
-            'label'     => esc_html__( 'Background', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Background', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-author-card' => 'background-color: {{VALUE}};' ],
         ] );
 
         $this->add_control( 'card_padding', [
-            'label'      => esc_html__( 'Padding', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Padding', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', 'em', '%' ],
             'selectors'  => [
@@ -462,7 +462,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'card_border_radius', [
-            'label'      => esc_html__( 'Border Radius', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Border Radius', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', '%' ],
             'selectors'  => [
@@ -485,34 +485,34 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         // ── Layout ────────────────────────────────────────────────────────────
         $this->start_controls_section( 'style_layout', [
-            'label' => esc_html__( 'Layout', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Layout', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ] );
 
         $this->add_control( 'layout', [
-            'label'   => esc_html__( 'Direction', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Direction', 'paradise-widgets-for-elementor' ),
             'type'    => Controls_Manager::CHOOSE,
             'default' => 'vertical',
             'options' => [
                 'vertical'   => [
-                    'title' => esc_html__( 'Vertical', 'paradise-elementor-widgets' ),
+                    'title' => esc_html__( 'Vertical', 'paradise-widgets-for-elementor' ),
                     'icon'  => 'eicon-v-align-top',
                 ],
                 'horizontal' => [
-                    'title' => esc_html__( 'Horizontal', 'paradise-elementor-widgets' ),
+                    'title' => esc_html__( 'Horizontal', 'paradise-widgets-for-elementor' ),
                     'icon'  => 'eicon-h-align-left',
                 ],
             ],
         ] );
 
         $this->add_control( 'alignment', [
-            'label'     => esc_html__( 'Alignment', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Alignment', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::CHOOSE,
             'default'   => 'center',
             'options'   => [
-                'left'   => [ 'title' => esc_html__( 'Left', 'paradise-elementor-widgets' ),   'icon' => 'eicon-text-align-left' ],
-                'center' => [ 'title' => esc_html__( 'Center', 'paradise-elementor-widgets' ), 'icon' => 'eicon-text-align-center' ],
-                'right'  => [ 'title' => esc_html__( 'Right', 'paradise-elementor-widgets' ),  'icon' => 'eicon-text-align-right' ],
+                'left'   => [ 'title' => esc_html__( 'Left', 'paradise-widgets-for-elementor' ),   'icon' => 'eicon-text-align-left' ],
+                'center' => [ 'title' => esc_html__( 'Center', 'paradise-widgets-for-elementor' ), 'icon' => 'eicon-text-align-center' ],
+                'right'  => [ 'title' => esc_html__( 'Right', 'paradise-widgets-for-elementor' ),  'icon' => 'eicon-text-align-right' ],
             ],
             'selectors' => [
                 '{{WRAPPER}} .paradise-author-card__body' => 'text-align: {{VALUE}};',
@@ -522,7 +522,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'card_gap', [
-            'label'     => esc_html__( 'Gap Between Photo & Content', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Gap Between Photo & Content', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SLIDER,
             'range'     => [ 'px' => [ 'min' => 0, 'max' => 60 ] ],
             'default'   => [ 'size' => 16, 'unit' => 'px' ],
@@ -533,13 +533,13 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         // ── Photo ─────────────────────────────────────────────────────────────
         $this->start_controls_section( 'style_photo', [
-            'label'     => esc_html__( 'Photo', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Photo', 'paradise-widgets-for-elementor' ),
             'tab'       => Controls_Manager::TAB_STYLE,
             'condition' => [ 'show_photo' => 'yes' ],
         ] );
 
         $this->add_responsive_control( 'photo_width', [
-            'label'      => esc_html__( 'Size', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Size', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px', '%', 'vw' ],
             'range'      => [
@@ -554,7 +554,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'photo_border_radius', [
-            'label'      => esc_html__( 'Border Radius', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Border Radius', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', '%' ],
             'default'    => [
@@ -581,13 +581,13 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         // ── Name ──────────────────────────────────────────────────────────────
         $this->start_controls_section( 'style_name', [
-            'label'     => esc_html__( 'Name', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Name', 'paradise-widgets-for-elementor' ),
             'tab'       => Controls_Manager::TAB_STYLE,
             'condition' => [ 'show_name' => 'yes' ],
         ] );
 
         $this->add_control( 'name_color', [
-            'label'     => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-author-card__name' => 'color: {{VALUE}};' ],
         ] );
@@ -598,7 +598,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'name_spacing', [
-            'label'     => esc_html__( 'Bottom Spacing', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Bottom Spacing', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SLIDER,
             'range'     => [ 'px' => [ 'min' => 0, 'max' => 40 ] ],
             'default'   => [ 'size' => 4, 'unit' => 'px' ],
@@ -609,13 +609,13 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         // ── Title / Credentials ───────────────────────────────────────────────
         $this->start_controls_section( 'style_credentials', [
-            'label'     => esc_html__( 'Credentials', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Credentials', 'paradise-widgets-for-elementor' ),
             'tab'       => Controls_Manager::TAB_STYLE,
             'condition' => [ 'show_credentials' => 'yes', 'show_name' => 'yes' ],
         ] );
 
         $this->add_control( 'credentials_color', [
-            'label'     => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-author-card__credentials' => 'color: {{VALUE}};' ],
         ] );
@@ -628,13 +628,13 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         $this->end_controls_section();
 
         $this->start_controls_section( 'style_title', [
-            'label'     => esc_html__( 'Role / Position', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Role / Position', 'paradise-widgets-for-elementor' ),
             'tab'       => Controls_Manager::TAB_STYLE,
             'condition' => [ 'show_title' => 'yes' ],
         ] );
 
         $this->add_control( 'title_color', [
-            'label'     => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-author-card__title' => 'color: {{VALUE}};' ],
         ] );
@@ -645,7 +645,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'title_spacing', [
-            'label'     => esc_html__( 'Bottom Spacing', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Bottom Spacing', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SLIDER,
             'range'     => [ 'px' => [ 'min' => 0, 'max' => 40 ] ],
             'default'   => [ 'size' => 8, 'unit' => 'px' ],
@@ -656,13 +656,13 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         // ── Bio ───────────────────────────────────────────────────────────────
         $this->start_controls_section( 'style_bio', [
-            'label'     => esc_html__( 'Bio', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Bio', 'paradise-widgets-for-elementor' ),
             'tab'       => Controls_Manager::TAB_STYLE,
             'condition' => [ 'show_bio' => 'yes' ],
         ] );
 
         $this->add_control( 'bio_color', [
-            'label'     => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-author-card__bio' => 'color: {{VALUE}};' ],
         ] );
@@ -673,7 +673,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'bio_spacing', [
-            'label'     => esc_html__( 'Bottom Spacing', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Bottom Spacing', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SLIDER,
             'range'     => [ 'px' => [ 'min' => 0, 'max' => 40 ] ],
             'default'   => [ 'size' => 12, 'unit' => 'px' ],
@@ -684,12 +684,12 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         // ── Custom Fields ─────────────────────────────────────────────────────
         $this->start_controls_section( 'style_fields', [
-            'label' => esc_html__( 'Custom Fields', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Custom Fields', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ] );
 
         $this->add_control( 'fields_item_gap', [
-            'label'     => esc_html__( 'Gap Between Fields', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Gap Between Fields', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SLIDER,
             'range'     => [ 'px' => [ 'min' => 0, 'max' => 24 ] ],
             'default'   => [ 'size' => 4, 'unit' => 'px' ],
@@ -697,31 +697,31 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'field_label_color', [
-            'label'     => esc_html__( 'Label Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Label Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-author-card__field-label' => 'color: {{VALUE}};' ],
         ] );
 
         $this->add_group_control( Group_Control_Typography::get_type(), [
             'name'     => 'field_label_typography',
-            'label'    => esc_html__( 'Label Typography', 'paradise-elementor-widgets' ),
+            'label'    => esc_html__( 'Label Typography', 'paradise-widgets-for-elementor' ),
             'selector' => '{{WRAPPER}} .paradise-author-card__field-label',
         ] );
 
         $this->add_control( 'field_value_color', [
-            'label'     => esc_html__( 'Value Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Value Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-author-card__field-value' => 'color: {{VALUE}};' ],
         ] );
 
         $this->add_group_control( Group_Control_Typography::get_type(), [
             'name'     => 'field_value_typography',
-            'label'    => esc_html__( 'Value Typography', 'paradise-elementor-widgets' ),
+            'label'    => esc_html__( 'Value Typography', 'paradise-widgets-for-elementor' ),
             'selector' => '{{WRAPPER}} .paradise-author-card__field-value',
         ] );
 
         $this->add_control( 'fields_spacing', [
-            'label'     => esc_html__( 'Block Bottom Spacing', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Block Bottom Spacing', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SLIDER,
             'range'     => [ 'px' => [ 'min' => 0, 'max' => 40 ] ],
             'default'   => [ 'size' => 12, 'unit' => 'px' ],
@@ -729,38 +729,38 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'fields_link_heading', [
-            'label'     => esc_html__( 'Link Type', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Link Type', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::HEADING,
             'separator' => 'before',
         ] );
 
         $this->add_control( 'field_link_color', [
-            'label'     => esc_html__( 'Link Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Link Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-author-card__field-link' => 'color: {{VALUE}};' ],
         ] );
 
         $this->add_control( 'fields_badge_heading', [
-            'label'     => esc_html__( 'Badge Type', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Badge Type', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::HEADING,
             'separator' => 'before',
         ] );
 
         $this->add_control( 'field_badge_bg', [
-            'label'     => esc_html__( 'Badge Background', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Badge Background', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#f0f0f1',
             'selectors' => [ '{{WRAPPER}} .paradise-author-card__field-badge' => 'background-color: {{VALUE}};' ],
         ] );
 
         $this->add_control( 'field_badge_color', [
-            'label'     => esc_html__( 'Badge Text Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Badge Text Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-author-card__field-badge' => 'color: {{VALUE}};' ],
         ] );
 
         $this->add_control( 'field_badge_radius', [
-            'label'      => esc_html__( 'Badge Border Radius', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Badge Border Radius', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::SLIDER,
             'range'      => [ 'px' => [ 'min' => 0, 'max' => 50 ] ],
             'default'    => [ 'size' => 20, 'unit' => 'px' ],
@@ -771,12 +771,12 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         // ── Social Links ──────────────────────────────────────────────────────
         $this->start_controls_section( 'style_social', [
-            'label' => esc_html__( 'Social Links', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Social Links', 'paradise-widgets-for-elementor' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ] );
 
         $this->add_control( 'social_spacing', [
-            'label'     => esc_html__( 'Top Spacing', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Top Spacing', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SLIDER,
             'range'     => [ 'px' => [ 'min' => 0, 'max' => 40 ] ],
             'default'   => [ 'size' => 12, 'unit' => 'px' ],
@@ -784,7 +784,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'social_gap', [
-            'label'     => esc_html__( 'Gap Between Icons', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Gap Between Icons', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SLIDER,
             'range'     => [ 'px' => [ 'min' => 0, 'max' => 32 ] ],
             'default'   => [ 'size' => 10, 'unit' => 'px' ],
@@ -792,7 +792,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'social_icon_size', [
-            'label'     => esc_html__( 'Icon Size', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Icon Size', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SLIDER,
             'range'     => [ 'px' => [ 'min' => 10, 'max' => 48 ] ],
             'default'   => [ 'size' => 18, 'unit' => 'px' ],
@@ -800,7 +800,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'social_color', [
-            'label'     => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} .paradise-author-card__social-link'       => 'color: {{VALUE}};',
@@ -809,20 +809,20 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'social_bg_color', [
-            'label'     => esc_html__( 'Icon Background', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Icon Background', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-author-card__social-link' => 'background-color: {{VALUE}};' ],
         ] );
 
         $this->add_control( 'social_icon_padding', [
-            'label'     => esc_html__( 'Icon Padding', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Icon Padding', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SLIDER,
             'range'     => [ 'px' => [ 'min' => 0, 'max' => 20 ] ],
             'selectors' => [ '{{WRAPPER}} .paradise-author-card__social-link' => 'padding: {{SIZE}}{{UNIT}};' ],
         ] );
 
         $this->add_control( 'social_border_radius', [
-            'label'      => esc_html__( 'Border Radius', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Border Radius', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', '%' ],
             'selectors'  => [
@@ -833,7 +833,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         $this->add_group_control( Group_Control_Typography::get_type(), [
             'name'      => 'social_typography',
-            'label'     => esc_html__( 'Label Typography', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Label Typography', 'paradise-widgets-for-elementor' ),
             'selector'  => '{{WRAPPER}} .paradise-author-card__social-label',
             'condition' => [ 'social_display' => [ 'icon_label', 'label_only' ] ],
         ] );
@@ -842,13 +842,13 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
 
         // ── Button ────────────────────────────────────────────────────────────
         $this->start_controls_section( 'style_button', [
-            'label'     => esc_html__( 'Button', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Button', 'paradise-widgets-for-elementor' ),
             'tab'       => Controls_Manager::TAB_STYLE,
             'condition' => [ 'show_button' => 'yes' ],
         ] );
 
         $this->add_control( 'button_spacing', [
-            'label'     => esc_html__( 'Top Spacing', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Top Spacing', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::SLIDER,
             'range'     => [ 'px' => [ 'min' => 0, 'max' => 60 ] ],
             'default'   => [ 'size' => 16, 'unit' => 'px' ],
@@ -856,7 +856,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'button_padding', [
-            'label'      => esc_html__( 'Padding', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Padding', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', 'em' ],
             'default'    => [ 'top' => 10, 'right' => 24, 'bottom' => 10, 'left' => 24, 'unit' => 'px', 'isLinked' => false ],
@@ -867,7 +867,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'button_border_radius', [
-            'label'      => esc_html__( 'Border Radius', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Border Radius', 'paradise-widgets-for-elementor' ),
             'type'       => Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', '%' ],
             'default'    => [ 'top' => 4, 'right' => 4, 'bottom' => 4, 'left' => 4, 'unit' => 'px', 'isLinked' => true ],
@@ -878,27 +878,27 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'button_bg_color', [
-            'label'     => esc_html__( 'Background', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Background', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#333333',
             'selectors' => [ '{{WRAPPER}} .paradise-author-card__btn' => 'background-color: {{VALUE}};' ],
         ] );
 
         $this->add_control( 'button_text_color', [
-            'label'     => esc_html__( 'Text Color', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Text Color', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#ffffff',
             'selectors' => [ '{{WRAPPER}} .paradise-author-card__btn' => 'color: {{VALUE}};' ],
         ] );
 
         $this->add_control( 'button_bg_hover', [
-            'label'     => esc_html__( 'Background (Hover)', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Background (Hover)', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-author-card__btn:hover' => 'background-color: {{VALUE}};' ],
         ] );
 
         $this->add_control( 'button_text_hover', [
-            'label'     => esc_html__( 'Text Color (Hover)', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Text Color (Hover)', 'paradise-widgets-for-elementor' ),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-author-card__btn:hover' => 'color: {{VALUE}};' ],
         ] );
@@ -931,7 +931,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         if ( ! $user ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
                 echo '<div class="paradise-author-card paradise-author-card__placeholder">'
-                   . esc_html__( 'Author Card: no author found. Check the Author Source setting.', 'paradise-elementor-widgets' )
+                   . esc_html__( 'Author Card: no author found. Check the Author Source setting.', 'paradise-widgets-for-elementor' )
                    . '</div>';
             }
             return;

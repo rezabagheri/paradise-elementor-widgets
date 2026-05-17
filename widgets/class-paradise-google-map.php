@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Paradise_Google_Map_Widget extends Paradise_Widget_Base {
 
     public function get_name(): string    { return 'paradise_google_map'; }
-    public function get_title(): string   { return esc_html__( 'Google Map', 'paradise-elementor-widgets' ); }
+    public function get_title(): string   { return esc_html__( 'Google Map', 'paradise-widgets-for-elementor' ); }
     public function get_icon(): string    { return 'eicon-google-maps'; }
     public function get_keywords(): array { return [ 'map', 'google', 'location', 'address', 'embed' ]; }
 
@@ -29,29 +29,29 @@ class Paradise_Google_Map_Widget extends Paradise_Widget_Base {
         // ── Mode ──────────────────────────────────────────────────────────────
 
         $this->start_controls_section( 'section_mode', [
-            'label' => esc_html__( 'Map Mode', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Map Mode', 'paradise-widgets-for-elementor' ),
             'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
         ] );
 
         $this->add_control( 'mode', [
-            'label'   => esc_html__( 'Mode', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Mode', 'paradise-widgets-for-elementor' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => 'place',
             'options' => [
-                'place'      => esc_html__( 'Place', 'paradise-elementor-widgets' ),
-                'directions' => esc_html__( 'Directions', 'paradise-elementor-widgets' ),
+                'place'      => esc_html__( 'Place', 'paradise-widgets-for-elementor' ),
+                'directions' => esc_html__( 'Directions', 'paradise-widgets-for-elementor' ),
             ],
         ] );
 
         $this->add_control( 'map_type', [
-            'label'   => esc_html__( 'Map Type', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Map Type', 'paradise-widgets-for-elementor' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => 'm',
             'options' => [
-                'm' => esc_html__( 'Map', 'paradise-elementor-widgets' ),
-                'k' => esc_html__( 'Satellite', 'paradise-elementor-widgets' ),
-                'h' => esc_html__( 'Hybrid (Satellite + Labels)', 'paradise-elementor-widgets' ),
-                'p' => esc_html__( 'Terrain', 'paradise-elementor-widgets' ),
+                'm' => esc_html__( 'Map', 'paradise-widgets-for-elementor' ),
+                'k' => esc_html__( 'Satellite', 'paradise-widgets-for-elementor' ),
+                'h' => esc_html__( 'Hybrid (Satellite + Labels)', 'paradise-widgets-for-elementor' ),
+                'p' => esc_html__( 'Terrain', 'paradise-widgets-for-elementor' ),
             ],
         ] );
 
@@ -60,23 +60,23 @@ class Paradise_Google_Map_Widget extends Paradise_Widget_Base {
         // ── Place ─────────────────────────────────────────────────────────────
 
         $this->start_controls_section( 'section_source', [
-            'label'     => esc_html__( 'Place', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Place', 'paradise-widgets-for-elementor' ),
             'tab'       => \Elementor\Controls_Manager::TAB_CONTENT,
             'condition' => [ 'mode' => 'place' ],
         ] );
 
         $this->add_control( 'source', [
-            'label'   => esc_html__( 'Source', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Source', 'paradise-widgets-for-elementor' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => 'manual',
             'options' => [
-                'site_info' => esc_html__( 'Site Info Address', 'paradise-elementor-widgets' ),
-                'manual'    => esc_html__( 'Manual URL', 'paradise-elementor-widgets' ),
+                'site_info' => esc_html__( 'Site Info Address', 'paradise-widgets-for-elementor' ),
+                'manual'    => esc_html__( 'Manual URL', 'paradise-widgets-for-elementor' ),
             ],
         ] );
 
         $this->add_control( 'location_index', [
-            'label'     => esc_html__( 'Location', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Location', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::SELECT,
             'options'   => Paradise_Site_Info::get_location_select_options(),
             'default'   => '0',
@@ -84,10 +84,10 @@ class Paradise_Google_Map_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'manual_url', [
-            'label'       => esc_html__( 'Map URL', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'Map URL', 'paradise-widgets-for-elementor' ),
             'type'        => \Elementor\Controls_Manager::TEXT,
             'placeholder' => 'https://www.google.com/maps/embed?pb=...',
-            'description' => esc_html__( 'Paste any Google Maps URL (share link, place, or directions). For best results: Share → Embed a map → copy the src from the iframe code.', 'paradise-elementor-widgets' ),
+            'description' => esc_html__( 'Paste any Google Maps URL (share link, place, or directions). For best results: Share → Embed a map → copy the src from the iframe code.', 'paradise-widgets-for-elementor' ),
             'label_block' => true,
             'condition'   => [ 'source' => 'manual' ],
             'dynamic'     => [ 'active' => true ],
@@ -98,31 +98,31 @@ class Paradise_Google_Map_Widget extends Paradise_Widget_Base {
         // ── Directions ────────────────────────────────────────────────────────
 
         $this->start_controls_section( 'section_directions', [
-            'label'     => esc_html__( 'Directions', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Directions', 'paradise-widgets-for-elementor' ),
             'tab'       => \Elementor\Controls_Manager::TAB_CONTENT,
             'condition' => [ 'mode' => 'directions' ],
         ] );
 
         $this->add_control( 'dir_origin', [
-            'label'       => esc_html__( 'From (Origin)', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'From (Origin)', 'paradise-widgets-for-elementor' ),
             'type'        => \Elementor\Controls_Manager::TEXT,
-            'placeholder' => esc_html__( 'e.g. Los Angeles, CA or leave blank for "My Location"', 'paradise-elementor-widgets' ),
+            'placeholder' => esc_html__( 'e.g. Los Angeles, CA or leave blank for "My Location"', 'paradise-widgets-for-elementor' ),
             'label_block' => true,
             'dynamic'     => [ 'active' => true ],
         ] );
 
         $this->add_control( 'dir_dest_source', [
-            'label'   => esc_html__( 'Destination Source', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Destination Source', 'paradise-widgets-for-elementor' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => 'site_info',
             'options' => [
-                'site_info' => esc_html__( 'Site Info Address', 'paradise-elementor-widgets' ),
-                'manual'    => esc_html__( 'Manual', 'paradise-elementor-widgets' ),
+                'site_info' => esc_html__( 'Site Info Address', 'paradise-widgets-for-elementor' ),
+                'manual'    => esc_html__( 'Manual', 'paradise-widgets-for-elementor' ),
             ],
         ] );
 
         $this->add_control( 'dir_dest_location', [
-            'label'     => esc_html__( 'Location', 'paradise-elementor-widgets' ),
+            'label'     => esc_html__( 'Location', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::SELECT,
             'options'   => Paradise_Site_Info::get_location_select_options(),
             'default'   => '0',
@@ -130,7 +130,7 @@ class Paradise_Google_Map_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'dir_dest_manual', [
-            'label'       => esc_html__( 'Destination Address', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'Destination Address', 'paradise-widgets-for-elementor' ),
             'type'        => \Elementor\Controls_Manager::TEXT,
             'placeholder' => '17354 Tribune St, Granada Hills, CA 91344',
             'label_block' => true,
@@ -139,14 +139,14 @@ class Paradise_Google_Map_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'travel_mode', [
-            'label'   => esc_html__( 'Travel Mode', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Travel Mode', 'paradise-widgets-for-elementor' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => 'd',
             'options' => [
-                'd' => esc_html__( 'Driving', 'paradise-elementor-widgets' ),
-                'w' => esc_html__( 'Walking', 'paradise-elementor-widgets' ),
-                'b' => esc_html__( 'Bicycling', 'paradise-elementor-widgets' ),
-                'r' => esc_html__( 'Transit', 'paradise-elementor-widgets' ),
+                'd' => esc_html__( 'Driving', 'paradise-widgets-for-elementor' ),
+                'w' => esc_html__( 'Walking', 'paradise-widgets-for-elementor' ),
+                'b' => esc_html__( 'Bicycling', 'paradise-widgets-for-elementor' ),
+                'r' => esc_html__( 'Transit', 'paradise-widgets-for-elementor' ),
             ],
         ] );
 
@@ -155,12 +155,12 @@ class Paradise_Google_Map_Widget extends Paradise_Widget_Base {
         // ── Settings ──────────────────────────────────────────────────────────
 
         $this->start_controls_section( 'section_settings', [
-            'label' => esc_html__( 'Settings', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Settings', 'paradise-widgets-for-elementor' ),
             'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
         ] );
 
         $this->add_responsive_control( 'height', [
-            'label'      => esc_html__( 'Height', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Height', 'paradise-widgets-for-elementor' ),
             'type'       => \Elementor\Controls_Manager::SLIDER,
             'size_units' => [ 'px', 'vh' ],
             'range'      => [
@@ -174,16 +174,16 @@ class Paradise_Google_Map_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'zoom', [
-            'label'       => esc_html__( 'Zoom Level', 'paradise-elementor-widgets' ),
+            'label'       => esc_html__( 'Zoom Level', 'paradise-widgets-for-elementor' ),
             'type'        => \Elementor\Controls_Manager::SLIDER,
             'range'       => [ 'px' => [ 'min' => 1, 'max' => 20 ] ],
             'default'     => [ 'size' => 15 ],
-            'description' => esc_html__( '1 = world, 10 = city, 15 = streets, 20 = building.', 'paradise-elementor-widgets' ),
+            'description' => esc_html__( '1 = world, 10 = city, 15 = streets, 20 = building.', 'paradise-widgets-for-elementor' ),
             'condition'   => [ 'mode' => 'place' ],
         ] );
 
         $this->add_control( 'allow_fullscreen', [
-            'label'        => esc_html__( 'Allow Fullscreen', 'paradise-elementor-widgets' ),
+            'label'        => esc_html__( 'Allow Fullscreen', 'paradise-widgets-for-elementor' ),
             'type'         => \Elementor\Controls_Manager::SWITCHER,
             'default'      => 'yes',
             'return_value' => 'yes',
@@ -194,12 +194,12 @@ class Paradise_Google_Map_Widget extends Paradise_Widget_Base {
         // ── Style ─────────────────────────────────────────────────────────────
 
         $this->start_controls_section( 'section_style', [
-            'label' => esc_html__( 'Map', 'paradise-elementor-widgets' ),
+            'label' => esc_html__( 'Map', 'paradise-widgets-for-elementor' ),
             'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
         ] );
 
         $this->add_responsive_control( 'border_radius', [
-            'label'      => esc_html__( 'Border Radius', 'paradise-elementor-widgets' ),
+            'label'      => esc_html__( 'Border Radius', 'paradise-widgets-for-elementor' ),
             'type'       => \Elementor\Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', '%' ],
             'selectors'  => [
@@ -321,10 +321,10 @@ class Paradise_Google_Map_Widget extends Paradise_Widget_Base {
         if ( empty( $embed_url ) ) {
             if ( $is_editor ) {
                 $msg = ( 'directions' === $mode )
-                    ? esc_html__( 'Enter a destination address in the Directions settings.', 'paradise-elementor-widgets' )
+                    ? esc_html__( 'Enter a destination address in the Directions settings.', 'paradise-widgets-for-elementor' )
                     : ( $from_si
-                        ? esc_html__( 'The selected address has no Map URL. Go to Paradise → Site Info and add a Google Maps link.', 'paradise-elementor-widgets' )
-                        : esc_html__( 'Enter a Google Maps URL in the Place settings.', 'paradise-elementor-widgets' ) );
+                        ? esc_html__( 'The selected address has no Map URL. Go to Paradise → Site Info and add a Google Maps link.', 'paradise-widgets-for-elementor' )
+                        : esc_html__( 'Enter a Google Maps URL in the Place settings.', 'paradise-widgets-for-elementor' ) );
                 echo '<div class="paradise-gmap-placeholder">' . $msg . '</div>';
             }
             return;
@@ -334,7 +334,7 @@ class Paradise_Google_Map_Widget extends Paradise_Widget_Base {
         ?>
         <div class="paradise-gmap-wrap">
             <?php if ( $from_si && $is_editor ) : ?>
-            <div class="paradise-gmap-si-badge"><?php esc_html_e( '⚡ Live from Site Info', 'paradise-elementor-widgets' ); ?></div>
+            <div class="paradise-gmap-si-badge"><?php esc_html_e( '⚡ Live from Site Info', 'paradise-widgets-for-elementor' ); ?></div>
             <?php endif; ?>
             <iframe
                 class="paradise-gmap-frame"

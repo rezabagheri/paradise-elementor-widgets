@@ -72,7 +72,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
      * settings toggle page.
      */
     public function get_title(): string {
-        return esc_html__( 'Feature Card (Example)', 'paradise-elementor-widgets' );
+        return esc_html__( 'Feature Card (Example)', 'paradise-widgets-for-elementor' );
     }
 
     /**
@@ -166,7 +166,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->start_controls_section(
             'section_content',
             [
-                'label' => esc_html__( 'Content', 'paradise-elementor-widgets' ),
+                'label' => esc_html__( 'Content', 'paradise-widgets-for-elementor' ),
                 // No 'tab' => means default to Content tab.
                 // Other tabs: Controls_Manager::TAB_STYLE, TAB_ADVANCED.
             ]
@@ -178,7 +178,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->add_control(
             'icon',
             [
-                'label'   => esc_html__( 'Icon', 'paradise-elementor-widgets' ),
+                'label'   => esc_html__( 'Icon', 'paradise-widgets-for-elementor' ),
                 'type'    => Controls_Manager::ICONS,
                 'default' => [
                     'value'   => 'fas fa-star',
@@ -192,9 +192,9 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->add_control(
             'title',
             [
-                'label'       => esc_html__( 'Title', 'paradise-elementor-widgets' ),
+                'label'       => esc_html__( 'Title', 'paradise-widgets-for-elementor' ),
                 'type'        => Controls_Manager::TEXT,
-                'default'     => esc_html__( 'Feature Title', 'paradise-elementor-widgets' ),
+                'default'     => esc_html__( 'Feature Title', 'paradise-widgets-for-elementor' ),
                 'label_block' => true,
             ]
         );
@@ -203,10 +203,10 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->add_control(
             'description',
             [
-                'label'   => esc_html__( 'Description', 'paradise-elementor-widgets' ),
+                'label'   => esc_html__( 'Description', 'paradise-widgets-for-elementor' ),
                 'type'    => Controls_Manager::TEXTAREA,
                 'rows'    => 4,
-                'default' => esc_html__( 'Describe this feature in a sentence or two.', 'paradise-elementor-widgets' ),
+                'default' => esc_html__( 'Describe this feature in a sentence or two.', 'paradise-widgets-for-elementor' ),
             ]
         );
 
@@ -217,7 +217,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->add_control(
             'link',
             [
-                'label'       => esc_html__( 'Link', 'paradise-elementor-widgets' ),
+                'label'       => esc_html__( 'Link', 'paradise-widgets-for-elementor' ),
                 'type'        => Controls_Manager::URL,
                 'placeholder' => 'https://example.com',
                 'default'     => [
@@ -235,9 +235,9 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->add_control(
             'button_text',
             [
-                'label'     => esc_html__( 'Button Text', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Button Text', 'paradise-widgets-for-elementor' ),
                 'type'      => Controls_Manager::TEXT,
-                'default'   => esc_html__( 'Learn More', 'paradise-elementor-widgets' ),
+                'default'   => esc_html__( 'Learn More', 'paradise-widgets-for-elementor' ),
                 'condition' => [ 'link[url]!' => '' ],
             ]
         );
@@ -249,19 +249,19 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->add_responsive_control(
             'alignment',
             [
-                'label'   => esc_html__( 'Alignment', 'paradise-elementor-widgets' ),
+                'label'   => esc_html__( 'Alignment', 'paradise-widgets-for-elementor' ),
                 'type'    => Controls_Manager::CHOOSE,
                 'options' => [
                     'left'   => [
-                        'title' => esc_html__( 'Left', 'paradise-elementor-widgets' ),
+                        'title' => esc_html__( 'Left', 'paradise-widgets-for-elementor' ),
                         'icon'  => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'paradise-elementor-widgets' ),
+                        'title' => esc_html__( 'Center', 'paradise-widgets-for-elementor' ),
                         'icon'  => 'eicon-text-align-center',
                     ],
                     'right'  => [
-                        'title' => esc_html__( 'Right', 'paradise-elementor-widgets' ),
+                        'title' => esc_html__( 'Right', 'paradise-widgets-for-elementor' ),
                         'icon'  => 'eicon-text-align-right',
                     ],
                 ],
@@ -292,7 +292,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->start_controls_section(
             'section_style_icon',
             [
-                'label' => esc_html__( 'Icon', 'paradise-elementor-widgets' ),
+                'label' => esc_html__( 'Icon', 'paradise-widgets-for-elementor' ),
                 'tab'   => Controls_Manager::TAB_STYLE,
             ]
         );
@@ -302,7 +302,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->add_control(
             'icon_color',
             [
-                'label'     => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Color', 'paradise-widgets-for-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'default'   => '#3b82f6',
                 'selectors' => [
@@ -317,7 +317,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->add_responsive_control(
             'icon_size',
             [
-                'label'      => esc_html__( 'Size', 'paradise-elementor-widgets' ),
+                'label'      => esc_html__( 'Size', 'paradise-widgets-for-elementor' ),
                 'type'       => Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em' ],
                 'range'      => [
@@ -348,7 +348,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->start_controls_section(
             'section_style_title',
             [
-                'label' => esc_html__( 'Title', 'paradise-elementor-widgets' ),
+                'label' => esc_html__( 'Title', 'paradise-widgets-for-elementor' ),
                 'tab'   => Controls_Manager::TAB_STYLE,
             ]
         );
@@ -356,7 +356,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->add_control(
             'title_color',
             [
-                'label'     => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Color', 'paradise-widgets-for-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .paradise-fc-title' => 'color: {{VALUE}};',
@@ -388,7 +388,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->start_controls_section(
             'section_style_description',
             [
-                'label' => esc_html__( 'Description', 'paradise-elementor-widgets' ),
+                'label' => esc_html__( 'Description', 'paradise-widgets-for-elementor' ),
                 'tab'   => Controls_Manager::TAB_STYLE,
             ]
         );
@@ -396,7 +396,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->add_control(
             'description_color',
             [
-                'label'     => esc_html__( 'Color', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Color', 'paradise-widgets-for-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .paradise-fc-description' => 'color: {{VALUE}};',
@@ -425,7 +425,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->start_controls_section(
             'section_style_button',
             [
-                'label'     => esc_html__( 'Button', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Button', 'paradise-widgets-for-elementor' ),
                 'tab'       => Controls_Manager::TAB_STYLE,
                 'condition' => [ 'link[url]!' => '' ],
             ]
@@ -437,13 +437,13 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
 
         $this->start_controls_tab(
             'button_normal',
-            [ 'label' => esc_html__( 'Normal', 'paradise-elementor-widgets' ) ]
+            [ 'label' => esc_html__( 'Normal', 'paradise-widgets-for-elementor' ) ]
         );
 
         $this->add_control(
             'button_color',
             [
-                'label'     => esc_html__( 'Text Color', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Text Color', 'paradise-widgets-for-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'default'   => '#ffffff',
                 'selectors' => [
@@ -455,7 +455,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->add_control(
             'button_bg',
             [
-                'label'     => esc_html__( 'Background', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Background', 'paradise-widgets-for-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'default'   => '#111827',
                 'selectors' => [
@@ -468,13 +468,13 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
 
         $this->start_controls_tab(
             'button_hover',
-            [ 'label' => esc_html__( 'Hover', 'paradise-elementor-widgets' ) ]
+            [ 'label' => esc_html__( 'Hover', 'paradise-widgets-for-elementor' ) ]
         );
 
         $this->add_control(
             'button_color_hover',
             [
-                'label'     => esc_html__( 'Text Color', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Text Color', 'paradise-widgets-for-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .paradise-fc-button:hover' => 'color: {{VALUE}};',
@@ -485,7 +485,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->add_control(
             'button_bg_hover',
             [
-                'label'     => esc_html__( 'Background', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Background', 'paradise-widgets-for-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'default'   => '#374151',
                 'selectors' => [
@@ -511,7 +511,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->start_controls_section(
             'section_style_card',
             [
-                'label' => esc_html__( 'Card', 'paradise-elementor-widgets' ),
+                'label' => esc_html__( 'Card', 'paradise-widgets-for-elementor' ),
                 'tab'   => Controls_Manager::TAB_STYLE,
             ]
         );
@@ -519,7 +519,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->add_control(
             'card_background',
             [
-                'label'     => esc_html__( 'Background', 'paradise-elementor-widgets' ),
+                'label'     => esc_html__( 'Background', 'paradise-widgets-for-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'default'   => '#ffffff',
                 'selectors' => [
@@ -534,7 +534,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->add_responsive_control(
             'card_padding',
             [
-                'label'      => esc_html__( 'Padding', 'paradise-elementor-widgets' ),
+                'label'      => esc_html__( 'Padding', 'paradise-widgets-for-elementor' ),
                 'type'       => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', 'em', '%' ],
                 'default'    => [ 'top' => 24, 'right' => 24, 'bottom' => 24, 'left' => 24, 'unit' => 'px' ],
@@ -556,7 +556,7 @@ class Paradise_Feature_Card_Example_Widget extends Paradise_Widget_Base {
         $this->add_responsive_control(
             'card_radius',
             [
-                'label'      => esc_html__( 'Border Radius', 'paradise-elementor-widgets' ),
+                'label'      => esc_html__( 'Border Radius', 'paradise-widgets-for-elementor' ),
                 'type'       => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%' ],
                 'default'    => [ 'top' => 8, 'right' => 8, 'bottom' => 8, 'left' => 8, 'unit' => 'px' ],

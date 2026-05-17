@@ -34,7 +34,7 @@ class Paradise_CF_Tags {
 
     public static function register( $manager ): void {
         $manager->register_group( self::GROUP, [
-            'title' => esc_html__( 'Paradise Custom Fields', 'paradise-elementor-widgets' ),
+            'title' => esc_html__( 'Paradise Custom Fields', 'paradise-widgets-for-elementor' ),
         ] );
 
         $manager->register( new Paradise_CF_Tag_Text() );
@@ -61,7 +61,7 @@ class Paradise_CF_Tags {
             }
         }
 
-        $options = [ '' => esc_html__( '— Select a field —', 'paradise-elementor-widgets' ) ];
+        $options = [ '' => esc_html__( '— Select a field —', 'paradise-widgets-for-elementor' ) ];
 
         // Every array access guarded — editor calls register_controls()
         // on every tag at load, and a single undefined-key warning here
@@ -84,7 +84,7 @@ class Paradise_CF_Tags {
         }
 
         if ( count( $options ) === 1 ) {
-            $options[''] = esc_html__( '— No fields available —', 'paradise-elementor-widgets' );
+            $options[''] = esc_html__( '— No fields available —', 'paradise-widgets-for-elementor' );
         }
 
         return $options;
@@ -97,7 +97,7 @@ class Paradise_CF_Tags {
      */
     public static function add_field_control( $tag, string $el_category ): void {
         $tag->add_control( 'field_key', [
-            'label'   => esc_html__( 'Field', 'paradise-elementor-widgets' ),
+            'label'   => esc_html__( 'Field', 'paradise-widgets-for-elementor' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'options' => self::field_options_for_category( $el_category ),
             'default' => '',
@@ -110,7 +110,7 @@ class Paradise_CF_Tags {
 class Paradise_CF_Tag_Text extends \Elementor\Core\DynamicTags\Tag {
 
     public function get_name(): string  { return 'paradise-cf-text'; }
-    public function get_title(): string { return esc_html__( 'Custom Field (Text)', 'paradise-elementor-widgets' ); }
+    public function get_title(): string { return esc_html__( 'Custom Field (Text)', 'paradise-widgets-for-elementor' ); }
     public function get_group(): string { return Paradise_CF_Tags::GROUP; }
 
     public function get_categories(): array {
@@ -141,7 +141,7 @@ class Paradise_CF_Tag_Text extends \Elementor\Core\DynamicTags\Tag {
 class Paradise_CF_Tag_URL extends \Elementor\Core\DynamicTags\Tag {
 
     public function get_name(): string  { return 'paradise-cf-url'; }
-    public function get_title(): string { return esc_html__( 'Custom Field (URL)', 'paradise-elementor-widgets' ); }
+    public function get_title(): string { return esc_html__( 'Custom Field (URL)', 'paradise-widgets-for-elementor' ); }
     public function get_group(): string { return Paradise_CF_Tags::GROUP; }
 
     public function get_categories(): array {
@@ -177,7 +177,7 @@ class Paradise_CF_Tag_URL extends \Elementor\Core\DynamicTags\Tag {
 class Paradise_CF_Tag_Image extends \Elementor\Core\DynamicTags\Data_Tag {
 
     public function get_name(): string  { return 'paradise-cf-image'; }
-    public function get_title(): string { return esc_html__( 'Custom Field (Image)', 'paradise-elementor-widgets' ); }
+    public function get_title(): string { return esc_html__( 'Custom Field (Image)', 'paradise-widgets-for-elementor' ); }
     public function get_group(): string { return Paradise_CF_Tags::GROUP; }
 
     public function get_categories(): array {

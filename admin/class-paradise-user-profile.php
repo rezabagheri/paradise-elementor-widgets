@@ -79,11 +79,11 @@ class Paradise_User_Profile {
 
         wp_nonce_field( 'paradise_user_profile_save_' . $user->ID, 'paradise_user_profile_nonce' );
         ?>
-        <h2><?php esc_html_e( 'Paradise Profile', 'paradise-elementor-widgets' ); ?></h2>
+        <h2><?php esc_html_e( 'Paradise Profile', 'paradise-widgets-for-elementor' ); ?></h2>
         <table class="form-table">
 
             <tr>
-                <th><label><?php esc_html_e( 'Profile Photo', 'paradise-elementor-widgets' ); ?></label></th>
+                <th><label><?php esc_html_e( 'Profile Photo', 'paradise-widgets-for-elementor' ); ?></label></th>
                 <td>
                     <input type="hidden" id="paradise-profile-photo-id" name="paradise_profile_photo"
                            value="<?php echo esc_attr( $photo_id ?: '' ); ?>">
@@ -96,17 +96,17 @@ class Paradise_User_Profile {
                         <div style="display:flex;flex-direction:column;gap:6px;">
                             <button type="button" id="paradise-upload-photo" class="button">
                                 <?php echo $photo_url
-                                    ? esc_html__( 'Change Photo', 'paradise-elementor-widgets' )
-                                    : esc_html__( 'Upload Photo', 'paradise-elementor-widgets' ); ?>
+                                    ? esc_html__( 'Change Photo', 'paradise-widgets-for-elementor' )
+                                    : esc_html__( 'Upload Photo', 'paradise-widgets-for-elementor' ); ?>
                             </button>
                             <button type="button" id="paradise-remove-photo" class="button-link-delete"
                                     style="<?php echo $photo_url ? '' : 'display:none;'; ?>">
-                                <?php esc_html_e( 'Remove Photo', 'paradise-elementor-widgets' ); ?>
+                                <?php esc_html_e( 'Remove Photo', 'paradise-widgets-for-elementor' ); ?>
                             </button>
                         </div>
                     </div>
                     <p class="description">
-                        <?php esc_html_e( 'Used by the Author Card widget. Falls back to Gravatar if empty.', 'paradise-elementor-widgets' ); ?>
+                        <?php esc_html_e( 'Used by the Author Card widget. Falls back to Gravatar if empty.', 'paradise-widgets-for-elementor' ); ?>
                     </p>
                 </td>
             </tr>
@@ -114,7 +114,7 @@ class Paradise_User_Profile {
             <tr>
                 <th>
                     <label for="paradise_profile_credentials">
-                        <?php esc_html_e( 'Credentials', 'paradise-elementor-widgets' ); ?>
+                        <?php esc_html_e( 'Credentials', 'paradise-widgets-for-elementor' ); ?>
                     </label>
                 </th>
                 <td>
@@ -124,9 +124,9 @@ class Paradise_User_Profile {
                            name="paradise_profile_credentials"
                            value="<?php echo esc_attr( $credentials_val ); ?>"
                            class="regular-text"
-                           placeholder="<?php esc_attr_e( 'e.g. D.O., Ph.D., JD, LCSW', 'paradise-elementor-widgets' ); ?>">
+                           placeholder="<?php esc_attr_e( 'e.g. D.O., Ph.D., JD, LCSW', 'paradise-widgets-for-elementor' ); ?>">
                     <p class="description">
-                        <?php esc_html_e( 'Degree or license abbreviations shown inline after the name (e.g. "Anna Kravtson, D.O.").', 'paradise-elementor-widgets' ); ?>
+                        <?php esc_html_e( 'Degree or license abbreviations shown inline after the name (e.g. "Anna Kravtson, D.O.").', 'paradise-widgets-for-elementor' ); ?>
                     </p>
                 </td>
             </tr>
@@ -134,7 +134,7 @@ class Paradise_User_Profile {
             <tr>
                 <th>
                     <label for="paradise_profile_title">
-                        <?php esc_html_e( 'Role / Position', 'paradise-elementor-widgets' ); ?>
+                        <?php esc_html_e( 'Role / Position', 'paradise-widgets-for-elementor' ); ?>
                     </label>
                 </th>
                 <td>
@@ -143,9 +143,9 @@ class Paradise_User_Profile {
                            name="paradise_profile_title"
                            value="<?php echo esc_attr( $title ); ?>"
                            class="regular-text"
-                           placeholder="<?php esc_attr_e( 'e.g. Medical Writer & Clinical Contributor', 'paradise-elementor-widgets' ); ?>">
+                           placeholder="<?php esc_attr_e( 'e.g. Medical Writer & Clinical Contributor', 'paradise-widgets-for-elementor' ); ?>">
                     <p class="description">
-                        <?php esc_html_e( 'Role or position shown as a subtitle below the name in the Author Card widget.', 'paradise-elementor-widgets' ); ?>
+                        <?php esc_html_e( 'Role or position shown as a subtitle below the name in the Author Card widget.', 'paradise-widgets-for-elementor' ); ?>
                     </p>
                 </td>
             </tr>
@@ -154,7 +154,7 @@ class Paradise_User_Profile {
 
         <?php if ( Paradise_EW_Admin::feature_enabled( 'show_profile_social' ) ) : ?>
         <h3 style="margin-top:1.5em;">
-            <?php esc_html_e( 'Social Links', 'paradise-elementor-widgets' ); ?>
+            <?php esc_html_e( 'Social Links', 'paradise-widgets-for-elementor' ); ?>
         </h3>
         <table class="form-table">
             <?php foreach ( self::social_platforms() as $key => $platform ) :

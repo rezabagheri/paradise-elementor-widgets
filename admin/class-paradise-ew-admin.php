@@ -156,8 +156,8 @@ class Paradise_EW_Admin {
         // Top-level "Paradise" menu — only add it once (other Paradise plugins
         // will also call add_menu_page with the same slug; WordPress deduplicates).
         add_menu_page(
-            esc_html__( 'Paradise', 'paradise-elementor-widgets' ),
-            esc_html__( 'Paradise', 'paradise-elementor-widgets' ),
+            esc_html__( 'Paradise', 'paradise-widgets-for-elementor' ),
+            esc_html__( 'Paradise', 'paradise-widgets-for-elementor' ),
             'manage_options',
             self::MENU_SLUG,
             [ __CLASS__, 'render_settings_page' ],
@@ -168,8 +168,8 @@ class Paradise_EW_Admin {
         // Submenu — "Elementor Widgets" under the Paradise parent
         add_submenu_page(
             self::MENU_SLUG,
-            esc_html__( 'Elementor Widgets', 'paradise-elementor-widgets' ),
-            esc_html__( 'Elementor Widgets', 'paradise-elementor-widgets' ),
+            esc_html__( 'Elementor Widgets', 'paradise-widgets-for-elementor' ),
+            esc_html__( 'Elementor Widgets', 'paradise-widgets-for-elementor' ),
             'manage_options',
             self::MENU_SLUG,         // same slug → this IS the top-level page
             [ __CLASS__, 'render_settings_page' ]
@@ -290,7 +290,7 @@ class Paradise_EW_Admin {
 
     public static function render_settings_page(): void {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__( 'You do not have permission to access this page.', 'paradise-elementor-widgets' ) );
+            wp_die( esc_html__( 'You do not have permission to access this page.', 'paradise-widgets-for-elementor' ) );
         }
         $settings = self::get();
         require PARADISE_EW_DIR . 'admin/views/page-settings.php';
