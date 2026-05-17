@@ -19,13 +19,16 @@ and a fresh empty `## [Unreleased]` replaces it.
 -->
 
 ### Added
-<!-- new features / new public APIs -->
+
+- **Admin Dashboard landing page** — clicking "Paradise" in the admin menu now opens a Dashboard with four sections: *At a glance* (counts of enabled widgets and features), *Quick Links* (clickable card grid linking to Elementor Widgets, Settings, Site Info, Custom Fields, Import / Export), *Useful Links* (Documentation, Support on GitHub Issues, Rate on WP.org once submitted, Changelog on GitHub Releases — all open in new tab with `rel="noopener noreferrer"`), and *System Status* (PHP version, WordPress version, Elementor version, memory limit — required versions read from the plugin header via `get_plugin_data()` so a header bump propagates here automatically).
+- **Developer Mode feature flag** (`developer_mode` in `feature_registry`, off by default) — surfaces developer-oriented tools. When on: the "Developer Examples" card on the Elementor Widgets page becomes visible, example widgets count toward the Dashboard "At a glance" total, and the System Status card gains a `WP_DEBUG` row. When off: example widgets are hidden from the toggles UI and excluded from both numerator and denominator of the Dashboard count, so end users see a clean "all enabled" stat instead of an off-by-one ("what's that disabled widget I never touched?").
 
 ### Changed
 
 - **Plugin slug aligned with the rename to "Paradise Widgets for Elementor"** — the main plugin file is now `paradise-widgets-for-elementor.php` (was `paradise-elementor-widgets.php`). The local install directory should also be renamed to `paradise-widgets-for-elementor/` to match the WordPress.org submission slug. No data migration required (option keys, class names, constants are unchanged).
 - **Admin menu icon redesigned** — replaced the placeholder `<text>P</text>` SVG with the brand swoosh-P silhouette derived from `.wordpress-org/icon.svg`. Single-colour (WP admin unfocused-icon grey `#a7aaad`) so it follows the Dashicons convention. Same shape as the public-facing icon and banner, just monochrome for the admin context.
-- **Admin menu split into two pages** — the former combined settings page is now "Elementor Widgets" (per-widget enable/disable toggles, still the landing page) and a new "Settings" submenu (plugin-wide feature flags such as the FAQ post type and user-profile social fields). Existing widget URLs continue to work because the toggles page keeps the parent slug.
+- **Admin menu split into two pages** — the former combined settings page is now "Elementor Widgets" (per-widget enable/disable toggles) and a new "Settings" submenu (plugin-wide feature flags such as the FAQ post type and user-profile social fields).
+- **Elementor Widgets URL moved** — the per-widget toggles page is now at `?page=paradise-widgets-elementor` (was `?page=paradise-widgets`). The parent slug `paradise-widgets` is now the Dashboard landing. No real users affected (plugin not yet on WP.org).
 - **Toggle-card helper extracted to a shared partial** — `paradise_ew_render_toggle_card()` moved from inside `admin/views/page-settings.php` (now `page-widgets.php`) to `admin/views/partials/render-toggle-card.php`. Both admin pages `require_once` the partial, so the rendering is one source of truth.
 - **Admin assets cache-bust on save during development** — `wp_enqueue_style`/`wp_enqueue_script` use the file's `filemtime()` as the version when `WP_DEBUG` is on, and fall back to `PARADISE_EW_VERSION` in production so CDNs and browser caches still behave correctly. No more hard-refresh needed after CSS/JS edits in local dev.
 

@@ -13,7 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Paradise_EW_Admin {
 
     const OPTION_KEY    = 'paradise_ew_settings';
-    const MENU_SLUG     = 'paradise-widgets';            // Parent slug + landing
+    const MENU_SLUG     = 'paradise-widgets';            // Parent slug + Dashboard landing
+    const WIDGETS_SLUG  = 'paradise-widgets-elementor';  // "Elementor Widgets" — per-widget toggles
     const SETTINGS_SLUG = 'paradise-widgets-settings';   // "Settings" — plugin-wide feature flags
 
     /**
@@ -135,6 +136,10 @@ class Paradise_EW_Admin {
      */
     private static function feature_registry(): array {
         return [
+            'developer_mode' => [
+                'label'       => __( 'Developer Mode', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Surfaces developer-oriented tools: reference widgets in the "Developer Examples" section, and additional details aimed at people extending or theming this plugin. Off by default — turn on if you are building with Paradise rather than just using it.', 'paradise-widgets-for-elementor' ),
+            ],
             'show_profile_social' => [
                 'label'       => __( 'Social Links fields on user profiles', 'paradise-widgets-for-elementor' ),
                 'description' => __( 'Shows the Paradise Social Links section on the WordPress user profile edit page (wp-admin → Users → Edit). Disable if you manage social links elsewhere.', 'paradise-widgets-for-elementor' ),
@@ -148,14 +153,15 @@ class Paradise_EW_Admin {
 
     /** Default value for each feature when the option has never been saved. */
     private static array $feature_defaults = [
+        'developer_mode'      => false,
         'show_profile_social' => true,
         'faq_cpt'             => true,
     ];
 
     public static function init(): void {
-        // Priority 9 (before default 10) so our submenus land FIRST in
-        // $submenu['paradise-widgets']. WordPress treats whichever submenu is
-        // first as the landing page when the user clicks the parent menu —
+        // Priority 9 (before default 10) so our Dashboard submenu lands FIRST
+        // in $submenu['paradise-widgets']. WordPress treats whichever submenu
+        // is first as the landing page when the user clicks the parent menu —
         // not the one whose slug matches the parent. If we run at 10, core's
         // _add_post_type_submenus (FAQ CPT with show_in_menu => 'paradise-widgets')
         // or sibling admin classes can register their submenu before us and
@@ -172,29 +178,39 @@ class Paradise_EW_Admin {
     public static function register_menus(): void {
         // Top-level "Paradise" menu — only add it once (other Paradise plugins
         // will also call add_menu_page with the same slug; WordPress deduplicates).
-        // Landing callback = the widget toggles page (same as before).
+        // Landing callback = Dashboard.
         add_menu_page(
             esc_html__( 'Paradise', 'paradise-widgets-for-elementor' ),
             esc_html__( 'Paradise', 'paradise-widgets-for-elementor' ),
             'manage_options',
             self::MENU_SLUG,
-            [ __CLASS__, 'render_widgets_page' ],
+            [ __CLASS__, 'render_dashboard_page' ],
             'data:image/svg+xml;base64,' . base64_encode( self::menu_icon_svg() ),
             58
         );
 
-        // "Elementor Widgets" — per-widget enable/disable toggles. Uses the
-        // parent slug so it IS the landing page when the user clicks "Paradise".
+        // First submenu — "Dashboard" — uses the parent slug so this IS the
+        // landing page when the user clicks "Paradise" in the admin menu.
+        add_submenu_page(
+            self::MENU_SLUG,
+            esc_html__( 'Dashboard', 'paradise-widgets-for-elementor' ),
+            esc_html__( 'Dashboard', 'paradise-widgets-for-elementor' ),
+            'manage_options',
+            self::MENU_SLUG,
+            [ __CLASS__, 'render_dashboard_page' ]
+        );
+
+        // "Elementor Widgets" — per-widget enable/disable toggles.
         add_submenu_page(
             self::MENU_SLUG,
             esc_html__( 'Elementor Widgets', 'paradise-widgets-for-elementor' ),
             esc_html__( 'Elementor Widgets', 'paradise-widgets-for-elementor' ),
             'manage_options',
-            self::MENU_SLUG,
+            self::WIDGETS_SLUG,
             [ __CLASS__, 'render_widgets_page' ]
         );
 
-        // "Settings" — plugin-wide feature flags (FAQ CPT, profile fields, …).
+        // "Settings" — plugin-wide feature flags (Developer Mode, FAQ CPT, …).
         add_submenu_page(
             self::MENU_SLUG,
             esc_html__( 'Settings', 'paradise-widgets-for-elementor' ),
@@ -346,6 +362,209 @@ class Paradise_EW_Admin {
         }
         $settings = self::get();
         require PARADISE_EW_DIR . 'admin/views/page-settings.php';
+    }
+
+    public static function render_dashboard_page(): void {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( esc_html__( 'You do not have permission to access this page.', 'paradise-widgets-for-elementor' ) );
+        }
+        $stats         = self::get_dashboard_stats();
+        $shortcuts     = self::get_dashboard_shortcuts();
+        $useful_links  = self::get_dashboard_useful_links();
+        $system_status = self::get_dashboard_system_status();
+        require PARADISE_EW_DIR . 'admin/views/page-dashboard.php';
+    }
+
+    /**
+     * Returns the list of quick-link cards shown on the Dashboard.
+     *
+     * Each entry: dashicon class, title, description, url. Sibling pages are
+     * referenced by their own PAGE_SLUG constants so a rename anywhere
+     * propagates here automatically.
+     */
+    public static function get_dashboard_shortcuts(): array {
+        return [
+            [
+                'icon'        => 'dashicons-layout',
+                'title'       => __( 'Elementor Widgets', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Manage which Paradise widgets appear in the Elementor editor.', 'paradise-widgets-for-elementor' ),
+                'url'         => admin_url( 'admin.php?page=' . self::WIDGETS_SLUG ),
+            ],
+            [
+                'icon'        => 'dashicons-admin-generic',
+                'title'       => __( 'Settings', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Configure plugin-wide feature flags and developer options.', 'paradise-widgets-for-elementor' ),
+                'url'         => admin_url( 'admin.php?page=' . self::SETTINGS_SLUG ),
+            ],
+            [
+                'icon'        => 'dashicons-store',
+                'title'       => __( 'Site Info', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Business name, phone, address, hours, and social links shared across widgets.', 'paradise-widgets-for-elementor' ),
+                'url'         => admin_url( 'admin.php?page=' . Paradise_Site_Info_Admin::PAGE_SLUG ),
+            ],
+            [
+                'icon'        => 'dashicons-database',
+                'title'       => __( 'Custom Fields', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Define typed fields that widgets and shortcodes can pull dynamic data from.', 'paradise-widgets-for-elementor' ),
+                'url'         => admin_url( 'admin.php?page=' . Paradise_Custom_Fields_Admin::PAGE_SLUG ),
+            ],
+            [
+                'icon'        => 'dashicons-upload',
+                'title'       => __( 'Import / Export', 'paradise-widgets-for-elementor' ),
+                'description' => __( 'Back up Paradise settings or migrate them between sites.', 'paradise-widgets-for-elementor' ),
+                'url'         => admin_url( 'admin.php?page=' . Paradise_Import_Export::PAGE_SLUG ),
+            ],
+        ];
+    }
+
+    /**
+     * Returns system status checks shown on the Dashboard.
+     *
+     * Requirements are read from the plugin header (single source of truth)
+     * via get_plugin_data() so a header bump propagates here automatically.
+     * One extra row — WP_DEBUG — only appears when Developer Mode is on.
+     */
+    public static function get_dashboard_system_status(): array {
+        // Pull required versions from the plugin header so they stay in sync
+        // with whatever WordPress itself uses for its own "requires" checks.
+        if ( ! function_exists( 'get_plugin_data' ) ) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+        $header     = get_plugin_data( PARADISE_EW_DIR . 'paradise-widgets-for-elementor.php', false, false );
+        $php_min    = $header['RequiresPHP'] ?? '8.0';
+        $wp_min     = $header['RequiresWP']  ?? '6.1';
+        $elementor_min = PARADISE_EW_MIN_ELEMENTOR_VERSION;
+
+        $checks = [];
+
+        // PHP
+        $checks[] = [
+            'label'    => __( 'PHP Version', 'paradise-widgets-for-elementor' ),
+            'value'    => PHP_VERSION,
+            'required' => sprintf( '%s+', $php_min ),
+            'status'   => version_compare( PHP_VERSION, $php_min, '>=' ) ? 'ok' : 'fail',
+        ];
+
+        // WordPress
+        global $wp_version;
+        $checks[] = [
+            'label'    => __( 'WordPress Version', 'paradise-widgets-for-elementor' ),
+            'value'    => $wp_version,
+            'required' => sprintf( '%s+', $wp_min ),
+            'status'   => version_compare( $wp_version, $wp_min, '>=' ) ? 'ok' : 'fail',
+        ];
+
+        // Elementor
+        if ( did_action( 'elementor/loaded' ) && defined( 'ELEMENTOR_VERSION' ) ) {
+            $checks[] = [
+                'label'    => __( 'Elementor Version', 'paradise-widgets-for-elementor' ),
+                'value'    => ELEMENTOR_VERSION,
+                'required' => sprintf( '%s+', $elementor_min ),
+                'status'   => version_compare( ELEMENTOR_VERSION, $elementor_min, '>=' ) ? 'ok' : 'fail',
+            ];
+        } else {
+            $checks[] = [
+                'label'    => __( 'Elementor', 'paradise-widgets-for-elementor' ),
+                'value'    => __( 'Not active', 'paradise-widgets-for-elementor' ),
+                'required' => sprintf( '%s+', $elementor_min ),
+                'status'   => 'fail',
+            ];
+        }
+
+        // Memory Limit
+        $memory_bytes = wp_convert_hr_to_bytes( ini_get( 'memory_limit' ) );
+        $memory_min   = 64 * MB_IN_BYTES;
+        $checks[] = [
+            'label'    => __( 'Memory Limit', 'paradise-widgets-for-elementor' ),
+            'value'    => size_format( $memory_bytes ),
+            'required' => sprintf( '%s+', size_format( $memory_min ) ),
+            'status'   => $memory_bytes >= $memory_min ? 'ok' : 'warning',
+        ];
+
+        // Dev-only extras
+        if ( self::feature_enabled( 'developer_mode' ) ) {
+            $debug_on = defined( 'WP_DEBUG' ) && WP_DEBUG;
+            $checks[] = [
+                'label'    => __( 'WP_DEBUG', 'paradise-widgets-for-elementor' ),
+                'value'    => $debug_on
+                    ? __( 'Enabled', 'paradise-widgets-for-elementor' )
+                    : __( 'Disabled', 'paradise-widgets-for-elementor' ),
+                'required' => '',
+                'status'   => $debug_on ? 'ok' : 'info',
+            ];
+        }
+
+        return $checks;
+    }
+
+    /**
+     * Returns external links shown in the Dashboard "Useful Links" section.
+     *
+     * Support and Changelog point at GitHub (the public dev surface today).
+     * Rate points at the WP.org reviews page — it 404s until the plugin is
+     * approved, after which it lights up automatically with no code change.
+     */
+    public static function get_dashboard_useful_links(): array {
+        return [
+            [
+                'icon'  => 'dashicons-welcome-learn-more',
+                'title' => __( 'Documentation', 'paradise-widgets-for-elementor' ),
+                'url'   => 'https://www.paradisecyber.com/elementor-widgets',
+            ],
+            [
+                'icon'  => 'dashicons-sos',
+                'title' => __( 'Get Support', 'paradise-widgets-for-elementor' ),
+                'url'   => 'https://github.com/rezabagheri/paradise-widgets-for-elementor/issues',
+            ],
+            [
+                'icon'  => 'dashicons-star-filled',
+                'title' => __( 'Rate this Plugin', 'paradise-widgets-for-elementor' ),
+                'url'   => 'https://wordpress.org/support/plugin/paradise-widgets-for-elementor/reviews/?filter=5#new-post',
+            ],
+            [
+                'icon'  => 'dashicons-clipboard',
+                'title' => __( 'Changelog', 'paradise-widgets-for-elementor' ),
+                'url'   => 'https://github.com/rezabagheri/paradise-widgets-for-elementor/releases',
+            ],
+        ];
+    }
+
+    /**
+     * Returns counts for the Dashboard "at a glance" section.
+     *
+     * Example widgets (registry entries with 'example' => true) are excluded
+     * from both numerator and denominator when Developer Mode is off — so end
+     * users see a clean "all enabled" count instead of an off-by-one that
+     * begs the question "what's that disabled widget I never touched?".
+     */
+    public static function get_dashboard_stats(): array {
+        $dev_mode = self::feature_enabled( 'developer_mode' );
+
+        $widget_enabled = 0;
+        $widget_total   = 0;
+        foreach ( self::widget_registry() as $key => $meta ) {
+            if ( ! empty( $meta['example'] ) && ! $dev_mode ) {
+                continue;
+            }
+            $widget_total++;
+            if ( self::widget_enabled( $key ) ) {
+                $widget_enabled++;
+            }
+        }
+
+        $feature_enabled = 0;
+        $feature_total   = 0;
+        foreach ( array_keys( self::feature_registry() ) as $key ) {
+            $feature_total++;
+            if ( self::feature_enabled( $key ) ) {
+                $feature_enabled++;
+            }
+        }
+
+        return [
+            'widgets'  => [ 'enabled' => $widget_enabled, 'total' => $widget_total ],
+            'features' => [ 'enabled' => $feature_enabled, 'total' => $feature_total ],
+        ];
     }
 
     // -------------------------------------------------------------------------
