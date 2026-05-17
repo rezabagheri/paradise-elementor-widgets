@@ -134,11 +134,7 @@ class Paradise_Bottom_Nav_Widget extends Paradise_Widget_Base
             'description' => 'Create menus via Appearance → Menus.',
         ]);
 
-        $this->add_control('wp_menu_icons_note', [
-            'type'            => Controls_Manager::RAW_HTML,
-            'raw'             => '<small style="opacity:.7">Add icons via the <strong>CSS Classes</strong> field on each menu item (<em>Screen Options → CSS Classes</em>).<br>Example: <code>fas fa-home</code></small>',
-            'content_classes' => 'elementor-descriptor',
-        ]);
+        $this->add_descriptor('wp_menu_icons_note', '<small style="opacity:.7">Add icons via the <strong>CSS Classes</strong> field on each menu item (<em>Screen Options → CSS Classes</em>).<br>Example: <code>fas fa-home</code></small>');
 
         $this->end_controls_section();
     }
