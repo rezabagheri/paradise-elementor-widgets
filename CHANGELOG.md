@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.0.1] - 2026-05-17
+
+### Fixed
+
+- **Phone widgets (International display) — incorrect country code for non-US numbers**: entering an international number with its own `+` prefix (e.g. `+37493583161` for Armenia) while the widget's *Country Code* setting stayed on the default `🇺🇸 +1` produced output like `+1 374 935 8316` — wrong country code, wrong split. The formatter assumed every input was a 10-digit US local number and unconditionally prepended the settings cc. Fixed in `Paradise_Phone_Helper::format_phone_display()`: when the raw input includes a `+` and its embedded country code doesn't match the setting, the cc is now detected against a built-in longest-match table of ITU-T E.164 codes (Armenia 374, UK 44, Iran 98, …) and swapped in before the existing strip-and-format pipeline runs. Inputs whose embedded cc matches the setting (e.g. `+1 212 …` with cc=1) continue through the existing path unchanged. Codes not in the table fall back to a tidy raw-input preservation rather than a wrong cc. Fix is in the shared trait, so Phone Link, Phone Button, and Floating Call Button all benefit.
+
+### Changed
+
+- **Empty-state UX for the three phone widgets** (Phone Link, Phone Button, Floating Call Button) — replaced the inline red-text warning (`<p style="color:#cc0000">⚠ Phone number is empty.</p>`) with a translation-ready, Elementor-native placeholder: a neutral dashed card showing the widget title and a one-line hint ("Set the phone number in the widget settings."). Visible in the editor only; the frontend stays silent. Matches the look of Elementor's own unconfigured-widget placeholders.
+
+### Added
+
+- **`Paradise_Widget_Base::render_editor_placeholder( string $hint )`** — shared helper for subclasses that need a tidy "not yet configured" state. Emits its small `<style>` block once per page via a static guard, so several placeholder widgets on the same canvas don't duplicate the styles. Pulls the widget title from `get_title()` automatically.
+
 ## [3.0.0] - 2026-05-17
 
 ### Changed

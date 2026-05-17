@@ -75,4 +75,66 @@ abstract class Paradise_Widget_Base extends \Elementor\Widget_Base {
     protected function get_default_handle(): string {
         return str_replace( '_', '-', $this->get_name() );
     }
+
+    /**
+     * Render an Elementor-native "empty widget" placeholder inside the
+     * editor only — frontend visitors never see plugin-side warnings.
+     *
+     * Visual matches Elementor's own pre-configured widget look: dashed
+     * neutral border, widget title centered, a one-line hint underneath.
+     * No alert colours, no warning iconography — this is a "not yet
+     * configured" state, not an error.
+     *
+     * Subclasses call this from render() when a required setting is
+     * missing (e.g. an empty phone number on the Phone widgets):
+     *
+     *     if ( $raw_phone === '' ) {
+     *         $this->render_editor_placeholder(
+     *             __( 'Set the phone number in the widget settings.',
+     *                 'paradise-widgets-for-elementor' )
+     *         );
+     *         return;
+     *     }
+     *
+     * Style is inlined once per page via a static guard, so several
+     * placeholder widgets on the same canvas only emit one <style> block.
+     * That keeps the helper self-contained — no extra asset to enqueue,
+     * no dependency wiring on every widget that adopts the pattern.
+     *
+     * @param string $hint  Pre-translated short sentence guiding the user
+     *                      to the setting they need to fill in.
+     */
+    protected function render_editor_placeholder( string $hint ): void {
+        if ( ! \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
+            return;
+        }
+
+        static $style_emitted = false;
+        if ( ! $style_emitted ) {
+            echo '<style>'
+               . '.paradise-widget-placeholder{'
+               .   'box-sizing:border-box;display:block;padding:24px 16px;'
+               .   'text-align:center;border:1px dashed #c3c4c7;border-radius:4px;'
+               .   'background:transparent;color:#50575e;'
+               .   'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;'
+               . '}'
+               . '.paradise-widget-placeholder__title{'
+               .   'font-size:14px;font-weight:600;margin-bottom:4px;color:#2c3338;'
+               . '}'
+               . '.paradise-widget-placeholder__hint{'
+               .   'font-size:12px;line-height:1.5;color:#646970;'
+               . '}'
+               . '</style>';
+            $style_emitted = true;
+        }
+
+        printf(
+            '<div class="paradise-widget-placeholder" role="status">'
+              . '<div class="paradise-widget-placeholder__title">%s</div>'
+              . '<div class="paradise-widget-placeholder__hint">%s</div>'
+          . '</div>',
+            esc_html( $this->get_title() ),
+            esc_html( $hint )
+        );
+    }
 }
