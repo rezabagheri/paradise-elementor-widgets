@@ -482,20 +482,18 @@ class Paradise_Cookie_Consent_Bar_Widget extends Paradise_Widget_Base {
             </div>
         </div>
 
-        <?php if ( $is_editor ) : ?>
-        <div class="paradise-ccb-editor-notice">
-            <svg viewBox="0 0 20 20" width="16" height="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor">
-                <path fill-rule="evenodd" d="M18 10A8 8 0 1 1 2 10a8 8 0 0 1 16 0Zm-8-5a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V6a1 1 0 0 1 1-1Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd"/>
-            </svg>
-            <span>
-                <?php esc_html_e( 'Cookie Consent Bar', 'paradise-widgets-for-elementor' ); ?>
-                &mdash;
-                <?php esc_html_e( 'displayed at the', 'paradise-widgets-for-elementor' ); ?>
-                <strong><?php echo esc_html( $bar_position ); ?></strong>
-                <?php esc_html_e( 'of the page', 'paradise-widgets-for-elementor' ); ?>
-            </span>
-        </div>
-        <?php endif; ?>
+        <?php if ( $is_editor ) :
+            $this->editor_notice(
+                sprintf(
+                    '%s &mdash; %s <strong>%s</strong> %s',
+                    esc_html__( 'Cookie Consent Bar', 'paradise-widgets-for-elementor' ),
+                    esc_html__( 'displayed at the', 'paradise-widgets-for-elementor' ),
+                    esc_html( $bar_position ),
+                    esc_html__( 'of the page', 'paradise-widgets-for-elementor' )
+                ),
+                'paradise-ccb-editor-notice'
+            );
+        endif; ?>
         <?php
     }
 }
