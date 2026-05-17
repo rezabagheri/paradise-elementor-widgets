@@ -12,8 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Paradise_EW_Admin {
 
-    const OPTION_KEY = 'paradise_ew_settings';
-    const MENU_SLUG  = 'paradise-widgets';
+    const OPTION_KEY    = 'paradise_ew_settings';
+    const MENU_SLUG     = 'paradise-widgets';            // Parent slug + landing
+    const SETTINGS_SLUG = 'paradise-widgets-settings';   // "Settings" — plugin-wide feature flags
 
     /**
      * Widget registry — single source of truth for settings UI, asset loading, and widget instantiation.
@@ -152,7 +153,14 @@ class Paradise_EW_Admin {
     ];
 
     public static function init(): void {
-        add_action( 'admin_menu',    [ __CLASS__, 'register_menus' ] );
+        // Priority 9 (before default 10) so our submenus land FIRST in
+        // $submenu['paradise-widgets']. WordPress treats whichever submenu is
+        // first as the landing page when the user clicks the parent menu —
+        // not the one whose slug matches the parent. If we run at 10, core's
+        // _add_post_type_submenus (FAQ CPT with show_in_menu => 'paradise-widgets')
+        // or sibling admin classes can register their submenu before us and
+        // steal the landing slot.
+        add_action( 'admin_menu',    [ __CLASS__, 'register_menus' ], 9 );
         add_action( 'admin_init',    [ __CLASS__, 'register_settings' ] );
         add_action( 'admin_enqueue_scripts', [ __CLASS__, 'enqueue_admin_assets' ] );
     }
@@ -164,23 +172,35 @@ class Paradise_EW_Admin {
     public static function register_menus(): void {
         // Top-level "Paradise" menu — only add it once (other Paradise plugins
         // will also call add_menu_page with the same slug; WordPress deduplicates).
+        // Landing callback = the widget toggles page (same as before).
         add_menu_page(
             esc_html__( 'Paradise', 'paradise-widgets-for-elementor' ),
             esc_html__( 'Paradise', 'paradise-widgets-for-elementor' ),
             'manage_options',
             self::MENU_SLUG,
-            [ __CLASS__, 'render_settings_page' ],
+            [ __CLASS__, 'render_widgets_page' ],
             'data:image/svg+xml;base64,' . base64_encode( self::menu_icon_svg() ),
             58
         );
 
-        // Submenu — "Elementor Widgets" under the Paradise parent
+        // "Elementor Widgets" — per-widget enable/disable toggles. Uses the
+        // parent slug so it IS the landing page when the user clicks "Paradise".
         add_submenu_page(
             self::MENU_SLUG,
             esc_html__( 'Elementor Widgets', 'paradise-widgets-for-elementor' ),
             esc_html__( 'Elementor Widgets', 'paradise-widgets-for-elementor' ),
             'manage_options',
-            self::MENU_SLUG,         // same slug → this IS the top-level page
+            self::MENU_SLUG,
+            [ __CLASS__, 'render_widgets_page' ]
+        );
+
+        // "Settings" — plugin-wide feature flags (FAQ CPT, profile fields, …).
+        add_submenu_page(
+            self::MENU_SLUG,
+            esc_html__( 'Settings', 'paradise-widgets-for-elementor' ),
+            esc_html__( 'Settings', 'paradise-widgets-for-elementor' ),
+            'manage_options',
+            self::SETTINGS_SLUG,
             [ __CLASS__, 'render_settings_page' ]
         );
     }
@@ -282,20 +302,43 @@ class Paradise_EW_Admin {
             'paradise-ew-admin',
             PARADISE_EW_URL . 'assets/css/admin.css',
             [],
-            PARADISE_EW_VERSION
+            self::asset_version( 'assets/css/admin.css' )
         );
         wp_enqueue_script(
             'paradise-ew-admin',
             PARADISE_EW_URL . 'assets/js/admin.js',
             [],
-            PARADISE_EW_VERSION,
+            self::asset_version( 'assets/js/admin.js' ),
             true
         );
+    }
+
+    /**
+     * Asset version helper — uses file mtime in dev so saves bust the cache
+     * automatically, and the static plugin version in production so CDNs and
+     * browser caches behave correctly.
+     */
+    private static function asset_version( string $relative_path ): string {
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            $full_path = PARADISE_EW_DIR . $relative_path;
+            if ( file_exists( $full_path ) ) {
+                return (string) filemtime( $full_path );
+            }
+        }
+        return PARADISE_EW_VERSION;
     }
 
     // -------------------------------------------------------------------------
     // View
     // -------------------------------------------------------------------------
+
+    public static function render_widgets_page(): void {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( esc_html__( 'You do not have permission to access this page.', 'paradise-widgets-for-elementor' ) );
+        }
+        $settings = self::get();
+        require PARADISE_EW_DIR . 'admin/views/page-widgets.php';
+    }
 
     public static function render_settings_page(): void {
         if ( ! current_user_can( 'manage_options' ) ) {
