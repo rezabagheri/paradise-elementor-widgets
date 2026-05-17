@@ -1,0 +1,2594 @@
+# Copyright (C) 2026 Reza Bagheri
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Paradise Widgets for Elementor 3.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/paradise-widgets-for-elementor\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-05-17T10:23:44+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: paradise-widgets-for-elementor\n"
+
+#. Plugin Name of the plugin
+#: paradise-elementor-widgets.php
+#: admin/views/page-settings.php:107
+msgid "Paradise Widgets for Elementor"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: paradise-elementor-widgets.php
+msgid "https://www.paradisecyber.com/elementor-widgets"
+msgstr ""
+
+#. Description of the plugin
+#: paradise-elementor-widgets.php
+msgid "Advanced custom Elementor widgets by Paradise. Phone Link, Bottom Navigation Bar, and more."
+msgstr ""
+
+#. Author of the plugin
+#: paradise-elementor-widgets.php
+msgid "Reza Bagheri"
+msgstr ""
+
+#. Author URI of the plugin
+#: paradise-elementor-widgets.php
+msgid "https://www.paradisecyber.com"
+msgstr ""
+
+#: admin/class-paradise-custom-fields-admin.php:31
+#: admin/class-paradise-custom-fields-admin.php:32
+#: admin/views/page-custom-fields.php:284
+#: widgets/class-paradise-author-card.php:289
+#: widgets/class-paradise-author-card.php:687
+msgid "Custom Fields"
+msgstr ""
+
+#: admin/class-paradise-custom-fields-admin.php:73
+#: admin/class-paradise-import-export.php:44
+#: admin/class-paradise-import-export.php:72
+#: admin/class-paradise-site-info-admin.php:79
+msgid "Unauthorized"
+msgstr ""
+
+#: admin/class-paradise-ew-admin.php:159
+#: admin/class-paradise-ew-admin.php:160
+msgid "Paradise"
+msgstr ""
+
+#: admin/class-paradise-ew-admin.php:171
+#: admin/class-paradise-ew-admin.php:172
+msgid "Elementor Widgets"
+msgstr ""
+
+#: admin/class-paradise-ew-admin.php:293
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#: admin/class-paradise-import-export.php:32
+#: admin/class-paradise-import-export.php:33
+#: admin/views/page-import-export.php:21
+msgid "Import / Export"
+msgstr ""
+
+#: admin/class-paradise-site-info-admin.php:29
+#: admin/class-paradise-site-info-admin.php:30
+#: admin/views/page-site-info.php:221
+#: widgets/class-paradise-social-links.php:42
+msgid "Site Info"
+msgstr ""
+
+#: admin/class-paradise-user-profile.php:82
+msgid "Paradise Profile"
+msgstr ""
+
+#: admin/class-paradise-user-profile.php:86
+msgid "Profile Photo"
+msgstr ""
+
+#: admin/class-paradise-user-profile.php:99
+msgid "Change Photo"
+msgstr ""
+
+#: admin/class-paradise-user-profile.php:100
+msgid "Upload Photo"
+msgstr ""
+
+#: admin/class-paradise-user-profile.php:104
+msgid "Remove Photo"
+msgstr ""
+
+#: admin/class-paradise-user-profile.php:109
+msgid "Used by the Author Card widget. Falls back to Gravatar if empty."
+msgstr ""
+
+#: admin/class-paradise-user-profile.php:117
+#: widgets/class-paradise-author-card.php:612
+msgid "Credentials"
+msgstr ""
+
+#: admin/class-paradise-user-profile.php:127
+msgid "e.g. D.O., Ph.D., JD, LCSW"
+msgstr ""
+
+#: admin/class-paradise-user-profile.php:129
+msgid "Degree or license abbreviations shown inline after the name (e.g. \"Anna Kravtson, D.O.\")."
+msgstr ""
+
+#: admin/class-paradise-user-profile.php:137
+#: widgets/class-paradise-author-card.php:631
+msgid "Role / Position"
+msgstr ""
+
+#: admin/class-paradise-user-profile.php:146
+msgid "e.g. Medical Writer & Clinical Contributor"
+msgstr ""
+
+#: admin/class-paradise-user-profile.php:148
+msgid "Role or position shown as a subtitle below the name in the Author Card widget."
+msgstr ""
+
+#: admin/class-paradise-user-profile.php:157
+#: admin/views/page-site-info.php:274
+#: widgets/class-paradise-author-card.php:357
+#: widgets/class-paradise-author-card.php:774
+#: widgets/class-paradise-social-links.php:17
+#: widgets/class-paradise-social-links.php:50
+msgid "Social Links"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:37
+msgid "e.g. © 2026 Acme Inc."
+msgstr ""
+
+#: admin/views/page-custom-fields.php:47
+msgid "Multi-line text…"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:76
+msgid "Change Image"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:76
+msgid "Choose Image"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:79
+#: includes/class-paradise-faq-cpt.php:85
+#: includes/class-paradise-faq-cpt.php:183
+msgid "Remove"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:147
+msgid "Min"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:156
+msgid "Max"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:191
+#: admin/views/page-custom-fields.php:237
+#: admin/views/page-site-info.php:47
+#: admin/views/page-site-info.php:79
+#: admin/views/page-site-info.php:108
+#: admin/views/page-site-info.php:289
+#: admin/views/page-site-info.php:343
+#: admin/views/page-site-info.php:364
+#: admin/views/page-site-info.php:376
+msgid "Drag to reorder"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:196
+msgid "unique_key"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:202
+msgid "Human-readable label"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:215
+#: admin/views/page-site-info.php:83
+#: admin/views/page-site-info.php:112
+#: admin/views/page-site-info.php:302
+#: admin/views/page-site-info.php:356
+msgid "Copy shortcode"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:216
+msgid "Remove this field"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:241
+msgid "Group label (e.g. Footer)"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:245
+msgid "slug"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:249
+msgid "Remove this group"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:257
+msgid "Key"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:258
+#: admin/views/page-site-info.php:71
+#: admin/views/page-site-info.php:100
+#: widgets/class-paradise-author-card.php:302
+#: widgets/class-paradise-off-canvas-menu.php:61
+msgid "Label"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:259
+msgid "Type"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:260
+msgid "Value"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:272
+msgid "Add Field"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:287
+#: admin/views/page-settings.php:112
+#: admin/views/page-site-info.php:224
+msgid "Unsaved changes"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:292
+msgid "Define your own static fields once, then reuse them anywhere — via shortcode or (coming soon) Elementor Dynamic Tags. Field keys are globally unique; groups are just for organisation."
+msgstr ""
+
+#: admin/views/page-custom-fields.php:295
+msgid "Shortcode:"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:297
+msgid "— or for images:"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:304
+msgid "Custom fields saved."
+msgstr ""
+
+#: admin/views/page-custom-fields.php:319
+msgid "Add Group"
+msgstr ""
+
+#: admin/views/page-custom-fields.php:325
+#: admin/views/page-site-info.php:332
+msgid "Save Changes"
+msgstr ""
+
+#: admin/views/page-import-export.php:12
+msgid "No file was uploaded. Please choose a JSON file and try again."
+msgstr ""
+
+#: admin/views/page-import-export.php:13
+msgid "The file must be a .json file. Please upload the correct file."
+msgstr ""
+
+#: admin/views/page-import-export.php:14
+msgid "The file could not be read. Please check file permissions and try again."
+msgstr ""
+
+#: admin/views/page-import-export.php:15
+msgid "The file does not contain valid JSON. It may be corrupt or not a Paradise export file."
+msgstr ""
+
+#: admin/views/page-import-export.php:27
+msgid "Import complete. Your data has been restored successfully."
+msgstr ""
+
+#: admin/views/page-import-export.php:31
+msgid "Import failed. Please try again."
+msgstr ""
+
+#: admin/views/page-import-export.php:38
+msgid "Export"
+msgstr ""
+
+#: admin/views/page-import-export.php:41
+msgid "Download a backup of your Site Info (locations, phones, emails, addresses, social links, business hours) and widget settings as a JSON file."
+msgstr ""
+
+#: admin/views/page-import-export.php:46
+msgid "Export Data"
+msgstr ""
+
+#: admin/views/page-import-export.php:55
+msgid "Import"
+msgstr ""
+
+#: admin/views/page-import-export.php:58
+msgid "Upload a previously exported Paradise JSON file to restore your data."
+msgstr ""
+
+#: admin/views/page-import-export.php:60
+msgid "This will overwrite your current Site Info and widget settings. Export first if you want to keep the existing data."
+msgstr ""
+
+#: admin/views/page-import-export.php:68
+msgid "JSON File"
+msgstr ""
+
+#: admin/views/page-import-export.php:76
+msgid "Import Data"
+msgstr ""
+
+#: admin/views/page-settings.php:49
+msgid "Enable all"
+msgstr ""
+
+#: admin/views/page-settings.php:54
+msgid "Disable all"
+msgstr ""
+
+#: admin/views/page-settings.php:62
+#: widgets/class-paradise-author-card.php:584
+msgid "Name"
+msgstr ""
+
+#: admin/views/page-settings.php:63
+#: widgets/class-paradise-feature-card-example.php:206
+#: widgets/class-paradise-feature-card-example.php:391
+#: widgets/class-paradise-local-business-schema.php:66
+msgid "Description"
+msgstr ""
+
+#: admin/views/page-settings.php:64
+msgid "Enabled"
+msgstr ""
+
+#: admin/views/page-settings.php:77
+msgid "This entry is disabled by default — enable it explicitly to use it on this site."
+msgstr ""
+
+#: admin/views/page-settings.php:78
+msgid "Off by default"
+msgstr ""
+
+#: admin/views/page-settings.php:120
+msgid "Filter widgets and features"
+msgstr ""
+
+#: admin/views/page-settings.php:126
+msgid "Filter — type to narrow widgets and features…"
+msgstr ""
+
+#: admin/views/page-settings.php:137
+msgid "Widgets"
+msgstr ""
+
+#: admin/views/page-settings.php:138
+msgid "Enable or disable individual widgets. Disabled widgets are not registered with Elementor and will not appear in the widget panel."
+msgstr ""
+
+#: admin/views/page-settings.php:146
+msgid "Developer Examples"
+msgstr ""
+
+#: admin/views/page-settings.php:147
+msgid "Reference widgets shipped to help developers learn the Paradise widget patterns. They live in a separate \"Paradise Examples\" category in the editor and are disabled by default — enable them when you want to inspect the reference inside Elementor."
+msgstr ""
+
+#: admin/views/page-settings.php:155
+msgid "Features"
+msgstr ""
+
+#: admin/views/page-settings.php:156
+msgid "Enable or disable optional plugin features."
+msgstr ""
+
+#: admin/views/page-settings.php:162
+msgid "Save Settings"
+msgstr ""
+
+#: admin/views/page-site-info.php:53
+msgid "e.g. Main Branch"
+msgstr ""
+
+#: admin/views/page-site-info.php:58
+msgid "Remove this location"
+msgstr ""
+
+#: admin/views/page-site-info.php:66
+msgid "Phone Numbers"
+msgstr ""
+
+#: admin/views/page-site-info.php:72
+#: includes/class-paradise-dynamic-tags.php:74
+#: widgets/class-paradise-floating-call-btn.php:70
+#: widgets/class-paradise-phone-button.php:56
+msgid "Phone Number"
+msgstr ""
+
+#: admin/views/page-site-info.php:80
+#: admin/views/page-site-info.php:365
+msgid "e.g. Main Office"
+msgstr ""
+
+#: admin/views/page-site-info.php:83
+#: admin/views/page-site-info.php:112
+#: admin/views/page-site-info.php:302
+#: admin/views/page-site-info.php:356
+#: admin/views/page-site-info.php:368
+#: admin/views/page-site-info.php:380
+msgid "Copy shortcode for this entry"
+msgstr ""
+
+#: admin/views/page-site-info.php:84
+#: admin/views/page-site-info.php:113
+#: admin/views/page-site-info.php:303
+#: admin/views/page-site-info.php:357
+#: admin/views/page-site-info.php:369
+#: admin/views/page-site-info.php:381
+msgid "Remove this row"
+msgstr ""
+
+#: admin/views/page-site-info.php:90
+msgid "Add Phone"
+msgstr ""
+
+#: admin/views/page-site-info.php:95
+msgid "Email Addresses"
+msgstr ""
+
+#: admin/views/page-site-info.php:101
+#: includes/class-paradise-dynamic-tags.php:122
+msgid "Email Address"
+msgstr ""
+
+#: admin/views/page-site-info.php:109
+#: admin/views/page-site-info.php:377
+msgid "e.g. Support"
+msgstr ""
+
+#: admin/views/page-site-info.php:119
+msgid "Add Email"
+msgstr ""
+
+#: admin/views/page-site-info.php:124
+msgid "Address & Map"
+msgstr ""
+
+#: admin/views/page-site-info.php:128
+#: includes/class-paradise-dynamic-tags.php:168
+msgid "Address"
+msgstr ""
+
+#: admin/views/page-site-info.php:133
+msgid "123 Main St, New York, NY 10001"
+msgstr ""
+
+#: admin/views/page-site-info.php:138
+#: widgets/class-paradise-google-map.php:87
+msgid "Map URL"
+msgstr ""
+
+#: admin/views/page-site-info.php:145
+msgid "Google Maps → Share → Embed a map → copy the src URL from the iframe code."
+msgstr ""
+
+#: admin/views/page-site-info.php:162
+#: widgets/class-paradise-business-hours.php:16
+msgid "Business Hours"
+msgstr ""
+
+#: admin/views/page-site-info.php:166
+msgid "Day"
+msgstr ""
+
+#: admin/views/page-site-info.php:167
+#: admin/views/page-site-info.php:190
+msgid "Open"
+msgstr ""
+
+#: admin/views/page-site-info.php:168
+msgid "From"
+msgstr ""
+
+#: admin/views/page-site-info.php:169
+msgid "To"
+msgstr ""
+
+#: admin/views/page-site-info.php:190
+#: widgets/class-paradise-business-hours.php:71
+#: widgets/class-paradise-business-hours.php:180
+#: widgets/class-paradise-business-hours.php:206
+msgid "Closed"
+msgstr ""
+
+#: admin/views/page-site-info.php:229
+msgid "Store your business details here once, then reuse them anywhere on the site — two equally good ways:"
+msgstr ""
+
+#: admin/views/page-site-info.php:233
+msgid "In Elementor (recommended):"
+msgstr ""
+
+#: admin/views/page-site-info.php:234
+msgid "open the ⚡ Dynamic Tags menu on any text or URL control and pick a Paradise tag (Phone, Email, Address, Social URL, …). Paradise registers one Dynamic Tag per Site Info type — Elementor handles location and label selection in the tag UI."
+msgstr ""
+
+#: admin/views/page-site-info.php:237
+msgid "Outside Elementor:"
+msgstr ""
+
+#: admin/views/page-site-info.php:238
+msgid "paste the [paradise_site_info] shortcode anywhere WordPress runs shortcodes. Click the"
+msgstr ""
+
+#: admin/views/page-site-info.php:240
+msgid "icon next to any entry below to copy a ready-to-paste shortcode for that specific entry."
+msgstr ""
+
+#: admin/views/page-site-info.php:246
+msgid "Site info saved."
+msgstr ""
+
+#: admin/views/page-site-info.php:256
+#: widgets/class-paradise-local-business-schema.php:36
+msgid "Business Name"
+msgstr ""
+
+#: admin/views/page-site-info.php:265
+msgid "e.g. Acme Corp"
+msgstr ""
+
+#: admin/views/page-site-info.php:281
+#: widgets/class-paradise-social-links.php:56
+msgid "Platform"
+msgstr ""
+
+#: admin/views/page-site-info.php:282
+#: includes/class-paradise-custom-fields.php:112
+#: widgets/class-paradise-author-card.php:417
+#: widgets/class-paradise-social-links.php:63
+msgid "URL"
+msgstr ""
+
+#: admin/views/page-site-info.php:309
+msgid "Add Social Link"
+msgstr ""
+
+#: admin/views/page-site-info.php:316
+msgid "Locations"
+msgstr ""
+
+#: admin/views/page-site-info.php:325
+msgid "Add Location"
+msgstr ""
+
+#: includes/class-paradise-custom-fields-dynamic-tags.php:37
+msgid "Paradise Custom Fields"
+msgstr ""
+
+#: includes/class-paradise-custom-fields-dynamic-tags.php:64
+msgid "— Select a field —"
+msgstr ""
+
+#: includes/class-paradise-custom-fields-dynamic-tags.php:87
+msgid "— No fields available —"
+msgstr ""
+
+#: includes/class-paradise-custom-fields-dynamic-tags.php:100
+msgid "Field"
+msgstr ""
+
+#: includes/class-paradise-custom-fields-dynamic-tags.php:113
+msgid "Custom Field (Text)"
+msgstr ""
+
+#: includes/class-paradise-custom-fields-dynamic-tags.php:144
+msgid "Custom Field (URL)"
+msgstr ""
+
+#: includes/class-paradise-custom-fields-dynamic-tags.php:180
+msgid "Custom Field (Image)"
+msgstr ""
+
+#: includes/class-paradise-custom-fields.php:77
+#: widgets/class-paradise-author-card.php:325
+#: widgets/class-paradise-author-card.php:397
+msgid "Text"
+msgstr ""
+
+#: includes/class-paradise-custom-fields.php:92
+msgid "Textarea"
+msgstr ""
+
+#: includes/class-paradise-custom-fields.php:138
+#: widgets/class-paradise-author-card.php:126
+msgid "Image"
+msgstr ""
+
+#: includes/class-paradise-custom-fields.php:163
+msgid "Date"
+msgstr ""
+
+#: includes/class-paradise-custom-fields.php:191
+msgid "Time"
+msgstr ""
+
+#: includes/class-paradise-custom-fields.php:220
+#: widgets/class-paradise-author-card.php:327
+msgid "Email"
+msgstr ""
+
+#: includes/class-paradise-custom-fields.php:246
+msgid "Number"
+msgstr ""
+
+#: includes/class-paradise-custom-fields.php:257
+#: widgets/class-paradise-announcement-bar.php:215
+#: widgets/class-paradise-announcement-bar.php:334
+#: widgets/class-paradise-announcement-bar.php:374
+#: widgets/class-paradise-author-card.php:590
+#: widgets/class-paradise-author-card.php:618
+#: widgets/class-paradise-author-card.php:637
+#: widgets/class-paradise-author-card.php:665
+#: widgets/class-paradise-author-card.php:803
+#: widgets/class-paradise-cookie-consent-bar.php:204
+#: widgets/class-paradise-cookie-consent-bar.php:393
+#: widgets/class-paradise-faq-accordion.php:357
+#: widgets/class-paradise-faq-accordion.php:371
+#: widgets/class-paradise-feature-card-example.php:305
+#: widgets/class-paradise-feature-card-example.php:359
+#: widgets/class-paradise-feature-card-example.php:399
+#: widgets/class-paradise-floating-call-btn.php:290
+#: widgets/class-paradise-floating-call-btn.php:312
+#: widgets/class-paradise-off-canvas-menu.php:185
+#: widgets/class-paradise-off-canvas-menu.php:208
+#: widgets/class-paradise-off-canvas-menu.php:454
+#: widgets/class-paradise-phone-button.php:388
+#: widgets/class-paradise-phone-button.php:403
+#: widgets/class-paradise-social-links.php:166
+#: widgets/class-paradise-social-links.php:183
+#: widgets/class-paradise-social-links.php:199
+#: widgets/class-paradise-social-links.php:272
+msgid "Color"
+msgstr ""
+
+#: includes/class-paradise-custom-fields.php:279
+msgid "Range"
+msgstr ""
+
+#: includes/class-paradise-dynamic-tags.php:28
+msgid "Paradise Site Info"
+msgstr ""
+
+#: includes/class-paradise-dynamic-tags.php:50
+#: widgets/class-paradise-business-hours.php:38
+#: widgets/class-paradise-google-map.php:79
+#: widgets/class-paradise-google-map.php:125
+#: widgets/class-paradise-local-business-schema.php:93
+msgid "Location"
+msgstr ""
+
+#: includes/class-paradise-dynamic-tags.php:82
+#: includes/class-paradise-dynamic-tags.php:105
+#: includes/class-paradise-dynamic-tags.php:130
+#: includes/class-paradise-dynamic-tags.php:153
+#: includes/class-paradise-dynamic-tags.php:215
+msgid "Item Index"
+msgstr ""
+
+#: includes/class-paradise-dynamic-tags.php:97
+msgid "Phone URL (tel:)"
+msgstr ""
+
+#: includes/class-paradise-dynamic-tags.php:145
+msgid "Email URL (mailto:)"
+msgstr ""
+
+#: includes/class-paradise-dynamic-tags.php:188
+msgid "Address Map URL"
+msgstr ""
+
+#: includes/class-paradise-dynamic-tags.php:208
+msgid "Social Link URL"
+msgstr ""
+
+#: includes/class-paradise-faq-cpt.php:38
+#: includes/class-paradise-faq-cpt.php:46
+msgid "FAQs"
+msgstr ""
+
+#: includes/class-paradise-faq-cpt.php:39
+msgid "FAQ"
+msgstr ""
+
+#: includes/class-paradise-faq-cpt.php:40
+msgid "Add New FAQ Set"
+msgstr ""
+
+#: includes/class-paradise-faq-cpt.php:41
+msgid "Edit FAQ Set"
+msgstr ""
+
+#: includes/class-paradise-faq-cpt.php:42
+msgid "New FAQ Set"
+msgstr ""
+
+#: includes/class-paradise-faq-cpt.php:43
+msgid "Search FAQs"
+msgstr ""
+
+#: includes/class-paradise-faq-cpt.php:44
+msgid "No FAQ sets found."
+msgstr ""
+
+#: includes/class-paradise-faq-cpt.php:45
+msgid "No FAQ sets in Trash."
+msgstr ""
+
+#: includes/class-paradise-faq-cpt.php:64
+#: widgets/class-paradise-faq-accordion.php:30
+msgid "FAQ Items"
+msgstr ""
+
+#: includes/class-paradise-faq-cpt.php:89
+#: includes/class-paradise-faq-cpt.php:181
+#: widgets/class-paradise-faq-accordion.php:63
+#: widgets/class-paradise-faq-accordion.php:216
+msgid "Question"
+msgstr ""
+
+#: includes/class-paradise-faq-cpt.php:93
+#: includes/class-paradise-faq-cpt.php:182
+#: widgets/class-paradise-faq-accordion.php:71
+#: widgets/class-paradise-faq-accordion.php:286
+msgid "Answer"
+msgstr ""
+
+#: includes/class-paradise-faq-cpt.php:117
+msgid "Add Item"
+msgstr ""
+
+#: includes/class-paradise-faq-cpt.php:195
+#: widgets/class-paradise-faq-accordion.php:58
+#: widgets/class-paradise-faq-accordion.php:169
+msgid "Items"
+msgstr ""
+
+#: includes/class-paradise-faq-cpt.php:196
+msgid "First Question"
+msgstr ""
+
+#: includes/class-paradise-faq-cpt.php:244
+msgid "— Select FAQ Set —"
+msgstr ""
+
+#: includes/class-paradise-site-info.php:149
+msgid "— No locations saved —"
+msgstr ""
+
+#: includes/class-paradise-site-info.php:157
+#, php-format
+msgid "Location %d"
+msgstr ""
+
+#: includes/class-paradise-site-info.php:170
+msgid "— No items saved —"
+msgstr ""
+
+#: includes/class-paradise-site-info.php:194
+msgid "Monday"
+msgstr ""
+
+#: includes/class-paradise-site-info.php:195
+msgid "Tuesday"
+msgstr ""
+
+#: includes/class-paradise-site-info.php:196
+msgid "Wednesday"
+msgstr ""
+
+#: includes/class-paradise-site-info.php:197
+msgid "Thursday"
+msgstr ""
+
+#: includes/class-paradise-site-info.php:198
+msgid "Friday"
+msgstr ""
+
+#: includes/class-paradise-site-info.php:199
+msgid "Saturday"
+msgstr ""
+
+#: includes/class-paradise-site-info.php:200
+msgid "Sunday"
+msgstr ""
+
+#: paradise-elementor-widgets.php:128
+msgid "Paradise Widgets for Elementor requires Elementor to be installed and active."
+msgstr ""
+
+#. translators: %s: required Elementor version
+#: paradise-elementor-widgets.php:141
+#, php-format
+msgid "Paradise Widgets for Elementor requires Elementor %s or greater."
+msgstr ""
+
+#: paradise-elementor-widgets.php:159
+msgid "Paradise Widgets"
+msgstr ""
+
+#: paradise-elementor-widgets.php:168
+msgid "Paradise Examples"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:21
+#: widgets/class-paradise-announcement-bar.php:465
+msgid "Announcement Bar"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:48
+#: widgets/class-paradise-announcement-bar.php:58
+#: widgets/class-paradise-announcement-bar.php:210
+#: widgets/class-paradise-cookie-consent-bar.php:48
+#: widgets/class-paradise-cookie-consent-bar.php:52
+#: widgets/class-paradise-cookie-consent-bar.php:199
+msgid "Message"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:52
+#: widgets/class-paradise-announcement-bar.php:316
+#: widgets/class-paradise-back-to-top.php:47
+#: widgets/class-paradise-faq-accordion.php:333
+#: widgets/class-paradise-feature-card-example.php:181
+#: widgets/class-paradise-feature-card-example.php:295
+#: widgets/class-paradise-floating-call-btn.php:156
+#: widgets/class-paradise-floating-call-btn.php:425
+#: widgets/class-paradise-off-canvas-menu.php:55
+#: widgets/class-paradise-phone-button.php:146
+#: widgets/class-paradise-phone-button.php:150
+#: widgets/class-paradise-phone-button.php:353
+msgid "Icon"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:60
+msgid "Special offer — limited time only! 🎉"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:67
+#: widgets/class-paradise-feature-card-example.php:238
+#: widgets/class-paradise-phone-button.php:104
+#: widgets/class-paradise-phone-button.php:131
+msgid "Button Text"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:69
+#: widgets/class-paradise-feature-card-example.php:240
+msgid "Learn More"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:75
+msgid "Button URL"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:89
+msgid "Dismiss"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:93
+#: widgets/class-paradise-off-canvas-menu.php:126
+msgid "Show Close Button"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:100
+msgid "Remember Dismissal"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:104
+msgid "Until browser closes (session)"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:105
+msgid "For X days"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:106
+msgid "Forever"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:112
+msgid "Days"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:121
+#: widgets/class-paradise-cookie-consent-bar.php:127
+msgid "Unique Bar ID"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:123
+msgid "e.g. summer-promo-2024"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:124
+msgid "Optional. Set a custom ID if you want the same bar across pages to share its dismissed state. Leave blank to use the widget ID."
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:136
+#: widgets/class-paradise-cookie-consent-bar.php:141
+msgid "Bar"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:141
+#: widgets/class-paradise-cookie-consent-bar.php:146
+#: widgets/class-paradise-floating-call-btn.php:196
+#: widgets/class-paradise-phone-button.php:156
+msgid "Position"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:145
+#: widgets/class-paradise-cookie-consent-bar.php:150
+msgid "Top"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:146
+#: widgets/class-paradise-cookie-consent-bar.php:151
+msgid "Bottom"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:153
+#: widgets/class-paradise-back-to-top.php:110
+#: widgets/class-paradise-cookie-consent-bar.php:158
+#: widgets/class-paradise-floating-call-btn.php:237
+#: widgets/class-paradise-off-canvas-menu.php:287
+#: widgets/class-paradise-sticky-header.php:63
+msgid "Z-Index"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:160
+#: widgets/class-paradise-announcement-bar.php:245
+#: widgets/class-paradise-announcement-bar.php:265
+#: widgets/class-paradise-author-card.php:449
+#: widgets/class-paradise-author-card.php:881
+#: widgets/class-paradise-back-to-top.php:163
+#: widgets/class-paradise-back-to-top.php:186
+#: widgets/class-paradise-cookie-consent-bar.php:165
+#: widgets/class-paradise-cookie-consent-bar.php:233
+#: widgets/class-paradise-cookie-consent-bar.php:253
+#: widgets/class-paradise-cookie-consent-bar.php:316
+#: widgets/class-paradise-cookie-consent-bar.php:336
+#: widgets/class-paradise-faq-accordion.php:185
+#: widgets/class-paradise-faq-accordion.php:249
+#: widgets/class-paradise-faq-accordion.php:271
+#: widgets/class-paradise-faq-accordion.php:304
+#: widgets/class-paradise-feature-card-example.php:458
+#: widgets/class-paradise-feature-card-example.php:488
+#: widgets/class-paradise-feature-card-example.php:522
+#: widgets/class-paradise-floating-call-btn.php:283
+#: widgets/class-paradise-floating-call-btn.php:306
+#: widgets/class-paradise-off-canvas-menu.php:179
+#: widgets/class-paradise-off-canvas-menu.php:202
+#: widgets/class-paradise-off-canvas-menu.php:271
+#: widgets/class-paradise-off-canvas-menu.php:305
+#: widgets/class-paradise-off-canvas-menu.php:388
+#: widgets/class-paradise-off-canvas-menu.php:406
+#: widgets/class-paradise-phone-button.php:251
+#: widgets/class-paradise-phone-button.php:271
+#: widgets/class-paradise-social-links.php:248
+msgid "Background"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:168
+#: widgets/class-paradise-announcement-bar.php:293
+#: widgets/class-paradise-author-card.php:455
+#: widgets/class-paradise-author-card.php:859
+#: widgets/class-paradise-cookie-consent-bar.php:173
+#: widgets/class-paradise-cookie-consent-bar.php:281
+#: widgets/class-paradise-cookie-consent-bar.php:364
+#: widgets/class-paradise-faq-accordion.php:226
+#: widgets/class-paradise-faq-accordion.php:312
+#: widgets/class-paradise-feature-card-example.php:537
+#: widgets/class-paradise-floating-call-btn.php:353
+#: widgets/class-paradise-off-canvas-menu.php:222
+#: widgets/class-paradise-off-canvas-menu.php:311
+#: widgets/class-paradise-phone-button.php:295
+msgid "Padding"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:179
+#: widgets/class-paradise-cookie-consent-bar.php:184
+msgid "Content Max Width"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:190
+msgid "Content Alignment"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:193
+#: widgets/class-paradise-author-card.php:513
+#: widgets/class-paradise-faq-accordion.php:151
+#: widgets/class-paradise-feature-card-example.php:256
+#: widgets/class-paradise-off-canvas-menu.php:95
+#: widgets/class-paradise-phone-button.php:217
+#: widgets/class-paradise-social-links.php:115
+msgid "Left"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:194
+#: widgets/class-paradise-author-card.php:514
+#: widgets/class-paradise-feature-card-example.php:260
+#: widgets/class-paradise-phone-button.php:218
+#: widgets/class-paradise-social-links.php:116
+msgid "Center"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:195
+#: widgets/class-paradise-author-card.php:515
+#: widgets/class-paradise-faq-accordion.php:150
+#: widgets/class-paradise-feature-card-example.php:264
+#: widgets/class-paradise-off-canvas-menu.php:96
+#: widgets/class-paradise-phone-button.php:219
+#: widgets/class-paradise-social-links.php:117
+msgid "Right"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:233
+#: widgets/class-paradise-author-card.php:385
+#: widgets/class-paradise-author-card.php:845
+#: widgets/class-paradise-back-to-top.php:43
+#: widgets/class-paradise-back-to-top.php:75
+#: widgets/class-paradise-feature-card-example.php:428
+#: widgets/class-paradise-floating-call-btn.php:252
+#: widgets/class-paradise-phone-button.php:207
+msgid "Button"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:241
+#: widgets/class-paradise-back-to-top.php:159
+#: widgets/class-paradise-cookie-consent-bar.php:229
+#: widgets/class-paradise-cookie-consent-bar.php:312
+#: widgets/class-paradise-faq-accordion.php:237
+#: widgets/class-paradise-faq-accordion.php:353
+#: widgets/class-paradise-feature-card-example.php:440
+#: widgets/class-paradise-floating-call-btn.php:279
+#: widgets/class-paradise-off-canvas-menu.php:175
+#: widgets/class-paradise-off-canvas-menu.php:377
+#: widgets/class-paradise-phone-button.php:247
+#: widgets/class-paradise-phone-button.php:384
+#: widgets/class-paradise-social-links.php:179
+msgid "Normal"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:252
+#: widgets/class-paradise-announcement-bar.php:271
+#: widgets/class-paradise-author-card.php:888
+#: widgets/class-paradise-cookie-consent-bar.php:240
+#: widgets/class-paradise-cookie-consent-bar.php:259
+#: widgets/class-paradise-cookie-consent-bar.php:323
+#: widgets/class-paradise-cookie-consent-bar.php:342
+#: widgets/class-paradise-faq-accordion.php:241
+#: widgets/class-paradise-faq-accordion.php:263
+#: widgets/class-paradise-faq-accordion.php:296
+#: widgets/class-paradise-feature-card-example.php:446
+#: widgets/class-paradise-feature-card-example.php:477
+#: widgets/class-paradise-off-canvas-menu.php:381
+#: widgets/class-paradise-off-canvas-menu.php:400
+#: widgets/class-paradise-phone-button.php:258
+#: widgets/class-paradise-phone-button.php:277
+msgid "Text Color"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:261
+#: widgets/class-paradise-back-to-top.php:182
+#: widgets/class-paradise-cookie-consent-bar.php:249
+#: widgets/class-paradise-cookie-consent-bar.php:332
+#: widgets/class-paradise-feature-card-example.php:471
+#: widgets/class-paradise-floating-call-btn.php:302
+#: widgets/class-paradise-off-canvas-menu.php:198
+#: widgets/class-paradise-off-canvas-menu.php:396
+#: widgets/class-paradise-phone-button.php:267
+#: widgets/class-paradise-phone-button.php:399
+#: widgets/class-paradise-social-links.php:195
+msgid "Hover"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:281
+#: widgets/class-paradise-author-card.php:465
+#: widgets/class-paradise-author-card.php:557
+#: widgets/class-paradise-author-card.php:825
+#: widgets/class-paradise-author-card.php:870
+#: widgets/class-paradise-back-to-top.php:141
+#: widgets/class-paradise-cookie-consent-bar.php:269
+#: widgets/class-paradise-cookie-consent-bar.php:352
+#: widgets/class-paradise-faq-accordion.php:198
+#: widgets/class-paradise-feature-card-example.php:559
+#: widgets/class-paradise-floating-call-btn.php:331
+#: widgets/class-paradise-google-map.php:202
+#: widgets/class-paradise-off-canvas-menu.php:234
+#: widgets/class-paradise-phone-button.php:307
+msgid "Border Radius"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:322
+#: widgets/class-paradise-announcement-bar.php:365
+#: widgets/class-paradise-author-card.php:542
+#: widgets/class-paradise-back-to-top.php:117
+#: widgets/class-paradise-faq-accordion.php:339
+#: widgets/class-paradise-feature-card-example.php:320
+#: widgets/class-paradise-floating-call-btn.php:257
+#: widgets/class-paradise-floating-call-btn.php:430
+#: widgets/class-paradise-phone-button.php:359
+msgid "Size"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:344
+#: widgets/class-paradise-floating-call-btn.php:442
+#: widgets/class-paradise-phone-button.php:371
+msgid "Gap"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:359
+msgid "Close Button"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:381
+#: widgets/class-paradise-cookie-consent-bar.php:400
+msgid "Hover Color"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:448
+msgid "Close announcement"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:467
+#: widgets/class-paradise-cookie-consent-bar.php:493
+msgid "displayed at the"
+msgstr ""
+
+#: widgets/class-paradise-announcement-bar.php:469
+#: widgets/class-paradise-cookie-consent-bar.php:495
+msgid "of the page"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:35
+msgid "Author Card"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:63
+msgid "Author"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:68
+msgid "Author Source"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:72
+msgid "Current Post Author"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:73
+msgid "Specific User"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:78
+msgid "User ID"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:81
+msgid "Find User ID in wp-admin → Users → hover the user name."
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:90
+#: widgets/class-paradise-author-card.php:536
+msgid "Photo"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:95
+msgid "Show Photo"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:102
+msgid "Photo Source"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:106
+msgid "Paradise Profile Photo"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:107
+msgid "Gravatar / WordPress Avatar"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:108
+msgid "Custom Meta Key"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:109
+msgid "Static Image"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:115
+#: widgets/class-paradise-author-card.php:308
+msgid "Meta Key"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:118
+msgid "User meta key that holds an attachment ID or image URL."
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:135
+msgid "Image Resolution"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:139
+msgid "Thumbnail (150px)"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:140
+msgid "Medium (300px)"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:141
+msgid "Large (1024px)"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:142
+msgid "Full"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:154
+msgid "Info"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:159
+msgid "Show Name"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:166
+msgid "Name Format"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:170
+msgid "Display Name"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:171
+msgid "First Last"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:172
+msgid "Last, First"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:173
+msgid "First Name Only"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:174
+msgid "Last Name Only"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:180
+msgid "Show Credentials"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:184
+msgid "Degree/license abbreviations shown inline after the name (e.g. \"Anna Kravtson, D.O.\"). Reads paradise_profile_credentials from user meta."
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:189
+msgid "Credentials Separator"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:196
+msgid "Show Role / Position"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:200
+msgid "Role or position shown as a subtitle below the name (e.g. \"Medical Writer & Clinical Contributor\"). Reads paradise_profile_title from user meta."
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:204
+msgid "Show Bio"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:208
+msgid "Reads the WordPress \"Biographical Info\" field."
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:212
+msgid "Bio Word Limit"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:216
+msgid "0 = no limit."
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:224
+#: widgets/class-paradise-social-links.php:33
+msgid "Links"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:229
+#: widgets/class-paradise-social-links.php:215
+#: widgets/class-paradise-social-links.php:228
+msgid "None"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:230
+#: widgets/class-paradise-author-card.php:410
+msgid "Author Archive"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:231
+msgid "Author Website"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:232
+#: widgets/class-paradise-author-card.php:411
+msgid "Custom URL"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:237
+msgid "Photo Link"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:245
+msgid "Photo URL"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:252
+msgid "Open Photo Link in New Tab"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:264
+msgid "Name Link"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:272
+msgid "Name URL"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:279
+msgid "Open Name Link in New Tab"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:295
+msgid "Enter the user meta key for each field. Works with ACF, User Meta plugins, or any custom user meta."
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:304
+msgid "e.g. Specialty"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:310
+msgid "e.g. acf_specialty"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:314
+#: widgets/class-paradise-floating-call-btn.php:162
+msgid "Show Label"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:321
+msgid "Display Type"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:326
+#: widgets/class-paradise-feature-card-example.php:220
+msgid "Link"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:328
+#: widgets/class-paradise-business-hours.php:79
+msgid "Badge"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:333
+msgid "Link Label"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:335
+msgid "Leave empty to show the URL as label."
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:340
+#: widgets/class-paradise-author-card.php:427
+#: widgets/class-paradise-social-links.php:73
+msgid "Open in New Tab"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:347
+msgid "Fields"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:362
+msgid "Show Social Links"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:366
+msgid "Links are set per user in wp-admin → Users → Edit User → Social Links."
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:370
+#: widgets/class-paradise-business-hours.php:33
+#: widgets/class-paradise-social-links.php:84
+msgid "Display"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:374
+#: widgets/class-paradise-social-links.php:93
+msgid "Icon Only"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:375
+#: widgets/class-paradise-social-links.php:94
+msgid "Icon + Label"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:376
+#: widgets/class-paradise-social-links.php:95
+msgid "Label Only"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:390
+msgid "Show Button"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:399
+msgid "View Profile"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:405
+msgid "Link To"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:409
+msgid "Author's Website"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:444
+#: widgets/class-paradise-feature-card-example.php:514
+msgid "Card"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:488
+#: widgets/class-paradise-social-links.php:101
+msgid "Layout"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:493
+msgid "Direction"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:498
+#: widgets/class-paradise-social-links.php:106
+msgid "Vertical"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:502
+#: widgets/class-paradise-social-links.php:105
+msgid "Horizontal"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:509
+#: widgets/class-paradise-feature-card-example.php:252
+#: widgets/class-paradise-phone-button.php:214
+#: widgets/class-paradise-social-links.php:112
+msgid "Alignment"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:525
+msgid "Gap Between Photo & Content"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:601
+#: widgets/class-paradise-author-card.php:648
+#: widgets/class-paradise-author-card.php:676
+msgid "Bottom Spacing"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:659
+msgid "Bio"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:692
+msgid "Gap Between Fields"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:700
+msgid "Label Color"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:707
+#: widgets/class-paradise-author-card.php:836
+msgid "Label Typography"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:712
+msgid "Value Color"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:719
+msgid "Value Typography"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:724
+msgid "Block Bottom Spacing"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:732
+msgid "Link Type"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:738
+msgid "Link Color"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:744
+msgid "Badge Type"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:750
+msgid "Badge Background"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:757
+msgid "Badge Text Color"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:763
+msgid "Badge Border Radius"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:779
+#: widgets/class-paradise-author-card.php:851
+msgid "Top Spacing"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:787
+msgid "Gap Between Icons"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:795
+#: widgets/class-paradise-back-to-top.php:129
+#: widgets/class-paradise-off-canvas-menu.php:151
+#: widgets/class-paradise-social-links.php:134
+msgid "Icon Size"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:812
+msgid "Icon Background"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:818
+msgid "Icon Padding"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:895
+msgid "Background (Hover)"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:901
+msgid "Text Color (Hover)"
+msgstr ""
+
+#: widgets/class-paradise-author-card.php:934
+msgid "Author Card: no author found. Check the Author Source setting."
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:19
+msgid "Back to Top"
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:53
+msgid "Accessibility Label"
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:55
+msgid "Back to top"
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:60
+#: widgets/class-paradise-sticky-header.php:54
+msgid "Scroll Threshold (px)"
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:64
+msgid "Pixels to scroll before the button becomes visible."
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:80
+#: widgets/class-paradise-floating-call-btn.php:201
+msgid "Corner"
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:84
+#: widgets/class-paradise-floating-call-btn.php:205
+msgid "Bottom Left"
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:85
+#: widgets/class-paradise-floating-call-btn.php:206
+msgid "Bottom Right"
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:92
+msgid "Distance from Bottom"
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:101
+msgid "Distance from Side"
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:170
+#: widgets/class-paradise-back-to-top.php:192
+msgid "Icon Color"
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:211
+#: widgets/class-paradise-floating-call-btn.php:321
+msgid "Animation"
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:216
+msgid "Show Animation"
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:220
+msgid "Fade"
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:221
+msgid "Fade + Slide Up"
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:227
+msgid "Duration (ms)"
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:278
+msgid "Back to Top Button"
+msgstr ""
+
+#: widgets/class-paradise-back-to-top.php:280
+msgid "appears after scrolling"
+msgstr ""
+
+#: widgets/class-paradise-bottom-nav.php:868
+msgid "Bottom navigation"
+msgstr ""
+
+#: widgets/class-paradise-business-hours.php:45
+msgid "Show Open/Closed Badge"
+msgstr ""
+
+#: widgets/class-paradise-business-hours.php:52
+msgid "Highlight Today"
+msgstr ""
+
+#: widgets/class-paradise-business-hours.php:59
+msgid "Time Format"
+msgstr ""
+
+#: widgets/class-paradise-business-hours.php:63
+msgid "12-hour (9:00 AM)"
+msgstr ""
+
+#: widgets/class-paradise-business-hours.php:64
+msgid "24-hour (09:00)"
+msgstr ""
+
+#: widgets/class-paradise-business-hours.php:69
+msgid "Closed Day Text"
+msgstr ""
+
+#: widgets/class-paradise-business-hours.php:85
+msgid "Open — Background"
+msgstr ""
+
+#: widgets/class-paradise-business-hours.php:92
+msgid "Closed — Background"
+msgstr ""
+
+#: widgets/class-paradise-business-hours.php:108
+msgid "Table"
+msgstr ""
+
+#: widgets/class-paradise-business-hours.php:118
+msgid "Day Color"
+msgstr ""
+
+#: widgets/class-paradise-business-hours.php:124
+msgid "Hours Color"
+msgstr ""
+
+#: widgets/class-paradise-business-hours.php:130
+msgid "Today Row Background"
+msgstr ""
+
+#: widgets/class-paradise-business-hours.php:138
+msgid "Closed Day Text Color"
+msgstr ""
+
+#: widgets/class-paradise-business-hours.php:145
+msgid "Row Padding"
+msgstr ""
+
+#: widgets/class-paradise-business-hours.php:206
+msgid "Open Now"
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:20
+#: widgets/class-paradise-cookie-consent-bar.php:491
+msgid "Cookie Consent Bar"
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:54
+msgid "We use cookies to enhance your browsing experience and analyze our traffic."
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:60
+msgid "Privacy Link Text"
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:62
+msgid "Privacy Policy"
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:68
+msgid "Privacy Link URL"
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:81
+msgid "Buttons"
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:85
+msgid "Accept Button Text"
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:87
+msgid "Accept All"
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:92
+msgid "Show Decline Button"
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:100
+msgid "Decline Button Text"
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:102
+msgid "Decline"
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:114
+msgid "Storage"
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:118
+msgid "Consent Expiry (days)"
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:123
+msgid "How long to remember the user's choice."
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:129
+msgid "e.g. main-cookie-notice"
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:130
+msgid "Optional. Useful when you want the same consent state shared across pages. Leave blank to use the widget ID."
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:222
+msgid "Accept Button"
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:304
+msgid "Decline Button"
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:387
+msgid "Privacy Link"
+msgstr ""
+
+#: widgets/class-paradise-cookie-consent-bar.php:406
+msgid "Underline"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:14
+msgid "FAQ Accordion"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:37
+#: widgets/class-paradise-google-map.php:69
+#: widgets/class-paradise-social-links.php:38
+msgid "Source"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:41
+msgid "Static (enter manually)"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:42
+msgid "FAQ Post Type"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:48
+msgid "FAQ Set"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:66
+msgid "What is your question?"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:73
+msgid "Your answer goes here."
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:79
+msgid "What services do you offer?"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:80
+msgid "We offer a wide range of services tailored to your needs. Contact us to learn more."
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:83
+msgid "How can I get in touch?"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:84
+msgid "You can reach us by phone, email, or through our contact form."
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:87
+msgid "What are your business hours?"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:88
+msgid "We are open Monday through Friday, 9 AM to 5 PM."
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:99
+msgid "Behavior"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:104
+#: widgets/class-paradise-google-map.php:37
+msgid "Mode"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:108
+msgid "Accordion — one open at a time"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:109
+msgid "Multi-expand — any can be open"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:114
+msgid "Open First Item by Default"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:121
+msgid "Show Icon"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:128
+msgid "Closed Icon"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:137
+msgid "Open Icon"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:146
+msgid "Icon Position"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:157
+msgid "Output FAQ Schema (SEO)"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:161
+msgid "Adds Schema.org FAQPage JSON-LD markup for Google rich results."
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:174
+#: widgets/class-paradise-social-links.php:155
+msgid "Gap Between Items"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:259
+#: widgets/class-paradise-faq-accordion.php:367
+msgid "Active"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:321
+#: widgets/class-paradise-off-canvas-menu.php:428
+msgid "Divider Color"
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:395
+msgid "Select a FAQ Set from the widget settings."
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:407
+msgid "No items found in this FAQ Set. Add some under Paradise → FAQs."
+msgstr ""
+
+#: widgets/class-paradise-faq-accordion.php:408
+msgid "Add FAQ items in the widget settings."
+msgstr ""
+
+#: widgets/class-paradise-feature-card-example.php:75
+msgid "Feature Card (Example)"
+msgstr ""
+
+#: widgets/class-paradise-feature-card-example.php:169
+msgid "Content"
+msgstr ""
+
+#: widgets/class-paradise-feature-card-example.php:195
+#: widgets/class-paradise-feature-card-example.php:351
+msgid "Title"
+msgstr ""
+
+#: widgets/class-paradise-feature-card-example.php:197
+msgid "Feature Title"
+msgstr ""
+
+#: widgets/class-paradise-feature-card-example.php:209
+msgid "Describe this feature in a sentence or two."
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:66
+#: widgets/class-paradise-phone-button.php:52
+msgid "Phone"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:78
+#: widgets/class-paradise-phone-button.php:65
+msgid "Country Code"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:87
+#: widgets/class-paradise-phone-button.php:74
+#: widgets/class-paradise-social-links.php:43
+msgid "Custom"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:92
+#: widgets/class-paradise-phone-button.php:79
+msgid "Custom Country Code"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:95
+#: widgets/class-paradise-phone-button.php:82
+msgid "Digits only, without +"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:100
+#: widgets/class-paradise-phone-button.php:87
+msgid "Action"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:104
+#: widgets/class-paradise-phone-button.php:91
+msgid "Phone Call (tel:)"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:105
+#: widgets/class-paradise-phone-button.php:92
+msgid "Open WhatsApp"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:118
+#: widgets/class-paradise-phone-button.php:173
+msgid "Phone Format"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:122
+#: widgets/class-paradise-phone-button.php:178
+msgid "Display Format"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:126
+#: widgets/class-paradise-phone-button.php:182
+msgid "Raw (as entered)"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:127
+#: widgets/class-paradise-phone-button.php:183
+msgid "International  e.g. +1 888 780 0904"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:128
+#: widgets/class-paradise-phone-button.php:184
+msgid "Local  e.g. (888) 780-0904"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:129
+#: widgets/class-paradise-phone-button.php:185
+msgid "Dashes  e.g. 888-780-0904"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:130
+#: widgets/class-paradise-phone-button.php:186
+msgid "Dots  e.g. 888.780.0904"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:131
+#: widgets/class-paradise-floating-call-btn.php:136
+#: widgets/class-paradise-phone-button.php:187
+#: widgets/class-paradise-phone-button.php:192
+msgid "Custom Mask"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:139
+#: widgets/class-paradise-phone-button.php:195
+msgid "Use # for each digit. Example: (###) ###-####"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:152
+msgid "Icon & Label"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:170
+msgid "Label Source"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:174
+msgid "Formatted Number"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:175
+#: widgets/class-paradise-phone-button.php:113
+msgid "Custom Text"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:181
+msgid "Custom Label"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:183
+#: widgets/class-paradise-floating-call-btn.php:490
+msgid "Call Us"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:207
+msgid "Top Left"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:208
+msgid "Top Right"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:214
+msgid "Vertical Offset"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:226
+msgid "Horizontal Offset"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:372
+msgid "Pulse Animation"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:377
+msgid "Enable Pulse"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:384
+msgid "Pulse Color"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:394
+msgid "Spread"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:406
+msgid "Speed (seconds)"
+msgstr ""
+
+#: widgets/class-paradise-floating-call-btn.php:465
+#: widgets/class-paradise-phone-button.php:428
+#: widgets/class-paradise-phone-link.php:453
+msgid "Set the phone number in the widget settings."
+msgstr ""
+
+#. translators: %s = phone number
+#: widgets/class-paradise-floating-call-btn.php:477
+#: widgets/class-paradise-phone-button.php:448
+#, php-format
+msgid "WhatsApp %s"
+msgstr ""
+
+#. translators: %s = phone number
+#: widgets/class-paradise-floating-call-btn.php:478
+#: widgets/class-paradise-phone-button.php:449
+#, php-format
+msgid "Call %s"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:17
+msgid "Google Map"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:32
+msgid "Map Mode"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:41
+#: widgets/class-paradise-google-map.php:63
+msgid "Place"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:42
+#: widgets/class-paradise-google-map.php:101
+msgid "Directions"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:47
+msgid "Map Type"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:51
+#: widgets/class-paradise-google-map.php:197
+msgid "Map"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:52
+msgid "Satellite"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:53
+msgid "Hybrid (Satellite + Labels)"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:54
+msgid "Terrain"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:73
+#: widgets/class-paradise-google-map.php:119
+msgid "Site Info Address"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:74
+msgid "Manual URL"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:90
+msgid "Paste any Google Maps URL (share link, place, or directions). For best results: Share → Embed a map → copy the src from the iframe code."
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:107
+msgid "From (Origin)"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:109
+msgid "e.g. Los Angeles, CA or leave blank for \"My Location\""
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:115
+msgid "Destination Source"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:120
+msgid "Manual"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:133
+msgid "Destination Address"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:142
+msgid "Travel Mode"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:146
+msgid "Driving"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:147
+msgid "Walking"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:148
+msgid "Bicycling"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:149
+msgid "Transit"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:158
+msgid "Settings"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:163
+msgid "Height"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:177
+msgid "Zoom Level"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:181
+msgid "1 = world, 10 = city, 15 = streets, 20 = building."
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:186
+msgid "Allow Fullscreen"
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:324
+msgid "Enter a destination address in the Directions settings."
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:326
+msgid "The selected address has no Map URL. Go to Paradise → Site Info and add a Google Maps link."
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:327
+msgid "Enter a Google Maps URL in the Place settings."
+msgstr ""
+
+#: widgets/class-paradise-google-map.php:337
+#: widgets/class-paradise-social-links.php:333
+msgid "⚡ Live from Site Info"
+msgstr ""
+
+#: widgets/class-paradise-local-business-schema.php:18
+#: widgets/class-paradise-local-business-schema.php:197
+msgid "LocalBusiness Schema"
+msgstr ""
+
+#: widgets/class-paradise-local-business-schema.php:31
+msgid "Business Info"
+msgstr ""
+
+#: widgets/class-paradise-local-business-schema.php:39
+msgid "Leave blank to use the site title."
+msgstr ""
+
+#: widgets/class-paradise-local-business-schema.php:45
+msgid "Business Type"
+msgstr ""
+
+#: widgets/class-paradise-local-business-schema.php:73
+msgid "Price Range"
+msgstr ""
+
+#: widgets/class-paradise-local-business-schema.php:77
+msgid "— Not specified —"
+msgstr ""
+
+#: widgets/class-paradise-local-business-schema.php:88
+msgid "Site Info Mapping"
+msgstr ""
+
+#: widgets/class-paradise-local-business-schema.php:97
+msgid "Pulls phone, address, and hours from this location."
+msgstr ""
+
+#: widgets/class-paradise-local-business-schema.php:101
+msgid "Include Social Links (sameAs)"
+msgstr ""
+
+#: widgets/class-paradise-local-business-schema.php:108
+msgid "Include Business Hours"
+msgstr ""
+
+#: widgets/class-paradise-local-business-schema.php:198
+msgid "JSON-LD is injected here on the live page. Invisible to visitors."
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:24
+#: widgets/class-paradise-off-canvas-menu.php:570
+msgid "Off-Canvas Menu"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:51
+#: widgets/class-paradise-off-canvas-menu.php:146
+msgid "Trigger Button"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:63
+#: widgets/class-paradise-off-canvas-menu.php:110
+msgid "Menu"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:69
+msgid "Label Position"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:73
+msgid "Hidden"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:74
+msgid "After Icon"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:75
+msgid "Before Icon"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:87
+#: widgets/class-paradise-off-canvas-menu.php:257
+msgid "Panel"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:91
+msgid "Slide In From"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:104
+msgid "— Select a menu —"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:118
+msgid "Panel Title"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:133
+msgid "Close on Overlay Click"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:163
+msgid "Icon–Label Gap"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:262
+msgid "Width"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:278
+msgid "Animation Duration (ms)"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:300
+msgid "Panel Header"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:322
+msgid "Title Color"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:337
+msgid "Close Button Size"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:348
+msgid "Close Button Color"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:356
+msgid "Close Button Hover Color"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:370
+msgid "Menu Items"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:416
+#: widgets/class-paradise-social-links.php:146
+msgid "Item Padding"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:449
+msgid "Overlay"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:505
+msgid "Open menu"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:520
+msgid "Navigation"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:530
+msgid "Close menu"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:542
+msgid "Off-canvas navigation"
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:554
+msgid "Select a menu in the Panel settings."
+msgstr ""
+
+#: widgets/class-paradise-off-canvas-menu.php:572
+msgid "Public API:"
+msgstr ""
+
+#: widgets/class-paradise-phone-button.php:59
+msgid "Accepts any format — normalized automatically."
+msgstr ""
+
+#: widgets/class-paradise-phone-button.php:108
+msgid "Text Mode"
+msgstr ""
+
+#: widgets/class-paradise-phone-button.php:112
+msgid "Prefix + Number"
+msgstr ""
+
+#: widgets/class-paradise-phone-button.php:120
+msgid "Prefix"
+msgstr ""
+
+#: widgets/class-paradise-phone-button.php:122
+msgid "CALL "
+msgstr ""
+
+#: widgets/class-paradise-phone-button.php:124
+msgid "Text shown before the number (e.g. \"CALL \", \"TEL: \")."
+msgstr ""
+
+#: widgets/class-paradise-phone-button.php:133
+#: widgets/class-paradise-phone-button.php:439
+msgid "Call Now"
+msgstr ""
+
+#: widgets/class-paradise-phone-button.php:160
+msgid "Before"
+msgstr ""
+
+#: widgets/class-paradise-phone-button.php:161
+msgid "After"
+msgstr ""
+
+#: widgets/class-paradise-phone-button.php:227
+msgid "Full Width"
+msgstr ""
+
+#: widgets/class-paradise-phone-button.php:283
+#: widgets/class-paradise-social-links.php:211
+msgid "Hover Animation"
+msgstr ""
+
+#: widgets/class-paradise-phone-button.php:323
+msgid "Border Hover Color"
+msgstr ""
+
+#: widgets/class-paradise-phone-button.php:335
+#: widgets/class-paradise-sticky-header.php:109
+msgid "Transition Duration (ms)"
+msgstr ""
+
+#: widgets/class-paradise-social-links.php:89
+msgid "Show"
+msgstr ""
+
+#: widgets/class-paradise-social-links.php:129
+msgid "Icons"
+msgstr ""
+
+#: widgets/class-paradise-social-links.php:170
+msgid "Brand Colors"
+msgstr ""
+
+#: widgets/class-paradise-social-links.php:171
+msgid "Uniform Color"
+msgstr ""
+
+#: widgets/class-paradise-social-links.php:216
+msgid "Lift"
+msgstr ""
+
+#: widgets/class-paradise-social-links.php:217
+msgid "Scale"
+msgstr ""
+
+#: widgets/class-paradise-social-links.php:218
+msgid "Color Shift"
+msgstr ""
+
+#: widgets/class-paradise-social-links.php:224
+msgid "Icon Shape"
+msgstr ""
+
+#: widgets/class-paradise-social-links.php:229
+msgid "Circle"
+msgstr ""
+
+#: widgets/class-paradise-social-links.php:230
+msgid "Rounded Square"
+msgstr ""
+
+#: widgets/class-paradise-social-links.php:236
+msgid "Shape Size"
+msgstr ""
+
+#: widgets/class-paradise-social-links.php:261
+msgid "Labels"
+msgstr ""
+
+#: widgets/class-paradise-social-links.php:319
+msgid "No social links saved in Site Info. Go to Paradise → Site Info to add them."
+msgstr ""
+
+#: widgets/class-paradise-social-links.php:320
+msgid "Add social links in the widget settings."
+msgstr ""
+
+#: widgets/class-paradise-sticky-header.php:22
+msgid "Sticky Header"
+msgstr ""
+
+#: widgets/class-paradise-sticky-header.php:44
+msgid "Sticky Behavior"
+msgstr ""
+
+#: widgets/class-paradise-sticky-header.php:49
+msgid "Place this widget inside the section you want to make sticky. The section will stick to the top of the page while scrolling."
+msgstr ""
+
+#: widgets/class-paradise-sticky-header.php:58
+msgid "Pixels scrolled from top before the shadow and background effects activate."
+msgstr ""
+
+#: widgets/class-paradise-sticky-header.php:76
+msgid "Scrolled State"
+msgstr ""
+
+#: widgets/class-paradise-sticky-header.php:82
+msgid "These styles apply to the parent section once the scroll threshold is reached."
+msgstr ""
+
+#: widgets/class-paradise-sticky-header.php:87
+msgid "Background Color"
+msgstr ""
+
+#: widgets/class-paradise-sticky-header.php:89
+msgid "Leave empty to keep the section's original background."
+msgstr ""
+
+#: widgets/class-paradise-sticky-header.php:94
+msgid "Drop Shadow"
+msgstr ""
+
+#: widgets/class-paradise-sticky-header.php:102
+msgid "Shadow Color"
+msgstr ""
+
+#: widgets/class-paradise-sticky-header.php:118
+msgid "Shrink on Scroll"
+msgstr ""
+
+#: widgets/class-paradise-sticky-header.php:126
+msgid "Scrolled Vertical Padding"
+msgstr ""
+
+#: widgets/class-paradise-sticky-header.php:131
+msgid "Top and bottom padding of the section when scrolled."
+msgstr ""
+
+#: widgets/class-paradise-sticky-header.php:181
+msgid "Sticky Header active"
+msgstr ""
+
+#: widgets/class-paradise-sticky-header.php:183
+msgid "this section will stick to the top when scrolling."
+msgstr ""
+
+#: widgets/class-paradise-sticky-header.php:185
+msgid "Shrink effect enabled."
+msgstr ""
