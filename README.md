@@ -144,8 +144,8 @@ git clone https://github.com/rezabagheri/paradise-elementor-widgets.git
 ## File Structure
 
 ```
-paradise-elementor-widgets/
-├── paradise-elementor-widgets.php    # Main plugin file — bootstraps everything
+paradise-widgets-for-elementor/
+├── paradise-widgets-for-elementor.php    # Main plugin file — bootstraps everything
 ├── admin/
 │   ├── class-paradise-ew-admin.php   # Widget registry, settings, menus
 │   ├── class-paradise-site-info-admin.php
