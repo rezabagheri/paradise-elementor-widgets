@@ -75,7 +75,7 @@ class Paradise_Announcement_Bar_Widget extends Paradise_Widget_Base {
             'label'         => esc_html__( 'Button URL', 'paradise-widgets-for-elementor' ),
             'type'          => Controls_Manager::URL,
             'dynamic'       => [ 'active' => true ],
-            'placeholder'   => 'https://',
+            'placeholder'   => __( 'https://', 'paradise-widgets-for-elementor' ),
             'condition'     => [ 'cta_text!' => '' ],
         ] );
 

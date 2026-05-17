@@ -62,7 +62,7 @@ class Paradise_Social_Links_Widget extends Paradise_Widget_Base {
                     'name'        => 'url',
                     'label'       => esc_html__( 'URL', 'paradise-widgets-for-elementor' ),
                     'type'        => \Elementor\Controls_Manager::URL,
-                    'placeholder' => 'https://',
+                    'placeholder' => __( 'https://', 'paradise-widgets-for-elementor' ),
                     'dynamic'     => [ 'active' => true ],
                 ],
             ],

@@ -68,7 +68,7 @@ class Paradise_Site_Info {
             'socials'   => $data['socials'] ?? [],
             'locations' => [
                 [
-                    'label'   => 'Main',
+                    'label'   => __( 'Main', 'paradise-widgets-for-elementor' ),
                     'phones'  => $data['phones'] ?? [],
                     'emails'  => $data['emails'] ?? [],
                     'address' => $first['value']   ?? '',
@@ -154,6 +154,7 @@ class Paradise_Site_Info {
             $label       = trim( $loc['label'] ?? '' );
             $options[ $i ] = $label !== ''
                 ? $label
+                /* translators: %d: 1-based location index, used as a placeholder label when the user hasn't named the location yet */
                 : sprintf( esc_html__( 'Location %d', 'paradise-widgets-for-elementor' ), $i + 1 );
         }
 
@@ -381,7 +382,7 @@ class Paradise_Site_Info {
         // Always keep at least one location
         if ( empty( $data['locations'] ) ) {
             $data['locations'][] = [
-                'label' => 'Main', 'phones' => [], 'emails' => [],
+                'label' => __( 'Main', 'paradise-widgets-for-elementor' ), 'phones' => [], 'emails' => [],
                 'address' => '', 'map_url' => '', 'hours' => [],
             ];
         }
@@ -428,7 +429,7 @@ class Paradise_Site_Info {
         $atts = shortcode_atts( [
             'type'     => 'phone',
             'index'    => 0,
-            'label'    => '',
+            'label'    => __( '', 'paradise-widgets-for-elementor' ),
             'location' => '',
         ], $atts, 'paradise_site_info' );
 

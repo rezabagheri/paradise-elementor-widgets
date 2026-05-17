@@ -114,7 +114,7 @@ class Paradise_Author_Card_Widget extends Paradise_Widget_Base {
         $this->add_control( 'photo_meta_key', [
             'label'       => esc_html__( 'Meta Key', 'paradise-widgets-for-elementor' ),
             'type'        => Controls_Manager::TEXT,
-            'placeholder' => 'e.g. acf_profile_photo',
+            'placeholder' => __( 'e.g. acf_profile_photo', 'paradise-widgets-for-elementor' ),
             'description' => esc_html__( 'User meta key that holds an attachment ID or image URL.', 'paradise-widgets-for-elementor' ),
             'condition'   => [
                 'show_photo'   => 'yes',

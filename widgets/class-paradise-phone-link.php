@@ -25,14 +25,14 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
 
         // -------------------- Section: Phone --------------------
         $this->start_controls_section( 'section_phone', [
-            'label' => 'Phone Number',
+            'label' => __( 'Phone Number', 'paradise-widgets-for-elementor' ),
         ] );
 
         $this->add_control( 'phone_number', [
-            'label'       => 'Phone Number',
+            'label'       => __( 'Phone Number', 'paradise-widgets-for-elementor' ),
             'type'        => \Elementor\Controls_Manager::TEXT,
-            'placeholder' => '+1 (212) 555-1234',
-            'description' => 'Accepts any format. Will be normalized automatically.',
+            'placeholder' => __( '+1 (212) 555-1234', 'paradise-widgets-for-elementor' ),
+            'description' => __( 'Accepts any format. Will be normalized automatically.', 'paradise-widgets-for-elementor' ),
             'dynamic'     => [ 'active' => true ],
             'label_block' => true,
         ] );
@@ -41,29 +41,29 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
 
         // -------------------- Section: Prefix --------------------
         $this->start_controls_section( 'section_prefix', [
-            'label' => 'Prefix',
+            'label' => __( 'Prefix', 'paradise-widgets-for-elementor' ),
         ] );
 
         $this->add_control( 'prefix_enabled', [
-            'label'        => 'Enable Prefix',
+            'label'        => __( 'Enable Prefix', 'paradise-widgets-for-elementor' ),
             'type'         => \Elementor\Controls_Manager::SWITCHER,
-            'label_on'     => 'Yes',
-            'label_off'    => 'No',
+            'label_on'     => __( 'Yes', 'paradise-widgets-for-elementor' ),
+            'label_off'    => __( 'No', 'paradise-widgets-for-elementor' ),
             'return_value' => 'yes',
             'default'      => 'no',
         ] );
 
         $this->add_control( 'prefix_text', [
-            'label'       => 'Prefix Text',
+            'label'       => __( 'Prefix Text', 'paradise-widgets-for-elementor' ),
             'type'        => \Elementor\Controls_Manager::TEXT,
-            'placeholder' => 'Call Us:',
+            'placeholder' => __( 'Call Us:', 'paradise-widgets-for-elementor' ),
             'dynamic'     => [ 'active' => true ],
             'label_block' => true,
             'condition'   => [ 'prefix_enabled' => 'yes' ],
         ] );
 
         $this->add_control( 'prefix_tag', [
-            'label'     => 'HTML Tag',
+            'label'     => __( 'HTML Tag', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::SELECT,
             'default'   => 'span',
             'options'   => [
@@ -84,11 +84,11 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
 
         // -------------------- Section: Layout --------------------
         $this->start_controls_section( 'section_layout', [
-            'label' => 'Layout',
+            'label' => __( 'Layout', 'paradise-widgets-for-elementor' ),
         ] );
 
         $this->add_control( 'layout_mode', [
-            'label'   => 'Layout Mode',
+            'label'   => __( 'Layout Mode', 'paradise-widgets-for-elementor' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => 'number_only',
             'options' => [
@@ -100,16 +100,16 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'direction', [
-            'label'     => 'Direction',
+            'label'     => __( 'Direction', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::CHOOSE,
             'default'   => 'inline',
             'options'   => [
                 'inline'  => [
-                    'title' => 'Inline',
+                    'title' => __( 'Inline', 'paradise-widgets-for-elementor' ),
                     'icon'  => 'eicon-navigation-horizontal',
                 ],
                 'stacked' => [
-                    'title' => 'Stacked',
+                    'title' => __( 'Stacked', 'paradise-widgets-for-elementor' ),
                     'icon'  => 'eicon-navigation-vertical',
                 ],
             ],
@@ -119,7 +119,7 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'selected_icon', [
-            'label'     => 'Icon',
+            'label'     => __( 'Icon', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::ICONS,
             'default'   => [
                 'value'   => 'fas fa-phone',
@@ -131,16 +131,16 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'icon_position', [
-            'label'     => 'Icon Position',
+            'label'     => __( 'Icon Position', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::CHOOSE,
             'default'   => 'before',
             'options'   => [
                 'before' => [
-                    'title' => 'Before',
+                    'title' => __( 'Before', 'paradise-widgets-for-elementor' ),
                     'icon'  => 'eicon-h-align-left',
                 ],
                 'after'  => [
-                    'title' => 'After',
+                    'title' => __( 'After', 'paradise-widgets-for-elementor' ),
                     'icon'  => 'eicon-h-align-right',
                 ],
             ],
@@ -150,7 +150,7 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_responsive_control( 'gap', [
-            'label'      => 'Gap Between Elements',
+            'label'      => __( 'Gap Between Elements', 'paradise-widgets-for-elementor' ),
             'type'       => \Elementor\Controls_Manager::SLIDER,
             'size_units' => [ 'px', 'em', 'rem' ],
             'range'      => [
@@ -169,11 +169,11 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
 
         // -------------------- Section: Phone Format --------------------
         $this->start_controls_section( 'section_format', [
-            'label' => 'Phone Format',
+            'label' => __( 'Phone Format', 'paradise-widgets-for-elementor' ),
         ] );
 
         $this->add_control( 'display_format', [
-            'label'   => 'Display Format',
+            'label'   => __( 'Display Format', 'paradise-widgets-for-elementor' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => 'raw',
             'options' => [
@@ -187,10 +187,10 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'custom_mask', [
-            'label'       => 'Custom Mask',
+            'label'       => __( 'Custom Mask', 'paradise-widgets-for-elementor' ),
             'type'        => \Elementor\Controls_Manager::TEXT,
-            'placeholder' => '(###) ###-####',
-            'description' => 'Use # for each digit. Example: (###) ###-####',
+            'placeholder' => __( '(###) ###-####', 'paradise-widgets-for-elementor' ),
+            'description' => __( 'Use # for each digit. Example: (###) ###-####', 'paradise-widgets-for-elementor' ),
             'label_block' => true,
             'condition'   => [ 'display_format' => 'custom_mask' ],
         ] );
@@ -199,11 +199,11 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
 
         // -------------------- Section: Link --------------------
         $this->start_controls_section( 'section_link', [
-            'label' => 'Link Settings',
+            'label' => __( 'Link Settings', 'paradise-widgets-for-elementor' ),
         ] );
 
         $this->add_control( 'link_type', [
-            'label'   => 'Link Type',
+            'label'   => __( 'Link Type', 'paradise-widgets-for-elementor' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => 'tel',
             'options' => [
@@ -213,7 +213,7 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'link_scope', [
-            'label'   => 'Link Scope',
+            'label'   => __( 'Link Scope', 'paradise-widgets-for-elementor' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => 'full',
             'options' => [
@@ -224,7 +224,7 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'country_code', [
-            'label'     => 'Country Code',
+            'label'     => __( 'Country Code', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::SELECT,
             'default'   => '1',
             'options'   => [
@@ -238,10 +238,10 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'country_code_custom', [
-            'label'       => 'Custom Country Code',
+            'label'       => __( 'Custom Country Code', 'paradise-widgets-for-elementor' ),
             'type'        => \Elementor\Controls_Manager::TEXT,
-            'placeholder' => '1',
-            'description' => 'Enter digits only, without +',
+            'placeholder' => __( '1', 'paradise-widgets-for-elementor' ),
+            'description' => __( 'Enter digits only, without +', 'paradise-widgets-for-elementor' ),
             'condition'   => [ 'country_code' => 'custom' ],
         ] );
 
@@ -253,17 +253,17 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
 
         // -------------------- Style: General --------------------
         $this->start_controls_section( 'section_style_general', [
-            'label' => 'General',
+            'label' => __( 'General', 'paradise-widgets-for-elementor' ),
             'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
         ] );
 
         $this->add_responsive_control( 'align', [
-            'label'     => 'Alignment',
+            'label'     => __( 'Alignment', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::CHOOSE,
             'options'   => [
-                'flex-start' => [ 'title' => 'Left',   'icon' => 'eicon-text-align-left' ],
-                'center'     => [ 'title' => 'Center', 'icon' => 'eicon-text-align-center' ],
-                'flex-end'   => [ 'title' => 'Right',  'icon' => 'eicon-text-align-right' ],
+                'flex-start' => [ 'title' => __( 'Left', 'paradise-widgets-for-elementor' ),   'icon' => 'eicon-text-align-left' ],
+                'center'     => [ 'title' => __( 'Center', 'paradise-widgets-for-elementor' ), 'icon' => 'eicon-text-align-center' ],
+                'flex-end'   => [ 'title' => __( 'Right', 'paradise-widgets-for-elementor' ),  'icon' => 'eicon-text-align-right' ],
             ],
             'selectors' => [
                 '{{WRAPPER}} .paradise-phone-link-wrapper' => 'align-items: {{VALUE}}; justify-content: {{VALUE}};',
@@ -274,13 +274,13 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
 
         // -------------------- Style: Prefix --------------------
         $this->start_controls_section( 'section_style_prefix', [
-            'label'     => 'Prefix',
+            'label'     => __( 'Prefix', 'paradise-widgets-for-elementor' ),
             'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
             'condition' => [ 'prefix_enabled' => 'yes' ],
         ] );
 
         $this->add_control( 'prefix_color', [
-            'label'     => 'Color',
+            'label'     => __( 'Color', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-phone-prefix' => 'color: {{VALUE}};' ],
         ] );
@@ -294,7 +294,7 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
         );
 
         $this->add_responsive_control( 'prefix_margin', [
-            'label'      => 'Margin',
+            'label'      => __( 'Margin', 'paradise-widgets-for-elementor' ),
             'type'       => \Elementor\Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', 'em', 'rem' ],
             'selectors'  => [
@@ -306,18 +306,18 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
 
         // -------------------- Style: Phone Number --------------------
         $this->start_controls_section( 'section_style_phone', [
-            'label' => 'Phone Number',
+            'label' => __( 'Phone Number', 'paradise-widgets-for-elementor' ),
             'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
         ] );
 
         $this->add_control( 'phone_color', [
-            'label'     => 'Color',
+            'label'     => __( 'Color', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .paradise-phone-number' => 'color: {{VALUE}};' ],
         ] );
 
         $this->add_control( 'phone_hover_color', [
-            'label'     => 'Hover Color',
+            'label'     => __( 'Hover Color', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} a:hover .paradise-phone-number'           => 'color: {{VALUE}};',
@@ -337,7 +337,7 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
 
         // -------------------- Style: Icon --------------------
         $this->start_controls_section( 'section_style_icon', [
-            'label'     => 'Icon',
+            'label'     => __( 'Icon', 'paradise-widgets-for-elementor' ),
             'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
             'condition' => [
                 'layout_mode' => [ 'icon_number', 'icon_prefix_number' ],
@@ -345,7 +345,7 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'icon_color', [
-            'label'     => 'Color',
+            'label'     => __( 'Color', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} .paradise-phone-icon i'   => 'color: {{VALUE}};',
@@ -354,7 +354,7 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_control( 'icon_hover_color', [
-            'label'     => 'Hover Color',
+            'label'     => __( 'Hover Color', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} a:hover .paradise-phone-icon i'   => 'color: {{VALUE}};',
@@ -363,7 +363,7 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_responsive_control( 'icon_size', [
-            'label'      => 'Size',
+            'label'      => __( 'Size', 'paradise-widgets-for-elementor' ),
             'type'       => \Elementor\Controls_Manager::SLIDER,
             'size_units' => [ 'px', 'em', 'rem' ],
             'range'      => [
@@ -380,12 +380,12 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
 
         // -------------------- Style: Link (button-like) --------------------
         $this->start_controls_section( 'section_style_link', [
-            'label' => 'Link / Button',
+            'label' => __( 'Link / Button', 'paradise-widgets-for-elementor' ),
             'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
         ] );
 
         $this->add_control( 'link_text_decoration', [
-            'label'     => 'Text Decoration',
+            'label'     => __( 'Text Decoration', 'paradise-widgets-for-elementor' ),
             'type'      => \Elementor\Controls_Manager::SELECT,
             'default'   => 'none',
             'options'   => [
@@ -402,7 +402,7 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
             \Elementor\Group_Control_Background::get_type(),
             [
                 'name'     => 'link_bg',
-                'label'    => 'Background',
+                'label'    => __( 'Background', 'paradise-widgets-for-elementor' ),
                 'types'    => [ 'classic', 'gradient' ],
                 'selector' => '{{WRAPPER}} .paradise-phone-link-wrapper a, {{WRAPPER}} .paradise-phone-number-link',
             ]
@@ -417,7 +417,7 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
         );
 
         $this->add_responsive_control( 'link_border_radius', [
-            'label'      => 'Border Radius',
+            'label'      => __( 'Border Radius', 'paradise-widgets-for-elementor' ),
             'type'       => \Elementor\Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', '%', 'em' ],
             'selectors'  => [
@@ -427,7 +427,7 @@ class Paradise_Phone_Link_Widget extends Paradise_Widget_Base {
         ] );
 
         $this->add_responsive_control( 'link_padding', [
-            'label'      => 'Padding',
+            'label'      => __( 'Padding', 'paradise-widgets-for-elementor' ),
             'type'       => \Elementor\Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', 'em', 'rem' ],
             'selectors'  => [
